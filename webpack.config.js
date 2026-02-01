@@ -34,6 +34,14 @@ module.exports = {
           filename: 'images/[name][ext]',
         },
       },
+      // Rule for handling video files if imported in JS
+      {
+        test: /\.(mp4|webm|ogg)$/i,
+        type: 'asset/resource',
+        generator: {
+          filename: 'video/[name][ext]',
+        },
+      },
     ],
   },
 
@@ -58,6 +66,12 @@ module.exports = {
         { 
           from: path.resolve(__dirname, 'src/images'), 
           to: path.resolve(__dirname, 'dist/images'),
+          noErrorOnMissing: true 
+        },
+        // Pattern to copy video files to the build folder
+        { 
+          from: path.resolve(__dirname, 'src/video'), 
+          to: path.resolve(__dirname, 'dist/video'),
           noErrorOnMissing: true 
         },
       ],

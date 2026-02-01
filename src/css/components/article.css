@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @layer components {
-  .article {
+  .h-article {
     /* --- Основні налаштування тексту --- */
     @apply text-white antialiased;
 
