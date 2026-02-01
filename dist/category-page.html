@@ -10,7 +10,7 @@
     <div class="wrapper">
         <!-- Header -->
         <header class="header-default fixed top-0 left-0 z-50 w-full bg-black px-5 xl:px-10 2xl:px-0 py-6 text-white">
-            <div class="max-w-[1600px] mx-auto flex items-center justify-between 2xl:px-[20px]">
+            <div class="max-w-[1800px] mx-auto flex items-center justify-between">
                 <a class="text-xl font-semibold tracking-tight text-white hover:text-white focus:text-white active:text-white no-underline" href="#logo">
                     Travel Guider
                 </a>
@@ -76,78 +76,104 @@
             </div>
         </header>
         <!-- Main  -->
-        <main class="main bg-gray-50 min-h-screen">
-            <section class="max-w-[1600px] mx-auto lg:pt-[80px] pt-[40px] lg:pb-[100px]">
+        <main class="main bg-gray-50 min-h-screen px-5 xl:px-10 2xl:px-0">
+            <section class="max-w-[1800px] mx-auto lg:pt-[80px] pt-[40px] lg:pb-[100px]">
                 <div class="flex items-center gap-4 mb-12">
                     <h1 class="text-black text-[32px] md:text-[56px] font-semibold tracking-tight leading-tight">Editor's Choice</h1>
                     <div class="w-10 h-10 flex items-center justify-center bg-[#E8E5EB] rounded-t-full rounded-br-full shadow-sm">
-                        <span class="">✨</span>
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M16 5.33C16 12.67 10 16 10 16C10 16 16 19.33 16 26.67C16 19.33 22 16 22 16C22 16 16 12.67 16 5.33Z" stroke="black" stroke-width="2" stroke-linejoin="round"/>
+                        
+                        <path d="M28 9.33C28 12.67 25.33 14 25.33 14C25.33 14 28 15.33 28 18.67C28 15.33 30.67 14 30.67 14C30.67 14 28 12.67 28 9.33Z" fill="black"/>
+                        
+                        <path d="M29.33 22.67C29.33 27.33 26 29.33 26 29.33C26 29.33 29.33 31.33 29.33 36C29.33 31.33 32.67 29.33 32.67 29.33C32.67 29.33 29.33 27.33 29.33 22.67Z" fill="black"/>
+                        </svg>
                     </div>
                 </div>
 
             <div class="space-y-8 md:space-y-12">
-                <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 md:gap-12">
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 md:gap-10">
+                <a href="#" class="group flex flex-col bg-white overflow-hidden rounded-[24px] shadow-sm w-full min-h-[450px]">
+                    <div class="h-[200px] md:h-[285px] overflow-hidden">
+                        <img src="./images/food.png" alt="Food" 
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                    </div>
                     
-                    <a href="#" class="group cursor-pointer bg-white flex flex-col overflow-hidden rounded-[24px] shadow-sm min-h-[500px] lg:h-[680px]">
-                        <div class="h-[50%] lg:h-[285px] overflow-hidden">
-                            <img src="./images/food.png" alt="Food" 
-                                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                        </div>
-                        <div class="p-6 md:p-8 flex flex-col flex-grow">
-                            <span class="bg-[#FDF0D0] text-black text-[11px] font-bold px-4 py-1 rounded-full w-fit mb-4">🍴 Where to Eat</span>
-                            <h4 class="text-black text-xl md:text-2xl font-bold leading-snug mb-3">10 amazing restaurants in San Francisco for serious foodies</h4>
-                            <p class="text-gray-600 text-sm md:text-base mb-4 line-clamp-3 md:line-clamp-4">Calling all foodies! Explore the ultimate dining hotspots in San Francisco.</p>
-                            <time class="text-gray-400 text-xs md:text-sm mt-auto font-medium">Mar 8, 2024</time>
-                        </div>
-                    </a>
+                    <div class="p-6 md:p-8 flex flex-col flex-grow">
+                        <span class="bg-[#FDF0D0] flex items-center gap-2 text-black text-[14px] font-medium capitalize px-5 py-1 rounded-full w-fit mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/>
+                            </svg>
+                            Where to eat
+                        </span>
 
-                    <a href="#" class="group lg:col-span-3 bg-neutral-950 rounded-[24px] md:rounded-[32px] overflow-hidden flex flex-col lg:flex-row lg:h-[680px] ">
-                        <div class="h-[300px] sm:h-[400px] lg:h-auto lg:w-[60%] overflow-hidden relative">
-                            <img src="./images/vine.png" alt="Travel" 
-                                class="w-full h-full object-cover  transition-transform duration-700 group-hover:scale-105">
-                            <div class="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-black/80 lg:from-black/60 to-transparent z-10"></div>
-                        </div>
+                        <h4 class="text-black text-lg md:text-2xl xl:text-[27px] font-semibold leading-snug mb-3">
+                            10 amazing restaurants in San Francisco for serious foodies
+                        </h4>
 
-                        <div class="lg:w-[54%] p-8 md:p-12 lg:p-12 flex flex-col justify-start text-white relative h-full">
-                            <span class="border border-white backdrop-blur-sm text-white text-[10px] font-bold capitalise tracking-widest px-[30px] py-1 rounded-full w-fit mb-6 md:mb-8">   
-                                What to Do
-                            </span>
-                            <h4 class="text-2xl md:text-4xl lg:text-5xl font-medium leading-tight mb-6 md:mb-8">
-                                Bucket List Travel: <br> Top 50 Must-Visit <br> Places in the World
-                            </h4>
-                            <p class="text-[#D5D5D5] text-base md:text-[20px] leading-relaxed mb-6 md:mb-10 line-clamp-3 md:line-clamp-none font-light">
-                                What's on your travel bucket list? If you're like most<br> people, the more you travel, the more places you add<br> to your bucket list. So when the editors of the<br> website Big 7 Travel announced the list of the world`s<br> top 50 bucket list destinations, we stopped in our<br> tracks and started checking off the boxes
-                            </p>
-                            <time class="text-gray-400 text-sm font-medium mt-auto">Mar 6, 2024</time>
-                        </div>
-                    </a>
-                </div>
+                        <p class="text-[#373A39] text-sm lg:text-lg lg:leading-[29.3px] mb-4 line-clamp-3">
+                            Calling all foodies! Explore the ultimate dining hotspots in San Francisco, handpicked for serious culinary enthusiasts who crave authentic flavors.
+                        </p>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-12">
+                        <time class="text-black text-xs mt-auto font-medium" datetime="2024-03-08">Mar 8, 2024</time>
+                    </div>
+                </a>
+
+                <a href="#" class="group lg:col-span-3 bg-neutral-950 rounded-[24px] md:rounded-[32px] overflow-hidden flex flex-col lg:flex-row lg:h-[680px]">
+                    <div class="h-[300px] sm:h-[400px] lg:h-auto lg:w-[65%] overflow-hidden relative">
+                        <img src="./images/vine.png" alt="Travel" 
+                            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-black/80 lg:from-black/60 to-transparent z-10"></div>
+                    </div>
+
+                    <div class="lg:w-[54%] p-8 md:p-12 lg:p-12 flex flex-col justify-start text-white relative h-full">
+                        <span class="border border-white/40 flex items-center gap-2 text-white text-[14px] font-medium capitalize px-5 py-1 rounded-full w-fit mb-6 md:mb-8">   
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M260-840q-45 0-72.5 50T160-680q0 63 17.5 111.5T210-496l110-22q13-32 26.5-73t13.5-89q0-60-27.5-110T260-840Zm55 520q19 0 32-14t13-39q0-17-8-35t-16-32l-96 20q0 40 17.5 70t57.5 30Zm385-320q-45 0-72.5 50T600-480q0 48 13.5 88.5T640-318l110 22q15-24 32.5-72T800-480q0-60-27.5-110T700-640Zm-55 520q40 0 57.5-30t17.5-70l-96-20q-8 14-16 32t-8 35q0 20 12.5 36.5T645-120ZM315-240q-77 0-117-57t-38-128l-18-27q-11-17-36.5-77T80-680q0-103 51-171.5T260-920q85 0 132.5 75.5T440-680q0 58-16 107t-28 79l8 13q8 14 22 44.5t14 63.5q0 57-35.5 95T315-240ZM645-40q-54 0-89.5-38T520-173q0-33 14-63.5t22-44.5l8-13q-12-30-28-79t-16-107q0-89 47.5-164.5T700-720q78 0 129 68.5T880-480q0 91-25.5 150.5T818-253l-18 28q1 71-38.5 128T645-40Z"/></svg>
+                            What to Do
+                        </span>
+
+                        <h4 class="text-2xl md:text-4xl lg:text-5xl font-medium leading-[1.15] mb-6 md:mb-8 max-w-[100%] lg:max-w-[90%]">
+                            Bucket List Travel: Top 50 Must-Visit Places in the World
+                        </h4>
+
+                        <p class="text-[#C4C4C4] text-base md:text-[18px] lg:text-[20px] xl:text-[22px] leading-relaxed mb-6 md:mb-10 font-light ">
+                            What's on your travel bucket list? If you're like most people, the more you travel, the more places you add to your bucket list. So when the editors of the website Big 7 Travel announced the list of the world's top 50 bucket list destinations, we stopped in our tracks and started checking off the boxes.
+                        </p>
+
+                        <time class="text-gray-400 text-sm font-medium mt-auto" datetime="2024-03-06">Mar 6, 2024</time>
+                    </div>
+                </a>
+            </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-10">
                     
                     <a href="#" class="group flex flex-col bg-white overflow-hidden rounded-[24px] shadow-sm w-full min-h-[450px]">
                         <div class="h-[200px] md:h-[285px] overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800" alt="Family" 
+                            <img src="./images/road.jpeg" alt="Family" 
                                 class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
                         </div>
                         <div class="p-6 md:p-8 flex flex-col flex-grow">
-                            <span class="bg-[#EEE6FB] text-orange-700 text-[11px] font-bold uppercase px-3 py-1 rounded-full w-fit mb-4">📍 What to Do</span>
-                            <h4 class="text-black text-lg md:text-xl font-bold leading-snug mb-3">The 20 best family holidays abroad for 2024</h4>
-                            <p class="text-gray-600 text-sm mb-4 line-clamp-3">Planning a family vacation can be an exhilarating yet challenging task.</p>
-                            <time class="text-gray-400 text-xs mt-auto font-medium uppercase tracking-wider">Mar 8, 2024</time>
+                            <span class="bg-[#EEE6FB] flex items-center gap-2 text-black text-[14px] font-medium capitalize px-5 py-1 rounded-full w-fit mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                                What to do</span>
+                            <h4 class="text-black text-lg md:text-2xl xl:text-[27px] font-semibold leading-snug mb-3">The 20 best family <br>holidays abroad for 2024</h4>
+                            <p class="text-[#373A39] text-sm lg:text-lg lg:leading-[29.3px] mb-4 line-clamp-3">Planning a family vacation can be an exhilarating yet challenging task.</p>
+                            <time class="text-black text-xs mt-auto font-medium" datetime="2024-03-08">Mar 8, 2024</time>
                         </div>
                     </a>
 
                     <a href="#" class="group flex flex-col bg-white overflow-hidden rounded-[24px] shadow-sm w-full min-h-[450px]">
                         <div class="h-[200px] md:h-[285px] overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963" alt="Europe" 
+                            <img src="./images/mountain.jpg" alt="Europe" 
                                 class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
                         </div>
                         <div class="p-6 md:p-8 flex flex-col flex-grow">
-                            <span class="bg-[#E3EEEF] text-orange-700 text-[11px] font-bold uppercase px-3 py-1 rounded-full w-fit mb-4">🏨 Places to Stay</span>
-                            <h4 class="text-black text-lg md:text-xl font-bold leading-snug mb-3">The 50 best boutique hotels in Europe</h4>
-                            <p class="text-gray-600 text-sm mb-4 line-clamp-3">Discover hidden gems and luxury retreats across the European continent.</p>
-                            <time class="text-gray-400 text-xs mt-auto font-medium">Mar 8, 2024</time>
+                            <span class="bg-[#E3EEEF] flex items-center gap-2 text-black text-[14px] font-medium capitalize px-5 py-1 rounded-full w-fit mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16"/><path d="M9 7h1"/><path d="M9 11h1"/><path d="M14 7h1"/><path d="M14 11h1"/><path d="M9 15h1"/><path d="M14 15h1"/></svg>
+                                Places to stay</span>
+                            <h4 class="text-black text-lg md:text-2xl xl:text-[27px] font-semibold leading-snug mb-3">The 50 best boutique hotels in Europe</h4>
+                            <p class="text-[#373A39] text-sm lg:text-lg lg:leading-[29.3px] mb-4 line-clamp-3">Discover the ultimate list of Europe's most churming boutique hotels.</p>
+                            <time class="text-black text-xs mt-auto font-medium" datetime="2024-03-08">Mar 8, 2024</time>
                         </div>
                     </a>
 
@@ -157,10 +183,14 @@
                                 class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
                         </div>
                         <div class="p-6 md:p-8 flex flex-col flex-grow">
-                            <span class="bg-[#E9F7DC] text-orange-700 text-[11px] font-bold uppercase px-3 py-1 rounded-full w-fit mb-4">🗺️ Places to stay</span>
-                            <h4 class="text-black text-lg md:text-xl font-bold leading-snug mb-3"></h4>
-                            <p class="text-gray-600 text-sm mb-4 line-clamp-3">The best vineyards and restaurants to visit in the Golden State.</p>
-                            <time class="text-gray-400 text-xs mt-auto font-medium">Mar 8, 2024</time>
+                            <span class="bg-[#E9F7DC] flex items-center gap-2 text-black text-[14px] font-medium capitalize px-5 py-1 rounded-full w-fit mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1-.553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"/><path d="M15 5.764v15"/><path d="M9 3.236v15"/>
+                                </svg>
+                                Where to go</span>
+                            <h4 class="text-black text-lg md:text-2xl xl:text-[27px] font-semibold leading-snug mb-3">A food and wine lover's guide to California's wine</h4>
+                            <p class="text-[#373A39] text-sm lg:text-lg lg:leading-[29.3px] mb-4 line-clamp-3">Explore California's wine country like a true food and wine connoisseur with</p>
+                            <time class="text-black text-xs mt-auto font-medium" datetime="2024-03-08">Mar 8, 2024</time>
                         </div>
                     </a>
 
@@ -170,17 +200,20 @@
                                 class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
                         </div>
                         <div class="p-6 md:p-8 flex flex-col flex-grow">
-                            <span class="bg-[#EEE6FB] text-orange-700 text-[11px] font-bold uppercase px-3 py-1 rounded-full w-fit mb-4">📍 Where to go</span>
-                            <h4 class="text-black text-lg md:text-xl font-bold leading-snug mb-3">How to spend a weekend in Venice</h4>
-                            <p class="text-gray-600 text-sm mb-4 line-clamp-3">Experience the magic of the canals with our perfect 48-hour itinerary.</p>
-                            <time class="text-gray-400 text-xs mt-auto font-medium">Mar 8, 2024</time>
+                            <span class="bg-[#EEE6FB] flex items-center gap-2 text-black text-[14px] font-medium capitalize px-5 py-1 rounded-full w-fit mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                What to do</span>
+                            <h4 class="text-black text-lg md:text-2xl xl:text-[27px] font-semibold leading-snug mb-3">How to spend a weekend in Venice</h4>
+                            <p class="text-[#373A39] text-sm lg:text-lg lg:leading-[29.3px] mb-4 line-clamp-3">Experience the magic in just a weekend with our expert guide!</p>
+                            <time class="text-black text-xs mt-auto font-bold" datetime="2024-03-08">Mar 8, 2024</time>
                         </div>
                     </a>
-
                 </div>
             </div>
             </section> 
-        </main>        
+        </main> 
+        
+
         <!-- Footer -->
         <footer class="footer py-[100px] flex items-center justify-center border-t border-[rgb(26,26,26)]">
             <div class="container mx-auto flex flex-col items-center gap-5 text-center">
