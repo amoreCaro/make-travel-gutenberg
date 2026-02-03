@@ -811,6 +811,12 @@ video {
 .z-50{
   z-index: 50;
 }
+.order-1{
+  order: 1;
+}
+.order-2{
+  order: 2;
+}
 .m-0{
   margin: 0px;
 }
@@ -2322,6 +2328,12 @@ video {
   }
 }
 @media (min-width: 1024px){
+  .lg\:order-2{
+    order: 2;
+  }
+  .lg\:order-1{
+    order: 1;
+  }
   .lg\:col-span-3{
     grid-column: span 3 / span 3;
   }
