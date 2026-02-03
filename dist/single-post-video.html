@@ -146,10 +146,17 @@
 
                     <!-- LEFT / BIG IMAGE -->
                     <div class="post__video lg:basis-1/2 h-[250px] md:h-[400px] lg:h-[642px] overflow-hidden">
-                        <video class="w-full h-full object-cover" autoplay loop muted loading="lazy" decoding="async">
+                        <video
+                            class="w-full h-full object-cover"
+                            controls
+                            loop
+                            muted
+                            preload="metadata"
+                        >
                             <source src="video/rocket-video.mp4" type="video/mp4">
                         </video>
                     </div>
+
 
                     <!-- RIGHT / GRID -->
                     <div class="post__gallery w-full lg:basis-1/2 grid grid-cols-2">
