@@ -905,6 +905,9 @@ video {
 .h-2\.5{
   height: 0.625rem;
 }
+.h-3\.5{
+  height: 0.875rem;
+}
 .h-4{
   height: 1rem;
 }
@@ -976,6 +979,9 @@ video {
 }
 .w-3{
   width: 0.75rem;
+}
+.w-3\.5{
+  width: 0.875rem;
 }
 .w-4{
   width: 1rem;
@@ -1124,6 +1130,9 @@ video {
 .justify-between{
   justify-content: space-between;
 }
+.gap-1\.5{
+  gap: 0.375rem;
+}
 .gap-10{
   gap: 2.5rem;
 }
@@ -1226,6 +1235,9 @@ video {
 .border{
   border-width: 1px;
 }
+.border-2{
+  border-width: 2px;
+}
 .border-b{
   border-bottom-width: 1px;
 }
@@ -1242,6 +1254,10 @@ video {
 .border-\[rgb\(26\2c 26\2c 26\)\]{
   --tw-border-opacity: 1;
   border-color: rgb(26 26 26 / var(--tw-border-opacity, 1));
+}
+.border-black{
+  --tw-border-opacity: 1;
+  border-color: rgb(0 0 0 / var(--tw-border-opacity, 1));
 }
 .border-blue-400{
   --tw-border-opacity: 1;
@@ -2038,6 +2054,10 @@ video {
   --tw-border-opacity: 1;
   border-color: rgb(96 165 250 / var(--tw-border-opacity, 1));
 }
+.hover\:bg-black:hover{
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity, 1));
+}
 .hover\:bg-blue-500:hover{
   --tw-bg-opacity: 1;
   background-color: rgb(59 130 246 / var(--tw-bg-opacity, 1));
@@ -2109,6 +2129,10 @@ video {
   --tw-translate-x: 0.125rem;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
+.group:hover .group-hover\:translate-x-1\.5{
+  --tw-translate-x: 0.375rem;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
 .group:hover .group-hover\:scale-105{
   --tw-scale-x: 1.05;
   --tw-scale-y: 1.05;
@@ -2131,6 +2155,27 @@ video {
 }
 .group:hover .group-hover\:opacity-100{
   opacity: 1;
+}
+.group.bento-grid-button .group-\[\.bento-grid-button\]\:flex{
+  display: flex;
+}
+.group\/bento.bento-grid-button .group-\[\.bento-grid-button\]\/bento\:flex{
+  display: flex;
+}
+.group\/bento.bento-grid-button .group-\[\.bento-grid-button\]\/bento\:rounded{
+  border-radius: 0.25rem;
+}
+.group\/bento.bento-grid-button .group-\[\.bento-grid-button\]\/bento\:rounded-lg{
+  border-radius: 0.5rem;
+}
+.group\/bento.bento-grid-button .group-\[\.bento-grid-button\]\/bento\:rounded-xl{
+  border-radius: 0.75rem;
+}
+.group\/bento.bento-grid-button .group-\[\.bento-grid-button\]\/bento\:rounded-2xl{
+  border-radius: 1rem;
+}
+.group\/bento.bento-grid-button .group-\[\.bento-grid-button\]\/bento\:rounded-bl-none{
+  border-bottom-left-radius: 0px;
 }
 @media (min-width: 640px){
   .sm\:right-5{
@@ -2247,11 +2292,17 @@ video {
   .md\:mb-8{
     margin-bottom: 2rem;
   }
+  .md\:h-5{
+    height: 1.25rem;
+  }
   .md\:h-\[285px\]{
     height: 285px;
   }
   .md\:h-\[400px\]{
     height: 400px;
+  }
+  .md\:w-5{
+    width: 1.25rem;
   }
   .md\:max-w-xl{
     max-width: 36rem;
@@ -2267,6 +2318,9 @@ video {
   }
   .md\:gap-10{
     gap: 2.5rem;
+  }
+  .md\:gap-2{
+    gap: 0.5rem;
   }
   .md\:gap-6{
     gap: 1.5rem;
@@ -2285,9 +2339,17 @@ video {
   .md\:p-8{
     padding: 2rem;
   }
+  .md\:px-9{
+    padding-left: 2.25rem;
+    padding-right: 2.25rem;
+  }
   .md\:px-\[20px\]{
     padding-left: 20px;
     padding-right: 20px;
+  }
+  .md\:py-3{
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
   }
   .md\:text-2xl{
     font-size: 1.5rem;
@@ -2322,6 +2384,10 @@ video {
   }
   .md\:text-\[44px\]{
     font-size: 44px;
+  }
+  .md\:text-base{
+    font-size: 1rem;
+    line-height: 1.5rem;
   }
   .md\:leading-\[52px\]{
     line-height: 52px;
@@ -2511,4 +2577,7 @@ video {
     padding-left: 40px;
     padding-right: 40px;
   }
+}
+. bento-grid--button .\[\._bento-grid--button_\&\]\:flex{
+  display: flex;
 }
