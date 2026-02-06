@@ -2328,11 +2328,11 @@ video {
   }
 }
 @media (min-width: 1024px){
-  .lg\:order-2{
-    order: 2;
-  }
   .lg\:order-1{
     order: 1;
+  }
+  .lg\:order-2{
+    order: 2;
   }
   .lg\:col-span-3{
     grid-column: span 3 / span 3;
@@ -2453,6 +2453,12 @@ video {
   }
   .lg\:leading-\[64px\]{
     line-height: 64px;
+  }
+  .group\/bento.bento-grid--reverse .lg\:group-\[\.bento-grid--reverse\]\/bento\:order-1{
+    order: 1;
+  }
+  .group\/bento.bento-grid--reverse .lg\:group-\[\.bento-grid--reverse\]\/bento\:order-2{
+    order: 2;
   }
 }
 @media (min-width: 1440px){
