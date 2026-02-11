@@ -8,6 +8,26 @@
   @apply mx-auto
          2xl:max-w-[2040px] 2xl:px-[40px];
 }
+
+.show {
+  @apply block; 
+}
+
+.h-flex {
+  @apply flex;
+}
+
+.reverse > :first-child { order: 2 }
+.reverse > :last-child  { order: 1 }
+
+.h-rounded {
+  @apply rounded-2xl rounded-bl-none w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16;
+}
+
+.active {
+  @apply text-blue-600;
+}
+
 .container {
   @apply px-[20px] mx-auto
          md:px-[20px]
