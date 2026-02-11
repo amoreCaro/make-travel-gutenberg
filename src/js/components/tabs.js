@@ -1,61 +1,65 @@
-// Функція для скидання стану вкладок
-function resetTabs(tabLinks, tabUnderlines) {
-  tabLinks.forEach((link, i) => {
-    link.classList.remove('text-black', 'active');
-    link.classList.add('text-[#9395ab]');
-    tabUnderlines[i].classList.add('hidden');
+/**
+ * Логіка відкриття/закриття мобільного меню
+ */
+function initMenuToggle() {
+  const btn = document.querySelector('.media-menu__btn');
+  const wrapper = document.querySelector('.media-menu__tags');
+
+  if (!btn || !wrapper || btn.dataset.initialized === "true") return;
+
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    btn.classList.toggle('active');
+    wrapper.classList.toggle('show');
   });
+
+  btn.dataset.initialized = "true";
 }
 
-// Функція для показу тегів для конкретної вкладки
-function showTagsForTab(tab, btnTags, tagsContainer) {
-  document.querySelectorAll('.tags-content').forEach(tags => {
-    if (tags.dataset.tags === tab) {
-      tags.classList.remove('hidden');
-      tags.classList.add('grid'); 
-    } else {
-      tags.classList.add('hidden');
-      tags.classList.remove('grid');
+/**
+ * Логіка перемикання активного стану кнопок (кольорів та ліній)
+ */
+function updateTabVisuals(activeTab, allTabs) {
+  allTabs.forEach(t => {
+    const underline = t.nextElementSibling;
+    const isActive = t === activeTab;
+
+    t.classList.toggle('text-black', isActive);
+    t.classList.toggle('text-[#9395ab]', !isActive);
+
+    if (underline) {
+      underline.classList.toggle('hidden', !isActive);
     }
   });
-
-  // Клас active на кнопці відповідає видимості тегів
-  if ([...btnTags].some(btn => btn.classList.contains('active'))) {
-    tagsContainer.classList.remove('hidden');
-  } else {
-    tagsContainer.classList.add('hidden');
-  }
 }
 
-// Функція для додавання active кнопці
-function addActiveBtn(btnTags, tagsContainer) {
-  btnTags.forEach(btn => {
-    btn.addEventListener('click', () => {
-      btnTags.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      tagsContainer.classList.add('show');
-    });
-  });
-}
+/**
+ * Логіка перемикання контенту
+ */
+function initTabsSwitch() {
+  const tabs = document.querySelectorAll('[data-tab]');
+  const contents = document.querySelectorAll('[data-tags]');
 
-// Ініціалізація вкладок
-export function initTabs() {
-  const tabLinks = document.querySelectorAll('.tab-link');
-  const tabUnderlines = document.querySelectorAll('.tab-underline');
-  const btnTags = document.querySelectorAll('.media-menu__btn');
-  const tagsContainer = document.querySelector('.media-menu__tags');
+  if (!tabs.length) return;
 
-  addActiveBtn(btnTags, tagsContainer); // виклик функції для кнопок
-
-  tabLinks.forEach((link, index) => {
-    link.addEventListener('click', (e) => {
+  tabs.forEach(tab => {
+    tab.addEventListener('click', (e) => {
       e.preventDefault();
+      const target = tab.dataset.tab;
 
-      resetTabs(tabLinks, tabUnderlines); // виклик resetTabs
-      link.classList.add('text-black', 'active');
-      tabUnderlines[index].classList.remove('hidden');
+      updateTabVisuals(tab, tabs);
 
-      showTagsForTab(link.dataset.tab, btnTags, tagsContainer); // виклик showTagsForTab
+      contents.forEach(content => {
+        content.classList.toggle('hidden', content.dataset.tags !== target);
+      });
     });
   });
+}
+
+/**
+ * Головний виклик
+ */
+export function tabs() {
+  initMenuToggle();
+  initTabsSwitch();
 }
