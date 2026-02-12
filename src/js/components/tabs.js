@@ -63,7 +63,23 @@ function initMenu() {
   });
 }
 
+function enableTabRedirect(selector) {
+    const tabs = document.querySelectorAll(selector);
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', e => {
+            e.preventDefault(); // зупиняємо стандартну поведінку
+            const url = tab.getAttribute('href'); // беремо URL з href
+            if (url) {
+                window.location.href = url; // редірект
+            }
+        });
+    });
+}
+
+
 export function tabs() {
   initMenu();
   initTabsSwitch();
+  enableTabRedirect('.media-menu__tab');  
 }
