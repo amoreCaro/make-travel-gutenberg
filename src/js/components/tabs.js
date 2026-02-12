@@ -1,6 +1,33 @@
 /**
  * Логіка відкриття/закриття мобільного меню
  */
+function toggleMenu(clickedMenu, clickedBtn) {
+  // Всі меню
+  const menus = [
+    document.querySelector('.media-menu__tags'),
+    document.querySelector('.media-menu__navigation')
+  ];
+
+  // Всі кнопки
+  const buttons = [
+    document.querySelector('.media-menu__btn--category'),
+    document.querySelector('.media-menu__btn')
+  ];
+
+  // Визначаємо, чи зараз меню вже відкрито
+  const isAlreadyOpen = clickedMenu.classList.contains('show');
+
+  // Закриваємо всі меню та знімаємо active з усіх кнопок
+  menus.forEach(menu => menu.classList.remove('show'));
+  buttons.forEach(btn => btn.classList.remove('active'));
+
+  // Якщо меню не було відкрито, відкриваємо його та ставимо active на кнопку
+  if (!isAlreadyOpen) {
+    clickedMenu.classList.add('show');
+    clickedBtn.classList.add('active');
+  }
+}
+
 function initMenuToggle() {
   const btn = document.querySelector('.media-menu__btn');
   const wrapper = document.querySelector('.media-menu__tags');
@@ -33,12 +60,26 @@ function updateTabVisuals(activeTab, allTabs) {
   });
 }
 
+function toggleCategoryMobileMenu() {
+  const btn = document.querySelector('.media-menu__btn--category');
+  const categories = document.querySelector('.media-menu__navigation');
+
+  if (!btn || !categories || btn.dataset.initialized === "true") return;
+
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    btn.classList.toggle('active');
+    categories.classList.toggle('show');
+  });
+
+  btn.dataset.initialized = "true";
+}
+
 /**
  * Логіка перемикання контенту
  */
 function initTabsSwitch() {
   const tabs = document.querySelectorAll('[data-tab]');
-  const contents = document.querySelectorAll('[data-tags]');
 
   if (!tabs.length) return;
 
@@ -48,13 +89,10 @@ function initTabsSwitch() {
       const target = tab.dataset.tab;
 
       updateTabVisuals(tab, tabs);
-
-      contents.forEach(content => {
-        content.classList.toggle('hidden', content.dataset.tags !== target);
-      });
     });
   });
 }
+
 
 /**
  * Головний виклик
@@ -62,4 +100,6 @@ function initTabsSwitch() {
 export function tabs() {
   initMenuToggle();
   initTabsSwitch();
+  toggleCategoryMobileMenu();
+  toggleMenu();
 }

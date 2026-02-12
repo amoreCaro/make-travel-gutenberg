@@ -17,6 +17,10 @@
   @apply flex;
 }
 
+.mobile {
+  @apply md:hidden;
+}
+
 .reverse > :first-child { order: 2 }
 .reverse > :last-child  { order: 1 }
 
