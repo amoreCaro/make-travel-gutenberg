@@ -1,107 +1,69 @@
-/**
- * Логіка відкриття/закриття мобільного меню
- */
+// Toggle menu visibility.
+// If another menu is open, close it before opening the clicked one.
 function toggleMenu(clickedMenu, clickedBtn) {
-  // Всі меню
+  // All available menus
   const menus = [
     document.querySelector('.media-menu__tags'),
     document.querySelector('.media-menu__navigation')
   ];
-
-  // Всі кнопки
+    // All menu buttons
   const buttons = [
     document.querySelector('.media-menu__categories-btn'),
-    document.querySelector('.media-menu__tags-btnn')
+    document.querySelector('.media-menu__tags-btn')
   ];
-
-  // Визначаємо, чи зараз меню вже відкрито
+  // Check if the clicked menu is already open
   const isAlreadyOpen = clickedMenu.classList.contains('show');
 
-  // Закриваємо всі меню та знімаємо active з усіх кнопок
-  menus.forEach(menu => menu.classList.remove('show'));
-  buttons.forEach(btn => btn.classList.remove('active'));
+  // Close all menus
+  menus.forEach(menu => menu?.classList.remove('show'));
+  // Remove active state from all buttons
+  buttons.forEach(btn => btn?.classList.remove('active'));
 
-  // Якщо меню не було відкрито, відкриваємо його та ставимо active на кнопку
+  // If the menu was closed — open it
   if (!isAlreadyOpen) {
     clickedMenu.classList.add('show');
     clickedBtn.classList.add('active');
   }
 }
 
-function initMenuToggle() {
-  const btn = document.querySelector('.media-menu__tags-btn');
-  const wrapper = document.querySelector('.media-menu__tags');
-
-  if (!btn || !wrapper || btn.dataset.initialized === "true") return;
-
-  btn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    btn.classList.toggle('active');
-    wrapper.classList.toggle('show');
-  });
-
-  btn.dataset.initialized = "true";
-}
-
 /**
- * Логіка перемикання активного стану кнопок (кольорів та ліній)
+ * Switch tabs items
  */
-function updateTabVisuals(activeTab, allTabs) {
-  allTabs.forEach(t => {
-    const underline = t.nextElementSibling;
-    const isActive = t === activeTab;
-
-    t.classList.toggle('text-black', isActive);
-    t.classList.toggle('text-[#9395ab]', !isActive);
-
-    if (underline) {
-      underline.classList.toggle('hidden', !isActive);
-    }
-  });
-}
-
-function toggleCategoryMobileMenu() {
-  const btn = document.querySelector('.media-menu__categories-btn');
-  const categories = document.querySelector('.media-menu__navigation');
-
-  if (!btn || !categories || btn.dataset.initialized === "true") return;
-
-  btn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    btn.classList.toggle('active');
-    categories.classList.toggle('show');
-  });
-
-  btn.dataset.initialized = "true";
-}
-
-/**
- * Логіка перемикання контенту
- */
-
 function initTabsSwitch() {
-  const tabs = document.querySelectorAll('.tab-link'); 
+  const tabs = document.querySelectorAll('.media-menu__tab');
 
   tabs.forEach(tab => {
     tab.addEventListener('click', (e) => {
       e.preventDefault();
 
-      // видаляємо active з усіх табів
       tabs.forEach(t => t.classList.remove('active'));
-
-      // додаємо active тільки на клікнутий
       tab.classList.add('active');
     });
   });
 }
 
-
 /**
- * Головний виклик
+ * Initialize menu open/close logic
  */
+function initMenu() {
+  const tagsBtn = document.querySelector('.media-menu__tags-btn');
+  const tagsMenu = document.querySelector('.media-menu__tags');
+
+  const categoriesBtn = document.querySelector('.media-menu__categories-btn');
+  const categoriesMenu = document.querySelector('.media-menu__navigation');
+
+  tagsBtn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleMenu(tagsMenu, tagsBtn);
+  });
+
+  categoriesBtn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleMenu(categoriesMenu, categoriesBtn);
+  });
+}
+
 export function tabs() {
-  initMenuToggle();
+  initMenu();
   initTabsSwitch();
-  toggleCategoryMobileMenu();
-  toggleMenu();
 }
