@@ -84,39 +84,41 @@
                     
                     <div class="media-menu flex flex-col max-w-[1800px] mx-auto">
                         <div class="media-menu__head flex items-center justify-between">
-                                <!-- Category Button -->
-                                <button class="media-menu__btn--category flex items-center gap-2 md:hidden py-3 text-black">
-                                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" class="text-black">
-                                        <rect width="7" height="7" rx="1" fill="currentColor"/>
-                                        <rect x="11" width="7" height="7" rx="1" fill="currentColor"/>
-                                        <rect y="11" width="7" height="7" rx="1" fill="currentColor"/>
-                                        <rect x="11" y="11" width="7" height="7" rx="1" fill="currentColor"/>
-                                    </svg>
-                                    
-                                    <span class="font-bold uppercase text-[15px] leading-[15px]">Category</span>
-                                </button>
+                            <!-- Category Button -->
+                            <button class="media-menu__categories-btn flex items-center gap-2 md:hidden py-3 text-black">
+                                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" class="text-black">
+                                    <rect width="7" height="7" rx="1" fill="currentColor"/>
+                                    <rect x="11" width="7" height="7" rx="1" fill="currentColor"/>
+                                    <rect y="11" width="7" height="7" rx="1" fill="currentColor"/>
+                                    <rect x="11" y="11" width="7" height="7" rx="1" fill="currentColor"/>
+                                </svg>
+                                
+                                <span class="font-bold uppercase text-[15px] leading-[15px]">Category</span>
+                            </button>
+                            <!-- Десктопне меню -->
+                            <div class="media-menu__categories-content hidden md:block overflow-x-auto no-scrollbar">
+                                <ul class="flex items-center gap-8 whitespace-nowrap">
+                                    <li>
+                                        <a href="#all-news" data-tab="all" class="tab-link active uppercase block py-3 text-[15px] leading-[18px] font-bold">
+                                            All news
+                                        </a>
+                                    </li>
 
-                                <div class="media-menu__nav hidden md:block overflow-x-auto no-scrollbar">
-                                    <ul class="flex items-center gap-8 whitespace-nowrap">
-                                        <li class="relative">
-                                            <a href="#" data-tab="all" class="tab-link uppercase block py-3 text-[15px] leading-[18px] font-bold text-black transition-colors duration-300">
-                                                All news
-                                            </a>
-                                            <div class="tab-underline absolute bottom-0 left-0 w-full h-[3px] bg-blue-600 transition-all duration-300"></div>
-                                        </li>
+                                    <li>
+                                        <a href="#our-news" data-tab="our" class="tab-link uppercase block py-3 text-[15px] leading-[18px] font-bold">
+                                            Our News
+                                        </a>
+                                    </li>
 
-                                        <li class="relative">
-                                            <a href="#" data-tab="our" class="tab-link uppercase py-3 block text-[15px] leading-[18px] font-bold text-[#9395ab] hover:text-black transition-colors duration-300">
-                                                Our News
-                                            </a>
-                                            <div class="tab-underline hidden absolute bottom-0 left-0 w-full h-[3px] bg-blue-600 transition-all duration-300"></div>
-                                        </li>
-                                    </ul>
-                                </div>
-
-
+                                    <li>
+                                        <a href="#other-news" data-tab="other" class="tab-link uppercase block py-3 text-[15px] leading-[18px] font-bold">
+                                            Other News
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
                             <!-- All Tags Button -->
-                            <button class="media-menu__btn cursor-pointer flex items-center gap-2 uppercase font-bold text-[15px] leading-[15px] transition-all duration-300 text-slate-400 hover:text-blue-600">
+                            <button class="media-menu__tags-btn cursor-pointer flex items-center gap-2 uppercase font-bold text-[15px] leading-[15px] transition-all duration-300 text-slate-400 hover:text-blue-600">
                                 <span class="group-hover:text-blue-600 peer-checked:text-blue-600">All tags</span>
                                 <svg
                                     class="transition-transform duration-300 transform group-hover:stroke-blue-600"
@@ -134,32 +136,30 @@
                             </button>
                         </div>
 
-                    <div class="media-menu__navigation hidden mobile">
-                        <ul class="flex items-center justify-between w-full whitespace-nowrap">
+                        <!-- Мобільне меню -->
+                        <div class="media-menu__navigation hidden mobile">
+                        <ul class="flex flex-col sm:flex-row items-start sm:items-center justify-start sm:justify-between w-full whitespace-nowrap">
                             
                             <li class="flex-1 text-left">
-                                <a href="#" data-tab="all" class="tab-link relative inline-block uppercase py-3 text-[15px] leading-[18px] font-bold text-black transition-colors duration-300">
-                                    All news
-                                    <div class="tab-underline absolute bottom-0 left-0 w-full h-[3px] bg-blue-600 transition-all duration-300"></div>
-                                </a>
+                            <a href="#" data-tab="all" class="tab-link active uppercase py-3 text-[15px] leading-[18px] font-bold inline-block relative">
+                                All news
+                            </a>
                             </li>
 
                             <li class="flex-1 text-left">
-                                <a href="#" data-tab="our" class="tab-link relative inline-block uppercase py-3 text-[15px] leading-[18px] font-bold text-[#9395ab] hover:text-black transition-colors duration-300">
-                                    Our News
-                                    <div class="tab-underline hidden absolute bottom-0 left-0 w-full h-[3px] bg-blue-600 transition-all duration-300"></div>
-                                </a>
+                            <a href="#" data-tab="our" class="tab-link uppercase py-3 text-[15px] leading-[18px] font-bold inline-block relative">
+                                Our News
+                            </a>
                             </li>
 
                             <li class="flex-1 text-left">
-                                <a href="#" data-tab="our" class="tab-link relative inline-block uppercase py-3 text-[15px] leading-[18px] font-bold text-[#9395ab] hover:text-black transition-colors duration-300">
-                                    Our News
-                                    <div class="tab-underline hidden absolute bottom-0 left-0 w-full h-[3px] bg-blue-600 transition-all duration-300"></div>
-                                </a>
+                            <a href="#" data-tab="other" class="tab-link uppercase py-3 text-[15px] leading-[18px] font-bold inline-block relative">
+                                Other News
+                            </a>
                             </li>
                             
                         </ul>
-                    </div>
+                        </div>
 
                         <!-- tags -->
                         <div class="media-menu__tags hidden">
@@ -169,14 +169,14 @@
                                 data-tags="all"
                                 class="tags-content grid grid-cols-1 md:grid-cols-3 gap-y-4 py-8">
 
-                                <li><a class="tag uppercase text-[15px] leading-[18px] font-bold text-[#9395ab] hover:text-[#252735]  transition-all duration-300 cursor-pointer">#Space Technology</a></li>
-                                <li><a class="tag uppercase text-[15px] leading-[18px] font-bold text-[#9395ab] hover:text-[#252735]  transition-all duration-300 cursor-pointer">#UK Rockets</a></li>
-                                <li><a class="tag uppercase text-[15px] leading-[18px] font-bold text-[#9395ab] hover:text-[#252735]  transition-all duration-300 cursor-pointer">#UK Satellites</a></li>
-                                <li><a class="tag uppercase text-[15px] leading-[18px] font-bold text-[#9395ab] hover:text-[#252735]  transition-all duration-300 cursor-pointer">#Space Innovations</a></li>
-                                <li><a class="tag uppercase text-[15px] leading-[18px] font-bold text-[#9395ab] hover:text-[#252735]  transition-all duration-300 cursor-pointer">#Space Flight</a></li>
-                                <li><a class="tag uppercase text-[15px] leading-[18px] font-bold text-[#9395ab] hover:text-[#252735]  transition-all duration-300 cursor-pointer">#Launch Vehicle</a></li>
-                                <li><a class="tag uppercase text-[15px] leading-[18px] font-bold text-[#9395ab] hover:text-[#252735]  transition-all duration-300 cursor-pointer">#UK Space Industry</a></li>
-                                <li><a class="tag uppercase text-[15px] leading-[18px] font-bold text-[#9395ab] hover:text-[#252735]  transition-all duration-300 cursor-pointer">#UK Rocket Launch</a></li>
+                                <li><a href="#space-technology" class="tag uppercase text-[15px] leading-[18px] font-bold text-[#9395ab] hover:text-[#252735]  transition-all duration-300 cursor-pointer">#Space Technology</a></li>
+                                <li><a href="#uk-rockets" class="tag uppercase text-[15px] leading-[18px] font-bold text-[#9395ab] hover:text-[#252735]  transition-all duration-300 cursor-pointer">#UK Rockets</a></li>
+                                <li><a href="#uk-satellites" class="tag uppercase text-[15px] leading-[18px] font-bold text-[#9395ab] hover:text-[#252735]  transition-all duration-300 cursor-pointer">#UK Satellites</a></li>
+                                <li><a href="#space-inovations" class="tag uppercase text-[15px] leading-[18px] font-bold text-[#9395ab] hover:text-[#252735]  transition-all duration-300 cursor-pointer">#Space Innovations</a></li>
+                                <li><a href="#space-flight" class="tag uppercase text-[15px] leading-[18px] font-bold text-[#9395ab] hover:text-[#252735]  transition-all duration-300 cursor-pointer">#Space Flight</a></li>
+                                <li><a href="#launch-vehicle" class="tag uppercase text-[15px] leading-[18px] font-bold text-[#9395ab] hover:text-[#252735]  transition-all duration-300 cursor-pointer">#Launch Vehicle</a></li>
+                                <li><a href="#uk-space-industry" class="tag uppercase text-[15px] leading-[18px] font-bold text-[#9395ab] hover:text-[#252735]  transition-all duration-300 cursor-pointer">#UK Space Industry</a></li>
+                                <li><a href="#uk-rocket-launch" class="tag uppercase text-[15px] leading-[18px] font-bold text-[#9395ab] hover:text-[#252735]  transition-all duration-300 cursor-pointer">#UK Rocket Launch</a></li>
                             </ul>
 
                             <!-- OUR NEWS TAGS -->
@@ -184,10 +184,10 @@
                                 data-tags="our"
                                 class="tags-content hidden grid grid-cols-1 md:grid-cols-3 gap-y-4 py-8">
 
-                                <li><a class="tag uppercase text-[15px] leading-[18px] font-bold text-[#9395ab] hover:text-[#252735]  transition-all duration-300 cursor-pointer">#Company Updates</a></li>
-                                <li><a class="tag uppercase text-[15px] leading-[18px] font-bold text-[#9395ab] hover:text-[#252735]  transition-all duration-300 cursor-pointer">#Our Missions</a></li>
-                                <li><a class="tag uppercase text-[15px] leading-[18px] font-bold text-[#9395ab] hover:text-[#252735]  transition-all duration-300 cursor-pointer">#Team</a></li>
-                                <li><a class="tag uppercase text-[15px] leading-[18px] font-bold text-[#9395ab] hover:text-[#252735]  transition-all duration-300 cursor-pointer">#Behind The Scenes</a></li>
+                                <li><a href="#company-updates" class="tag uppercase text-[15px] leading-[18px] font-bold text-[#9395ab] hover:text-[#252735]  transition-all duration-300 cursor-pointer">#Company Updates</a></li>
+                                <li><a href="#our-missions" class="tag uppercase text-[15px] leading-[18px] font-bold text-[#9395ab] hover:text-[#252735]  transition-all duration-300 cursor-pointer">#Our Missions</a></li>
+                                <li><a href="#team" class="tag uppercase text-[15px] leading-[18px] font-bold text-[#9395ab] hover:text-[#252735]  transition-all duration-300 cursor-pointer">#Team</a></li>
+                                <li><a href="behind-the-scenes" class="tag uppercase text-[15px] leading-[18px] font-bold text-[#9395ab] hover:text-[#252735]  transition-all duration-300 cursor-pointer">#Behind The Scenes</a></li>
                             </ul>
                         </div>
                     </div>
@@ -200,9 +200,7 @@
                                     Where to Eat
                                 </h1>
 
-                                <div class="decor -translate-y-1/2 w-14 h-14 
-                                h-rounded
-                                flex items-center justify-center bg-[#FDF0D0] rounded-t-full rounded-br-full shadow-sm">
+                                <div class="decor -translate-y-1/2 w-14 h-14 h-rounded flex items-center justify-center bg-[#FDF0D0] rounded-t-full rounded-br-full shadow-sm">
 
                                 </div>
                             </div>

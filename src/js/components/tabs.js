@@ -10,8 +10,8 @@ function toggleMenu(clickedMenu, clickedBtn) {
 
   // Всі кнопки
   const buttons = [
-    document.querySelector('.media-menu__btn--category'),
-    document.querySelector('.media-menu__btn')
+    document.querySelector('.media-menu__categories-btn'),
+    document.querySelector('.media-menu__tags-btnn')
   ];
 
   // Визначаємо, чи зараз меню вже відкрито
@@ -29,7 +29,7 @@ function toggleMenu(clickedMenu, clickedBtn) {
 }
 
 function initMenuToggle() {
-  const btn = document.querySelector('.media-menu__btn');
+  const btn = document.querySelector('.media-menu__tags-btn');
   const wrapper = document.querySelector('.media-menu__tags');
 
   if (!btn || !wrapper || btn.dataset.initialized === "true") return;
@@ -61,7 +61,7 @@ function updateTabVisuals(activeTab, allTabs) {
 }
 
 function toggleCategoryMobileMenu() {
-  const btn = document.querySelector('.media-menu__btn--category');
+  const btn = document.querySelector('.media-menu__categories-btn');
   const categories = document.querySelector('.media-menu__navigation');
 
   if (!btn || !categories || btn.dataset.initialized === "true") return;
@@ -78,17 +78,19 @@ function toggleCategoryMobileMenu() {
 /**
  * Логіка перемикання контенту
  */
-function initTabsSwitch() {
-  const tabs = document.querySelectorAll('[data-tab]');
 
-  if (!tabs.length) return;
+function initTabsSwitch() {
+  const tabs = document.querySelectorAll('.tab-link'); 
 
   tabs.forEach(tab => {
     tab.addEventListener('click', (e) => {
       e.preventDefault();
-      const target = tab.dataset.tab;
 
-      updateTabVisuals(tab, tabs);
+      // видаляємо active з усіх табів
+      tabs.forEach(t => t.classList.remove('active'));
+
+      // додаємо active тільки на клікнутий
+      tab.classList.add('active');
     });
   });
 }
