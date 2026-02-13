@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 
+.l-wrapper {
+  @apply min-h-screen overflow-hidden flex flex-col justify-center;
+}
 
 .wrapper {
   @apply mx-auto
@@ -33,6 +36,15 @@
   @apply text-blue-600;
 }
 
+.h-fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background-color: white;
+}
+
 .media-menu__tab {
   @apply
     relative
@@ -46,7 +58,7 @@
     after:bottom-0
     after:left-0
     after:w-full
-    after:h-[3px]
+    after:h-[2px]
     after:bg-blue-500
     after:scale-x-0
     after:origin-left
@@ -58,13 +70,6 @@
   @apply text-black after:scale-x-100;
 }
 
-.container {
-  @apply px-[20px] mx-auto
-         md:px-[20px]
-         lg:max-w-[2094px] lg:px-[118px]
-         xl:max-w-[1152px] xl:px-[0px]
-}
-
 .btn-back {
   @apply fixed top-[200px] left-0 z-50
          flex items-center gap-2
@@ -74,16 +79,15 @@
          transition-[width,padding,background-color] duration-500
          ease-[cubic-bezier(0.22,1,0.36,1)]
          hover:bg-blue-500 hover:w-auto hover:px-[30px] hover:pl-[25px];
-
-  & span {
-    @apply whitespace-nowrap
-           opacity-0 translate-x-3
-           transition-all duration-500 ease-out
-           delay-100;
-  }
-
-  &:hover span {
-    @apply opacity-100 translate-x-0 delay-150;
-  }
 }
 
+.btn-back span {
+  @apply whitespace-nowrap
+         opacity-0 translate-x-3
+         transition-all duration-500 ease-out
+         delay-100;
+}
+
+.btn-back:hover span {
+  @apply opacity-100 translate-x-0 delay-150;
+}
