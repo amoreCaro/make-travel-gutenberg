@@ -1,8 +1,7 @@
 export function burgerMenu() {
-    const burgerMenu = document.getElementById('burgerMenu');
-    const openBtn = document.getElementById('openBurgerBtn'); 
-    const closeBtn = document.getElementById('closeBurger');
-    const overlay = document.getElementById('burgerOverlay');
+  const burgerMenu = document.getElementById('burgerMenu');
+  const openBtn = document.getElementById('openBurgerBtn'); 
+  const closeBtn = document.getElementById('closeBurger');
 
   openBtn.addEventListener('click', () => {
     console.log("clicked open button");

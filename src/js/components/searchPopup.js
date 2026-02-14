@@ -5,7 +5,6 @@ export function searchPopup() {
   const searchPopupOverlay = document.getElementById('searchPopupOverlay');
 
   openBtn.addEventListener('click', () => {
-    console.log("clicked open button");
     popup.classList.remove('hidden');
     popup.classList.add('flex');
     document.body.classList.add("overflow-y-hidden");

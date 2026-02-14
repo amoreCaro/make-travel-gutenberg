@@ -12,6 +12,16 @@
          2xl:max-w-[2040px] 2xl:px-[40px];
 }
 
+.header--white {
+  @apply bg-white text-black;
+}
+
+.header--white a,
+.header--white a svg {
+  @apply text-black; 
+  stroke: currentColor; 
+}
+
 .show {
   max-height: 500px;
   opacity: 1;

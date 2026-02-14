@@ -19,13 +19,7 @@ module.exports = {
       '3xl': '2560px',
     },
 
-    container: {
-      center: true,
-      padding: '1.25rem',
-      screens: {
-        lg: '1440px', // 👈 кастомний max-width
-      },
-    },
+
 
     extend: {
       colors: {

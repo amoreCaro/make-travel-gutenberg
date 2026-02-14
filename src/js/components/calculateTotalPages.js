@@ -1,4 +1,3 @@
-// Файл: countPages.js (або .ts)
 export function calculateTotalPages() {
   // Знаходимо всі елементи page-item всередині pages-list
   const pageItems = document.querySelectorAll('.pages-list .page-item');

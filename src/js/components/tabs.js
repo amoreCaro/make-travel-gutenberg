@@ -77,27 +77,9 @@ function enableTabRedirect(selector) {
     });
 }
 
-// function handleMediaMenuScroll() {
-//   const menu = document.querySelector('.media-menu');
-//   if (!menu) return;
-
-//   // Визначаємо початкову точку, де знаходиться меню
-//   const stickyPoint = menu.offsetTop;
-
-//   window.addEventListener('scroll', () => {
-//     // Якщо проскролили більше, ніж позиція меню — додаємо клас
-//     if (window.scrollY > stickyPoint) {
-//       menu.classList.add('h-fixed');
-//     } else {
-//       menu.classList.remove('h-fixed');
-//     }
-//   });
-// }
-
 
 export function tabs() {
   initMenu();
   initTabsSwitch();
   enableTabRedirect('.media-menu__tab'); 
-  // handleMediaMenuScroll(); 
 }
