@@ -101,3 +101,58 @@
 .btn-back:hover span {
   @apply opacity-100 translate-x-0 delay-150;
 }
+
+
+/* Ліва сторона: вилітає з легким нахилом вправо */
+@keyframes smooth-reveal {
+  0% {
+    opacity: 0;
+    /* Починаємо: нижче, менше, розмито і з нахилом назад */
+    transform: translateY(60px) scale(0.8) translateX(var(--tw-translate-x)) perspective(1000px) rotateX(-10deg) rotateY(10deg);
+    filter: blur(15px) brightness(0.8);
+  }
+  100% {
+    opacity: 0.9;
+    /* Фініш: ідеально рівно */
+    transform: translateY(0) scale(1) translateX(var(--tw-translate-x)) perspective(1000px) rotateX(0deg) rotateY(0deg);
+    filter: blur(0) brightness(1);
+  }
+}
+
+/* Права сторона: вилітає з легким нахилом вліво (дзеркально) */
+@keyframes smooth-reveal-right {
+  0% {
+    opacity: 0;
+    transform: translateY(60px) scale(0.8) translateX(var(--tw-translate-x)) perspective(1000px) rotateX(-10deg) rotateY(-10deg);
+    filter: blur(15px) brightness(0.8);
+  }
+  100% {
+    opacity: 0.9;
+    transform: translateY(0) scale(1) translateX(var(--tw-translate-x)) perspective(1000px) rotateX(0deg) rotateY(0deg);
+    filter: blur(0) brightness(1);
+  }
+}
+
+.animate-card-smooth {
+  opacity: 0;
+  /* Використовуємо "Quintic" easing для супер-плавного гальмування */
+  animation: smooth-reveal 1.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+  will-change: transform, opacity;
+}
+
+.animate-card-right {
+  opacity: 0;
+  animation: smooth-reveal-right 1.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+  will-change: transform, opacity;
+}
+
+/* Hover-ефект: легке піднесення та насиченість */
+.animate-card-smooth:hover,
+.animate-card-right:hover {
+  opacity: 1 !important;
+  transform: translateY(-15px) scale(1.05) translateX(var(--tw-translate-x)) !important;
+  filter: brightness(1.05) saturate(1.1);
+  transition: all 0.5s cubic-bezier(0.33, 1, 0.68, 1);
+  z-index: 50;
+  pointer-events: auto;
+}

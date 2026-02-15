@@ -79,97 +79,121 @@
         <!-- Main  -->
         <main class="main bg-gray-50 min-h-screen">
             <div class="main-page">
+                
+                <section class="hero relative min-h-[700px] 2xl:min-h-[800px] 3xl:min-h-[900px] flex flex-col items-center justify-center bg-white overflow-hidden px-4 font-sans">
+                    <div class="absolute left-0 top-1/2 -translate-y-1/2 hidden xl:grid grid-cols-[repeat(4,min-content)] gap-6 2xl:gap-10 w-max pointer-events-none items-start">
 
-                <section class="relative min-h-[700px] flex flex-col items-center justify-center bg-white overflow-hidden px-4 font-sans">
-                    <div class="absolute left-[-2%] top-1/2 -translate-y-1/2 hidden xl:grid grid-cols-4 gap-4 w-[30%] 2xl:w-[35%] 3xl:w-[40%] opacity-90 pointer-events-none">
-                        
                         <div class="space-y-4 2xl:space-y-8 3xl:space-y-12 mt-8 2xl:mt-12 3xl:mt-16">
-                            <div class="h-48 w-48 2xl:h-64 2xl:w-64 3xl:h-80 3xl:w-80 bg-gray-200 rounded-2xl overflow-hidden shadow-lg -translate-x-[10%]">
-                                <img src="travel1.jpg" class="object-cover w-full h-full" alt="Travel 1">
+                            <div class="animate-card-smooth [animation-delay:600ms] h-48 w-48 2xl:h-64 2xl:w-64 3xl:h-80 3xl:w-80 max-w-full bg-gray-200 rounded-2xl overflow-hidden shadow-lg -translate-x-[25%]">
+                                <figure class="w-full h-full overflow-hidden">
+                                    <picture class="block w-full h-full">
+                                        <img src="./images/volkswagen.png" class="object-cover w-full h-full" alt="Travel 1">
+                                    </picture>
+                                </figure>
                             </div>
-
-                            <div class="h-48 w-48 2xl:h-64 2xl:w-64 3xl:h-80 3xl:w-80 bg-gray-200 rounded-2xl overflow-hidden shadow-lg -translate-x-[50%]">
-                                <img src="travel2.jpg" class="object-cover w-full h-full" alt="Travel 2">
-                            </div>
-                        </div>
-
-                        <div class="space-y-4 2xl:space-y-8 3xl:space-y-12 pl-16 2xl:pl-0 pt-24 2xl:pt-32 3xl:pt-40">
-                            <div class="h-32 w-32 2xl:h-44 2xl:w-44 3xl:h-56 3xl:w-56 bg-gray-200 rounded-2xl overflow-hidden shadow-lg">
-                                <img src="./images/louvre.png" class="object-cover w-full h-full" alt="Louvre">
-                            </div>
-                            <div class="h-[150px] w-[150px] 2xl:h-[210px] 2xl:w-[210px] 3xl:h-[280px] 3xl:w-[280px] bg-gray-200 rounded-2xl overflow-hidden shadow-lg -translate-x-[80px] 2xl:-translate-x-[100px]">
-                                <img src="./images/desert.jpg" class="object-cover w-full h-full" alt="Desert">
+                            <div class="animate-card-smooth [animation-delay:750ms] h-48 w-48 2xl:h-64 2xl:w-64 3xl:h-80 3xl:w-80 max-w-full bg-gray-200 rounded-2xl overflow-hidden shadow-lg -translate-x-[50%]">
+                                <figure class="w-full h-full overflow-hidden">
+                                    <picture class="block w-full h-full">
+                                        <img src="./images/uk.png" class="object-cover w-full h-full" alt="Travel 2">
+                                    </picture>
+                                </figure>
                             </div>
                         </div>
 
-                        <div class="space-y-4 2xl:space-y-8 3xl:space-y-12 pl-14 2xl:pl-0 pt-[130px] 2xl:pt-[160px] 3xl:pt-[200px] 3xl:-translate-x-[25%]">
-                            <div class="h-[100px] w-[100px] 2xl:h-[140px] 2xl:w-[140px] 3xl:h-[180px] 3xl:w-[180px] bg-gray-200 rounded-2xl overflow-hidden shadow-lg translate-x-1/4">
-                                <img src="travel5.jpg" class="object-cover w-full h-full" alt="Travel 5">
+                        <div class="space-y-4 2xl:space-y-8 3xl:space-y-12 pt-24 2xl:pt-32 3xl:pt-40">
+                            <div class="animate-card-smooth [animation-delay:400ms] h-32 w-32 2xl:h-44 2xl:w-44 3xl:h-56 3xl:w-56 max-w-full bg-gray-200 rounded-2xl overflow-hidden shadow-lg -translate-x-[35%] 3xl:-translate-x-[40%]">
+                                <figure class="w-full h-full overflow-hidden">
+                                    <picture class="block w-full h-full">
+                                        <img src="./images/louvre.png" class="object-cover w-full h-full" alt="Louvre">
+                                    </picture>
+                                </figure>
                             </div>
-                            <div class="h-[110px] w-[110px] 2xl:h-[150px] 2xl:w-[150px] 3xl:h-[200px] 3xl:w-[200px] bg-gray-200 rounded-2xl overflow-hidden shadow-lg -translate-x-[30px]">
-                                <img src="./images/canyon.png" class="object-cover w-full h-full" alt="Canyon">
+                            <div class="animate-card-smooth [animation-delay:550ms] h-[160px] w-[160px] 2xl:h-[210px] 2xl:w-[210px] 3xl:h-[280px] 3xl:w-[280px] max-w-full bg-gray-200 rounded-2xl overflow-hidden shadow-lg -translate-x-[60%]">
+                                <figure class="w-full h-full overflow-hidden">
+                                    <picture class="block w-full h-full">
+                                        <img src="./images/surfer.png" class="object-cover w-full h-full" alt="Desert">
+                                    </picture>
+                                </figure>
                             </div>
                         </div>
 
-                        <div class="space-y-4 2xl:space-y-8 3xl:space-y-12 pl-16 pt-[240px] -translate-x-[40%]  2xl:pt-[260px] 3xl:pt-[430px] 3xl:-translate-x-[80%]">
-                            <div class="h-20 w-20 2xl:h-32 2xl:w-32 3xl:h-40 3xl:w-40 bg-gray-200 rounded-2xl overflow-hidden shadow-lg">
-                                <img src="travel7.jpg" class="object-cover w-full h-full" alt="Travel 7">
+                        <div class="space-y-4 2xl:space-y-8 3xl:space-y-12 pt-[145px] 2xl:pt-[160px] 3xl:pt-[230px]">
+                            <div class="animate-card-smooth [animation-delay:200ms] h-20 w-20 2xl:h-[140px] 2xl:w-[140px] 3xl:h-[150px] 3xl:w-[150px] max-w-full bg-gray-200 rounded-2xl overflow-hidden shadow-lg -translate-x-[100%] 2xl:-translate-x-[70%] 3xl:-translate-x-[100%]">
+                                <figure class="w-full h-full overflow-hidden">
+                                    <picture class="block w-full h-full">
+                                        <img src="./images/two-glasses-of-wine.png" class="object-cover w-full h-full" alt="Travel 5">
+                                    </picture>
+                                </figure>
+                            </div>
+                            <div class="animate-card-smooth [animation-delay:350ms] h-[120px] w-[120px] 2xl:h-[150px] 2xl:w-[150px] 3xl:h-[200px] 3xl:w-[200px] max-w-full bg-gray-200 rounded-2xl overflow-hidden shadow-lg -translate-x-[85%]">
+                                <figure class="w-full h-full overflow-hidden">
+                                    <picture class="block w-full h-full">
+                                        <img src="./images/canyon.png" class="object-cover w-full h-full" alt="Canyon">
+                                    </picture>
+                                </figure>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4 2xl:space-y-8 3xl:space-y-12 pt-[240px] 2xl:pt-[330px] 3xl:pt-[430px]">
+                            <div class="animate-card-smooth [animation-delay:50ms] h-[90px] w-[90px] 2xl:h-[100px] 2xl:w-[100px] 3xl:h-40 3xl:w-40 max-w-full bg-gray-200 rounded-2xl overflow-hidden shadow-lg -translate-x-[120%] 2xl:-translate-x-[140%] 3xl:-translate-x-[110%]">
+                                <figure class="w-full h-full overflow-hidden">
+                                    <picture class="block w-full h-full">
+                                        <img src="./images/desert.png" class="object-cover w-full h-full" alt="Travel 7">
+                                    </picture>
+                                </figure>
                             </div>
                         </div>
                     </div>
-
-                    <div class="z-10 text-center max-w-3xl w-full">
-                        <h1 class="text-7xl md:text-8xl font-medium text-[#1a1a1a] mb-10 tracking-tight">
+                    <div class="z-10 text-center max-w-3xl w-full px-4">
+                        <h1 class="text-5xl sm:text-7xl md:text-8xl font-medium text-[#1a1a1a] mb-6 md:mb-10 tracking-tight">
                             Where Next?
                         </h1>
                         
-                        <div class="relative max-w-2xl mx-auto group">
-                            <span class="absolute inset-y-0 left-6 flex items-center text-gray-400">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <div class="relative max-w-2xl mx-auto group cursor-pointer">
+                            <span class="absolute inset-y-0 left-5 sm:left-6 flex items-center text-gray-400">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6 text-zinc-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                                 </svg>
                             </span>
                             <input 
                                 type="text" 
-                                placeholder="Search for the hotel, restaurant, destination" 
-                                class="w-full py-6 pl-16 pr-8 bg-white border border-gray-200 rounded-full shadow-[0_10px_40px_-15px_rgba(0,0,0,0.1)] focus:outline-none focus:ring-2 focus:ring-black/5 focus:border-gray-300 transition-all text-lg text-gray-700 placeholder:text-gray-400"
+                                placeholder="Search for the hotel, restaurant..." 
+                                class="w-full py-4 sm:py-6 pl-12 sm:pl-16 pr-6 bg-white border border-gray-500 rounded-full shadow-[0_10px_40px_-15px_rgba(0,0,0,0.1)] focus:outline-none focus:ring-2 focus:ring-black/5 focus:border-gray-300 transition-all text-base sm:text-lg text-gray-700 placeholder:text-gray-400"
                             >
                         </div>
-                        <div class="mt-8 flex flex-wrap justify-center gap-8 text-[15px] text-gray-500 font-medium">
-                            <a href="#" class="hover:text-black transition-colors flex items-center gap-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+
+                        <div class="mt-6 md:mt-8 flex flex-wrap justify-center gap-2 sm:gap-4 text-[14px] sm:text-[15px] text-gray-700 font-medium">
+                            <a href="#" class="flex items-center gap-2 bg-[#F5F5F5] px-3 py-1.5 sm:px-4 sm:py-2 rounded-full hover:bg-gray-200 hover:text-black transition-all text-sm sm:text-base leading-snug whitespace-nowrap">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" class="sm:w-4 sm:h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                                     <circle cx="12" cy="10" r="3"></circle>
                                 </svg>
                                 Paris
                             </a>
                             
-                            <a href="#" class="hover:text-black transition-colors flex items-center gap-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <a href="#" class="flex items-center gap-2 bg-[#F5F5F5] px-3 py-1.5 sm:px-4 sm:py-2 rounded-full hover:bg-gray-200 hover:text-black transition-all text-sm sm:text-base leading-snug whitespace-nowrap">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" class="sm:w-4 sm:h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                                     <circle cx="12" cy="10" r="3"></circle>
                                 </svg>
                                 Cairo
                             </a>
-
-                            <a href="#" class="hover:text-black transition-colors flex items-center gap-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <a href="#" class="flex items-center gap-2 bg-[#F5F5F5] px-3 py-1.5 sm:px-4 sm:py-2 rounded-full hover:bg-gray-200 hover:text-black transition-all text-sm sm:text-base leading-snug whitespace-nowrap">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" class="sm:w-4 sm:h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                                     <circle cx="12" cy="10" r="3"></circle>
                                 </svg>
                                 Cape Town
                             </a>
-
-                            <a href="#" class="hover:text-black transition-colors flex items-center gap-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <a href="#" class="flex items-center gap-2 bg-[#F5F5F5] px-3 py-1.5 sm:px-4 sm:py-2 rounded-full hover:bg-gray-200 hover:text-black transition-all text-sm sm:text-base leading-snug whitespace-nowrap">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" class="sm:w-4 sm:h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                                     <circle cx="12" cy="10" r="3"></circle>
                                 </svg>
                                 Mexico
                             </a>
-
-                            <a href="#" class="hover:text-black transition-colors flex items-center gap-2 leading-none">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <a href="#" class="flex items-center gap-2 bg-[#F5F5F5] px-3 py-1.5 sm:px-4 sm:py-2 rounded-full hover:bg-gray-200 hover:text-black transition-all text-sm sm:text-base leading-snug whitespace-nowrap">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" class="sm:w-4 sm:h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                                     <circle cx="12" cy="10" r="3"></circle>
                                 </svg>
@@ -177,46 +201,70 @@
                             </a>
                         </div>
                     </div>
-
-                    <div class="absolute right-[-2%] top-1/3 -translate-y-1/3 hidden xl:grid grid-cols-4 gap-4 w-[30%] 2xl:w-[35%] 3xl:w-[40%] opacity-90 pointer-events-none">
+                    <div class="absolute right-0 top-1/2 -translate-y-1/2 hidden xl:grid grid-cols-[repeat(4,min-content)] gap-6 2xl:gap-10 w-max pointer-events-none items-start">
                         
-                        <div class="space-y-4 2xl:space-y-8 3xl:space-y-12 pl-20 pt-[145px] -translate-x-[15px] 2xl:pt-[260px] 3xl:pt-[430px] 3xl:translate-x-[80%]">
-                            <div class="h-20 w-20 2xl:h-32 2xl:w-32 3xl:h-40 3xl:w-40 bg-gray-200 rounded-2xl overflow-hidden shadow-lg">
-                                <img src="travel7.jpg" class="object-cover w-full h-full" alt="Travel 7">
+                        <div class="space-y-4 2xl:space-y-8 3xl:space-y-12 pt-[145px] 2xl:pt-[200px] 3xl:pt-[230px]">
+                            <div class="animate-card-right [animation-delay:50ms] h-20 w-20 2xl:h-[100px] 2xl:w-[100px] 3xl:h-[150px] 3xl:w-[150px] max-w-full bg-gray-200 rounded-2xl overflow-hidden shadow-lg translate-x-[140%] 2xl:translate-x-[170%] 3xl:translate-x-[140%]">
+                                <figure class="w-full h-full overflow-hidden">
+                                    <picture class="block w-full h-full">
+                                        <img src="./images/colisey.jpg" class="object-cover w-full h-full" alt="Travel 7">
+                                    </picture>
+                                </figure>
                             </div>
                         </div>
 
-                        <div class="space-y-4 2xl:space-y-8 3xl:space-y-12 pl-14 2xl:pl-0 pt-[125px] 2xl:pt-[160px] 3xl:pt-[200px] 3xl:translate-x-[25%]">
-                            <div class="h-[100px] w-[100px] 2xl:h-[140px] 2xl:w-[140px] 3xl:h-[180px] 3xl:w-[180px] bg-gray-200 rounded-2xl overflow-hidden shadow-lg -translate-x-1/4">
-                                <img src="travel5.jpg" class="object-cover w-full h-full" alt="Travel 5">
+                        <div class="space-y-4 2xl:space-y-8 3xl:space-y-12 pt-[125px] 2xl:pt-[160px] 3xl:pt-[200px]">
+                            <div class="animate-card-right [animation-delay:200ms] h-[100px] w-[100px] 2xl:h-[140px] 2xl:w-[140px] 3xl:h-[180px] 3xl:w-[180px] max-w-full bg-gray-200 rounded-2xl overflow-hidden shadow-lg translate-x-[110%]">
+                                <figure class="w-full h-full overflow-hidden">
+                                    <picture class="block w-full h-full">
+                                        <img src="./images/palms.png" class="object-cover w-full h-full" alt="Travel 5">
+                                    </picture>
+                                </figure>
                             </div>
-                            <div class="h-[120px] w-[120px] 2xl:h-[150px] 2xl:w-[150px] 3xl:h-[200px] 3xl:w-[200px] bg-gray-200 rounded-2xl overflow-hidden shadow-lg -translate-x-[50px]">
-                                <img src="./images/canyon.png" class="object-cover w-full h-full" alt="Canyon">
+                            <div class="animate-card-right [animation-delay:350ms] h-[120px] w-[120px] 2xl:h-[150px] 2xl:w-[150px] 3xl:h-[200px] 3xl:w-[200px] max-w-full bg-gray-200 rounded-2xl overflow-hidden shadow-lg translate-x-[85%]">
+                                <figure class="w-full h-full overflow-hidden">
+                                    <picture class="block w-full h-full">
+                                        <img src="./images/bridge.png" class="object-cover w-full h-full" alt="Canyon">
+                                    </picture>
+                                </figure>
                             </div>
                         </div>
 
-                        <div class="space-y-4 2xl:space-y-8 3xl:space-y-12 pl-16 2xl:pl-0 pt-24 2xl:pt-32 3xl:pt-40">
-                            <div class="h-32 w-32 2xl:h-44 2xl:w-44 3xl:h-56 3xl:w-56 bg-gray-200 rounded-2xl overflow-hidden shadow-lg -translate-x-[60px]">
-                                <img src="./images/louvre.png" class="object-cover w-full h-full" alt="Louvre">
+                        <div class="space-y-4 2xl:space-y-8 3xl:space-y-12 pt-24 2xl:pt-32 3xl:pt-40">
+                            <div class="animate-card-right [animation-delay:400ms] h-32 w-32 2xl:h-44 2xl:w-44 3xl:h-56 3xl:w-56 max-w-full bg-gray-200 rounded-2xl overflow-hidden shadow-lg translate-x-[75%]">
+                                <figure class="w-full h-full overflow-hidden">
+                                    <picture class="block w-full h-full">
+                                        <img src="./images/sea.png" class="object-cover w-full h-full" alt="Louvre">
+                                    </picture>
+                                </figure>
                             </div>
-                            <div class="h-[150px] w-[150px] 2xl:h-[210px] 2xl:w-[210px] 3xl:h-[280px] 3xl:w-[280px] bg-gray-200 rounded-2xl overflow-hidden shadow-lg -translate-x-[55px] 2xl:translate-x-[100px]">
-                                <img src="./images/desert.jpg" class="object-cover w-full h-full" alt="Desert">
+                            <div class="animate-card-right [animation-delay:550ms] h-[160px] w-[160px] 2xl:h-[210px] 2xl:w-[210px] 3xl:h-[280px] 3xl:w-[280px] max-w-full bg-gray-200 rounded-2xl overflow-hidden shadow-lg translate-x-[60%]">
+                                <figure class="w-full h-full overflow-hidden">
+                                    <picture class="block w-full h-full">
+                                        <img src="./images/travel-right-3.jpg" class="object-cover w-full h-full" alt="Desert">
+                                    </picture>
+                                </figure>
                             </div>
                         </div>
 
                         <div class="space-y-4 2xl:space-y-8 3xl:space-y-12 mt-8 2xl:mt-12 3xl:mt-16">
-                            <div class="h-48 w-48 2xl:h-64 2xl:w-64 3xl:h-80 3xl:w-80 bg-gray-200 rounded-2xl overflow-hidden shadow-lg translate-x-[5%]">
-                                <img src="travel1.jpg" class="object-cover w-full h-full" alt="Travel 1">
+                            <div class="animate-card-right [animation-delay:600ms] h-48 w-48 2xl:h-64 2xl:w-64 3xl:h-80 3xl:w-80 max-w-full bg-gray-200 rounded-2xl overflow-hidden shadow-lg translate-x-[30%]">
+                                <figure class="w-full h-full overflow-hidden">
+                                    <picture class="block w-full h-full">
+                                        <img src="./images/forest.png" class="object-cover w-full h-full" alt="Travel 1">
+                                    </picture>
+                                </figure>
                             </div>
-
-                            <div class="h-48 w-48 2xl:h-64 2xl:w-64 3xl:h-80 3xl:w-80 bg-gray-200 rounded-2xl overflow-hidden shadow-lg translate-x-[20%]">
-                                <img src="travel2.jpg" class="object-cover w-full h-full" alt="Travel 2">
+                            <div class="animate-card-right [animation-delay:750ms] h-48 w-48 2xl:h-64 2xl:w-64 3xl:h-80 3xl:w-80 max-w-full bg-gray-200 rounded-2xl overflow-hidden shadow-lg translate-x-[50%]">
+                                <figure class="w-full h-full overflow-hidden">
+                                    <picture class="block w-full h-full">
+                                        <img src="./images/red-land.png" class="object-cover w-full h-full" alt="Travel 2">
+                                    </picture>
+                                </figure>
                             </div>
                         </div>
-
                     </div>
                 </section>
-
 
                 <section class="bento-grid max-w-[1800px] mx-auto lg:pt-[120px] pt-[120px] lg:pb-[100px] pb-[50px] px-5 xl:px-10 2xl:px-0">
 
@@ -444,7 +492,7 @@
                     <input
                         id="search-input"
                         type="text"
-                        class="block w-full rounded-2xl bg-zinc-900/50 border border-white/10 py-5 pl-14 pr-24 text-xl text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:bg-zinc-900 shadow-2xl transition-all duration-200"
+                        class="block w-full rounded-2xl bg-zinc-900/50 border border-white/10 py-5 pl-14 pr-24 text-xl leading-snug text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:bg-zinc-900 shadow-2xl transition-all duration-200"
                         placeholder="Search..."
                         autocomplete="off"
                     />
