@@ -7,10 +7,10 @@
     <link rel="stylesheet" href="./css/main.css">
 <link href="css/main.css" rel="stylesheet"></head>
 <body class="bg-[#F6F5F8] m-0 p-0 font-[18px] leading-[36px] text-gray">
-    <div class="wrapper">
+    <div class="l-wrapper">
         <!-- Header -->
-        <header class="header-default fixed top-0 left-0 z-50 w-full bg-black px-5 xl:px-10 h-[80px] flex items-center text-white">
-            <div class="w-full max-w-[1800px] mx-auto flex items-center justify-between">
+        <header class="header-default fixed top-0 left-0 z-[100] w-full bg-black px-5 xl:px-10 h-[80px] flex items-center text-white">
+            <div class="container flex items-center justify-between">
                 
                 <a class="text-xl font-semibold tracking-tight text-white transition-opacity no-underline flex-shrink-0" href="#logo">
                     Travel Guider
@@ -77,11 +77,11 @@
             </div>
         </header>
         <!-- Main  -->
-        <main class="main bg-gray-50 min-h-screen px-5 xl:px-10 2xl:px-0">
+        <main class="main bg-gray-50 min-h-screen px-5 lg:px-10 2xl:px-0">
             <div class="category-page">
                 <div class="lg:pt-[120px] pt-[120px] lg:pb-[100px] pb-[50px]">
-                    <section class="bento-grid max-w-[1800px] mx-auto">
-                        <div class="flex items-center gap-4 mb-12">
+                    <section class="bento-grid mx-auto">
+                        <div class="flex items-center gap-4 mb-12 container">
                             <h1 class="text-black text-[32px] md:text-[40px] lg:text-[48px] xl:text-[56px] font-semibold tracking-tight leading-tight">
                                 Editor's Choice
                             </h1>
@@ -97,12 +97,14 @@
                             </div>
                         </div>
         
-                        <div class="space-y-8 md:space-y-12">
+                        <div class="space-y-8 md:space-y-12 container">
                             <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 md:gap-10">
                                 <a href="#" class="order-2 lg:order-1 group flex flex-col bg-white overflow-hidden rounded-[24px] shadow-sm w-full min-h-[450px]">
                                     <div class="h-[200px] md:h-[285px] overflow-hidden">
-                                        <img src="./images/food.png" alt="Food" 
-                                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                                        <picture class="block w-full h-full">
+                                            <img src="./images/food.png" alt="Food" 
+                                                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                                        </picture>
                                     </div>
                                     
                                     <div class="p-6 md:p-8 flex flex-col flex-grow">
@@ -125,10 +127,12 @@
                                     </div>
                                 </a>
                 
-                                <a href="#" class="order-1 lg:order-2 group lg:col-span-3 bg-neutral-950 rounded-[24px] md:rounded-[32px] overflow-hidden flex flex-col lg:flex-row lg:h-[680px]">
+                                <a href="#" class="order-1 lg:order-2 group lg:col-span-3 bg-neutral-950 rounded-[24px] md:rounded-[32px] overflow-hidden flex flex-col lg:flex-row lg:min-h-[680px]">
                                     <div class="h-[300px] sm:h-[400px] lg:h-auto lg:w-[55%] overflow-hidden relative">
-                                        <img src="./images/vine.png" alt="Travel" 
-                                            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                                        <picture class="block w-full h-full">
+                                            <img src="./images/vine.png" alt="Travel" 
+                                                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                                        </picture>
                                         <div class="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-black/80 lg:from-black/60 to-transparent z-10"></div>
                                     </div>
                 
@@ -142,7 +146,7 @@
                                             Bucket List Travel: Top 50 Must-Visit Places in the World
                                         </h4>
                 
-                                        <p class="text-[#C4C4C4] text-base md:text-[18px] lg:text-[20px] xl:text-[22px] leading-relaxed mb-6 md:mb-10 font-light ">
+                                        <p class="text-[#C4C4C4] text-base md:text-[18px] lg:text-[20px] xl:text-[22px] leading-relaxed mb-6 md:mb-10 font-light ">                                        
                                             What's on your travel bucket list? If you're like most people, the more you travel, the more places you add to your bucket list. So when the editors of the website Big 7 Travel announced the list of the world's top 50 bucket list destinations, we stopped in our tracks and started checking off the boxes.
                                         </p>
                 
@@ -155,8 +159,10 @@
                                 
                                 <a href="#" class="group flex flex-col bg-white overflow-hidden rounded-[24px] shadow-sm w-full min-h-[450px]">
                                     <div class="h-[200px] md:h-[285px] overflow-hidden">
-                                        <img src="./images/road.jpeg" alt="Family" 
-                                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                                        <picture class="block w-full h-full">
+                                            <img src="./images/road.jpeg" alt="Family" 
+                                                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                                        </picture>
                                     </div>
                                     <div class="p-6 md:p-8 flex flex-col flex-grow">
                                         <span class="bg-[#EEE6FB] flex items-center gap-2 text-black text-[14px] font-medium capitalize px-5 py-1 rounded-full w-fit mb-4">
@@ -170,8 +176,10 @@
             
                                 <a href="#" class="group flex flex-col bg-white overflow-hidden rounded-[24px] shadow-sm w-full min-h-[450px]">
                                     <div class="h-[200px] md:h-[285px] overflow-hidden">
-                                        <img src="./images/mountain.jpg" alt="Europe" 
-                                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                                        <picture class="block w-full h-full">
+                                            <img src="./images/mountain.jpg" alt="Europe" 
+                                                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                                        </picture>
                                     </div>
                                     <div class="p-6 md:p-8 flex flex-col flex-grow">
                                         <span class="bg-[#E3EEEF] flex items-center gap-2 text-black text-[14px] font-medium capitalize px-5 py-1 rounded-full w-fit mb-4">
@@ -185,8 +193,10 @@
             
                                 <a href="#" class="group flex flex-col bg-white overflow-hidden rounded-[24px] shadow-sm w-full min-h-[450px]">
                                     <div class="h-[200px] md:h-[285px] overflow-hidden">
-                                        <img src="./images/vine-small.png" alt="Wine" 
-                                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                                        <picture class="block w-full h-full">
+                                            <img src="./images/vine-small.png" alt="Wine" 
+                                                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                                        </picture>
                                     </div>
                                     <div class="p-6 md:p-8 flex flex-col flex-grow">
                                         <span class="bg-[#E9F7DC] flex items-center gap-2 text-black text-[14px] font-medium capitalize px-5 py-1 rounded-full w-fit mb-4">
@@ -201,9 +211,11 @@
                                 </a>
             
                                 <a href="#" class="group flex flex-col bg-white overflow-hidden rounded-[24px] shadow-sm w-full min-h-[450px]">
-                                    <div class="h-[200px] md:h-[285px] overflow-hidden">
-                                        <img src="./images/venice.png" alt="Venice" 
-                                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                                    <div class="h-[200px] md:h-[285px] overflow-hidden">    
+                                        <picture class="block w-full h-full">
+                                            <img src="./images/venice.png" alt="Venice" 
+                                                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                                        </picture>
                                     </div>
                                     <div class="p-6 md:p-8 flex flex-col flex-grow">
                                         <span class="bg-[#EEE6FB] flex items-center gap-2 text-black text-[14px] font-medium capitalize px-5 py-1 rounded-full w-fit mb-4">

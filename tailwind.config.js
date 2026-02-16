@@ -19,8 +19,13 @@ module.exports = {
       '3xl': '2560px',
     },
 
-
-
+    container: {
+      center: true,
+      screens: {
+        DEFAULT: '1800px',
+      },
+    },
+    
     extend: {
       colors: {
         gray: '#9395ABCC',
