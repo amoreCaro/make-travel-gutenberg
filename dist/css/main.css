@@ -797,6 +797,9 @@ video {
 .z-50{
   z-index: 50;
 }
+.z-\[1000\]{
+  z-index: 1000;
+}
 .z-\[100\]{
   z-index: 100;
 }
@@ -891,9 +894,6 @@ video {
 .hidden{
   display: none;
 }
-.aspect-\[2\/1\]{
-  aspect-ratio: 2/1;
-}
 .h-12{
   height: 3rem;
 }
@@ -936,6 +936,9 @@ video {
 .h-\[120px\]{
   height: 120px;
 }
+.h-\[133px\]{
+  height: 133px;
+}
 .h-\[160px\]{
   height: 160px;
 }
@@ -971,9 +974,6 @@ video {
 }
 .h-full{
   height: 100%;
-}
-.h-\[133px\]{
-  height: 133px;
 }
 .max-h-0{
   max-height: 0px;
@@ -1094,8 +1094,8 @@ video {
 .max-w-\[200px\]{
   max-width: 200px;
 }
-.max-w-\[240px\]{
-  max-width: 240px;
+.max-w-\[266px\]{
+  max-width: 266px;
 }
 .max-w-\[800px\]{
   max-width: 800px;
@@ -1111,9 +1111,6 @@ video {
 }
 .max-w-xl{
   max-width: 36rem;
-}
-.max-w-\[266px\]{
-  max-width: 266px;
 }
 .flex-1{
   flex: 1 1 0%;
@@ -1390,9 +1387,6 @@ video {
   --tw-border-opacity: 1;
   border-color: rgb(0 0 0 / var(--tw-border-opacity, 1));
 }
-.border-black\/5{
-  border-color: rgb(0 0 0 / 0.05);
-}
 .border-blue-400{
   --tw-border-opacity: 1;
   border-color: rgb(96 165 250 / var(--tw-border-opacity, 1));
@@ -1429,17 +1423,9 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(233 247 220 / var(--tw-bg-opacity, 1));
 }
-.bg-\[\#E9F7DD\]{
-  --tw-bg-opacity: 1;
-  background-color: rgb(233 247 221 / var(--tw-bg-opacity, 1));
-}
 .bg-\[\#EEE6FB\]{
   --tw-bg-opacity: 1;
   background-color: rgb(238 230 251 / var(--tw-bg-opacity, 1));
-}
-.bg-\[\#EEE6FC\]{
-  --tw-bg-opacity: 1;
-  background-color: rgb(238 230 252 / var(--tw-bg-opacity, 1));
 }
 .bg-\[\#F5F5F5\]{
   --tw-bg-opacity: 1;
@@ -1932,9 +1918,6 @@ video {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity, 1));
 }
-.text-black\/80{
-  color: rgb(0 0 0 / 0.8);
-}
 .text-blue-400{
   --tw-text-opacity: 1;
   color: rgb(96 165 250 / var(--tw-text-opacity, 1));
@@ -2184,6 +2167,30 @@ video {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity, 1)); 
   stroke: currentColor;
+}
+/* --- Логіка для модифікатора navigation.navigation--white --- */
+/* 1. Скидання дефолтних параметрів (рамка та текст) */
+.navigation.navigation--white a {
+    border-color: transparent !important;
+    color: rgba(0, 0, 0, 0.8) !important;
+}
+/* 2. Унікальні фони для посилань всередині navigation.navigation--white */
+.navigation.navigation--white li:nth-child(1) a { background-color: #E9F7DD; }
+/* Зеленуватий */
+.navigation.navigation--white li:nth-child(2) a { background-color: #FDF0D0; }
+/* Жовтуватий */
+.navigation.navigation--white li:nth-child(3) a { background-color: #E3EEEF; }
+/* Блакитний */
+.navigation.navigation--white li:nth-child(4) a { background-color: #EEE6FC; }
+/* Фіолетовий */
+/* 3. Ефект наведення для кольорового режиму */
+.navigation.navigation--white a:hover {
+    filter: brightness(0.96);
+    background-color: inherit; /* Вимикаємо білий фон Tailwind при ховері */
+}
+/* 4. Колір іконок всередині navigation.navigation--white */
+.navigation.navigation--white a svg {
+    color: rgba(0, 0, 0, 0.7);
 }
 .show {
   max-height: 500px;
@@ -2500,10 +2507,6 @@ video {
 .hover\:decoration-blue-400:hover{
   text-decoration-color: #60a5fa;
 }
-.hover\:brightness-95:hover{
-  --tw-brightness: brightness(.95);
-  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
-}
 .focus\:bg-zinc-900:focus{
   --tw-bg-opacity: 1;
   background-color: rgb(24 24 27 / var(--tw-bg-opacity, 1));
@@ -2562,29 +2565,18 @@ video {
   --tw-text-opacity: 1;
   color: rgb(96 165 250 / var(--tw-text-opacity, 1));
 }
-.group:hover .group-hover\:text-blue-600{
-  --tw-text-opacity: 1;
-  color: rgb(37 99 235 / var(--tw-text-opacity, 1));
-}
 .group:hover .group-hover\:text-blue-500{
   --tw-text-opacity: 1;
   color: rgb(59 130 246 / var(--tw-text-opacity, 1));
 }
+.group:hover .group-hover\:text-blue-600{
+  --tw-text-opacity: 1;
+  color: rgb(37 99 235 / var(--tw-text-opacity, 1));
+}
 .group:hover .group-hover\:opacity-100{
   opacity: 1;
 }
-.group:hover .group-hover\:shadow-md{
-  --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
 .group\/bento.bento-grid--destinations .group-\[\.bento-grid--destinations\]\/bento\:block{
-  display: block;
-}
-.group\/section.has-destinations .group-\[\.has-destinations\]\/section\:block{
-  display: block;
-}
-.group\/content-section.has-destinations .group-\[\.has-destinations\]\/content-section\:block{
   display: block;
 }
 .group\/bento.bento-grid--button .group-\[\.bento-grid--button\]\/bento\:flex{
@@ -2594,12 +2586,6 @@ video {
   --tw-text-opacity: 1;
   color: rgb(37 99 235 / var(--tw-text-opacity, 1));
 }
-.has-\[\.show-destinations\]\:block:has(.show-destinations){
-  display: block;
-}
-.has-\[destinations\]\:block:has(destinations){
-  display: block;
-}
 @media (min-width: 640px){
   .sm\:left-6{
     left: 1.5rem;
@@ -2607,8 +2593,8 @@ video {
   .sm\:right-5{
     right: 1.25rem;
   }
-  .sm\:top-5{
-    top: 1.25rem;
+  .sm\:top-4{
+    top: 1rem;
   }
   .sm\:mb-12{
     margin-bottom: 3rem;
@@ -2746,9 +2732,6 @@ video {
   }
 }
 @media (min-width: 768px){
-  .md\:col-span-1{
-    grid-column: span 1 / span 1;
-  }
   .md\:mb-0{
     margin-bottom: 0px;
   }
@@ -2827,25 +2810,13 @@ video {
     padding-left: 2.25rem;
     padding-right: 2.25rem;
   }
-  .md\:py-12{
-    padding-top: 3rem;
-    padding-bottom: 3rem;
+  .md\:py-10{
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
   }
   .md\:py-3{
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
-  }
-  .md\:py-4{
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-  }
-  .md\:py-5{
-    padding-top: 1.25rem;
-    padding-bottom: 1.25rem;
-  }
-  .md\:py-10{
-    padding-top: 2.5rem;
-    padding-bottom: 2.5rem;
   }
   .md\:text-2xl{
     font-size: 1.5rem;
@@ -2891,10 +2862,6 @@ video {
   }
   .md\:text-xl{
     font-size: 1.25rem;
-    line-height: 1.75rem;
-  }
-  .md\:text-lg{
-    font-size: 1.125rem;
     line-height: 1.75rem;
   }
   .md\:leading-\[52px\]{

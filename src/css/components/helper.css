@@ -17,6 +17,31 @@
   stroke: currentColor; 
 }
 
+/* --- Логіка для модифікатора navigation.navigation--white --- */
+
+/* 1. Скидання дефолтних параметрів (рамка та текст) */
+.navigation.navigation--white a {
+    border-color: transparent !important;
+    color: rgba(0, 0, 0, 0.8) !important;
+}
+
+/* 2. Унікальні фони для посилань всередині navigation.navigation--white */
+.navigation.navigation--white li:nth-child(1) a { background-color: #E9F7DD; } /* Зеленуватий */
+.navigation.navigation--white li:nth-child(2) a { background-color: #FDF0D0; } /* Жовтуватий */
+.navigation.navigation--white li:nth-child(3) a { background-color: #E3EEEF; } /* Блакитний */
+.navigation.navigation--white li:nth-child(4) a { background-color: #EEE6FC; } /* Фіолетовий */
+
+/* 3. Ефект наведення для кольорового режиму */
+.navigation.navigation--white a:hover {
+    filter: brightness(0.96);
+    background-color: inherit; /* Вимикаємо білий фон Tailwind при ховері */
+}
+
+/* 4. Колір іконок всередині navigation.navigation--white */
+.navigation.navigation--white a svg {
+    color: rgba(0, 0, 0, 0.7);
+}
+
 .show {
   max-height: 500px;
   opacity: 1;
