@@ -11,7 +11,6 @@
   @apply bg-white text-black;
 }
 
-
 .header--white a,.header--white a svg {
   @apply text-black; 
   stroke: currentColor; 
@@ -175,4 +174,14 @@
   transition: all 0.5s cubic-bezier(0.33, 1, 0.68, 1);
   z-index: 50;
   pointer-events: auto;
+}
+/* Стани відео */
+.post__video {
+  &.is-playing .post__video-play-button {
+    @apply opacity-0 pointer-events-none;
+  }
+
+  &.is-paused .post__video-play-button {
+    @apply opacity-100 pointer-events-auto;
+  }
 }

@@ -1,26 +1,36 @@
 export function burgerMenu() {
   const burgerMenu = document.getElementById('burgerMenu');
-  const openBtn = document.getElementById('openBurgerBtn'); 
+  const openBtn = document.getElementById('openBurgerBtn');
   const closeBtn = document.getElementById('closeBurger');
 
-  openBtn.addEventListener('click', () => {
-    console.log("clicked open button");
-    burgerMenu.classList.remove('hidden');
-    burgerMenu.classList.add('flex');
-    document.body.classList.add("overflow-y-hidden");
+  if (!burgerMenu || !openBtn || !closeBtn) return;
+
+  /** Відкриття меню */
+  function openMenu() {
+    burgerMenu.classList.add('isShow');
+    document.body.classList.add('overflow-y-hidden');
+  }
+
+  /** Закриття меню */
+  function closeMenu() {
+    burgerMenu.classList.remove('isShow');
+    document.body.classList.remove('overflow-y-hidden');
+  }
+
+  /** Клік по кнопці відкриття */
+  openBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    openMenu();
   });
 
-  closeBtn.addEventListener('click', () => {
-    burgerMenu.classList.add('hidden');
-    burgerMenu.classList.remove('flex');
-    document.body.classList.remove("overflow-y-hidden");
+  /** Клік по кнопці закриття */
+  closeBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    closeMenu();
   });
 
-  // Закриття при натисканні поза контейнером
+  /** Закриття при кліку поза меню */
   burgerMenu.addEventListener('click', (e) => {
-    if (e.target === burgerMenu) {
-        burgerMenu.classList.add('hidden');
-        burgerMenu.classList.remove('flex');
-    }
+    if (e.target === burgerMenu) closeMenu();
   });
 }

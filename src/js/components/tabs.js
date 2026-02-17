@@ -77,7 +77,6 @@ function enableTabRedirect(selector) {
     });
 }
 
-
 export function tabs() {
   initMenu();
   initTabsSwitch();

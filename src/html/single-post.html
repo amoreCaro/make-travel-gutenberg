@@ -583,7 +583,9 @@
             </div>
         </footer>
         <!-- Burger Menu -->
-        <div id="burgerMenu" class="fixed inset-0 z-[1000] hidden flex items-center justify-center transition-all duration-300">
+        <div id="burgerMenu" class="group fixed inset-0 z-[1000] flex items-center justify-center
+            opacity-0 pointer-events-none transition-all duration-300
+            [&.isShow]:opacity-100 [&.isShow]:pointer-events-auto">
 
             <div id="burgerOverlay" class="absolute inset-0 bg-zinc-950/90 backdrop-blur-2xl"></div>
 

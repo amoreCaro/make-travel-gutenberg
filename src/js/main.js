@@ -1,15 +1,15 @@
 import { estimateSinglePostReadTime } from "./components/estimateSinglePostReadTime.js";
 import { calculateTotalPages } from "./components/calculateTotalPages.js";
 import { burgerMenu } from "./components/burgerMenu.js";
-import { searchPopup } from "./components/searchPopup.js";
 import { tabs } from './components/tabs.js';
 import { themeToggle } from './components/themeHandler.js';
+import { video } from './components/video.js';
 
 document.addEventListener('DOMContentLoaded', function() {
+  video();
   themeToggle();
   tabs();
   calculateTotalPages();
   burgerMenu();
-  searchPopup();
   estimateSinglePostReadTime();
 });
