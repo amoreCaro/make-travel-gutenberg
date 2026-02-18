@@ -64,6 +64,11 @@
 .active {
   @apply text-blue-600;
 }
+.showSlide {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(0);
+}
 
 .h-fixed {
   position: fixed;

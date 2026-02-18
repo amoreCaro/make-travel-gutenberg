@@ -7,13 +7,13 @@ export function burgerMenu() {
 
   /** Відкриття меню */
   function openMenu() {
-    burgerMenu.classList.add('isShow');
+    burgerMenu.classList.add('showSlide');
     document.body.classList.add('overflow-y-hidden');
   }
 
   /** Закриття меню */
   function closeMenu() {
-    burgerMenu.classList.remove('isShow');
+    burgerMenu.classList.remove('showSlide');
     document.body.classList.remove('overflow-y-hidden');
   }
 
