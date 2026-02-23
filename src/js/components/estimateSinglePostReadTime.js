@@ -1,24 +1,43 @@
 export function estimateSinglePostReadTime() {
-  const post = document.querySelector('.single-post');
-  const readTimeEl = document.querySelector('.single-post__read-time');
+  const root = document.querySelector('.single-post'); 
+  const article = document.querySelector('.h-article');
+  const title = document.querySelector('.post__title');
+  const excerpt = document.querySelector('.post__excerpt');
+  const readTimeEl = document.querySelector('.post__read-time');
 
-  // ❗ Якщо потрібних елементів нема — просто виходимо
-  if (!post || !readTimeEl) return;
+  if (!readTimeEl || !root) return;
 
-  // Text calculation
-  const text = post.innerText || '';
-  const words = text.trim().split(/\s+/).filter(Boolean).length;
-  const readingSpeed = 200; // words per minute
-  let timeMinutes = words / readingSpeed;
+  let textContent = '';
 
-  // Images calculation
-  const images = post.querySelectorAll('img').length;
-  const imageTime = images * 10; // 10 seconds per image
-  timeMinutes += imageTime / 60;
+  if (title) textContent += ' ' + title.innerText;
+  if (excerpt) textContent += ' ' + excerpt.innerText;
+  if (article) textContent += ' ' + article.innerText;
 
-  // Round to nearest minute (мінімум 1 хв)
-  const roundedTime = Math.max(1, Math.round(timeMinutes));
+  const words = textContent
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean).length;
 
-  // Update UI
-  readTimeEl.textContent = `${roundedTime} min read`;
+  const pictures = root.querySelectorAll('picture').length;
+  const images = root.querySelectorAll('img').length;
+  console.log('Images:', images);
+
+  const imageCount = Math.max(pictures, images);
+
+  const videoCount = root.querySelectorAll('video').length;
+
+  const READ_SPEED = 200;
+  const IMAGE_TIME = 10; // seconds
+  const VIDEO_TIME = 1.25;
+
+  const wordsTime = words / READ_SPEED;
+  const imagesTime = (imageCount * IMAGE_TIME) / 60;
+  const videosTime = videoCount * VIDEO_TIME;
+
+  const totalTime = Math.ceil(wordsTime + imagesTime + videosTime);
+
+  readTimeEl.textContent =
+    totalTime <= 1
+      ? 'Less than 1 min read'
+      : `${totalTime} min read`;
 }
