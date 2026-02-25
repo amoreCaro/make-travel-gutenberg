@@ -3252,6 +3252,9 @@ video {
     padding-left: 40px;
     padding-right: 40px;
   }
+  .xl\:pl-0{
+    padding-left: 0px;
+  }
   .xl\:pl-\[0px\]{
     padding-left: 0px;
   }
