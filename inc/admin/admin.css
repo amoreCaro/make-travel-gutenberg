@@ -1,0 +1,66 @@
+.editor-styles-wrapper,
+.editor-styles-wrapper * {
+    font-family: 'Roboto', sans-serif !important;
+}
+.acf-block-preview a {
+    pointer-events: none;
+}
+.interface-complementary-area__fill {
+    width: 420px !important;
+}
+
+.editor-sidebar {
+    width: 100% !important;
+}
+
+h1.wp-block.wp-block-post-title.block-editor-block-list__block.editor-post-title.editor-post-title__input.rich-text {
+    max-width: 60% !important;
+    width: 100% !important;
+    margin: 50px auto 4rem auto;
+    background: white;
+    padding: 20px;
+    font-size: 18px;
+}
+
+.wp-block-group,
+.wp-block-columns,
+.wp-block-column,
+.wp-block-cover,
+.wp-block-media-text {
+    margin: 0;
+    padding: 0;
+}
+
+.about__content article {
+    max-width: 48rem;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+}
+
+.container, .container-fluid {
+    margin-right: auto;
+    margin-left: auto;
+}
+.block-editor-block-list__block {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin: 0;
+}
+
+.yoast_cornerstone{
+    display: none !important;
+}
+
+.acf-block-preview {
+    overflow: visible !important;
+}
+
+.editor-styles-wrapper.block-editor-writing-flow {
+    background: #e8e8e8;
+}
