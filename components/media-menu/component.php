@@ -18,7 +18,7 @@ Block::make(__('Media Menu'))
 
                 $terms = get_terms([
                     'taxonomy'   => 'category',
-                    'hide_empty' => false,
+                    'hide_empty' => true,
                     'orderby'    => 'name',
                     'order'      => 'ASC',
                 ]);
@@ -39,7 +39,7 @@ Block::make(__('Media Menu'))
 
                 $terms = get_terms([
                     'taxonomy'   => 'post_tag',
-                    'hide_empty' => false,
+                    'hide_empty' => true,
                     'orderby'    => 'name',
                     'order'      => 'ASC',
                 ]);
@@ -62,6 +62,7 @@ Block::make(__('Media Menu'))
          * Selected data from Carbon Fields block
          */
         $selected_categories = $fields['media_categories'] ?? [];
+
         $selected_tags       = $fields['media_tags'] ?? [];
 
         /**
@@ -98,6 +99,12 @@ Block::make(__('Media Menu'))
         $current_tag_id = ($current instanceof WP_Term && $current->taxonomy === 'post_tag')
             ? $current->term_id
             : null;
+
+        /**
+         * "All news" is active when no specific category or tag is selected
+         */
+        $all_active = ($current_category_id === null && $current_tag_id === null);
+
         ?>
 
         <div class="media-menu absolute w-full top-[80px] z-50 bg-[#F6F5F8] dark:bg-[#0B0B0D] flex flex-col py-2">
@@ -123,7 +130,7 @@ Block::make(__('Media Menu'))
                             <!-- ALL -->
                             <li>
                                 <a href="<?php echo esc_url(home_url('/blog/')); ?>"
-                                   class="media-menu__tab uppercase block py-3 text-[15px] font-bold hover:text-black dark:hover:text-white">
+                                   class="media-menu__tab <?php echo esc_attr($all_active ? 'active' : ''); ?> uppercase block py-3 text-[15px] font-bold hover:text-black dark:hover:text-white">
                                     <?php _e("All news", THEME); ?>
                                 </a>
                             </li>

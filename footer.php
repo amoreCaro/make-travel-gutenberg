@@ -3,7 +3,20 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-$disclaimer = wp_kses_post( carbon_get_theme_option('footer_text') );
+$disclaimer = wp_kses_post(carbon_get_theme_option('footer_text'));
+
+$footer_items = carbon_get_theme_option('footer_items');
+
+$before_year = carbon_get_theme_option('footer_before_year');
+
+$pre_text = carbon_get_theme_option('footer_pre_text');
+
+$link_text = carbon_get_theme_option('footer_link_text');
+
+$link_url = carbon_get_theme_option('footer_link_url');
+
+$post_text = carbon_get_theme_option('footer_post_text');
+
 $current_year = date('Y');
 
 ?>

@@ -66,6 +66,35 @@ if (!function_exists('render_gallery_image')) {
 }
 
 /**
+ * Render image by index
+ */
+if (!function_exists('render_decor_image')) {
+    function render_decor_image($items, $index) {
+
+        if (empty($items[$index]['image'])) return;
+
+        $img = $items[$index]['image'];
+
+        // якщо ID
+        if (is_numeric($img)) {
+            $url = wp_get_attachment_image_url($img, 'medium');
+        } else {
+            $url = $img;
+        }
+
+        if (!$url) return;
+        ?>
+        <img
+            src="<?php echo esc_url($url); ?>"
+            class="lazy-img object-cover w-full h-full"
+            loading="lazy"
+            alt=""
+        >
+        <?php
+    }
+}
+
+/**
  * Визначає media-тип поста на основі блоку carbon-fields/media
  */
 function get_post_media_type(int $post_id): array
@@ -126,3 +155,29 @@ function get_post_media_type(int $post_id): array
     ];
 }
 
+if (!function_exists('estimate_post_read_time')) {
+
+    function estimate_post_read_time($post_id) {
+
+        $content = get_post_field('post_content', $post_id);
+        $text = wp_strip_all_tags($content);
+
+        // слова
+        $words = str_word_count($text);
+
+        // середня швидкість читання
+        $reading_speed = 200;
+
+        // час тексту
+        $minutes = ceil($words / $reading_speed);
+
+        // картинки
+        $images = substr_count($content, '<img');
+
+        // +10 сек за кожну картинку
+        $minutes += ceil(($images * 10) / 60);
+
+        return max(1, $minutes);
+    }
+
+}

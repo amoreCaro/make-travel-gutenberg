@@ -12,6 +12,7 @@ $categories = get_the_category();
 $title   = get_the_title();
 $date    = get_the_date( 'F j, Y' );
 $excerpt = has_excerpt() ? get_the_excerpt() : '';
+$read_time = estimate_post_read_time($post_id);
 
 // Author
 $author_id = get_post_field('post_author', get_the_ID());
@@ -111,6 +112,7 @@ get_header();
                                 <?php echo esc_html( $date ); ?>
                             </time>
                             <span class="post__read-time relative pl-4 dark:text-white before:content-['•'] before:absolute before:left-0  text-black dark:before:text-white">
+                                <?php echo esc_html($read_time); ?> min read
                             </span>
                         </div>
                     <?php endif; ?>

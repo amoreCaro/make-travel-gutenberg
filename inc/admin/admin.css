@@ -64,3 +64,8 @@ h1.wp-block.wp-block-post-title.block-editor-block-list__block.editor-post-title
 .editor-styles-wrapper.block-editor-writing-flow {
     background: #e8e8e8;
 }
+
+.toplevel_page_global-settings #wpbody-content .metabox-holder.columns-2 {
+    columns: 1 !important;
+    -moz-columns: 1 !important;
+}

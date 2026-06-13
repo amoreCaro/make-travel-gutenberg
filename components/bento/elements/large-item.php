@@ -16,13 +16,11 @@ $categories    = get_the_category($post_id);
 $category_id   = !empty($categories) ? $categories[0]->term_id : null;
 $category_name = get_cat_name($category_id);
 
-// FIX 1: визначаємо $has_custom_style тут, бо змінні $category_bg_color/$category_text_color
-// передаються з батьківського шаблону (default.php), але може бути не визначена
 $has_custom_style = !empty($category_bg_color) || !empty($category_text_color);
 
 $author_id  = $post->post_author;
 $avatar_url = get_avatar_url($author_id, ['size' => 28]);
-// FIX 2: використовуємо $username, а не $display_name (яка не визначена)
+
 $username   = get_the_author_meta('display_name', $author_id);
 ?>
 

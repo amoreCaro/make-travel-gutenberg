@@ -27,3 +27,5 @@ require PATH . '/inc/enqueues.php';
 require PATH . '/inc/setup.php';
 require PATH . '/inc/carbon-fields.php';
 require PATH . '/inc/helpers.php';
+require PATH . '/inc/ajax.php';
+require PATH . '/inc/reactions.php';

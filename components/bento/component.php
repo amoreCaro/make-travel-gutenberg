@@ -44,9 +44,7 @@ Block::make(__('Bento'))
                     }),
 
                 Field::make('text', 'bento_button', __('Button Text')),
-
                 Field::make('separator', 'layout_separator', __('Layout')),
-
                 Field::make('select', 'bento_template', __('Template'))
                     ->set_default_value('default')
                     ->set_options([

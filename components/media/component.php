@@ -7,134 +7,173 @@ if (!defined('ABSPATH')) {
 use Carbon_Fields\Block;
 use Carbon_Fields\Field;
 
-Block::make(__('Media'))
+Block::make(__('Media Menu'))
     ->set_category('media')
     ->set_icon('grid-view')
-    ->add_fields([
-        Field::make('file', 'cf_video', __('Video'))
-            ->set_type(['video']),
 
-        Field::make('complex', 'cf_gallery', __('Gallery'))
-            ->set_max(4)
-            ->add_fields([
-                Field::make('image', 'cf_image', __('Image')),
-            ]),
+    ->add_fields([
+
+        Field::make('multiselect', 'media_categories', __('Categories'))
+            ->set_options(function () {
+
+                $terms = get_terms([
+                    'taxonomy'   => 'category',
+                    'hide_empty' => false,
+                    'orderby'    => 'name',
+                    'order'      => 'ASC',
+                ]);
+
+                $options = [];
+
+                if (!is_wp_error($terms)) {
+                    foreach ($terms as $term) {
+                        $options[$term->term_id] = $term->name;
+                    }
+                }
+
+                return $options;
+            }),
+
+        Field::make('multiselect', 'media_tags', __('Tags'))
+            ->set_options(function () {
+
+                $terms = get_terms([
+                    'taxonomy'   => 'post_tag',
+                    'hide_empty' => false,
+                    'orderby'    => 'name',
+                    'order'      => 'ASC',
+                ]);
+
+                $options = [];
+
+                if (!is_wp_error($terms)) {
+                    foreach ($terms as $term) {
+                        $options[$term->term_id] = $term->name;
+                    }
+                }
+
+                return $options;
+            }),
     ])
+
     ->set_render_callback(function ($fields) {
 
-        // --------------------
-        // Data
-        // --------------------
-        $main_video     = !empty($fields['cf_video'])
-            ? wp_get_attachment_url($fields['cf_video'])
-            : '';
+        /**
+         * Selected data from Carbon Fields block
+         */
+        $selected_categories = $fields['media_categories'] ?? [];
+        $selected_tags       = $fields['media_tags'] ?? [];
 
-        $gallery_raw_items = $fields['cf_gallery'] ?? [];
+        /**
+         * Convert categories
+         */
+        $categories = !empty($selected_categories)
+            ? get_terms([
+                'taxonomy'   => 'category',
+                'include'    => $selected_categories,
+                'hide_empty' => true,
+            ])
+            : [];
 
-        // Limit to 4 items (Carbon Fields respects set_max, but just in case)
-        $gallery_raw_items = array_slice($gallery_raw_items, 0, 4);
+        /**
+         * Convert tags
+         */
+        $tags = !empty($selected_tags)
+            ? get_terms([
+                'taxonomy'   => 'post_tag',
+                'include'    => $selected_tags,
+                'hide_empty' => true,
+            ])
+            : [];
 
-        $main_image_url = has_post_thumbnail()
-            ? get_the_post_thumbnail_url(get_the_ID(), 'full')
-            : '';
+        /**
+         * Current object
+         */
+        $current = get_queried_object();
 
-        // --------------------
-        // Prepare gallery items
-        // --------------------
-        $gallery_items = [];
+        $current_category_id = ($current instanceof WP_Term && $current->taxonomy === 'category')
+            ? $current->term_id
+            : null;
 
-        foreach ($gallery_raw_items as $item) {
-            $img_id = $item['cf_image'] ?? 0;
-            if (!empty($img_id)) {
-                $gallery_items[] = [
-                    'url' => wp_get_attachment_image_url($img_id, 'large'),
-                    'alt' => get_post_meta($img_id, '_wp_attachment_image_alt', true) ?: get_the_title(),
-                ];
-            }
-        }
-
-        $has_main_media = (bool) ($main_video || $main_image_url);
-        $has_gallery    = !empty($gallery_items);
-        $gallery_count  = count($gallery_items);
-
-        if (!$has_main_media && !$has_gallery) return;
-
-        // --------------------
-        // Layout logic
-        // --------------------
-        $show_split_layout = $has_main_media && $has_gallery;
-
-        // --------------------
-        // Classes
-        // --------------------
-        $gallery_container_class = "post-gallery w-full" . ($show_split_layout ? " lg:basis-1/2" : "");
-        $main_media_wrapper_class = $main_video
-            ? 'post-main-video video--stopped group relative'
-            : 'post-main-image';
-
-        $container_class = "container mx-auto flex flex-col px-[20px] xl:px-[40px] 2xl:px-0 pb-[50px] lg:pb-[100px]"
-            . ($show_split_layout ? " lg:flex-row" : "");
-
-        $main_media_class = "overflow-hidden h-[250px] md:h-[400px] lg:h-[642px]"
-            . ($show_split_layout ? " lg:basis-1/2" : " w-full");
-
+        $current_tag_id = ($current instanceof WP_Term && $current->taxonomy === 'post_tag')
+            ? $current->term_id
+            : null;
         ?>
 
-        <div class="<?php echo esc_attr($container_class) ?>">
+        <div class="media-menu absolute w-full top-[80px] z-50 bg-[#F6F5F8] dark:bg-[#0B0B0D] flex flex-col py-2">
 
-            <!-- MAIN MEDIA (video or image) -->
-            <?php if ($has_main_media) : ?>
-                <div class="<?php echo esc_attr("$main_media_class $main_media_wrapper_class") ?>">
-                    <?php if ($main_video) : ?>
-                        <video class="w-full h-full object-cover" loop muted playsinline preload="metadata">
-                            <source src="<?php echo esc_url($main_video) ?>" type="video/mp4">
-                        </video>
-                        <button class="post__video-play-button absolute inset-1/2 -translate-x-1/2 -translate-y-1/2
-                            w-20 h-20 bg-white rounded-full flex items-center justify-center
-                            shadow-lg hover:scale-110 transition-transform">
-                            <svg class="w-8 h-8 text-black ml-1" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.333-5.89a1.5 1.5 0 000-2.538L6.3 2.841z"/>
-                            </svg>
+            <div class="container w-full mx-auto px-5 xl:px-0">
+
+                <!-- HEADER -->
+                <div class="media-menu__head flex items-center justify-between">
+
+                    <!-- MOBILE BUTTON -->
+                    <?php if (!empty($categories)) : ?>
+                        <button class="media-menu__categories-btn flex items-center gap-2 md:hidden py-3 text-slate-400 hover:text-blue-600">
+                            <span class="font-bold uppercase text-[15px]">
+                                <?php _e("Category", THEME); ?>
+                            </span>
                         </button>
-                    <?php elseif ($main_image_url) : ?>
-                        <img
-                            src="<?php echo esc_url($main_image_url); ?>"
-                            alt="<?php echo esc_attr(get_the_title()); ?>"
-                            class="w-full h-full object-cover"
-                            loading="lazy"
-                        >
                     <?php endif; ?>
+
+                    <!-- DESKTOP CATEGORIES -->
+                    <div class="media-menu__categories-content hidden md:block overflow-x-auto no-scrollbar">
+                        <ul class="flex items-center gap-8 whitespace-nowrap">
+
+                            <!-- ALL -->
+                            <li>
+                                <a href="<?php echo esc_url(home_url('/blog/')); ?>"
+                                   class="media-menu__tab uppercase block py-3 text-[15px] font-bold hover:text-black dark:hover:text-white">
+                                    <?php _e("All news", THEME); ?>
+                                </a>
+                            </li>
+
+                            <!-- CATEGORIES -->
+                            <?php if (!empty($categories)) : ?>
+                                <?php foreach ($categories as $category) : ?>
+                                    <?php $active = ($current_category_id === $category->term_id) ? 'active' : ''; ?>
+
+                                    <li>
+                                        <a href="<?php echo esc_url(get_category_link($category->term_id)); ?>"
+                                           class="media-menu__tab <?php echo esc_attr($active); ?> uppercase block py-3 text-[15px] font-bold hover:text-black dark:hover:text-white">
+                                            <?php echo esc_html($category->name); ?>
+                                        </a>
+                                    </li>
+
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+
+                        </ul>
+                    </div>
+
+                    <!-- TAGS BUTTON -->
+                    <?php if (!empty($tags)) : ?>
+                        <button class="media-menu__tags-btn uppercase font-bold text-[15px] text-slate-400 hover:text-blue-600">
+                            <?php _e("All tags", THEME); ?>
+                        </button>
+                    <?php endif; ?>
+
                 </div>
-            <?php endif; ?>
 
-            <!-- GALLERY -->
-            <?php if ($has_gallery) : ?>
-                <div class="<?php echo esc_attr($gallery_container_class) ?>">
-                    <?php
-                    $gallery_grid_class = match($gallery_count) {
-                        1 => '',
-                        2 => 'grid grid-cols-1 lg:grid-cols-2',
-                        3 => 'grid grid-cols-1 lg:grid-cols-2',
-                        default => 'grid grid-cols-2',
-                    };
+                <!-- TAGS -->
+                <?php if (!empty($tags)) : ?>
+                    <div class="media-menu__tags overflow-hidden transition-all duration-500 max-h-0 opacity-0">
+                        <ul class="grid grid-cols-1 md:grid-cols-3 gap-y-4 py-8">
 
-                    echo '<div class="' . esc_attr($gallery_grid_class) . '">';
+                            <?php foreach ($tags as $tag) : ?>
+                                <li>
+                                    <a href="<?php echo esc_url(get_tag_link($tag->term_id)); ?>"
+                                       class="uppercase text-[15px] font-bold text-[#9395ab] hover:text-black dark:hover:text-white">
+                                        #<?php echo esc_html($tag->name); ?>
+                                    </a>
+                                </li>
+                            <?php endforeach; ?>
 
-                    foreach ($gallery_items as $index => $img) {
-                        $wrapper_class = match($gallery_count) {
-                            1 => 'h-[642px]',
-                            2 => 'h-[642px]',
-                            3 => ($index < 2 ? 'h-[321px]' : 'lg:col-span-2 h-[321px]'),
-                            default => 'h-[321px]',
-                        };
-                        render_gallery_image($img['url'], $img['alt'], $wrapper_class);
-                    }
+                        </ul>
+                    </div>
+                <?php endif; ?>
 
-                    echo '</div>';
-                    ?>
-                </div>
-            <?php endif; ?>
-
+            </div>
         </div>
 
         <?php

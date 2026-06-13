@@ -9,7 +9,7 @@ $placeholder = get_template_directory_uri() . '/assets/dist/images/placeholder.p
 // Отримуємо пов'язані пости
 $related_posts = get_posts(array(
     'category__in' => wp_get_post_categories(get_the_ID()),
-    'numberposts'  => 5,
+    'numberposts'  => 4,
     'post__not_in' => array(get_the_ID())
 ));
 

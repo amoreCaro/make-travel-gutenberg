@@ -19,6 +19,14 @@ function theme_register_styles()
     wp_enqueue_script( 'swiper-js', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js', [], null, true );
     // JS
     wp_enqueue_script( 'theme-script', PATH_URL . '/assets/dist/js/main.js', [], null, true );
+
+    // Nonce for  sign in / sign up modal
+wp_localize_script('theme-script', 'theme', [
+    'ajax_url'        => admin_url('admin-ajax.php'),
+    'nonce_register'  => wp_create_nonce('register_user_nonce'),
+    'nonce_login'     => wp_create_nonce('login_user_nonce'),
+    'post_like_nonce' => wp_create_nonce('post_like_nonce'),
+]);
 }
 
 add_action('wp_enqueue_scripts', 'theme_register_styles');

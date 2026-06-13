@@ -12,12 +12,11 @@ use Carbon_Fields\Field;
 
 add_action('carbon_fields_register_fields', function () {
 
-    Container::make('theme_options', 'Global Settings')
-        ->set_page_menu_title('Global Settings')
+    Container::make('theme_options', __('Global Settings'))
+        ->set_page_menu_title(__('Global Settings'))
         ->set_page_file('global-settings')
 
-        // HEADER TAB
-        ->add_tab('Header', [
+        ->add_tab(__('Header'), [
 
             Field::make('radio', 'header_logo_type', 'Logo Type')
                 ->set_options([
@@ -47,10 +46,10 @@ add_action('carbon_fields_register_fields', function () {
             Field::make('complex', 'header_pages', 'Pages')
                 ->add_fields([
 
-                    Field::make('text', 'label', 'Pages Text')
+                    Field::make('text', 'label', 'Page Text')
                         ->set_required(true),
 
-                    Field::make('text', 'url', 'Pages URL')
+                    Field::make('text', 'url', 'Page URL')
                         ->set_required(true),
                 ])
                 ->set_min(1),
@@ -60,37 +59,37 @@ add_action('carbon_fields_register_fields', function () {
 
             Field::make('text', 'header_logout_text', 'Logout Button Text')
                 ->set_default_value('Logout'),
+
         ])
 
-        // FOOTER TAB (now includes socials)
-        ->add_tab('Footer', [
+->add_tab(__('Footer'), [
 
-            Field::make('textarea', 'footer_text', 'Disclaimer'),
+    Field::make('textarea', 'footer_text', 'Disclaimer'),
 
-            Field::make('complex', 'footer_social_icons', 'Social Icons')
-                ->add_fields([
+    Field::make('complex', 'footer_items', 'Footer Navigation')
+        ->add_fields([
 
-                    Field::make('text', 'social_url', 'Social URL'),
+            Field::make('text', 'title', 'Title')
+                ->set_required(true),
 
-                    Field::make('image', 'social_icon', 'SVG Icon'),
+            Field::make('text', 'url', 'URL')
+                ->set_required(true),
 
-                    Field::make('color', 'social_color', 'Dark Color'),
+        ]),
 
-                    Field::make(
-                        'color',
-                        'social_color_light_mode',
-                        'Light Color'
-                    ),
+    Field::make('text', 'footer_before_year', 'Text Before Year')
+        ->set_default_value('Copyright ©'),
 
-                    Field::make(
-                        'color',
-                        'social_hover_color',
-                        'Hover Color'
-                    ),
+    Field::make('text', 'footer_pre_text', 'Text Before Link')
+        ->set_default_value('by'),
 
-                ])
-                ->set_layout('tabbed'),
-        ]);
+    Field::make('text', 'footer_link_text', 'Link Text'),
+
+    Field::make('text', 'footer_link_url', 'Link URL'),
+
+    Field::make('text', 'footer_post_text', 'Text After Link'),
+
+]);
 });
 
 add_action('after_setup_theme', function() {

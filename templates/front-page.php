@@ -17,7 +17,7 @@ get_header();
     <div class="lg:pb-[100px] pb-[50px]">
 
         <?php
-        get_template_part('/components/bento/component');
+
         if (have_posts()) :
             while (have_posts()) : the_post();
                 the_content(); 

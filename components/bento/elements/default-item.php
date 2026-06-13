@@ -32,6 +32,8 @@ $gallery = $media_type['gallery'] ?? [];
 $card_class = 'post-card'
     . ($has_gallery ? ' post-card--slider' : '')
     . ($has_video   ? ' post-card--video'  : '');
+
+$read_time = estimate_post_read_time($post_id);
 ?>
 
 <a href="<?php echo esc_url($link); ?>"
@@ -188,46 +190,143 @@ $card_class = 'post-card'
         <div class="flex justify-between items-center relative z-10 w-full">
 
             <div class="flex items-center gap-4">
+                <button 
+                    class="post__like group/btn relative h-9 pe-3 shrink-0 rounded-full flex items-center gap-2 select-none transition-colors duration-200"
+                    data-post-id="<?php echo esc_attr($post_id); ?>"
+                >
 
-                <button class="group text-black dark:text-white flex items-center hover:text-blue-400 dark:hover:text-blue-400 transition-colors duration-200 cursor-default"
-                        onclick="event.preventDefault();event.stopPropagation();this.classList.toggle('is-active');this.querySelector('.icon-outline').classList.toggle('hidden');this.querySelector('.icon-filled').classList.toggle('hidden');">
-                    <div style="width:36px" class="bg-[#F6F5F8] dark:bg-[#1E1E26] rounded-full p-2 flex items-center justify-center w-9 h-9">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-outline h-[18px] w-[18px] transition-colors" fill="none">
-                            <path d="M19.4626 3.99415C16.7809 2.34923 14.4404 3.01211 13.0344 4.06801C12.4578 4.50096 12.1696 4.71743 12 4.71743C11.8304 4.71743 11.5422 4.50096 10.9656 4.06801C9.55962 3.01211 7.21909 2.34923 4.53744 3.99415C1.01807 6.15294 0.221721 13.2749 8.33953 19.2834C9.88572 20.4278 10.6588 21 12 21C13.3412 21 14.1143 20.4278 15.6605 19.2834C23.7783 13.2749 22.9819 6.15294 19.4626 3.99415Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    <div class="post__like-bg w-[36px] h-9 rounded-full flex items-center justify-center pointer-events-none
+                        bg-[#F6F5F8] dark:bg-[#1E1E26]
+                        transition-colors duration-200
+                        group-hover/btn:bg-[#FFF1F2]
+                        dark:group-hover/btn:bg-[#2A2A36]
+                        group-hover/btn:text-[#FF2157]">
+
+                        <!-- outline -->
+                        <svg class="icon-outline h-[18px] w-[18px] text-current transition-colors duration-200"
+                            viewBox="0 0 24 24" fill="none">
+                            <path d="M19.4626 3.99415C16.7809 2.34923 14.4404 3.01211 13.0344 4.06801C12.4578 4.50096 12.1696 4.71743 12 4.71743C11.8304 4.71743 11.5422 4.50096 10.9656 4.06801C9.55962 3.01211 7.21909 2.34923 4.53744 3.99415C1.01807 6.15294 0.221721 13.2749 8.33953 19.2834C9.88572 20.4278 10.6588 21 12 21C13.3412 21 14.1143 20.4278 15.6605 19.2834C23.7783 13.2749 22.9819 6.15294 19.4626 3.99415Z"
+                                stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
                         </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-filled hidden h-[18px] w-[18px] transition-colors" fill="currentColor">
+
+                        <!-- filled -->
+                        <svg class="icon-filled hidden h-[18px] w-[18px] text-[#FF2157] transition-colors duration-200"
+                            viewBox="0 0 24 24" fill="currentColor">
                             <path d="M19.4626 3.99415C16.7809 2.34923 14.4404 3.01211 13.0344 4.06801C12.4578 4.50096 12.1696 4.71743 12 4.71743C11.8304 4.71743 11.5422 4.50096 10.9656 4.06801C9.55962 3.01211 7.21909 2.34923 4.53744 3.99415C1.01807 6.15294 0.221721 13.2749 8.33953 19.2834C9.88572 20.4278 10.6588 21 12 21C13.3412 21 14.1143 20.4278 15.6605 19.2834C23.7783 13.2749 22.9819 6.15294 19.4626 3.99415Z"/>
                         </svg>
+
                     </div>
-                    <span class="ms-2 text-[12px] leading-[12px] transition-colors duration-200">3</span>
+
+                    <span class="post__like-text text-[12px] leading-[12px]
+                        text-black dark:text-white
+                        group-hover/btn:text-[#FF2157]
+                        font-medium transition-colors duration-200">
+                        0
+                    </span>
+
                 </button>
 
-                <button class="group text-black dark:text-white flex items-center hover:text-blue-400 dark:hover:text-blue-400 transition-colors duration-200">
-                    <div style="width:36px" class="bg-[#F6F5F8] dark:bg-[#1E1E26] rounded-full p-2 flex items-center justify-center w-9 h-9">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="h-[18px] w-[18px]">
+                <button
+                    class="group/comment relative h-9 pe-3 shrink-0 rounded-full transition-colors duration-200 cursor-default flex items-center gap-2 bg-transparent select-none"
+                    onclick="
+                        event.preventDefault();
+                        event.stopPropagation();
+                        
+                        const isActive = this.classList.toggle('is-active');
+                        const bgCircle = this.querySelector('.icon-bg-circle');
+                        const countText = this.querySelector('.count-text');
+                        const iconSvg = this.querySelector('.icon-comment-svg');
+                        
+                        if (isActive) {
+                            // СТАН ACTIVE: світла тема стає #E6F4F3, темна — #2A2A36
+                            bgCircle.classList.remove('bg-[#F6F5F8]', 'dark:bg-[#1E1E26]', 'group-hover/comment:bg-[#E6F4F3]', 'dark:group-hover/comment:bg-[#2A2A36]');
+                            bgCircle.classList.add('bg-[#E6F4F3]', 'dark:bg-[#2A2A36]');
+                            iconSvg.classList.remove('text-black', 'dark:text-white', 'group-hover/comment:text-[#009689]');
+                            iconSvg.classList.add('text-[#009689]');
+
+                            countText.classList.remove('text-black', 'dark:text-white', 'group-hover/comment:text-[#009689]');
+                            countText.classList.add('text-[#009689]');
+                        } else {
+                            bgCircle.classList.add('bg-[#F6F5F8]', 'dark:bg-[#1E1E26]', 'group-hover/comment:bg-[#E6F4F3]', 'dark:group-hover/comment:bg-[#2A2A36]');
+                            bgCircle.classList.remove('bg-[#E6F4F3]', 'dark:bg-[#2A2A36]');
+                            
+                            iconSvg.classList.add('text-black', 'dark:text-white', 'group-hover/comment:text-[#009689]');
+                            iconSvg.classList.remove('text-[#009689]');
+                            
+                            countText.classList.add('text-black', 'dark:text-white', 'group-hover/comment:text-[#009689]');
+                            countText.classList.remove('text-[#009689]');
+                        }
+                    "
+                >
+                    <div class="icon-bg-circle w-[36px] h-9 rounded-full bg-[#F6F5F8] dark:bg-[#1E1E26] group-hover/comment:bg-[#E6F4F3] dark:group-hover/comment:bg-[#2A2A36] transition-colors duration-200 flex items-center justify-center pointer-events-none">
+                        
+                        <svg xmlns="http://www.w3.org/2000/svg" 
+                            viewBox="0 0 24 24" 
+                            fill="none" 
+                            class="icon-comment-svg h-[18px] w-[18px] text-black dark:text-white group-hover/comment:text-[#009689] transition-colors duration-200">
                             <path d="M8 13.5H16M8 8.5H12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M6.09881 19C4.7987 18.8721 3.82475 18.4816 3.17157 17.8284C2 16.6569 2 14.7712 2 11V10.5C2 6.72876 2 4.84315 3.17157 3.67157C4.34315 2.5 6.22876 2.5 10 2.5H14C17.7712 2.5 19.6569 2.5 20.8284 3.67157C22 4.84315 22 6.72876 22 10.5V11C22 14.7712 22 16.6569 20.8284 17.8284C19.6569 19 17.7712 19 14 19C13.4395 19.0125 12.9931 19.0551 12.5546 19.155C11.3562 19.4309 10.2465 20.0441 9.14987 20.5789C7.58729 21.3408 6.806 21.7218 6.31569 21.3651C5.37769 20.6665 6.29454 18.5019 6.5 17.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
                         </svg>
                     </div>
-                    <span class="ms-2 text-[12px] leading-[12px] transition-colors duration-200">3</span>
+
+                    <span class="count-text text-[12px] leading-[12px] text-black dark:text-white group-hover/comment:text-[#009689] font-medium transition-colors duration-200 pointer-events-none">
+                        3
+                    </span>
                 </button>
 
             </div>
 
             <div class="flex items-center gap-2 relative">
-                <span class="text-[12px] leading-[16px] text-black dark:text-[#D1D5DB] font-normal">4 min read</span>
+                <span class="text-[12px] leading-[16px] text-black dark:text-[#D1D5DB] font-normal">
+                    <?php echo esc_html($read_time); ?> min read
+                </span>
 
-                <button class="group/btn relative w-9 h-9 shrink-0 rounded-full bg-[#F6F5F8] dark:bg-[#1E1E26] hover:bg-blue-500 dark:hover:bg-blue-500 transition-colors duration-200 cursor-default"
-                        onclick="event.preventDefault();event.stopPropagation();this.classList.toggle('is-active');this.classList.toggle('bg-blue-500');this.classList.toggle('dark:bg-blue-500');this.classList.toggle('dark:bg-[#1E1E26]');this.querySelector('.icon-outline').classList.toggle('hidden');this.querySelector('.icon-filled').classList.toggle('hidden');">
-                    <div class="w-9 h-9 flex items-center justify-center pointer-events-none">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                             class="icon-outline h-[18px] w-[18px] text-black stroke-current dark:text-white group-hover/btn:stroke-white transition-colors duration-200"
-                             fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <button
+                    class="group/btn relative w-9 h-9 shrink-0 rounded-full transition-colors duration-200 cursor-default flex items-center justify-center bg-transparent select-none"
+                    onclick="
+                        event.preventDefault();
+                        event.stopPropagation();
+                        
+                        const isActive = this.classList.toggle('is-active');
+                        const bgCircle = this.querySelector('.icon-bg-circle');
+                        const iconOutline = this.querySelector('.icon-outline');
+                        const iconFilled = this.querySelector('.icon-filled');
+                        
+                        iconOutline.classList.toggle('hidden');
+                        iconFilled.classList.toggle('hidden');
+                        
+                        if (isActive) {
+                            bgCircle.classList.remove('bg-[#F9FAFB]', 'dark:bg-[#2A2A36]', 'group-hover/btn:bg-[#F3F4F6]', 'dark:group-hover/btn:bg-[#3F3F50]');
+                            bgCircle.classList.add('bg-[#F3F4F6]', 'dark:bg-[#3F3F50]');
+                            
+                            iconOutline.classList.remove('text-black', 'dark:text-white');
+                            iconOutline.classList.add('text-[#374151]', 'dark:text-[#E5E7EB]');
+                        } else {
+                            bgCircle.classList.add('bg-[#F9FAFB]', 'dark:bg-[#2A2A36]', 'group-hover/btn:bg-[#F3F4F6]', 'dark:group-hover/btn:bg-[#3F3F50]');
+                            bgCircle.classList.remove('bg-[#F3F4F6]', 'dark:bg-[#3F3F50]');
+                            
+                            iconOutline.classList.add('text-black', 'dark:text-white');
+                            iconOutline.classList.remove('text-[#374151]', 'dark:text-[#E5E7EB]');
+                        }
+                    "
+                >
+                    <div class="icon-bg-circle w-9 h-9 rounded-full bg-[#F9FAFB] dark:bg-[#2A2A36] group-hover/btn:bg-[#F3F4F6] dark:group-hover/btn:bg-[#3F3F50] transition-colors duration-200 flex items-center justify-center pointer-events-none">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" 
+                            viewBox="0 0 24 24"
+                            class="icon-outline h-[18px] w-[18px] text-black dark:text-white transition-colors duration-200"
+                            fill="none" 
+                            stroke="currentColor" 
+                            stroke-width="1.5" 
+                            stroke-linecap="round" 
+                            stroke-linejoin="round">
                             <path d="M6 3h12a1 1 0 0 1 1 1v18l-7-4-7 4V4a1 1 0 0 1 1-1z"/>
                         </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                             class="icon-filled hidden h-[18px] w-[18px] text-white transition-colors duration-200"
-                             fill="currentColor">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" 
+                            viewBox="0 0 24 24"
+                            class="icon-filled hidden h-[18px] w-[18px] text-[#374151] dark:text-[#E5E7EB] transition-colors duration-200"
+                            fill="currentColor">
                             <path d="M6 3h12a1 1 0 0 1 1 1v18l-7-4-7 4V4a1 1 0 0 1 1-1z"/>
                         </svg>
                     </div>
