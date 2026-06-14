@@ -28,6 +28,7 @@ get_header();
 
 <main class="main">
     <div class="archive-page">
+
         <div class="lg:pt-[46px] pt-[92px] lg:pb-[100px] pb-[50px] bg-white dark:bg-black">
         <?php 
 
@@ -37,30 +38,30 @@ get_header();
             <section class="bento-grid mx-auto bg-[#F6F5F8] dark:bg-[#0B0B0D] dark:bg-gradient-to-b dark:from-[#0B0B0D] dark:to-[#111114] lg:py-[80px] py-[50px] px-5 xl:px-10 2xl:px-0">
 
                 <!-- HEADER -->
-<?php if (!empty($category_name)) : ?>
-    <div class="flex items-center mb-12 justify-between container">
+                <?php if (!empty($category_name)) : ?>
+                    <div class="flex items-center mb-12 justify-between container">
 
-        <div class="flex items-center gap-4">
+                        <div class="flex items-center gap-4">
 
-            <?php if (!empty($category_name)) : ?>
-                <h2 class="text-black dark:text-white/90 text-[32px] md:text-[40px] lg:text-[48px] xl:text-[56px] font-semibold tracking-tight leading-tight first-letter:uppercase">
-                    <?php echo esc_html($category_name); ?>
-                </h2>
-            <?php endif; ?>
-            <?php if ($category_svg) : ?>
-                <div class="decor <?php echo esc_attr($category_decor_type); ?> -translate-y-1/2 w-14 h-14 flex items-center justify-center rounded-t-full rounded-br-full p-2 bg-white/90 dark:bg-white/10 text-black dark:text-white backdrop-blur-md border border-black/5 dark:border-white/10 shadow-sm dark:shadow-none"
-                    style="
-                        <?php echo $category_bg_color ? 'background-color:' . esc_attr($category_bg_color) . ';' : ''; ?>
-                        <?php echo $category_text_color ? 'color:' . esc_attr($category_text_color) . ';' : ''; ?>
-                    ">
-                    <?php echo $category_svg; ?>
-                </div>
-            <?php endif; ?>
+                            <?php if (!empty($category_name)) : ?>
+                                <h2 class="text-black dark:text-white/90 text-[32px] md:text-[40px] lg:text-[48px] xl:text-[56px] font-semibold tracking-tight leading-tight first-letter:uppercase">
+                                    <?php echo esc_html($category_name); ?>
+                                </h2>
+                            <?php endif; ?>
+                            <?php if ($category_svg) : ?>
+                                <div class="decor <?php echo esc_attr($category_decor_type); ?> -translate-y-1/2 w-14 h-14 flex items-center justify-center rounded-t-full rounded-br-full p-2 bg-white/90 dark:bg-white/10 text-black dark:text-white backdrop-blur-md border border-black/5 dark:border-white/10 shadow-sm dark:shadow-none"
+                                    style="
+                                        <?php echo $category_bg_color ? 'background-color:' . esc_attr($category_bg_color) . ';' : ''; ?>
+                                        <?php echo $category_text_color ? 'color:' . esc_attr($category_text_color) . ';' : ''; ?>
+                                    ">
+                                    <?php echo $category_svg; ?>
+                                </div>
+                            <?php endif; ?>
 
-        </div>
+                        </div>
 
-    </div>
-<?php endif; ?>
+                    </div>
+                <?php endif; ?>
 
                 <div class="space-y-8 md:space-y-12 container">
 

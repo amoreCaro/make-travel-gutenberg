@@ -165,3 +165,101 @@ add_action('pre_get_posts', function($query) {
         $query->set('posts_per_page', 12);
     }
 });
+
+
+/* -------------------------------------------------
+ * Locations taxonomy
+ * ------------------------------------------------- */
+if ( ! function_exists('theme_register_locations_taxonomy') ) {
+    function theme_register_locations_taxonomy() {
+        $labels = [
+            'name'              => 'Locations',
+            'singular_name'     => 'Location',
+            'search_items'      => 'Search Locations',
+            'all_items'         => 'All Locations',
+            'parent_item'       => 'Parent Location',
+            'parent_item_colon' => 'Parent Location:',
+            'edit_item'         => 'Edit Location',
+            'update_item'       => 'Update Location',
+            'add_new_item'      => 'Add New Location',
+            'new_item_name'     => 'New Location Name',
+            'menu_name'         => 'Locations',
+        ];
+
+        $args = [
+            'labels'            => $labels,
+            'public'            => true,
+            'hierarchical'      => true,
+            'show_ui'           => true,
+            'show_admin_column' => true,
+            'show_in_nav_menus' => true,
+            'show_in_rest'      => true, 
+            'rewrite'           => ['slug' => 'location'    
+],
+        ];
+
+        register_taxonomy('locations', ['post'], $args);
+    }
+}
+add_action('init', 'theme_register_locations_taxonomy');
+
+/**
+ * Extend WordPress search (pre_get_posts)
+ * - limit to posts
+ * - keep default search (title, content, excerpt)
+ * - add taxonomy search (category, tag, locations)
+ */
+add_action('pre_get_posts', function ($query) {
+
+    if (is_admin() || !$query->is_main_query() || !$query->is_search()) {
+        return;
+    }
+
+    $search = trim($query->get('s'));
+    if (!$search) return;
+
+    set_query_var('original_search', $search);
+
+    $slug = sanitize_title($search);
+
+    $tax_query = ['relation' => 'OR'];
+    $has_tax = false;
+
+    // category
+    if ($cat = get_term_by('slug', $slug, 'category')) {
+        $tax_query[] = [
+            'taxonomy' => 'category',
+            'field'    => 'term_id',
+            'terms'    => $cat->term_id,
+        ];
+        $has_tax = true;
+    }
+
+    // tag
+    if ($tag = get_term_by('slug', $slug, 'post_tag')) {
+        $tax_query[] = [
+            'taxonomy' => 'post_tag',
+            'field'    => 'term_id',
+            'terms'    => $tag->term_id,
+        ];
+        $has_tax = true;
+    }
+
+    // locations
+    if ($location = get_term_by('slug', $slug, 'locations')) {
+        $tax_query[] = [
+            'taxonomy' => 'locations',
+            'field'    => 'term_id',
+            'terms'    => $location->term_id,
+        ];
+        $has_tax = true;
+    }
+
+    if ($has_tax) {
+        $query->set('tax_query', $tax_query);
+        $query->set('s', '');
+    }
+
+    $query->set('posts_per_page', 12);
+    $query->set('post_type', 'post');
+});

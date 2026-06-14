@@ -75,19 +75,25 @@ if (!function_exists('render_decor_image')) {
 
         $img = $items[$index]['image'];
 
-        // якщо ID
+        // якщо ID (WordPress attachment)
         if (is_numeric($img)) {
-            $url = wp_get_attachment_image_url($img, 'medium');
+
+            // full — щоб працювало як "data-src"
+            $url = wp_get_attachment_image_url($img, 'full');
+
+            // optional placeholder (можеш змінити на medium або blur image)
+            $placeholder = wp_get_attachment_image_url($img, 'thumbnail');
+
         } else {
             $url = $img;
+            $placeholder = $img;
         }
 
-        if (!$url) return;
         ?>
         <img
-            src="<?php echo esc_url($url); ?>"
+            src="<?php echo esc_url($placeholder); ?>"
+            data-src="<?php echo esc_url($url); ?>"
             class="lazy-img object-cover w-full h-full"
-            loading="lazy"
             alt=""
         >
         <?php
