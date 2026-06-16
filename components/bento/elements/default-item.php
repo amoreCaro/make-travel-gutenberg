@@ -22,16 +22,21 @@ $avatar_url = get_avatar_url($author_id, ['size' => 28]);
 $username   = get_the_author_meta('display_name', $author_id); 
 
 // Media type
-$media_type  = get_post_media_type($post_id);
+$media_type = get_post_media_type($post_id);
 
-$has_gallery = $media_type['has_gallery'];
-$has_video   = $media_type['has_video'];
-$video_url   = $media_type['video_url'];
+$type    = $media_type['type'];
+
+$media   = $media_type['media'];
 $gallery = $media_type['gallery'] ?? [];
+
+$has_video   = $type === 'video';
+$has_gallery = $type === 'slider';
+$has_thumb   = $type === 'thumbnail';
 
 $card_class = 'post-card'
     . ($has_gallery ? ' post-card--slider' : '')
-    . ($has_video   ? ' post-card--video'  : '');
+    . ($has_video   ? ' post-card--video'  : '')
+    . ($has_thumb   ? ' post-card--thumb'  : '');
 
 $read_time = estimate_post_read_time($post_id);
 ?>
@@ -105,7 +110,7 @@ $read_time = estimate_post_read_time($post_id);
         <?php elseif ($has_video) : ?>
 
             <video class="post-card__video w-full h-full object-cover" loop muted loading="lazy">
-                <source src="<?php echo esc_url($video_url); ?>" type="video/mp4" />
+<source src="<?php echo esc_url($media); ?>" type="video/mp4">
             </video>
             <div class="absolute inset-0 pointer-events-none">
                 <div class="post-card__loading hidden absolute inset-0 z-20 flex items-center justify-center">
@@ -190,45 +195,45 @@ $read_time = estimate_post_read_time($post_id);
         <div class="flex justify-between items-center relative z-10 w-full">
 
             <div class="flex items-center gap-4">
-<button 
-    class="post__like group/btn relative h-9 pe-3 shrink-0 rounded-full flex items-center gap-2 select-none transition-colors duration-200"
-    data-post-id="<?php echo esc_attr($post_id); ?>"
->
-    <div class="post__like-bg w-[36px] h-9 rounded-full flex items-center justify-center pointer-events-none
-        bg-[#F6F5F8] dark:bg-[#1E1E26]
-        text-black dark:text-white
-        transition-colors duration-200
-        
-        group-hover/btn:bg-[#FFF1F2]
-        dark:group-hover/btn:bg-[#2A2A36]
-        group-hover/btn:text-[#FF2157]
-        
-        group-[.is-active]/btn:bg-[#FFF1F2]
-        dark:group-[.is-active]/btn:bg-[#2A2A36]
-        group-[.is-active]/btn:text-[#FF2157]">
+                <button 
+                    class="post__like group/btn relative h-9 pe-3 shrink-0 rounded-full flex items-center gap-2 select-none transition-colors duration-200"
+                    data-post-id="<?php echo esc_attr($post_id); ?>"
+                >
+                    <div class="post__like-bg w-[36px] h-9 rounded-full flex items-center justify-center pointer-events-none
+                        bg-[#F6F5F8] dark:bg-[#1E1E26]
+                        text-black dark:text-white
+                        transition-colors duration-200
+                        
+                        group-hover/btn:bg-[#FFF1F2]
+                        dark:group-hover/btn:bg-[#2A2A36]
+                        group-hover/btn:text-[#FF2157]
+                        
+                        group-[.is-active]/btn:bg-[#FFF1F2]
+                        dark:group-[.is-active]/btn:bg-[#2A2A36]
+                        group-[.is-active]/btn:text-[#FF2157]">
 
-        <!-- Контурне серце (видиме за замовчуванням, ховається коли кнопка .is-active) -->
-        <svg class="h-[18px] w-[18px] text-current transition-colors duration-200 group-[.is-active]/btn:hidden"
-            viewBox="0 0 24 24" fill="none">
-            <path d="M19.4626 3.99415C16.7809 2.34923 14.4404 3.01211 13.0344 4.06801C12.4578 4.50096 12.1696 4.71743 12 4.71743C11.8304 4.71743 11.5422 4.50096 10.9656 4.06801C9.55962 3.01211 7.21909 2.34923 4.53744 3.99415C1.01807 6.15294 0.221721 13.2749 8.33953 19.2834C9.88572 20.4278 10.6588 21 12 21C13.3412 21 14.1143 20.4278 15.6605 19.2834C23.7783 13.2749 22.9819 6.15294 19.4626 3.99415Z"
-                stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-        </svg>
+                        <!-- Контурне серце (видиме за замовчуванням, ховається коли кнопка .is-active) -->
+                        <svg class="h-[18px] w-[18px] text-current transition-colors duration-200 group-[.is-active]/btn:hidden"
+                            viewBox="0 0 24 24" fill="none">
+                            <path d="M19.4626 3.99415C16.7809 2.34923 14.4404 3.01211 13.0344 4.06801C12.4578 4.50096 12.1696 4.71743 12 4.71743C11.8304 4.71743 11.5422 4.50096 10.9656 4.06801C9.55962 3.01211 7.21909 2.34923 4.53744 3.99415C1.01807 6.15294 0.221721 13.2749 8.33953 19.2834C9.88572 20.4278 10.6588 21 12 21C13.3412 21 14.1143 20.4278 15.6605 19.2834C23.7783 13.2749 22.9819 6.15294 19.4626 3.99415Z"
+                                stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
 
-        <!-- Залите серце (приховане за замовчуванням, показується коли кнопка .is-active) -->
-        <svg class="hidden h-[18px] w-[18px] text-current transition-colors duration-200 group-[.is-active]/btn:block"
-            viewBox="0 0 24 24" fill="currentColor">
-            <path d="M19.4626 3.99415C16.7809 2.34923 14.4404 3.01211 13.0344 4.06801C12.4578 4.50096 12.1696 4.71743 12 4.71743C11.8304 4.71743 11.5422 4.50096 10.9656 4.06801C9.55962 3.01211 7.21909 2.34923 4.53744 3.99415C1.01807 6.15294 0.221721 13.2749 8.33953 19.2834C9.88572 20.4278 10.6588 21 12 21C13.3412 21 14.1143 20.4278 15.6605 19.2834C23.7783 13.2749 22.9819 6.15294 19.4626 3.99415Z"/>
-        </svg>
-    </div>
+                        <!-- Залите серце (приховане за замовчуванням, показується коли кнопка .is-active) -->
+                        <svg class="hidden h-[18px] w-[18px] text-current transition-colors duration-200 group-[.is-active]/btn:block"
+                            viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19.4626 3.99415C16.7809 2.34923 14.4404 3.01211 13.0344 4.06801C12.4578 4.50096 12.1696 4.71743 12 4.71743C11.8304 4.71743 11.5422 4.50096 10.9656 4.06801C9.55962 3.01211 7.21909 2.34923 4.53744 3.99415C1.01807 6.15294 0.221721 13.2749 8.33953 19.2834C9.88572 20.4278 10.6588 21 12 21C13.3412 21 14.1143 20.4278 15.6605 19.2834C23.7783 13.2749 22.9819 6.15294 19.4626 3.99415Z"/>
+                        </svg>
+                    </div>
 
-    <span class="post__like-text text-[12px] leading-[12px]
-        text-black dark:text-white
-        group-hover/btn:text-[#FF2157]
-        group-[.is-active]/btn:text-[#FF2157]
-        font-medium transition-colors duration-200">
-        0
-    </span>
-</button>
+                    <span class="post__like-text text-[12px] leading-[12px]
+                        text-black dark:text-white
+                        group-hover/btn:text-[#FF2157]
+                        group-[.is-active]/btn:text-[#FF2157]
+                        font-medium transition-colors duration-200">
+                        0
+                    </span>
+                </button>
 
 
                 <button
@@ -251,6 +256,7 @@ $read_time = estimate_post_read_time($post_id);
 
                             countText.classList.remove('text-black', 'dark:text-white', 'group-hover/comment:text-[#009689]');
                             countText.classList.add('text-[#009689]');
+                            window.location.href = '<?php echo esc_url(get_permalink($post_id) . '#comments'); ?>';
                         } else {
                             bgCircle.classList.add('bg-[#F6F5F8]', 'dark:bg-[#1E1E26]', 'group-hover/comment:bg-[#E6F4F3]', 'dark:group-hover/comment:bg-[#2A2A36]');
                             bgCircle.classList.remove('bg-[#E6F4F3]', 'dark:bg-[#2A2A36]');

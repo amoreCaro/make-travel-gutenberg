@@ -17,7 +17,7 @@ if (empty($related_posts)) return;
 ?>
 
 <section class="related-posts py-12 lg:py-[100px]">
-    <div class="container mx-auto px-5 xl:px-[40px] 2xl:px-0">
+    <div class="container mx-auto px-5 xl:px-0">
 
         <h2 class="text-black dark:text-white text-3xl md:text-5xl font-medium mb-12">
             <?php _e("Related Posts", THEME); ?>

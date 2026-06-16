@@ -105,59 +105,96 @@ if (!function_exists('render_decor_image')) {
  */
 function get_post_media_type(int $post_id): array
 {
-    $video_url = '';
-    $gallery   = [];
+    /*
+    |--------------------------------------------------------------------------
+    | Video
+    |--------------------------------------------------------------------------
+    */
 
-    $blocks = [];
+    $video_id = carbon_get_post_meta($post_id, 'cf_video');
 
-    if (function_exists('has_blocks') && has_blocks($post_id)) {
-        $blocks = parse_blocks(get_post_field('post_content', $post_id));
+    $video_url = !empty($video_id)
+        ? wp_get_attachment_url($video_id)
+        : '';
+
+    /*
+    |--------------------------------------------------------------------------
+    | Gallery
+    |--------------------------------------------------------------------------
+    */
+
+    $gallery_raw = carbon_get_post_meta($post_id, 'cf_gallery');
+
+    if (!is_array($gallery_raw)) {
+        $gallery_raw = [];
     }
 
-    foreach ($blocks as $block) {
-        if (($block['blockName'] ?? '') !== 'carbon-fields/media') {
+    $gallery_raw = array_slice($gallery_raw, 0, 4);
+
+    $gallery = [];
+
+    foreach ($gallery_raw as $item) {
+
+        $img_id = $item['cf_image'] ?? 0;
+
+        if (!$img_id) {
             continue;
         }
 
-        $data = $block['attrs']['data'] ?? [];
-
-        // --------------------
-        // VIDEO
-        // --------------------
-        if (!empty($data['cf_video'])) {
-            $video_url = wp_get_attachment_url($data['cf_video']);
-        }
-
-        // --------------------
-        // GALLERY (clean parse)
-        // --------------------
-        if (!empty($data['cf_gallery']) && is_array($data['cf_gallery'])) {
-            foreach ($data['cf_gallery'] as $item) {
-                $img_id = $item['cf_image'] ?? 0;
-
-                if (!$img_id) {
-                    continue;
-                }
-
-                $gallery[] = [
-                    'url' => wp_get_attachment_image_url($img_id, 'large'),
-                    'alt' => get_post_meta($img_id, '_wp_attachment_image_alt', true)
-                        ?: get_the_title($post_id),
-                ];
-            }
-        }
-
-        break;
+        $gallery[] = [
+            'url' => wp_get_attachment_image_url($img_id, 'large'),
+            'alt' => get_post_meta(
+                $img_id,
+                '_wp_attachment_image_alt',
+                true
+            ) ?: get_the_title($post_id),
+        ];
     }
 
-    $has_video   = !empty($video_url);
-    $has_gallery = count($gallery) > 0;
+    /*
+    |--------------------------------------------------------------------------
+    | Thumbnail
+    |--------------------------------------------------------------------------
+    */
+
+    $thumbnail = has_post_thumbnail($post_id)
+        ? get_the_post_thumbnail_url($post_id, 'large')
+        : '';
+
+    /*
+    |--------------------------------------------------------------------------
+    | Priority
+    |--------------------------------------------------------------------------
+    */
+
+    if (!empty($video_url)) {
+        return [
+            'type' => 'video',
+            'media' => $video_url,
+            'gallery' => [],
+        ];
+    }
+
+    if (!empty($gallery)) {
+        return [
+            'type' => 'slider',
+            'media' => $gallery[0]['url'],
+            'gallery' => $gallery,
+        ];
+    }
+
+    if (!empty($thumbnail)) {
+        return [
+            'type' => 'thumbnail',
+            'media' => $thumbnail,
+            'gallery' => [],
+        ];
+    }
 
     return [
-        'has_video'   => $has_video,
-        'has_gallery' => $has_gallery,
-        'video_url'   => $video_url,
-        'gallery'     => $gallery,
+        'type' => 'default',
+        'media' => get_template_directory_uri() . '/assets/src/images/placeholder.png',
+        'gallery' => [],
     ];
 }
 
