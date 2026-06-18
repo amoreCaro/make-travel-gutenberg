@@ -223,146 +223,149 @@ get_header();
                 </div>
             </div>
 
-            <section id="comments" class="mx-auto max-w-3xl px-4 scroll-mt-10 sm:scroll-mt-20">
-                
-                <!-- Заголовок секції та форма -->
-                <div class="bg-white rounded-2xl border border-gray-200 p-5 shadow-sm">
-                <div class="flex items-center gap-2.5 mb-5">
-                    <h3 class="text-xl font-bold text-gray-900 tracking-tight">
-                    Обговорення
-                    </h3>
-                    <span class="inline-flex items-center justify-center bg-teal-50 text-teal-700 text-xs font-semibold px-2.5 py-1 rounded-full border border-teal-100">
-                    28 коментарів
-                    </span>
-                </div>
-                
-                <!-- Форма додавання коментаря -->
-                <form action="#">
-                    <textarea 
-                    class="block w-full rounded-xl border border-gray-200 bg-gray-50/50 p-3.5 text-sm text-gray-800 placeholder-gray-400 focus:border-teal-500 focus:bg-white focus:ring-4 focus:ring-teal-500/10 outline-none transition-all resize-none" 
-                    rows="4" 
-                    placeholder="Приєднатися до дискусії..." 
+<section id="comments" class="mx-auto max-w-3xl px-4 py-10 scroll-mt-10 sm:scroll-mt-20 font-sans antialiased text-gray-900 selection:bg-teal-500/10">
+    
+    <!-- Section Header -->
+    <div class="flex items-center justify-between border-b border-gray-100 pb-5 mb-8">
+        <div class="flex items-center gap-3">
+            <h3 class="text-xl font-bold tracking-tight text-gray-900 sm:text-2xl">
+                Discussion
+            </h3>
+            <span class="inline-flex items-center justify-center bg-gray-100 text-gray-600 text-xs font-semibold px-2.5 py-1 rounded-full">
+                28
+            </span>
+        </div>
+    </div>
+    
+    <!-- Modern comment form -->
+    <div class="mb-10 flex gap-4">
+        <div class="hidden sm:block h-10 w-10 shrink-0 overflow-hidden rounded-full bg-gray-200">
+            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop" alt="Your Avatar" class="h-full w-full object-cover">
+        </div>
+        
+        <form action="#" class="flex-1 group">
+            <div class="relative rounded-2xl border border-gray-200 bg-white shadow-sm transition-all duration-200 focus-within:border-teal-500 focus-within:ring-4 focus-within:ring-teal-500/5">
+                <textarea 
+                    class="block w-full rounded-2xl border-0 bg-transparent p-4 text-sm text-gray-800 placeholder-gray-400 focus:ring-0 outline-none resize-none min-h-[100px]" 
+                    rows="3" 
+                    placeholder="Join the discussion..." 
                     required
-                    ></textarea>
-                    
-                    <div class="mt-3 flex items-center justify-end gap-2">
+                ></textarea>
+                
+                <!-- Toolbar -->
+                <div class="flex items-center justify-end gap-2 px-4 pb-3 pt-2 border-t border-gray-50 bg-gray-50/50 rounded-b-2xl">
                     <button 
-                        class="inline-flex items-center justify-center rounded-xl bg-transparent hover:bg-gray-100 text-gray-600 text-sm font-medium py-2 px-4 transition-colors cursor-pointer" 
+                        class="inline-flex items-center justify-center rounded-xl bg-transparent hover:bg-gray-200/60 text-gray-500 hover:text-gray-700 text-xs font-semibold py-2 px-4 transition-colors cursor-pointer" 
                         type="button"
                     >
-                        Скасувати
+                        Cancel
                     </button>
                     <button 
-                        class="inline-flex items-center justify-center rounded-xl bg-teal-600 hover:bg-teal-500 text-white text-sm font-medium py-2 px-5 transition-all shadow-sm shadow-teal-600/10 hover:shadow-md active:scale-95 cursor-pointer" 
+                        class="inline-flex items-center justify-center rounded-xl bg-teal-600 hover:bg-teal-700 text-white text-xs font-semibold py-2 px-5 transition-all shadow-sm active:scale-[0.98] cursor-pointer" 
                         type="submit"
                     >
-                        Надіслати
+                        Send
                     </button>
-                    </div>
-                </form>
                 </div>
+            </div>
+        </form>
+    </div>
 
-                <!-- Список коментарів -->
-                <div class="mt-8">
-                <ul class="space-y-6">
-                    
-                    <!-- Головний коментар (Рівень 1) -->
-                    <li class="relative">
-                    <!-- Вертикальна лінія-зв'язок для відповідей -->
-                    <div class="absolute left-[18px] top-[48px] bottom-0 w-0.5 bg-gray-200"></div>
-                    
-                    <div class="flex gap-4">
-                        <!-- Аватар -->
-                        <div class="relative h-10 w-10 shrink-0 overflow-hidden rounded-xl bg-gray-100 ring-2 ring-white shadow-sm">
+    <!-- Comments list -->
+    <div class="space-y-8">
+        <ul class="space-y-8">
+            
+            <!-- Main comment (Level 1) -->
+            <li class="relative group">
+                <div class="absolute left-5 top-12 bottom-0 w-[1px] bg-gradient-to-b from-gray-200 via-gray-200 to-transparent"></div>
+                
+                <div class="flex gap-4">
+                    <div class="relative h-10 w-10 shrink-0 overflow-hidden rounded-full bg-gray-100 shadow-sm">
                         <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop" alt="Avatar" class="h-full w-full object-cover">
+                    </div>
+                    
+                    <div class="flex-1 space-y-1.5">
+                        <div class="flex items-center gap-2 flex-wrap">
+                            <a href="#" class="font-semibold text-sm text-gray-900 hover:text-teal-600 transition-colors">Moderator</a>
+                            <span class="inline-flex items-center rounded-md bg-teal-50 px-1.5 py-0.5 text-[10px] font-medium text-teal-700 ring-1 ring-inset ring-teal-600/10">Staff</span>
+                            <span class="text-gray-300 text-xs">·</span>
+                            <span class="text-xs text-gray-400">Today, 14:20</span>
                         </div>
                         
-                        <!-- Тіло коментаря -->
-                        <div class="flex-1 rounded-2xl border border-gray-200 p-4 bg-white shadow-sm">
-                        <div class="flex items-center gap-2">
-                            <a href="#" class="font-semibold text-sm sm:text-base text-gray-900 hover:text-teal-600 transition-colors">Модератор</a>
-                            <span class="inline-flex items-center rounded bg-blue-50 px-1.5 py-0.5 text-[10px] font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">Staff</span>
-                            <span class="text-gray-300 text-xs">·</span>
-                            <span class="text-xs text-gray-500">Сьогодні, 14:20</span>
+                        <div class="text-sm text-gray-600 leading-relaxed">
+                            <p>Welcome to our new comment interface! We’ve fully redesigned it to make conversations cleaner and easier to read. How do you like the performance so far?</p>
                         </div>
-                        <div class="mt-2 text-sm sm:text-base text-gray-700 leading-relaxed">
-                            <p>Вітаємо в нашому новому інтерфейсі коментарів! Ми повністю оновили дизайн, зробивши його чистішим та зручнішим для читання довгих гілок обговорень. Як вам швидкість роботи?</p>
-                        </div>
-                        <!-- Кнопка відповіді -->
-                        <div class="mt-3.5 flex items-center gap-4 text-xs">
-                            <button class="inline-flex items-center gap-1.5 font-medium text-gray-500 hover:text-teal-600 transition-colors cursor-pointer">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-4 w-4">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
-                            </svg>
-                            Відповісти
+                        
+                        <div class="pt-1 flex items-center gap-4 text-xs">
+                            <button class="inline-flex items-center gap-1.5 font-semibold text-gray-400 hover:text-teal-600 transition-colors cursor-pointer">
+                                Reply
                             </button>
                         </div>
-                        </div>
                     </div>
+                </div>
 
-                    <!-- Гілка відповідей (Рівень 2) -->
-                    <ul class="mt-4 pl-10 sm:pl-14 space-y-4 relative">
-                        <li class="relative">
-                        <!-- Кутове відгалуження гілки -->
-                        <div class="absolute -left-[22px] sm:-left-[26px] top-0 h-7 w-4 rounded-bl-xl border-l-2 border-b-2 border-gray-200"></div>
+                <!-- Replies (Level 2) -->
+                <ul class="mt-6 pl-10 sm:pl-14 space-y-6 relative">
+                    <li class="relative">
+                        <div class="absolute -left-[30px] sm:-left-[35px] top-0 h-6 w-5 rounded-bl-xl border-l border-b border-gray-200"></div>
                         
-                        <div class="flex gap-3 sm:gap-4">
-                            <!-- Аватар відповіді -->
-                            <div class="relative h-8 w-8 shrink-0 overflow-hidden rounded-xl bg-gray-100 ring-2 ring-white shadow-sm">
-                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop" alt="Avatar" class="h-full w-full object-cover">
+                        <div class="flex gap-3">
+                            <div class="relative h-8 w-8 shrink-0 overflow-hidden rounded-full bg-gray-100 shadow-sm">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop" alt="Avatar" class="h-full w-full object-cover">
                             </div>
                             
-                            <!-- Тіло відповіді -->
-                            <div class="flex-1 rounded-xl border border-gray-200 p-3.5 bg-white shadow-sm">
-                            <div class="flex items-center gap-2">
-                                <a href="#" class="font-semibold text-xs sm:text-sm text-gray-900 hover:text-teal-600 transition-colors">Олександр Коваль</a>
-                                <span class="text-gray-300 text-xs">·</span>
-                                <span class="text-xs text-gray-500">10 хв. тому</span>
-                            </div>
-                            <div class="mt-1.5 text-xs sm:text-sm text-gray-700 leading-relaxed">
-                                <p>Швидкість просто космічна! На мобільному все завантажується миттєво, а лінії зв'язку між коментарями нарешті допомагають не губитися в тексті. Дякую!</p>
-                            </div>
-                            <div class="mt-2 flex items-center gap-3 text-[11px]">
-                                <button class="font-medium text-gray-500 hover:text-teal-600 transition-colors cursor-pointer">
-                                Відповісти
-                                </button>
-                            </div>
+                            <div class="flex-1 space-y-1.5">
+                                <div class="flex items-center gap-2">
+                                    <a href="#" class="font-semibold text-sm text-gray-900 hover:text-teal-600 transition-colors">Alexander Kovalenko</a>
+                                    <span class="text-gray-300 text-xs">·</span>
+                                    <span class="text-xs text-gray-400">10 min ago</span>
+                                </div>
+                                
+                                <div class="text-sm text-gray-600 leading-relaxed">
+                                    <p>It’s insanely fast! Everything loads instantly on mobile, and the thread structure finally makes it easy to follow conversations. Great job!</p>
+                                </div>
+                                
+                                <div class="pt-1 text-xs">
+                                    <button class="font-semibold text-gray-400 hover:text-teal-600 transition-colors cursor-pointer">
+                                        Reply
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                        </li>
-                    </ul>
                     </li>
+                </ul>
+            </li>
 
-                    <!-- Другий окремий коментар -->
-                    <li class="relative">
-                    <div class="flex gap-4">
-                        <div class="relative h-10 w-10 shrink-0 overflow-hidden rounded-xl bg-gray-100 ring-2 ring-white shadow-sm">
+            <!-- Second comment -->
+            <li class="relative pt-2">
+                <div class="flex gap-4">
+                    <div class="relative h-10 w-10 shrink-0 overflow-hidden rounded-full bg-gray-100 shadow-sm">
                         <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop" alt="Avatar" class="h-full w-full object-cover">
-                        </div>
-                        <div class="flex-1 rounded-2xl border border-gray-200 p-4 bg-white shadow-sm">
+                    </div>
+                    
+                    <div class="flex-1 space-y-1.5">
                         <div class="flex items-center gap-2">
-                            <a href="#" class="font-semibold text-sm sm:text-base text-gray-900 hover:text-teal-600 transition-colors">Дмитро</a>
+                            <a href="#" class="font-semibold text-sm text-gray-900 hover:text-teal-600 transition-colors">Dmytro</a>
                             <span class="text-gray-300 text-xs">·</span>
-                            <span class="text-xs text-gray-500">Вчора</span>
+                            <span class="text-xs text-gray-400">Yesterday</span>
                         </div>
-                        <div class="mt-2 text-sm sm:text-base text-gray-700 leading-relaxed">
-                            <p>Чи планується додавання підтримки Markdown або форматування коду прямо у полі введення? Було б дуже круто для технічних обговорень.</p>
+                        
+                        <div class="text-sm text-gray-600 leading-relaxed">
+                            <p>Is Markdown support or inline code formatting planned for the input field? That would be really useful for technical discussions.</p>
                         </div>
-                        <div class="mt-3.5 flex items-center gap-4 text-xs">
-                            <button class="inline-flex items-center gap-1.5 font-medium text-gray-500 hover:text-teal-600 transition-colors cursor-pointer">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-4 w-4">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
-                            </svg>
-                            Відповісти
+                        
+                        <div class="pt-1 flex items-center gap-4 text-xs">
+                            <button class="inline-flex items-center gap-1.5 font-semibold text-gray-400 hover:text-teal-600 transition-colors cursor-pointer">
+                                Reply
                             </button>
                         </div>
-                        </div>
                     </div>
-                    </li>
-
-                </ul>
                 </div>
-            </section>
+            </li>
+
+        </ul>
+    </div>
+</section>
 
             <?php require PATH . "/components/related-posts/component.php"; ?>
         </div>
