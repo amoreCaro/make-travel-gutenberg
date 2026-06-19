@@ -143,11 +143,8 @@ function get_post_media_type(int $post_id): array
 
         $gallery[] = [
             'url' => wp_get_attachment_image_url($img_id, 'large'),
-            'alt' => get_post_meta(
-                $img_id,
-                '_wp_attachment_image_alt',
-                true
-            ) ?: get_the_title($post_id),
+            'alt' => get_post_meta($img_id, '_wp_attachment_image_alt', true)
+                ?: get_the_title($post_id),
         ];
     }
 
@@ -191,9 +188,10 @@ function get_post_media_type(int $post_id): array
         ];
     }
 
+    // ❌ IMPORTANT: NO DEFAULT PLACEHOLDER
     return [
-        'type' => 'default',
-        'media' => get_template_directory_uri() . '/assets/src/images/placeholder.png',
+        'type' => 'none',
+        'media' => '',
         'gallery' => [],
     ];
 }

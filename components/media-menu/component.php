@@ -154,16 +154,18 @@ Block::make(__('Media Menu'))
                     </div>
 
                     <!-- TAGS BUTTON -->
-                    <?php if (!empty($tags)) : ?>
-                        <button class="media-menu__tags-btn uppercase font-bold text-[15px] text-slate-400 hover:text-blue-600">
-                            <?php _e("All tags", THEME); ?>
+                    <?php if ( ! empty($tags)) : ?>
+                        <button class="media-menu__tags-btn cursor-pointer flex items-center gap-2 uppercase font-bold text-[15px] leading-[15px] transition-all duration-300 text-slate-400 hover:text-blue-600 active">
+                            <?php _e("All tags", THEME); ?>              
+                            <svg class="transition-transform duration-300 transform group-hover:stroke-blue-600" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M6 9l6 6 6-6"></path>
+                            </svg>
                         </button>
                     <?php endif; ?>
-
                 </div>
 
                 <!-- TAGS -->
-                <?php if (!empty($tags)) : ?>
+                <?php if ( ! empty($tags)) : ?>
                     <div class="media-menu__tags overflow-hidden transition-all duration-500 max-h-0 opacity-0">
                         <ul class="grid grid-cols-1 md:grid-cols-3 gap-y-4 py-8">
 

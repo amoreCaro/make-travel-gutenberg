@@ -40,6 +40,7 @@ $card_class = 'post-card'
 
 $read_time = estimate_post_read_time($post_id);
 $like = get_post_like_state($post_id);
+$is_saved = get_post_save_state(get_the_ID());
 ?>
 
 <a href="<?php echo esc_url($link); ?>"
@@ -59,54 +60,53 @@ $like = get_post_like_state($post_id);
             </span>
         <?php endif; ?>
 
-<?php if ($has_gallery && !empty($gallery)) : ?>
+        <?php if ($has_gallery && !empty($gallery)) : ?>
 
-<div class="swiper slider w-full overflow-hidden relative h-[185px]">
-    
-    <div class="swiper-wrapper">
+            <div class="swiper slider w-full overflow-hidden relative h-[185px]">
+                
+                <div class="swiper-wrapper">
 
-        <?php foreach ($gallery as $item) : ?>
-            <?php 
-                $img_url = $item['url'] ?? '';
-                $img_alt = $item['alt'] ?? '';
-            ?>
+                    <?php foreach ($gallery as $item) : ?>
+                        <?php 
+                            $img_url = $item['url'] ?? '';
+                            $img_alt = $item['alt'] ?? '';
+                        ?>
 
-            <?php if (!empty($img_url)) : ?>
-                <div class="swiper-slide">
-                    <img 
-                        src="<?php echo esc_url($img_url); ?>" 
-                        alt="<?php echo esc_attr($img_alt); ?>"
-                        class="w-full h-full object-cover"
-                        loading="lazy"
-                    />
+                        <?php if (!empty($img_url)) : ?>
+                            <div class="swiper-slide">
+                                <img 
+                                    src="<?php echo esc_url($img_url); ?>" 
+                                    alt="<?php echo esc_attr($img_alt); ?>"
+                                    class="w-full h-full object-cover"
+                                    loading="lazy"
+                                />
+                            </div>
+                        <?php endif; ?>
+
+                    <?php endforeach; ?>
+
                 </div>
-            <?php endif; ?>
 
-        <?php endforeach; ?>
+                <!-- Prev -->
+                <button type="button"
+                    class="slider__prev absolute left-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-white/90 text-gray-600 flex items-center justify-center shadow-md transition hover:scale-110 hover:bg-white hover:text-gray-900 active:scale-95">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.75 19.5 8.25 12l7.5-7.5"/>
+                    </svg>
+                </button>
 
-    </div>
+                <!-- Next -->
+                <button type="button"
+                    class="slider__next absolute right-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-white/90 text-gray-600 flex items-center justify-center shadow-md transition hover:scale-110 hover:bg-white hover:text-gray-900 active:scale-95">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m8.25 4.5 7.5 7.5-7.5 7.5"/>
+                    </svg>
+                </button>
 
-    <!-- Prev -->
-    <button type="button"
-        class="slider__prev absolute left-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-white/90 text-gray-600 flex items-center justify-center shadow-md transition hover:scale-110 hover:bg-white hover:text-gray-900 active:scale-95">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.75 19.5 8.25 12l7.5-7.5"/>
-        </svg>
-    </button>
+                <!-- Pagination -->
+                <div class="slider__pagination swiper-pagination absolute bottom-3 left-1/2 -translate-x-1/2 z-20"></div>
 
-    <!-- Next -->
-    <button type="button"
-        class="slider__next absolute right-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-white/90 text-gray-600 flex items-center justify-center shadow-md transition hover:scale-110 hover:bg-white hover:text-gray-900 active:scale-95">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m8.25 4.5 7.5 7.5-7.5 7.5"/>
-        </svg>
-    </button>
-
-    <!-- Pagination -->
-    <div class="slider__pagination swiper-pagination absolute bottom-3 left-1/2 -translate-x-1/2 z-20"></div>
-
-</div>
-
+            </div>
 
         <?php elseif ($has_video) : ?>
 
@@ -196,11 +196,11 @@ $like = get_post_like_state($post_id);
         <div class="flex justify-between items-center relative z-10 w-full">
 
             <div class="flex items-center gap-4">
-<button
-    class="post__like group/btn relative h-9 pe-3 shrink-0 rounded-full flex items-center gap-2 select-none transition-colors duration-200
-    <?php echo ($like['liked'] ?? false) ? 'is-active' : ''; ?>"
-    data-post-id="<?php echo esc_attr($post_id); ?>"
->
+                <button
+                    class="post__like group/btn relative h-9 pe-3 shrink-0 rounded-full flex items-center gap-2 select-none transition-colors duration-200
+                    <?php echo ($like['liked'] ?? false) ? 'is-active' : ''; ?>"
+                    data-post-id="<?php echo esc_attr($post_id); ?>"
+                >
                     <div class="post__like-bg w-[36px] h-9 rounded-full flex items-center justify-center pointer-events-none
                         bg-[#F6F5F8] dark:bg-[#1E1E26]
                         text-black dark:text-white
@@ -231,7 +231,7 @@ $like = get_post_like_state($post_id);
                         group-hover/btn:text-[#FF2157]
                         group-[.is-active]/btn:text-[#FF2157]
                         font-medium transition-colors duration-200">
-        <?php echo (int) $like['count']; ?>
+                            <?php echo (int) $like['count']; ?>
                     </span>
                 </button>
 
@@ -290,55 +290,44 @@ $like = get_post_like_state($post_id);
                 <span class="text-[12px] leading-[16px] text-black dark:text-[#D1D5DB] font-normal">
                     <?php echo esc_html($read_time); ?> min read
                 </span>
-
                 <button
-                    class="group/btn relative w-9 h-9 shrink-0 rounded-full transition-colors duration-200 cursor-default flex items-center justify-center bg-transparent select-none"
-                    onclick="
-                        event.preventDefault();
-                        event.stopPropagation();
-                        
-                        const isActive = this.classList.toggle('is-active');
-                        const bgCircle = this.querySelector('.icon-bg-circle');
-                        const iconOutline = this.querySelector('.icon-outline');
-                        const iconFilled = this.querySelector('.icon-filled');
-                        
-                        iconOutline.classList.toggle('hidden');
-                        iconFilled.classList.toggle('hidden');
-                        
-                        if (isActive) {
-                            bgCircle.classList.remove('bg-[#F9FAFB]', 'dark:bg-[#2A2A36]', 'group-hover/btn:bg-[#F3F4F6]', 'dark:group-hover/btn:bg-[#3F3F50]');
-                            bgCircle.classList.add('bg-[#F3F4F6]', 'dark:bg-[#3F3F50]');
-                            
-                            iconOutline.classList.remove('text-black', 'dark:text-white');
-                            iconOutline.classList.add('text-[#374151]', 'dark:text-[#E5E7EB]');
-                        } else {
-                            bgCircle.classList.add('bg-[#F9FAFB]', 'dark:bg-[#2A2A36]', 'group-hover/btn:bg-[#F3F4F6]', 'dark:group-hover/btn:bg-[#3F3F50]');
-                            bgCircle.classList.remove('bg-[#F3F4F6]', 'dark:bg-[#3F3F50]');
-                            
-                            iconOutline.classList.add('text-black', 'dark:text-white');
-                            iconOutline.classList.remove('text-[#374151]', 'dark:text-[#E5E7EB]');
-                        }
-                    "
+                    class="post__save <?php echo $is_saved ? 'is-active' : '' ?> group/btn relative w-9 h-9 shrink-0 rounded-full transition-colors duration-200 cursor-default flex items-center justify-center bg-transparent select-none"
+                    data-post-id="<?php echo esc_attr($post_id); ?>"
                 >
-                    <div class="icon-bg-circle w-9 h-9 rounded-full bg-[#F9FAFB] dark:bg-[#2A2A36] group-hover/btn:bg-[#F3F4F6] dark:group-hover/btn:bg-[#3F3F50] transition-colors duration-200 flex items-center justify-center pointer-events-none">
+                    <div class="icon-bg-circle w-9 h-9 rounded-full transition-colors duration-200 flex items-center justify-center pointer-events-none
+                        bg-[#F9FAFB] dark:bg-[#2A2A36]
+                        group-hover/btn:bg-[#F3F4F6]
+                        dark:group-hover/btn:bg-[#3F3F50]
+                        
+                        group-[.is-active]/btn:bg-[#F3F4F6]
+                        dark:group-[.is-active]/btn:bg-[#3F3F50]">
 
-                        <svg xmlns="http://www.w3.org/2000/svg" 
+                        <!-- OUTLINE ICON -->
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
-                            class="icon-outline h-[18px] w-[18px] text-black dark:text-white transition-colors duration-200"
-                            fill="none" 
-                            stroke="currentColor" 
-                            stroke-width="1.5" 
-                            stroke-linecap="round" 
-                            stroke-linejoin="round">
+                            class="icon-outline h-[18px] w-[18px] text-black dark:text-white transition-colors duration-200
+                                group-[.is-active]/btn:hidden"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
                             <path d="M6 3h12a1 1 0 0 1 1 1v18l-7-4-7 4V4a1 1 0 0 1 1-1z"/>
                         </svg>
 
-                        <svg xmlns="http://www.w3.org/2000/svg" 
+                        <!-- FILLED ICON -->
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
-                            class="icon-filled hidden h-[18px] w-[18px] text-[#374151] dark:text-[#E5E7EB] transition-colors duration-200"
-                            fill="currentColor">
+                            class="icon-filled hidden h-[18px] w-[18px] text-[#374151] dark:text-[#E5E7EB] transition-colors duration-200
+                                group-[.is-active]/btn:block"
+                            fill="currentColor"
+                        >
                             <path d="M6 3h12a1 1 0 0 1 1 1v18l-7-4-7 4V4a1 1 0 0 1 1-1z"/>
                         </svg>
+
                     </div>
                 </button>
             </div>

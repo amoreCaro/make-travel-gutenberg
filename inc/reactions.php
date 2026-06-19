@@ -275,3 +275,135 @@ function get_post_like_state($post_id)
         'liked' => $liked
     ];
 }   
+
+add_action('wp_ajax_toggle_save', 'toggle_save');
+add_action('wp_ajax_nopriv_toggle_save', 'toggle_save');
+
+add_action('wp_ajax_toggle_save', 'toggle_save');
+add_action('wp_ajax_nopriv_toggle_save', 'toggle_save');
+
+function toggle_save() {
+    global $wpdb;
+
+    $table = $wpdb->prefix . 'post_reactions';
+
+    // 🔐 nonce
+    if (
+        empty($_POST['nonce']) ||
+        !wp_verify_nonce($_POST['nonce'], 'post_save_nonce')
+    ) {
+        wp_send_json_error([
+            'message' => 'Invalid nonce'
+        ]);
+    }
+
+    $post_id = absint($_POST['post_id'] ?? 0);
+    $user_id = get_current_user_id();
+
+    if (!$post_id) {
+        wp_send_json_error([
+            'message' => 'Invalid post'
+        ]);
+    }
+
+    if (!$user_id) {
+        wp_send_json_error([
+            'message' => 'Not logged in'
+        ]);
+    }
+
+    $type = 'save';
+
+    // 🔍 check existing
+    $existing = $wpdb->get_var(
+        $wpdb->prepare(
+            "SELECT id
+             FROM {$table}
+             WHERE post_id = %d
+             AND user_id = %d
+             AND type = %s
+             LIMIT 1",
+            $post_id,
+            $user_id,
+            $type
+        )
+    );
+
+    if ($existing) {
+
+        $wpdb->delete(
+            $table,
+            [
+                'post_id' => $post_id,
+                'user_id' => $user_id,
+                'type' => $type
+            ],
+            ['%d', '%d', '%s']
+        );
+
+        $saved = false;
+
+    } else {
+
+        $insert = $wpdb->insert(
+            $table,
+            [
+                'post_id' => $post_id,
+                'user_id' => $user_id,
+                'type' => $type,
+                'created_at' => current_time('mysql')
+            ],
+            ['%d', '%d', '%s', '%s']
+        );
+
+        if ($insert === false) {
+            wp_send_json_error([
+                'message' => 'Insert failed',
+                'sql_error' => $wpdb->last_error
+            ]);
+        }
+
+        $saved = true;
+    }
+
+    $count = (int) $wpdb->get_var(
+        $wpdb->prepare(
+            "SELECT COUNT(*)
+             FROM {$table}
+             WHERE post_id = %d
+             AND type = %s",
+            $post_id,
+            $type
+        )
+    );
+
+    wp_send_json_success([
+        'saved' => $saved,
+        'count' => $count
+    ]);
+
+    wp_die();
+}
+
+function get_post_save_state(int $post_id): bool
+{
+    if (!is_user_logged_in()) {
+        return false;
+    }
+
+    global $wpdb;
+
+    $table = $wpdb->prefix . 'post_reactions';
+    $user_id = get_current_user_id();
+
+    return (bool) $wpdb->get_var(
+        $wpdb->prepare("
+            SELECT id
+            FROM $table
+            WHERE user_id = %d
+            AND post_id = %d
+            AND type = %s
+            LIMIT 1
+        ", $user_id, $post_id, 'save')
+    );
+}
