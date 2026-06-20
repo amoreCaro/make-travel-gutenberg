@@ -18,7 +18,7 @@ get_header();
 
 <div class="blog-page">
     <div class="lg:pt-[46px] pt-[92px]">
-        <?php render_media_menu_universal(); ?>
+<?php render_media_menu(); ?>
     <?php 
         while (have_posts()) : the_post();
             the_content();
