@@ -62,35 +62,75 @@ add_action('carbon_fields_register_fields', function () {
 
         ])
 
-->add_tab(__('Footer'), [
+    ->add_tab(__('Footer'), [
 
-    Field::make('textarea', 'footer_text', 'Disclaimer'),
+        Field::make('textarea', 'footer_text', 'Disclaimer'),
 
-    Field::make('complex', 'footer_items', 'Footer Navigation')
+        Field::make('complex', 'footer_items', 'Footer Navigation')
+            ->add_fields([
+
+                Field::make('text', 'title', 'Title')
+                    ->set_required(true),
+
+                Field::make('text', 'url', 'URL')
+                    ->set_required(true),
+
+            ]),
+
+        Field::make('text', 'footer_before_year', 'Text Before Year')
+            ->set_default_value('Copyright ©'),
+
+        Field::make('text', 'footer_pre_text', 'Text Before Link')
+            ->set_default_value('by'),
+
+        Field::make('text', 'footer_link_text', 'Link Text'),
+
+        Field::make('text', 'footer_link_url', 'Link URL'),
+
+        Field::make('text', 'footer_post_text', 'Text After Link'),
+
+    ])
+->add_tab(__('Social icons'), [
+    Field::make('complex', 'social_icons', __('Social Icons'))
+        ->set_layout('tabbed-horizontal')
         ->add_fields([
+                Field::make('image', 'icon')
+                    ->set_required(true),
 
-            Field::make('text', 'title', 'Title')
-                ->set_required(true),
+                Field::make('text', 'link', __('Link')),
 
-            Field::make('text', 'url', 'URL')
-                ->set_required(true),
+                Field::make('color', 'color_dark', __('Color for dark theme'))
+                    ->set_default_value('#FFFFFF'),
 
-        ]),
+                Field::make('color', 'color_light', __('Color for light theme'))
+                    ->set_default_value('#000000'),
 
-    Field::make('text', 'footer_before_year', 'Text Before Year')
-        ->set_default_value('Copyright ©'),
-
-    Field::make('text', 'footer_pre_text', 'Text Before Link')
-        ->set_default_value('by'),
-
-    Field::make('text', 'footer_link_text', 'Link Text'),
-
-    Field::make('text', 'footer_link_url', 'Link URL'),
-
-    Field::make('text', 'footer_post_text', 'Text After Link'),
-
-]);
+                Field::make('color', 'hover_color', __('Hover color'))
+                    ->set_default_value('#7D0AF2'),
+            ]),
+    ]);
 });
+
+add_filter('upload_mimes', function ($mimes) {
+    $mimes['svg'] = 'image/svg+xml';
+    return $mimes;
+});
+
+/**
+ * Fix WordPress filetype check for SVG
+ */
+add_filter('wp_check_filetype_and_ext', function ($data, $file, $filename, $mimes) {
+
+    $wp_filetype = wp_check_filetype($filename, $mimes);
+
+    return [
+        'ext'  => $wp_filetype['ext'],
+        'type' => $wp_filetype['type'],
+        'proper_filename' => $data['proper_filename'] ?? null,
+    ];
+
+}, 10, 4);
+
 
 add_action('after_setup_theme', function() {
     register_nav_menus( array(

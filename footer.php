@@ -54,7 +54,7 @@ $current_year = date('Y');
         </nav>
         <?php endif; ?>
 
-
+        <?php require PATH . "/components/socials/component.php"; ?>      
 
 
         <!-- Copyright -->

@@ -30,12 +30,11 @@ get_header();
     <div class="archive-page">
 
         <div class="lg:pt-[46px] pt-[92px] lg:pb-[100px] pb-[50px] bg-white dark:bg-black">
-        <?php 
-
-        ?>
+            <?php render_media_menu(); ?> 
+        <div class="pt-6">
         <?php if ( ! empty ( $posts_in_cat ) ) : ?>
 
-            <section class="bento-grid mx-auto bg-[#F6F5F8] dark:bg-[#0B0B0D] dark:bg-gradient-to-b dark:from-[#0B0B0D] dark:to-[#111114] lg:py-[80px] py-[50px] px-5 xl:px-10 2xl:px-0">
+            <section class="bento-grid mx-auto bg-[#F6F5F8] dark:bg-[#0B0B0D] dark:bg-gradient-to-b dark:from-[#0B0B0D] dark:to-[#111114] lg:py-[100px] py-[50px] px-5 xl:px-10 2xl:px-0">
 
                 <!-- HEADER -->
                 <?php if (!empty($category_name)) : ?>
@@ -112,9 +111,11 @@ get_header();
             include_once( PATH . "/components/pagination/component.php" );
         ?>
         </div>
+        </div>
     </div>
     <?php 
-        include_once( PATH . "/components/burger-menu/component.php" );
+        require PATH . "/components/burger-menu/component.php";
+        require PATH . "/components/modal/component.php"; 
     ?>
 </main>
 

@@ -56,6 +56,7 @@ if (!function_exists('cf_get_inline_svg')) {
     }
 }
 
+
 if (!function_exists('render_gallery_image')) {
     function render_gallery_image($url, $alt, $wrapper_class = '', $img_class = 'w-full h-full object-cover') {
         $wrapper_class = $wrapper_class ? "overflow-hidden $wrapper_class" : 'overflow-hidden';
@@ -143,11 +144,8 @@ function get_post_media_type(int $post_id): array
 
         $gallery[] = [
             'url' => wp_get_attachment_image_url($img_id, 'large'),
-            'alt' => get_post_meta(
-                $img_id,
-                '_wp_attachment_image_alt',
-                true
-            ) ?: get_the_title($post_id),
+            'alt' => get_post_meta($img_id, '_wp_attachment_image_alt', true)
+                ?: get_the_title($post_id),
         ];
     }
 
@@ -191,9 +189,10 @@ function get_post_media_type(int $post_id): array
         ];
     }
 
+    // ❌ IMPORTANT: NO DEFAULT PLACEHOLDER
     return [
-        'type' => 'default',
-        'media' => get_template_directory_uri() . '/assets/src/images/placeholder.png',
+        'type' => 'none',
+        'media' => '',
         'gallery' => [],
     ];
 }

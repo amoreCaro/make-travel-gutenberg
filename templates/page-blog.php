@@ -18,13 +18,17 @@ get_header();
 
 <div class="blog-page">
     <div class="lg:pt-[46px] pt-[92px]">
-    <?php 
-        while (have_posts()) : the_post();
-            the_content();
-        endwhile;
+        <?php render_media_menu(); ?>
+        <div class="pt-6">
+            <?php 
+                while (have_posts()) : the_post();
+                    the_content();
+                endwhile;
 
-        require PATH . "/components/burger-menu/component.php";
-    ?> 
+            require PATH . "/components/burger-menu/component.php";
+            require PATH . "/components/modal/component.php"; 
+            ?> 
+        </div>
     </div>
 </div>
 
