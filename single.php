@@ -375,6 +375,7 @@ get_header();
         // Video modal
         require PATH . "/components/video-modal/component.php";
         require PATH . "/components/burger-menu/component.php";
+        require PATH . "/components/modal/component.php";
     ?>
 </main>
 

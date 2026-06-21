@@ -56,6 +56,7 @@ if (!function_exists('cf_get_inline_svg')) {
     }
 }
 
+
 if (!function_exists('render_gallery_image')) {
     function render_gallery_image($url, $alt, $wrapper_class = '', $img_class = 'w-full h-full object-cover') {
         $wrapper_class = $wrapper_class ? "overflow-hidden $wrapper_class" : 'overflow-hidden';

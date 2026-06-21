@@ -86,7 +86,6 @@ $current_user = wp_get_current_user();
 
                 $is_active = !empty($item->classes) && in_array('current-menu-item', $item->classes, true);
 
-                // fallback colors (щоб не ламало CSS якщо пусто)
                 $bg_light = $bg_light ?: '#ffffff';
                 $bg_hover = $bg_hover ?: '#f3f3f3';
 
@@ -96,12 +95,16 @@ $current_user = wp_get_current_user();
 
                     <a
                         href="<?php echo esc_url($item->url); ?>"
-                        class="group flex items-center gap-2 rounded-full px-4 py-1.5 text-black transition-all
+                        class="group flex items-center gap-2 rounded-full px-4 py-1.5
                             bg-[var(--bg-color)] hover:bg-[var(--bg-hover)]
+                            text-black transition-all
+
                             dark:bg-transparent
                             dark:border dark:border-white/40
                             dark:text-white
-                            dark:hover:bg-white dark:hover:text-black
+                            dark:hover:bg-white
+                            dark:hover:text-black
+
                             <?php echo $is_active ? 'bg-white text-black dark:bg-white dark:text-black' : ''; ?>"
                         style="
                             --bg-color: <?php echo esc_attr($bg_light); ?>;
@@ -110,16 +113,27 @@ $current_user = wp_get_current_user();
                     >
 
                         <?php if (!empty($icon_url)) : ?>
-                            <span class="menu-icon flex items-center">
+                            <span class="menu-icon flex items-center justify-center w-4 h-4">
+
                                 <img
                                     src="<?php echo esc_url($icon_url); ?>"
                                     alt="<?php echo esc_attr($item->title); ?>"
-                                    class="w-4 h-4 object-contain"
+                                    class="
+                                        w-4 h-4 object-contain transition
+
+                                        /* DARK MODE DEFAULT */
+                                        dark:invert
+
+                                        /* HOVER FIX (IMPORTANT) */
+                                        group-hover:invert-0
+                                        group-hover:brightness-0
+                                    "
                                 >
+
                             </span>
                         <?php endif; ?>
 
-                        <span class="menu-text">
+                        <span class="menu-text text-sm font-medium">
                             <?php echo esc_html($item->title); ?>
                         </span>
 

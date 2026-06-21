@@ -10,9 +10,13 @@ get_header();
 <div class="search-page bg-white dark:bg-black">
     <div class="lg:pt-[46px] pt-[92px]">
 
-        <?php require PATH . "/components/media-menu/component.php"; ?>
+        <?php require_once PATH . "/components/media-menu/component.php";
 
-        <section class="bento-grid mx-auto bg-[#F6F5F8] dark:bg-[#0B0B0D] dark:bg-gradient-to-b dark:from-[#0B0B0D] dark:to-[#111114] lg:py-[80px] py-[50px] px-5 xl:px-10 2xl:px-0">
+            if (function_exists('render_media_menu')) {
+                render_media_menu();
+            } ?>
+
+        <section class="bento-grid mx-auto bg-[#F6F5F8] dark:bg-[#0B0B0D] dark:bg-gradient-to-b dark:from-[#0B0B0D] dark:to-[#111114] lg:py-[100px] py-[50px] px-5 xl:px-10 2xl:px-0">
             <div class="container mb-10">
                 <h1 class="text-black dark:text-white text-[32px] md:text-[40px] font-semibold">
                     <?php _e("Results for:", THEME); ?>
@@ -93,7 +97,12 @@ get_header();
 
         </section>
 
-        <?php require PATH . "/components/pagination/component.php"; ?>
+        <?php 
+            require PATH . "/components/pagination/component.php";
+            require PATH . "/components/burger-menu/component.php";
+            require PATH . "/components/modal/component.php"; 
+        ?>
+        
     </div>
 </div>
 

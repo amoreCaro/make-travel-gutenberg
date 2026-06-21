@@ -25,7 +25,7 @@ Block::make(__('Bento'))
 
                         $terms = get_terms([
                             'taxonomy'   => 'category',
-                            'hide_empty' => false,
+                            'hide_empty' => true,
                             'orderby'    => 'name',
                             'order'      => 'ASC',
                         ]);

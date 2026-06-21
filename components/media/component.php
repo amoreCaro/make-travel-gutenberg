@@ -16,13 +16,8 @@ use Carbon_Fields\Field;
 Container::make('post_meta', __('Media'))
     ->where('post_type', '=', 'post')
     ->add_fields([
-
-        Field::make('tab', 'cf_tab_video', __('Video')),
-
         Field::make('file', 'cf_video', __('Video'))
             ->set_type(['video']),
-
-        Field::make('tab', 'cf_tab_gallery', __('Gallery')),
 
         Field::make('complex', 'cf_gallery', __('Gallery'))
             ->set_max(4)
