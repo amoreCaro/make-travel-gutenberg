@@ -40,7 +40,7 @@ $card_class = 'post-card'
 
 $read_time = estimate_post_read_time($post_id);
 $like = get_post_like_state($post_id);
-$is_saved = get_post_save_state(get_the_ID());
+$is_saved = get_post_save_state($post_id);
 ?>
 
 <a href="<?php echo esc_url($link); ?>"

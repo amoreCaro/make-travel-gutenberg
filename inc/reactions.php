@@ -279,15 +279,12 @@ function get_post_like_state($post_id)
 add_action('wp_ajax_toggle_save', 'toggle_save');
 add_action('wp_ajax_nopriv_toggle_save', 'toggle_save');
 
-add_action('wp_ajax_toggle_save', 'toggle_save');
-add_action('wp_ajax_nopriv_toggle_save', 'toggle_save');
-
 function toggle_save() {
     global $wpdb;
 
     $table = $wpdb->prefix . 'post_reactions';
 
-    // 🔐 nonce
+    // nonce
     if (
         empty($_POST['nonce']) ||
         !wp_verify_nonce($_POST['nonce'], 'post_save_nonce')
@@ -314,7 +311,7 @@ function toggle_save() {
 
     $type = 'save';
 
-    // 🔍 check existing
+    // check existing
     $existing = $wpdb->get_var(
         $wpdb->prepare(
             "SELECT id
@@ -406,4 +403,110 @@ function get_post_save_state(int $post_id): bool
             LIMIT 1
         ", $user_id, $post_id, 'save')
     );
+}
+
+add_action('wp_ajax_load_liked_posts', 'load_liked_posts');
+
+function load_liked_posts() {
+
+    global $wpdb;
+
+    $user_id = get_current_user_id();
+    $offset = intval($_POST['offset'] ?? 0);
+
+    $table = $wpdb->prefix . 'post_reactions';
+
+    $liked_posts = $wpdb->get_col(
+        $wpdb->prepare(
+            "
+            SELECT post_id
+            FROM {$table}
+            WHERE user_id = %d
+            AND type = %s
+            ORDER BY id DESC
+            ",
+            $user_id,
+            'like'
+        )
+    );
+
+    $liked_posts = array_slice(
+        $liked_posts,
+        $offset
+    );
+
+    $query = new WP_Query([
+        'post_type' => 'post',
+        'post__in' => !empty($liked_posts)
+            ? $liked_posts
+            : [0],
+        'orderby' => 'post__in',
+        'posts_per_page' => -1,
+    ]);
+
+    ob_start();
+
+    while ($query->have_posts()) {
+        $query->the_post();
+
+        get_template_part(
+            'components/bento/elements/default-item'
+        );
+    }
+
+    wp_reset_postdata();
+
+    wp_send_json_success([
+        'html' => ob_get_clean(),
+    ]);
+
+}
+
+add_action('wp_ajax_load_bookmarked_posts', 'load_bookmarked_posts');
+add_action('wp_ajax_nopriv_load_bookmarked_posts', 'load_bookmarked_posts');
+
+function load_bookmarked_posts() {
+
+    if (!is_user_logged_in()) {
+        wp_send_json_error(['message' => 'not logged in']);
+    }
+
+    global $wpdb;
+
+    $user_id = get_current_user_id();
+    $offset  = intval($_POST['offset'] ?? 0);
+
+    $table = $wpdb->prefix . 'post_reactions';
+
+    $saved_posts = $wpdb->get_col(
+        $wpdb->prepare("
+            SELECT post_id
+            FROM {$table}
+            WHERE user_id = %d
+            AND type = %s
+            ORDER BY id DESC
+        ", $user_id, 'save')
+    );
+
+    $saved_posts = array_slice($saved_posts, $offset);
+
+    $query = new WP_Query([
+        'post_type'      => 'post',
+        'post__in'       => !empty($saved_posts) ? $saved_posts : [0],
+        'orderby'        => 'post__in',
+        'posts_per_page' => -1,
+    ]);
+
+    ob_start();
+
+    while ($query->have_posts()) {
+        $query->the_post();
+        get_template_part('components/bento/elements/default-item');
+    }
+
+    wp_reset_postdata();
+
+    wp_send_json_success([
+        'html' => ob_get_clean(),
+    ]);
 }

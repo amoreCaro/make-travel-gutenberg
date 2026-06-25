@@ -41,7 +41,7 @@ $card_class = 'post-card'
 
 $read_time = estimate_post_read_time($post_id);
 $like = get_post_like_state($post_id);
-$is_saved = get_post_save_state(get_the_ID());
+$is_saved = get_post_save_state($post_id);
 ?>
 
 <a href="<?php echo esc_url($link); ?>"
@@ -149,7 +149,7 @@ $is_saved = get_post_save_state(get_the_ID());
 
     </div>
 
-    <div class="lg:w-[45%] p-8 md:p-12 lg:p-12 flex flex-col text-black relative min-h-[300px] md:h-full">
+    <div class="lg:w-[45%] p-4 flex flex-col text-black relative min-h-[300px] md:h-full">
         <div class="flex flex-col h-full">
 
             <div class="flex items-center mb-4">

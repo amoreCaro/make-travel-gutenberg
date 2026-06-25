@@ -27,6 +27,7 @@ function theme_register_styles()
         'nonce_login'     => wp_create_nonce('login_user_nonce'),
         'post_like_nonce' => wp_create_nonce('post_like_nonce'),
         'post_save_nonce' => wp_create_nonce('post_save_nonce'),
+        'load_more_posts_nonce' => wp_create_nonce('load_more_posts_nonce'),
     ]);
 }
 
