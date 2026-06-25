@@ -47,7 +47,7 @@ $is_saved = get_post_save_state($post_id);
 <a href="<?php echo esc_url($link); ?>"
    class="<?php echo esc_attr($card_class); ?> group lg:col-span-3 bg-white dark:bg-[#18181f] rounded-[24px] md:rounded-[32px] overflow-hidden flex flex-col lg:flex-row lg:min-h-[280px]">
 
-    <div class="h-[300px] sm:h-[350px] lg:h-auto lg:w-[55%] overflow-hidden relative">
+    <div class="h-[300px] sm:h-[350px] lg:min-h-[450px] lg:h-full lg:w-[55%] overflow-hidden relative">
 
         <?php if (!empty($category_name)) : ?>
             <span class="top-4 left-4 z-10 absolute flex items-center gap-2 text-[12px] leading-[16px] font-medium capitalize px-5 py-1 rounded-full w-fit

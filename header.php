@@ -84,8 +84,9 @@ $current_user = wp_get_current_user();
 
                         $bg_light = carbon_get_nav_menu_item_meta($item->ID, 'menu_bg_color');
                         $bg_hover = carbon_get_nav_menu_item_meta($item->ID, 'menu_bg_hover_color');
-                        $icon_id = carbon_get_nav_menu_item_meta($item->ID, 'menu_item_image');
-                        $icon_svg = cf_get_inline_svg($icon_id, 16, 16);
+                        $icon_id  = carbon_get_nav_menu_item_meta($item->ID, 'menu_item_image');
+                        $icon_url = $icon_id ? wp_get_attachment_url((int) $icon_id) : '';
+                        $icon_svg = cf_get_inline_svg($icon_url, 16, 16);
                         $is_active = !empty($item->classes) && in_array('current-menu-item', $item->classes, true);
 
                         $bg_light = $bg_light ?: '#ffffff';
