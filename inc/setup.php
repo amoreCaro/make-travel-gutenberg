@@ -100,11 +100,6 @@ add_action('carbon_fields_register_fields', function () {
         ]);
 });
 
-add_filter('upload_mimes', function ($mimes) {
-    $mimes['svg'] = 'image/svg+xml';
-    return $mimes;
-});
-
 add_filter(
     'carbon_fields_should_save_field_value',
     function ($should_save, $value, $field) {
@@ -152,10 +147,27 @@ add_action('carbon_fields_register_fields', function () {
                 ->set_default_value('#f3f3f3'),
 
             Field::make('image', 'menu_item_image', 'Menu Image')
-                ->set_value_type('url'),
+                // ->set_value_type('url'),
 
         ]);
 });
+
+add_filter('upload_mimes', function ($mimes) {
+    $mimes['svg']  = 'image/svg+xml';
+    $mimes['svgz'] = 'image/svg+xml';
+    return $mimes;
+});
+
+add_filter('wp_check_filetype_and_ext', function ($data, $file, $filename, $mimes) {
+    if (!$data['type']) {
+        $ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+        if ($ext === 'svg' || $ext === 'svgz') {
+            $data['type'] = 'image/svg+xml';
+            $data['ext']  = $ext;
+        }
+    }
+    return $data;
+}, 10, 4);
 
 function theme_setup()
 {
@@ -172,12 +184,6 @@ add_action('after_setup_theme', 'theme_setup');
 register_nav_menus([
     'header_menu' => __('Header Menu', 'your-theme'),
 ]);
-
-add_filter('upload_mimes', function ($mimes) {
-    $mimes['svg'] = 'image/svg+xml';
-
-    return $mimes;
-});
 
 add_action('carbon_fields_register_fields', 'theme_register_category_fields');
 
