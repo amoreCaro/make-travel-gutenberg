@@ -19,19 +19,22 @@ $logo_img_id = carbon_get_theme_option('header_logo_image');
  * MENU (Carbon Fields version)
  */
 
-$nav_menu   = get_nav_menu_locations();
+$nav_menu = get_nav_menu_locations();
 
 $menu_items = [];
+$pages_menu_items = [];
 
+$header_menu_id = $nav_menu['header_menu'] ?? 0;
+$pages_menu_id  = $nav_menu['pages_menu'] ?? 0;
 
-$current_user = wp_get_current_user();
-
-if (isset($nav_menu['header_menu'])) {
-    $menu_id    = $nav_menu['header_menu'];
-    $menu_items = wp_get_nav_menu_items($menu_id);
+if ($header_menu_id) {
+    $menu_items = wp_get_nav_menu_items($header_menu_id) ?: [];
 }
 
-$pages = carbon_get_theme_option('header_pages') ?: [];
+if ($pages_menu_id) {
+    $pages_menu_items = wp_get_nav_menu_items($pages_menu_id) ?: [];
+}
+
 
 $login_text  = carbon_get_theme_option('header_login_text') ?: 'Login';
 $logout_text = carbon_get_theme_option('header_logout_text') ?: 'Logout';
@@ -42,7 +45,6 @@ $current_user = wp_get_current_user();
 <div class="l-wrapper bg-white dark:bg-black">
 
 <header class="header-default fixed top-0 left-0 z-[100] w-full px-5 xl:px-10 h-[80px] flex items-center bg-white text-black dark:bg-black dark:text-white">
-
     <div class="container flex items-center justify-between">
 
         <!-- ================= LOGO ================= -->
@@ -73,99 +75,80 @@ $current_user = wp_get_current_user();
             </a>
         <?php endif; ?>
 
-
-<nav class="navigation hidden flex-1 justify-center lg:flex">
-    <ul class="flex space-x-3">
-
         <?php if (!empty($menu_items)) : ?>
-            <?php foreach ($menu_items as $item) :
+        <nav class="navigation hidden flex-1 justify-center lg:flex">
+            <ul class="flex space-x-3">
 
-                $bg_light = carbon_get_nav_menu_item_meta($item->ID, 'menu_bg_color');
-                $bg_hover = carbon_get_nav_menu_item_meta($item->ID, 'menu_bg_hover_color');
-                $icon_url = carbon_get_nav_menu_item_meta($item->ID, 'menu_item_image');
+                <?php if (!empty($menu_items)) : ?>
+                    <?php foreach ($menu_items as $item) :
 
-                $is_active = !empty($item->classes) && in_array('current-menu-item', $item->classes, true);
+                        $bg_light = carbon_get_nav_menu_item_meta($item->ID, 'menu_bg_color');
+                        $bg_hover = carbon_get_nav_menu_item_meta($item->ID, 'menu_bg_hover_color');
+                        $icon_id = carbon_get_nav_menu_item_meta($item->ID, 'menu_item_image');
+                        $icon_svg = cf_get_inline_svg($icon_id, 16, 16);
+                        $is_active = !empty($item->classes) && in_array('current-menu-item', $item->classes, true);
 
-                $bg_light = $bg_light ?: '#ffffff';
-                $bg_hover = $bg_hover ?: '#f3f3f3';
+                        $bg_light = $bg_light ?: '#ffffff';
+                        $bg_hover = $bg_hover ?: '#f3f3f3';
 
-            ?>
+                    ?>
 
-                <li class="list-none">
+                        <li class="list-none">
 
-                    <a
-                        href="<?php echo esc_url($item->url); ?>"
-                        class="group flex items-center gap-2 rounded-full px-4 py-1.5
-                            bg-[var(--bg-color)] hover:bg-[var(--bg-hover)]
-                            text-black transition-all
+                            <a
+                                href="<?php echo esc_url($item->url); ?>"
+                                class="group flex items-center gap-2 rounded-full px-4 py-1.5
+                                    bg-[var(--bg-color)] hover:bg-[var(--bg-hover)]
+                                    text-black transition-all
 
-                            dark:bg-transparent
-                            dark:border dark:border-white/40
-                            dark:text-white
-                            dark:hover:bg-white
-                            dark:hover:text-black
+                                    dark:bg-transparent
+                                    dark:border dark:border-white/40
+                                    dark:text-white
+                                    dark:hover:bg-white
+                                    dark:hover:text-black
 
-                            <?php echo $is_active ? 'bg-white text-black dark:bg-white dark:text-black' : ''; ?>"
-                        style="
-                            --bg-color: <?php echo esc_attr($bg_light); ?>;
-                            --bg-hover: <?php echo esc_attr($bg_hover); ?>;
-                        "
-                    >
+                                    <?php echo $is_active ? 'bg-white text-black dark:bg-white dark:text-black' : ''; ?>"
+                                style="
+                                    --bg-color: <?php echo esc_attr($bg_light); ?>;
+                                    --bg-hover: <?php echo esc_attr($bg_hover); ?>;
+                                "
+                            >
 
-                        <?php if (!empty($icon_url)) : ?>
-                            <span class="menu-icon flex items-center justify-center w-4 h-4">
+                            <?php if (!empty($icon_svg)) : ?>
+                                <span class="menu-icon flex items-center justify-center w-4 h-4">
+                                    <?php echo $icon_svg; ?>
+                                </span>
+                            <?php endif; ?>
 
-                                <img
-                                    src="<?php echo esc_url($icon_url); ?>"
-                                    alt="<?php echo esc_attr($item->title); ?>"
-                                    class="
-                                        w-4 h-4 object-contain transition
+                                <span class="menu-text text-sm font-medium">
+                                    <?php echo esc_html($item->title); ?>
+                                </span>
 
-                                        /* DARK MODE DEFAULT */
-                                        dark:invert
+                            </a>
 
-                                        /* HOVER FIX (IMPORTANT) */
-                                        group-hover:invert-0
-                                        group-hover:brightness-0
-                                    "
-                                >
+                        </li>
 
-                            </span>
-                        <?php endif; ?>
+                    <?php endforeach; ?>
+                <?php endif; ?>
 
-                        <span class="menu-text text-sm font-medium">
-                            <?php echo esc_html($item->title); ?>
-                        </span>
-
-                    </a>
-
-                </li>
-
-            <?php endforeach; ?>
+            </ul>
+        </nav>
         <?php endif; ?>
-
-    </ul>
-</nav>
         <!-- RIGHT SIDE -->
         <div class="flex items-center gap-4 md:gap-6 text-sm flex-shrink-0">
 
 
             <!-- PAGES (Carbon Fields) -->
-            <?php if (!empty($pages)) : ?>
+            <?php if (!empty($pages_menu_items)) : ?>
                 <div class="hidden lg:flex items-center gap-6">
 
-                    <?php foreach ($pages as $page) :
-
-                        $label = $page['label'] ?? '';
-                        $url   = $page['url'] ?? '#';
-
+                    <?php foreach ($pages_menu_items as $item) : 
+                        $is_item_active = !empty($item->classes) && in_array('current-menu-item', $item->classes, true);
                     ?>
 
-                        <a href="<?php echo esc_url($url); ?>"
-                        class="transition-colors hover:text-blue-400">
-
-                            <?php echo esc_html($label); ?>
-
+                        <a href="<?php echo esc_url($item->url); ?>"
+                        class="transition-colors hover:text-blue-400 <?php echo $is_item_active ? 'text-blue-400 font-semibold' : ''; ?>">
+                            <?php echo esc_html($item->title); ?>
                         </a>
 
                     <?php endforeach; ?>

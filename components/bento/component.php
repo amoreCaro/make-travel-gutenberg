@@ -75,7 +75,8 @@ Block::make(__('Bento'))
             $category_obj = get_term($category_id, 'category');
             if (!$category_obj) continue;
 
-            $icon_url = carbon_get_term_meta($category_id, 'category_svg');
+            $icon_id = carbon_get_term_meta($category_id, 'category_svg');
+            $icon_url = $icon_id ? wp_get_attachment_url($icon_id) : '';
             $category_svg = cf_get_inline_svg($icon_url);
 
             $category_bg_color   = carbon_get_term_meta($category_id, 'category_bg');

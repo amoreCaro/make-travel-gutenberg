@@ -26,7 +26,6 @@ $content = apply_filters( 'the_content', get_the_content() );
 
 // tags
 $tags = get_the_tags();
-
 get_header();
 
 ?>
@@ -229,10 +228,10 @@ get_header();
     <div class="flex items-center justify-between border-b border-gray-100 pb-5 mb-8">
         <div class="flex items-center gap-3">
             <h3 class="text-xl font-bold tracking-tight text-gray-900 sm:text-2xl">
-                Discussion
+                <?php _e("Discussion", THEME); ?>
             </h3>
             <span class="inline-flex items-center justify-center bg-gray-100 text-gray-600 text-xs font-semibold px-2.5 py-1 rounded-full">
-                28
+                <?php _e("28", THEME); ?>
             </span>
         </div>
     </div>
@@ -258,13 +257,13 @@ get_header();
                         class="inline-flex items-center justify-center rounded-xl bg-transparent hover:bg-gray-200/60 text-gray-500 hover:text-gray-700 text-xs font-semibold py-2 px-4 transition-colors cursor-pointer" 
                         type="button"
                     >
-                        Cancel
+                        <?php _e("Cancel", THEME); ?>
                     </button>
                     <button 
                         class="inline-flex items-center justify-center rounded-xl bg-teal-600 hover:bg-teal-700 text-white text-xs font-semibold py-2 px-5 transition-all shadow-sm active:scale-[0.98] cursor-pointer" 
                         type="submit"
                     >
-                        Send
+                        <?php _e("Send", THEME); ?>
                     </button>
                 </div>
             </div>
@@ -286,19 +285,21 @@ get_header();
                     
                     <div class="flex-1 space-y-1.5">
                         <div class="flex items-center gap-2 flex-wrap">
-                            <a href="#" class="font-semibold text-sm text-gray-900 hover:text-teal-600 transition-colors">Moderator</a>
-                            <span class="inline-flex items-center rounded-md bg-teal-50 px-1.5 py-0.5 text-[10px] font-medium text-teal-700 ring-1 ring-inset ring-teal-600/10">Staff</span>
+                            <a href="#" class="font-semibold text-sm text-gray-900 hover:text-teal-600 transition-colors"><?php _e("Moderator", THEME); ?></a>
+                            <span class="inline-flex items-center rounded-md bg-teal-50 px-1.5 py-0.5 text-[10px] font-medium text-teal-700 ring-1 ring-inset ring-teal-600/10">
+                                <?php _e("Staff", THEME); ?>
+                            </span>
                             <span class="text-gray-300 text-xs">·</span>
-                            <span class="text-xs text-gray-400">Today, 14:20</span>
+                            <span class="text-xs text-gray-400"><?php _e("Today, 14:20", THEME); ?></span>
                         </div>
                         
                         <div class="text-sm text-gray-600 leading-relaxed">
-                            <p>Welcome to our new comment interface! We’ve fully redesigned it to make conversations cleaner and easier to read. How do you like the performance so far?</p>
+                           <?php _e("Welcome to our new comment interface! We’ve fully redesigned it to make conversations cleaner and easier to read. How do you like the performance so far?", THEME); ?> 
                         </div>
                         
                         <div class="pt-1 flex items-center gap-4 text-xs">
                             <button class="inline-flex items-center gap-1.5 font-semibold text-gray-400 hover:text-teal-600 transition-colors cursor-pointer">
-                                Reply
+                                <?php _e("Reply", THEME); ?>
                             </button>
                         </div>
                     </div>
@@ -316,18 +317,23 @@ get_header();
                             
                             <div class="flex-1 space-y-1.5">
                                 <div class="flex items-center gap-2">
-                                    <a href="#" class="font-semibold text-sm text-gray-900 hover:text-teal-600 transition-colors">Alexander Kovalenko</a>
+                                    <a href="#" class="font-semibold text-sm text-gray-900 hover:text-teal-600 transition-colors">
+                                        <?php _e("Alexander Kovalenko", THEME); ?>
+                                    </a>
                                     <span class="text-gray-300 text-xs">·</span>
-                                    <span class="text-xs text-gray-400">10 min ago</span>
+                                    <span class="text-xs text-gray-400">
+                                        <?php _e("10 min ago", THEME); ?>
+                                    </span>
+                                     
                                 </div>
                                 
                                 <div class="text-sm text-gray-600 leading-relaxed">
-                                    <p>It’s insanely fast! Everything loads instantly on mobile, and the thread structure finally makes it easy to follow conversations. Great job!</p>
+                                   <?php _e("It’s insanely fast! Everything loads instantly on mobile, and the thread structure finally makes it easy to follow conversations. Great job!", THEME); ?>
                                 </div>
                                 
                                 <div class="pt-1 text-xs">
                                     <button class="font-semibold text-gray-400 hover:text-teal-600 transition-colors cursor-pointer">
-                                        Reply
+                                        <?php _e("Reply", THEME); ?>
                                     </button>
                                 </div>
                             </div>
@@ -345,18 +351,18 @@ get_header();
                     
                     <div class="flex-1 space-y-1.5">
                         <div class="flex items-center gap-2">
-                            <a href="#" class="font-semibold text-sm text-gray-900 hover:text-teal-600 transition-colors">Dmytro</a>
+                            <a href="#" class="font-semibold text-sm text-gray-900 hover:text-teal-600 transition-colors"><?php _e("Dmytro", THEME); ?></a>
                             <span class="text-gray-300 text-xs">·</span>
-                            <span class="text-xs text-gray-400">Yesterday</span>
+                            <span class="text-xs text-gray-400"><?php _e("Yesterday", THEME); ?></span>
                         </div>
                         
                         <div class="text-sm text-gray-600 leading-relaxed">
-                            <p>Is Markdown support or inline code formatting planned for the input field? That would be really useful for technical discussions.</p>
+                            <?php _e("Is Markdown support or inline code formatting planned for the input field? That would be really useful for technical discussions.", THEME); ?>
                         </div>
                         
                         <div class="pt-1 flex items-center gap-4 text-xs">
                             <button class="inline-flex items-center gap-1.5 font-semibold text-gray-400 hover:text-teal-600 transition-colors cursor-pointer">
-                                Reply
+                                <?php _e("Reply", THEME); ?>
                             </button>
                         </div>
                     </div>

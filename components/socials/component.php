@@ -39,7 +39,7 @@ if (empty($socials) || !is_array($socials)) {
     ?>
 
         <a href="<?php echo esc_url($url); ?>"
-           class="flex items-center justify-center w-[32px] h-[32px]
+           class="flex items-center justify-center max-w-[32px] w-full h-[32px]
                   transition-colors duration-200
                   text-[var(--icon-light)]
                   hover:text-[var(--icon-hover)]

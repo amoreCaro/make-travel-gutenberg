@@ -296,7 +296,7 @@
                             </div>
                             <div class="ms-4 text-left">
                                 <p class="popup-error__text text-sm text-[#b91c1c]">
-                                <?php _e("This email is already registered.", THEME); ?>
+                                    <?php _e("This email is already registered.", THEME); ?>
                                 <a href="#" class="font-bold !underline !text-[#991b1b] hover:!text-[#7f1d1d]"><?php _e("Login instead?", THEME); ?></a>
                                 </p>
                             </div>

@@ -66,17 +66,6 @@ add_action('carbon_fields_register_fields', function () {
 
         Field::make('textarea', 'footer_text', 'Disclaimer'),
 
-        Field::make('complex', 'footer_items', 'Footer Navigation')
-            ->add_fields([
-
-                Field::make('text', 'title', 'Title')
-                    ->set_required(true),
-
-                Field::make('text', 'url', 'URL')
-                    ->set_required(true),
-
-            ]),
-
         Field::make('text', 'footer_before_year', 'Text Before Year')
             ->set_default_value('Copyright ©'),
 
@@ -90,25 +79,25 @@ add_action('carbon_fields_register_fields', function () {
         Field::make('text', 'footer_post_text', 'Text After Link'),
 
     ])
-->add_tab(__('Social icons'), [
-    Field::make('complex', 'social_icons', __('Social Icons'))
-        ->set_layout('tabbed-horizontal')
-        ->add_fields([
+    ->add_tab(__('Social icons'), [
+        Field::make('complex', 'social_icons', __('Social Icons'))
+            ->set_layout('tabbed-horizontal')
+            ->add_fields([
                 Field::make('image', 'icon')
                     ->set_required(true),
 
-                Field::make('text', 'link', __('Link')),
+                    Field::make('text', 'link', __('Link')),
 
-                Field::make('color', 'color_dark', __('Color for dark theme'))
-                    ->set_default_value('#FFFFFF'),
+                    Field::make('color', 'color_dark', __('Color for dark theme'))
+                        ->set_default_value('#FFFFFF'),
 
-                Field::make('color', 'color_light', __('Color for light theme'))
-                    ->set_default_value('#000000'),
+                    Field::make('color', 'color_light', __('Color for light theme'))
+                        ->set_default_value('#000000'),
 
-                Field::make('color', 'hover_color', __('Hover color'))
-                    ->set_default_value('#7D0AF2'),
-            ]),
-    ]);
+                    Field::make('color', 'hover_color', __('Hover color'))
+                        ->set_default_value('#7D0AF2'),
+                ]),
+        ]);
 });
 
 add_filter('upload_mimes', function ($mimes) {
@@ -116,25 +105,38 @@ add_filter('upload_mimes', function ($mimes) {
     return $mimes;
 });
 
-/**
- * Fix WordPress filetype check for SVG
- */
-add_filter('wp_check_filetype_and_ext', function ($data, $file, $filename, $mimes) {
+add_filter(
+    'carbon_fields_should_save_field_value',
+    function ($should_save, $value, $field) {
 
-    $wp_filetype = wp_check_filetype($filename, $mimes);
+        // тільки поле icon
+        if ($field->get_base_name() !== 'icon') {
+            return $should_save;
+        }
 
-    return [
-        'ext'  => $wp_filetype['ext'],
-        'type' => $wp_filetype['type'],
-        'proper_filename' => $data['proper_filename'] ?? null,
-    ];
+        if (empty($value)) {
+            return $should_save;
+        }
 
-}, 10, 4);
+        $mime = get_post_mime_type((int) $value);
 
+        // забороняємо збереження якщо не svg
+        if ($mime !== 'image/svg+xml') {
+            return false;
+        }
+
+        return $should_save;
+
+    },
+    10,
+    3
+);
 
 add_action('after_setup_theme', function() {
     register_nav_menus( array(
         'primary' => __( 'Primary Menu', 'textdomain' ),
+        'footer_menu' => __( 'Footer Menu', 'textdomain' ),
+        'pages_menu' => __( 'Pages Menu', 'textdomain' ),
     ) );
 });
 
@@ -185,9 +187,8 @@ function theme_register_category_fields() {
         ->add_fields([
             
             Field::make('file', 'category_svg', 'Category icon')
-                ->set_value_type('url')
+                ->set_value_type('id')
                 ->set_type(['image/svg+xml']),
-
             Field::make('color', 'category_bg', 'Background color'),
 
             Field::make('color', 'category_text_color', 'Text color'),

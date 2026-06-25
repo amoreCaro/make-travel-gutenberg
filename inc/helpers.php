@@ -23,31 +23,56 @@ if (!function_exists('limit_gallery_items')) {
 }
 
 if (!function_exists('cf_get_inline_svg')) {
-    function cf_get_inline_svg($svg_url, $width = 50, $height = 50) {
 
-        if (!$svg_url) return '';
+    function cf_get_inline_svg($svg_source, $width = 16, $height = 16, $extra_class = '') {
 
-        // конвертуємо URL → path
-        $path = str_replace(
-            wp_get_upload_dir()['baseurl'],
-            wp_get_upload_dir()['basedir'],
-            $svg_url
-        );
+        if (!$svg_source) return '';
 
-        if (!file_exists($path)) {
-            return '';
+        /**
+         * 🔒 ALLOW ONLY SVG FILES
+         */
+        $path = parse_url($svg_source, PHP_URL_PATH);
+        $ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+
+        if ($ext !== 'svg') {
+            return ''; // ❌ жорсткий стоп
         }
 
-        $svg = file_get_contents($path);
+        $upload_dir = wp_get_upload_dir();
+
+        // тільки uploads SVG
+        if (str_starts_with($svg_source, $upload_dir['baseurl'])) {
+
+            $file_path = str_replace(
+                $upload_dir['baseurl'],
+                $upload_dir['basedir'],
+                $svg_source
+            );
+
+            if (!file_exists($file_path)) return '';
+
+            $svg = file_get_contents($file_path);
+
+        } else {
+            return ''; // ❌ забороняємо theme / external
+        }
 
         if (!$svg) return '';
 
-        $svg = preg_replace('/fill=".*?"/', 'fill="currentColor"', $svg);
-        $svg = preg_replace('/stroke=".*?"/', 'stroke="currentColor"', $svg);
+        // security cleanup
+        $svg = preg_replace('/<script\b[^>]*>(.*?)<\/script>/is', '', $svg);
+        $svg = preg_replace('/on\w+=".*?"/i', '', $svg);
+        $svg = preg_replace('/javascript:/i', '', $svg);
+
+        // force currentColor
+        $svg = preg_replace('/fill="[^"]*"/i', 'fill="currentColor"', $svg);
+        $svg = preg_replace('/stroke="[^"]*"/i', 'stroke="currentColor"', $svg);
+
+        $class = trim('cf-svg-icon fill-current ' . $extra_class);
 
         $svg = preg_replace(
             '/<svg([^>]*)>/',
-            '<svg$1 width="'.$width.'" height="'.$height.'" class="fill-current">',
+            '<svg$1 width="'.$width.'" height="'.$height.'" class="'.$class.'">',
             $svg,
             1
         );
