@@ -45,7 +45,6 @@ $current_user = wp_get_current_user();
 <div class="l-wrapper bg-white dark:bg-black">
 
 <header class="header-default fixed top-0 left-0 z-[100] w-full px-5 xl:px-10 h-[80px] flex items-center bg-white text-black dark:bg-black dark:text-white">
-
     <div class="container flex items-center justify-between">
 
         <!-- ================= LOGO ================= -->
@@ -85,8 +84,8 @@ $current_user = wp_get_current_user();
 
                         $bg_light = carbon_get_nav_menu_item_meta($item->ID, 'menu_bg_color');
                         $bg_hover = carbon_get_nav_menu_item_meta($item->ID, 'menu_bg_hover_color');
-                        $icon_url = carbon_get_nav_menu_item_meta($item->ID, 'menu_item_image');
-
+                        $icon_id = carbon_get_nav_menu_item_meta($item->ID, 'menu_item_image');
+                        $icon_svg = cf_get_inline_svg($icon_id, 16, 16);
                         $is_active = !empty($item->classes) && in_array('current-menu-item', $item->classes, true);
 
                         $bg_light = $bg_light ?: '#ffffff';
@@ -115,26 +114,11 @@ $current_user = wp_get_current_user();
                                 "
                             >
 
-                                <?php if (!empty($icon_url)) : ?>
-                                    <span class="menu-icon flex items-center justify-center w-4 h-4">
-
-                                        <img
-                                            src="<?php echo esc_url($icon_url); ?>"
-                                            alt="<?php echo esc_attr($item->title); ?>"
-                                            class="
-                                                w-4 h-4 object-contain transition
-
-                                                /* DARK MODE DEFAULT */
-                                                dark:invert
-
-                                                /* HOVER FIX (IMPORTANT) */
-                                                group-hover:invert-0
-                                                group-hover:brightness-0
-                                            "
-                                        >
-
-                                    </span>
-                                <?php endif; ?>
+                            <?php if (!empty($icon_svg)) : ?>
+                                <span class="menu-icon flex items-center justify-center w-4 h-4">
+                                    <?php echo $icon_svg; ?>
+                                </span>
+                            <?php endif; ?>
 
                                 <span class="menu-text text-sm font-medium">
                                     <?php echo esc_html($item->title); ?>

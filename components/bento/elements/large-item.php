@@ -68,7 +68,7 @@ $is_saved = get_post_save_state($post_id);
 
         <?php if ($has_gallery && !empty($gallery)) : ?>
 
-            <div class="swiper slider w-full overflow-hidden relative h-[185px]">
+            <div class="swiper slider w-full overflow-hidden relative h-full">
                 
                 <div class="swiper-wrapper">
 

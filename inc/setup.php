@@ -187,9 +187,8 @@ function theme_register_category_fields() {
         ->add_fields([
             
             Field::make('file', 'category_svg', 'Category icon')
-                ->set_value_type('url')
+                ->set_value_type('id')
                 ->set_type(['image/svg+xml']),
-
             Field::make('color', 'category_bg', 'Background color'),
 
             Field::make('color', 'category_text_color', 'Text color'),
