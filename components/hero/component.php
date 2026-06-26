@@ -15,7 +15,6 @@ Block::make('Hero')
             ->set_min(1)
             ->set_max(7)
             ->add_fields([
-                // Прибрано некоректний метод set_value_type('id')
                 Field::make('image', 'image', 'Image')
                     ->set_required(true) 
             ]),
@@ -33,7 +32,6 @@ Block::make('Hero')
             ->set_min(1)
             ->set_max(7)
             ->add_fields([
-                // Прибрано некоректний метод set_value_type('id')
                 Field::make('image', 'image', 'Image')
                     ->set_required(true)
             ]),
@@ -144,7 +142,7 @@ Block::make('Hero')
                     name="s"
                     value="<?php echo get_search_query(); ?>"
                     placeholder="<?php echo esc_attr($search_placeholder); ?>"
-                    class="w-full py-4 pl-12 pr-6 bg-white dark:bg-[#232125] border rounded-full"
+                    class="w-full py-4 pl-12 pr-6 bg-[#F2F2F2] dark:bg-[#232125] rounded-full"
                 >
             </div>
         </form>
