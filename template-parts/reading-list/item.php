@@ -1,0 +1,261 @@
+<?php
+if (!defined('ABSPATH')) exit;
+
+$post_id = get_the_ID();
+
+/**
+ * DATA LAYER (RAW DATA ONLY — без esc)
+ */
+
+$categories_raw = get_the_category();
+
+$categories = array_map(function ($cat) {
+    return [
+        'name' => $cat->name,
+        'url'  => get_category_link($cat->term_id),
+    ];
+}, $categories_raw ?: []);
+
+$permalink = get_permalink();
+$title     = get_the_title();
+$excerpt   = get_the_excerpt();
+$date      = get_the_date('M d, Y');
+
+$author_id  = $post->post_author;
+$avatar_url = get_avatar_url($author_id, ['size' => 28]);
+$username   = get_the_author_meta('display_name', $author_id); 
+
+$thumbnail = has_post_thumbnail()
+    ? get_the_post_thumbnail(
+        $post_id,
+        'large',
+        ['class' => 'w-full h-full object-cover hover:scale-105 transition duration-300']
+    )
+    : null;
+
+$read_time = estimate_post_read_time($post_id);
+$like      = get_post_like_state($post_id);
+$is_saved  = get_post_save_state($post_id);
+?>
+
+<div class="flex flex-col-reverse sm:flex-row justify-between items-start gap-6 pb-10 border-b border-gray-100 dark:border-neutral-800 last:border-0">
+
+    <div class="flex-1 space-y-3">
+
+        <!-- Categories -->
+        <?php if (!empty($categories)) : ?>
+            <div class="flex flex-wrap gap-2">
+                <?php foreach ($categories as $category) : ?>
+                    <a href="<?php echo esc_url($category['url']); ?>"
+                       class="inline-flex px-2.5 py-0.5 rounded-md text-xs font-semibold uppercase bg-purple-50 text-purple-700 dark:bg-purple-900/20 dark:text-purple-300">
+                        <?php echo esc_html($category['name']); ?>
+                    </a>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
+
+        <!-- Title -->
+        <?php if (!empty($title)) : ?>
+            <h2 class="text-[18px] leading-[28px] font-semibold text-[#111827] hover:text-[#312e81] transition">
+                <a href="<?php echo esc_url($permalink); ?>" class="line-clamp-1">
+                    <?php echo esc_html($title); ?>
+                </a>
+            </h2>
+        <?php endif; ?>
+
+        <!-- Excerpt -->
+        <?php if (!empty($excerpt)) : ?>
+            <p class="text-[14px] leading-[20px] font-normal text-[#6b7280] line-clamp-2">
+                <?php echo esc_html($excerpt); ?>
+            </p>
+        <?php endif; ?>
+
+        <!-- Meta -->
+        <div class="flex items-center gap-2 pt-2 text-sm text-gray-400">
+
+            <div class="flex items-center gap-2">
+                <?php if ($avatar_url) : ?>
+                    <div class="post__author-name-img mr-2 flex-shrink-0">
+                        <img
+                            src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23cccccc'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E"
+                            data-src="<?php echo esc_url($avatar_url); ?>"
+                            alt="<?php echo esc_attr($username); ?>"
+                            width="28"
+                            height="28"
+                            loading="lazy"
+                            decoding="async"
+                            class="lazy-img w-[28px] h-[28px] rounded-full object-cover bg-[#f5f5f5]"
+                        >
+                    </div>
+                <?php endif; ?>
+                
+                <?php if ($username) : ?>
+                <span class="text-xs sm:text-sm text-gray-700 dark:text-gray-300">
+                    <?php echo esc_html($username); ?>
+                </span>
+                <?php endif; ?>
+            </div>
+            
+            <?php if (!empty($date)) : ?>
+            <span>•</span>
+            <time class="text-xs sm:text-sm">
+                <?php echo esc_html($date); ?>
+            </time>
+            <?php endif; ?>
+        </div>
+
+        <!-- ACTIONS -->
+
+        <div class="flex justify-between items-center relative z-10 w-full pt-3">
+
+            <div class="flex items-center gap-4">
+                <button
+                    class="post__like group/btn relative h-9 pe-3 shrink-0 rounded-full flex items-center gap-2 select-none transition-colors duration-200
+                    <?php echo ($like['liked'] ?? false) ? 'is-active' : ''; ?>"
+                    data-post-id="<?php echo esc_attr($post_id); ?>"
+                >
+                    <div class="post__like-bg w-[36px] h-9 rounded-full flex items-center justify-center pointer-events-none
+                        bg-[#F6F5F8] dark:bg-[#1E1E26]
+                        text-black dark:text-white
+                        transition-colors duration-200
+                        
+                        group-hover/btn:bg-[#FFF1F2]
+                        dark:group-hover/btn:bg-[#2A2A36]
+                        group-hover/btn:text-[#FF2157]
+                        
+                        group-[.is-active]/btn:bg-[#FFF1F2]
+                        dark:group-[.is-active]/btn:bg-[#2A2A36]
+                        group-[.is-active]/btn:text-[#FF2157]">
+
+                        <svg class="h-[18px] w-[18px] text-current transition-colors duration-200 group-[.is-active]/btn:hidden"
+                            viewBox="0 0 24 24" fill="none">
+                            <path d="M19.4626 3.99415C16.7809 2.34923 14.4404 3.01211 13.0344 4.06801C12.4578 4.50096 12.1696 4.71743 12 4.71743C11.8304 4.71743 11.5422 4.50096 10.9656 4.06801C9.55962 3.01211 7.21909 2.34923 4.53744 3.99415C1.01807 6.15294 0.221721 13.2749 8.33953 19.2834C9.88572 20.4278 10.6588 21 12 21C13.3412 21 14.1143 20.4278 15.6605 19.2834C23.7783 13.2749 22.9819 6.15294 19.4626 3.99415Z"
+                                stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+
+                        <svg class="hidden h-[18px] w-[18px] text-current transition-colors duration-200 group-[.is-active]/btn:block"
+                            viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19.4626 3.99415C16.7809 2.34923 14.4404 3.01211 13.0344 4.06801C12.4578 4.50096 12.1696 4.71743 12 4.71743C11.8304 4.71743 11.5422 4.50096 10.9656 4.06801C9.55962 3.01211 7.21909 2.34923 4.53744 3.99415C1.01807 6.15294 0.221721 13.2749 8.33953 19.2834C9.88572 20.4278 10.6588 21 12 21C13.3412 21 14.1143 20.4278 15.6605 19.2834C23.7783 13.2749 22.9819 6.15294 19.4626 3.99415Z"/>
+                        </svg>
+                    </div>
+
+                    <span class="post__like-text text-[12px] leading-[12px]
+                        text-black dark:text-white
+                        group-hover/btn:text-[#FF2157]
+                        group-[.is-active]/btn:text-[#FF2157]
+                        font-medium transition-colors duration-200">
+                            <?php echo (int) $like['count']; ?>
+                    </span>
+                </button>
+
+
+                <button
+                    class="group/comment relative h-9 pe-3 shrink-0 rounded-full transition-colors duration-200 cursor-default flex items-center gap-2 bg-transparent select-none"
+                    onclick="
+                        event.preventDefault();
+                        event.stopPropagation();
+                        
+                        const isActive = this.classList.toggle('is-active');
+                        const bgCircle = this.querySelector('.icon-bg-circle');
+                        const countText = this.querySelector('.count-text');
+                        const iconSvg = this.querySelector('.icon-comment-svg');
+                        
+                        if (isActive) {
+                            bgCircle.classList.remove('bg-[#F6F5F8]', 'dark:bg-[#1E1E26]', 'group-hover/comment:bg-[#E6F4F3]', 'dark:group-hover/comment:bg-[#2A2A36]');
+                            bgCircle.classList.add('bg-[#E6F4F3]', 'dark:bg-[#2A2A36]');
+                            iconSvg.classList.remove('text-black', 'dark:text-white', 'group-hover/comment:text-[#009689]');
+                            iconSvg.classList.add('text-[#009689]');
+
+                            countText.classList.remove('text-black', 'dark:text-white', 'group-hover/comment:text-[#009689]');
+                            countText.classList.add('text-[#009689]');
+                            window.location.href = '<?php echo esc_url(get_permalink($post_id) . '#comments'); ?>';
+                        } else {
+                            bgCircle.classList.add('bg-[#F6F5F8]', 'dark:bg-[#1E1E26]', 'group-hover/comment:bg-[#E6F4F3]', 'dark:group-hover/comment:bg-[#2A2A36]');
+                            bgCircle.classList.remove('bg-[#E6F4F3]', 'dark:bg-[#2A2A36]');
+                            
+                            iconSvg.classList.add('text-black', 'dark:text-white', 'group-hover/comment:text-[#009689]');
+                            iconSvg.classList.remove('text-[#009689]');
+                            
+                            countText.classList.add('text-black', 'dark:text-white', 'group-hover/comment:text-[#009689]');
+                            countText.classList.remove('text-[#009689]');
+                        }
+                    "
+                >
+                    <div class="icon-bg-circle w-[36px] h-9 rounded-full bg-[#F6F5F8] dark:bg-[#1E1E26] group-hover/comment:bg-[#E6F4F3] dark:group-hover/comment:bg-[#2A2A36] transition-colors duration-200 flex items-center justify-center pointer-events-none">
+                        
+                        <svg xmlns="http://www.w3.org/2000/svg" 
+                            viewBox="0 0 24 24" 
+                            fill="none" 
+                            class="icon-comment-svg h-[18px] w-[18px] text-black dark:text-white group-hover/comment:text-[#009689] transition-colors duration-200">
+                            <path d="M8 13.5H16M8 8.5H12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M6.09881 19C4.7987 18.8721 3.82475 18.4816 3.17157 17.8284C2 16.6569 2 14.7712 2 11V10.5C2 6.72876 2 4.84315 3.17157 3.67157C4.34315 2.5 6.22876 2.5 10 2.5H14C17.7712 2.5 19.6569 2.5 20.8284 3.67157C22 4.84315 22 6.72876 22 10.5V11C22 14.7712 22 16.6569 20.8284 17.8284C19.6569 19 17.7712 19 14 19C13.4395 19.0125 12.9931 19.0551 12.5546 19.155C11.3562 19.4309 10.2465 20.0441 9.14987 20.5789C7.58729 21.3408 6.806 21.7218 6.31569 21.3651C5.37769 20.6665 6.29454 18.5019 6.5 17.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+
+                    <span class="count-text text-[12px] leading-[12px] text-black dark:text-white group-hover/comment:text-[#009689] font-medium transition-colors duration-200 pointer-events-none">
+                        3
+                    </span>
+                </button>
+
+            </div>
+
+            <div class="flex items-center gap-2 relative">
+                <span class="text-[12px] leading-[16px] text-black dark:text-[#D1D5DB] font-normal">
+                    <?php echo esc_html($read_time); ?> min read
+                </span>
+                <button
+                    class="post__save <?php echo $is_saved ? 'is-active' : '' ?> group/btn relative w-9 h-9 shrink-0 rounded-full transition-colors duration-200 cursor-default flex items-center justify-center bg-transparent select-none"
+                    data-post-id="<?php echo esc_attr($post_id); ?>"
+                >
+                    <div class="icon-bg-circle w-9 h-9 rounded-full transition-colors duration-200 flex items-center justify-center pointer-events-none
+                        bg-[#F9FAFB] dark:bg-[#2A2A36]
+                        group-hover/btn:bg-[#F3F4F6]
+                        dark:group-hover/btn:bg-[#3F3F50]
+                        
+                        group-[.is-active]/btn:bg-[#F3F4F6]
+                        dark:group-[.is-active]/btn:bg-[#3F3F50]">
+
+                        <!-- OUTLINE ICON -->
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            class="icon-outline h-[18px] w-[18px] text-black dark:text-white transition-colors duration-200
+                                group-[.is-active]/btn:hidden"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <path d="M6 3h12a1 1 0 0 1 1 1v18l-7-4-7 4V4a1 1 0 0 1 1-1z"/>
+                        </svg>
+
+                        <!-- FILLED ICON -->
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            class="icon-filled hidden h-[18px] w-[18px] text-[#374151] dark:text-[#E5E7EB] transition-colors duration-200
+                                group-[.is-active]/btn:block"
+                            fill="currentColor"
+                        >
+                            <path d="M6 3h12a1 1 0 0 1 1 1v18l-7-4-7 4V4a1 1 0 0 1 1-1z"/>
+                        </svg>
+
+                    </div>
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- THUMBNAIL -->
+    <?php if ($thumbnail) : ?>
+        <div class="w-56 h-56 shrink-0 overflow-hidden rounded-2xl">
+            <a href="<?php echo esc_url($permalink); ?>" class="block w-full h-full">
+                <?php echo $thumbnail; ?>
+            </a>
+        </div>
+    <?php endif; ?>
+
+</div>
