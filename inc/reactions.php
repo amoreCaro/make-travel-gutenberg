@@ -2,6 +2,25 @@
 if (!defined('ABSPATH')) exit;
 
 
+add_action('before_delete_post', 'theme_delete_post_reactions');
+add_action('wp_trash_post', 'theme_delete_post_reactions');
+
+function theme_delete_post_reactions($post_id) {
+    global $wpdb;
+
+    if (get_post_type($post_id) !== 'post') {
+        return;
+    }
+
+    $table = $wpdb->prefix . 'post_reactions';
+
+    $wpdb->delete(
+        $table,
+        ['post_id' => (int) $post_id],
+        ['%d']
+    );
+}
+
 add_action('after_switch_theme', 'theme_create_post_reactions_table');
 
 function theme_create_post_reactions_table() {

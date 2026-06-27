@@ -222,156 +222,151 @@ get_header();
                 </div>
             </div>
 
-<section id="comments" class="mx-auto max-w-3xl px-4 py-10 scroll-mt-10 sm:scroll-mt-20 font-sans antialiased text-gray-900 selection:bg-teal-500/10">
-    
-    <!-- Section Header -->
-    <div class="flex items-center justify-between border-b border-gray-100 pb-5 mb-8">
-        <div class="flex items-center gap-3">
-            <h3 class="text-xl font-bold tracking-tight text-gray-900 sm:text-2xl">
-                <?php _e("Discussion", THEME); ?>
-            </h3>
-            <span class="inline-flex items-center justify-center bg-gray-100 text-gray-600 text-xs font-semibold px-2.5 py-1 rounded-full">
-                <?php _e("28", THEME); ?>
-            </span>
-        </div>
-    </div>
-    
-    <!-- Modern comment form -->
-    <div class="mb-10 flex gap-4">
-        <div class="hidden sm:block h-10 w-10 shrink-0 overflow-hidden rounded-full bg-gray-200">
-            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop" alt="Your Avatar" class="h-full w-full object-cover">
-        </div>
-        
-        <form action="#" class="flex-1 group">
-            <div class="relative rounded-2xl border border-gray-200 bg-white shadow-sm transition-all duration-200 focus-within:border-teal-500 focus-within:ring-4 focus-within:ring-teal-500/5">
-                <textarea 
-                    class="block w-full rounded-2xl border-0 bg-transparent p-4 text-sm text-gray-800 placeholder-gray-400 focus:ring-0 outline-none resize-none min-h-[100px]" 
-                    rows="3" 
-                    placeholder="Join the discussion..." 
-                    required
-                ></textarea>
+            <section id="comments" class="mx-auto max-w-[800px] px-[20px] lg:px-[0px] py-10 scroll-mt-10 sm:scroll-mt-20 font-sans antialiased text-gray-900 dark:text-gray-100 selection:bg-teal-500/10">
                 
-                <!-- Toolbar -->
-                <div class="flex items-center justify-end gap-2 px-4 pb-3 pt-2 border-t border-gray-50 bg-gray-50/50 rounded-b-2xl">
-                    <button 
-                        class="inline-flex items-center justify-center rounded-xl bg-transparent hover:bg-gray-200/60 text-gray-500 hover:text-gray-700 text-xs font-semibold py-2 px-4 transition-colors cursor-pointer" 
-                        type="button"
-                    >
-                        <?php _e("Cancel", THEME); ?>
-                    </button>
-                    <button 
-                        class="inline-flex items-center justify-center rounded-xl bg-teal-600 hover:bg-teal-700 text-white text-xs font-semibold py-2 px-5 transition-all shadow-sm active:scale-[0.98] cursor-pointer" 
-                        type="submit"
-                    >
-                        <?php _e("Send", THEME); ?>
-                    </button>
+                <div class="flex items-center justify-between border-b border-gray-100 dark:border-gray-800 pb-5 mb-8">
+                    <div class="flex items-center gap-3">
+                        <h3 class="text-xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-2xl">
+                            <?php _e("Discussion", THEME); ?>
+                        </h3>
+                        <span class="inline-flex items-center justify-center bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs font-semibold px-2.5 py-1 rounded-full">
+                            <?php _e("28", THEME); ?>
+                        </span>
+                    </div>
                 </div>
-            </div>
-        </form>
-    </div>
-
-    <!-- Comments list -->
-    <div class="space-y-8">
-        <ul class="space-y-8">
-            
-            <!-- Main comment (Level 1) -->
-            <li class="relative group">
-                <div class="absolute left-5 top-12 bottom-0 w-[1px] bg-gradient-to-b from-gray-200 via-gray-200 to-transparent"></div>
                 
-                <div class="flex gap-4">
-                    <div class="relative h-10 w-10 shrink-0 overflow-hidden rounded-full bg-gray-100 shadow-sm">
-                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop" alt="Avatar" class="h-full w-full object-cover">
+                <div class="mb-10 flex gap-4">
+                    <div class="hidden sm:block h-10 w-10 shrink-0 overflow-hidden rounded-full bg-gray-200 dark:bg-zinc-800">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop" alt="Your Avatar" class="h-full w-full object-cover">
                     </div>
                     
-                    <div class="flex-1 space-y-1.5">
-                        <div class="flex items-center gap-2 flex-wrap">
-                            <a href="#" class="font-semibold text-sm text-gray-900 hover:text-teal-600 transition-colors"><?php _e("Moderator", THEME); ?></a>
-                            <span class="inline-flex items-center rounded-md bg-teal-50 px-1.5 py-0.5 text-[10px] font-medium text-teal-700 ring-1 ring-inset ring-teal-600/10">
-                                <?php _e("Staff", THEME); ?>
-                            </span>
-                            <span class="text-gray-300 text-xs">·</span>
-                            <span class="text-xs text-gray-400"><?php _e("Today, 14:20", THEME); ?></span>
-                        </div>
-                        
-                        <div class="text-sm text-gray-600 leading-relaxed">
-                           <?php _e("Welcome to our new comment interface! We’ve fully redesigned it to make conversations cleaner and easier to read. How do you like the performance so far?", THEME); ?> 
-                        </div>
-                        
-                        <div class="pt-1 flex items-center gap-4 text-xs">
-                            <button class="inline-flex items-center gap-1.5 font-semibold text-gray-400 hover:text-teal-600 transition-colors cursor-pointer">
-                                <?php _e("Reply", THEME); ?>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Replies (Level 2) -->
-                <ul class="mt-6 pl-10 sm:pl-14 space-y-6 relative">
-                    <li class="relative">
-                        <div class="absolute -left-[30px] sm:-left-[35px] top-0 h-6 w-5 rounded-bl-xl border-l border-b border-gray-200"></div>
-                        
-                        <div class="flex gap-3">
-                            <div class="relative h-8 w-8 shrink-0 overflow-hidden rounded-full bg-gray-100 shadow-sm">
-                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop" alt="Avatar" class="h-full w-full object-cover">
-                            </div>
+                    <form id="comments__form" class="flex-1 group">
+                        <div class="relative rounded-2xl border border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/40 shadow-sm dark:shadow-none transition-all duration-200 focus-within:border-teal-500 focus-within:ring-4 focus-within:ring-teal-500/5 dark:focus-within:ring-teal-500/10">
                             
-                            <div class="flex-1 space-y-1.5">
-                                <div class="flex items-center gap-2">
-                                    <a href="#" class="font-semibold text-sm text-gray-900 hover:text-teal-600 transition-colors">
-                                        <?php _e("Alexander Kovalenko", THEME); ?>
-                                    </a>
-                                    <span class="text-gray-300 text-xs">·</span>
-                                    <span class="text-xs text-gray-400">
-                                        <?php _e("10 min ago", THEME); ?>
-                                    </span>
-                                     
-                                </div>
-                                
-                                <div class="text-sm text-gray-600 leading-relaxed">
-                                   <?php _e("It’s insanely fast! Everything loads instantly on mobile, and the thread structure finally makes it easy to follow conversations. Great job!", THEME); ?>
-                                </div>
-                                
-                                <div class="pt-1 text-xs">
-                                    <button class="font-semibold text-gray-400 hover:text-teal-600 transition-colors cursor-pointer">
-                                        <?php _e("Reply", THEME); ?>
-                                    </button>
-                                </div>
+                            <textarea 
+                                name="comment_text"
+                                class="block w-full rounded-2xl border-0 bg-transparent p-4 text-base text-gray-800 dark:text-zinc-100 placeholder-gray-400 dark:placeholder-zinc-500 focus:ring-0 outline-none resize-none min-h-[110px]" 
+                                rows="3" 
+                                placeholder="Join the discussion..." 
+                                required
+                            ></textarea>
+                            
+                            <div class="flex items-center justify-end gap-2 px-4 pb-3 pt-2 border-t border-gray-50 dark:border-zinc-800/80 bg-gray-50/50 dark:bg-zinc-950/60 rounded-b-2xl">
+                                <button 
+                                    class="inline-flex items-center justify-center rounded-xl bg-transparent hover:bg-gray-200/60 dark:hover:bg-zinc-800 text-sm font-semibold py-2 px-4 transition-colors cursor-pointer text-gray-500 dark:text-zinc-400 hover:text-gray-700 dark:hover:text-zinc-200" 
+                                    type="button"
+                                    id="cancel-comment-btn"
+                                >
+                                    <?php _e("Cancel", THEME); ?>
+                                </button>
+                                <button 
+                                    class="inline-flex items-center justify-center rounded-xl bg-teal-600 hover:bg-teal-700 text-white text-sm font-semibold py-2 px-5 transition-all shadow-sm active:scale-[0.98] cursor-pointer" 
+                                    type="submit"
+                                >
+                                    <?php _e("Send", THEME); ?>
+                                </button>
                             </div>
                         </div>
-                    </li>
-                </ul>
-            </li>
-
-            <!-- Second comment -->
-            <li class="relative pt-2">
-                <div class="flex gap-4">
-                    <div class="relative h-10 w-10 shrink-0 overflow-hidden rounded-full bg-gray-100 shadow-sm">
-                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop" alt="Avatar" class="h-full w-full object-cover">
-                    </div>
-                    
-                    <div class="flex-1 space-y-1.5">
-                        <div class="flex items-center gap-2">
-                            <a href="#" class="font-semibold text-sm text-gray-900 hover:text-teal-600 transition-colors"><?php _e("Dmytro", THEME); ?></a>
-                            <span class="text-gray-300 text-xs">·</span>
-                            <span class="text-xs text-gray-400"><?php _e("Yesterday", THEME); ?></span>
-                        </div>
-                        
-                        <div class="text-sm text-gray-600 leading-relaxed">
-                            <?php _e("Is Markdown support or inline code formatting planned for the input field? That would be really useful for technical discussions.", THEME); ?>
-                        </div>
-                        
-                        <div class="pt-1 flex items-center gap-4 text-xs">
-                            <button class="inline-flex items-center gap-1.5 font-semibold text-gray-400 hover:text-teal-600 transition-colors cursor-pointer">
-                                <?php _e("Reply", THEME); ?>
-                            </button>
-                        </div>
-                    </div>
+                    </form>
                 </div>
-            </li>
 
-        </ul>
-    </div>
-</section>
+                <div class="space-y-8">
+                    <ul id="comments__list" class="space-y-8">
+                        
+                        <li class="relative group">
+                            <div class="absolute left-5 top-12 bottom-0 w-[1px] bg-gradient-to-b from-gray-200 via-gray-200 to-transparent dark:from-gray-800 dark:via-gray-800"></div>
+                            
+                            <div class="flex gap-4">
+                                <div class="relative h-10 w-10 shrink-0 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-800 shadow-sm">
+                                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop" alt="Avatar" class="h-full w-full object-cover">
+                                </div>
+                                
+                                <div class="flex-1 space-y-2">
+                                    <div class="flex items-center gap-2 flex-wrap text-sm">
+                                        <a href="#" class="font-semibold text-base text-gray-900 dark:text-white hover:text-teal-600 dark:hover:text-teal-400 transition-colors"><?php _e("Moderator", THEME); ?></a>
+                                        <span class="inline-flex items-center rounded-md bg-teal-50 dark:bg-teal-500/10 px-2 py-0.5 text-[11px] font-medium text-teal-700 dark:text-teal-400 ring-1 ring-inset ring-teal-600/10 dark:ring-teal-400/20">
+                                            <?php _e("Staff", THEME); ?>
+                                        </span>
+                                        <span class="text-gray-300 dark:text-gray-700">·</span>
+                                        <span class="text-gray-400 dark:text-gray-500"><?php _e("Today, 14:20", THEME); ?></span>
+                                    </div>
+                                    
+                                    <div class="text-base text-gray-700 dark:text-gray-300 leading-relaxed">
+                                    <?php _e("Welcome to our new comment interface! We’ve fully redesigned it to make conversations cleaner and easier to read. How do you like the performance so far?", THEME); ?> 
+                                    </div>
+                                    
+                                    <div class="pt-0.5 flex items-center gap-4">
+                                        <button class="inline-flex items-center gap-1.5 font-semibold text-sm text-gray-400 dark:text-gray-500 hover:text-teal-600 dark:hover:text-teal-400 transition-colors cursor-pointer">
+                                            <?php _e("Reply", THEME); ?>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <ul class="mt-6 pl-10 sm:pl-14 space-y-6 relative">
+                                <li class="relative">
+                                    <div class="absolute -left-[30px] sm:-left-[35px] top-0 h-6 w-5 rounded-bl-xl border-l border-b border-gray-200 dark:border-gray-800"></div>
+                                    
+                                    <div class="flex gap-3">
+                                        <div class="relative h-8 w-8 shrink-0 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-800 shadow-sm">
+                                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop" alt="Avatar" class="h-full w-full object-cover">
+                                        </div>
+                                        
+                                        <div class="flex-1 space-y-2">
+                                            <div class="flex items-center gap-2 text-sm">
+                                                <a href="#" class="font-semibold text-base text-gray-900 dark:text-white hover:text-teal-600 dark:hover:text-teal-400 transition-colors">
+                                                    <?php _e("Alexander Kovalenko", THEME); ?>
+                                                </a>
+                                                <span class="text-gray-300 dark:text-gray-700">·</span>
+                                                <span class="text-gray-400 dark:text-gray-500">
+                                                    <?php _e("10 min ago", THEME); ?>
+                                                </span>
+                                            </div>
+                                            
+                                            <div class="text-base text-gray-700 dark:text-gray-300 leading-relaxed">
+                                            <?php _e("It’s insanely fast! Everything loads instantly on mobile, and the thread structure finally makes it easy to follow conversations. Great job!", THEME); ?>
+                                            </div>
+                                            
+                                            <div class="pt-0.5">
+                                                <button class="font-semibold text-sm text-gray-400 dark:text-gray-500 hover:text-teal-600 dark:hover:text-teal-400 transition-colors cursor-pointer">
+                                                    <?php _e("Reply", THEME); ?>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="relative pt-2">
+                            <div class="flex gap-4">
+                                <div class="relative h-10 w-10 shrink-0 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-800 shadow-sm">
+                                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop" alt="Avatar" class="h-full w-full object-cover">
+                                </div>
+                                
+                                <div class="flex-1 space-y-2">
+                                    <div class="flex items-center gap-2 text-sm">
+                                        <a href="#" class="font-semibold text-base text-gray-900 dark:text-white hover:text-teal-600 dark:hover:text-teal-400 transition-colors"><?php _e("Dmytro", THEME); ?></a>
+                                        <span class="text-gray-300 dark:text-gray-700">·</span>
+                                        <span class="text-gray-400 dark:text-gray-500"><?php _e("Yesterday", THEME); ?></span>
+                                    </div>
+                                    
+                                    <div class="text-base text-gray-700 dark:text-gray-300 leading-relaxed">
+                                        <?php _e("Is Markdown support or inline code formatting planned for the input field? That would be really useful for technical discussions.", THEME); ?>
+                                    </div>
+                                    
+                                    <div class="pt-0.5 flex items-center gap-4">
+                                        <button class="inline-flex items-center gap-1.5 font-semibold text-sm text-gray-400 dark:text-gray-500 hover:text-teal-600 dark:hover:text-teal-400 transition-colors cursor-pointer">
+                                            <?php _e("Reply", THEME); ?>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+            </section>
 
             <?php require PATH . "/components/related-posts/component.php"; ?>
         </div>
