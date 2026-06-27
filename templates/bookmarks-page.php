@@ -5,7 +5,7 @@
 
 if (!defined('ABSPATH')) exit;
 
-get_header();
+
 
 global $wpdb;
 
@@ -52,6 +52,8 @@ $args = [
 ];
 
 $query = new WP_Query($args);
+
+get_header();
 ?>
 
 <main class="bookmarks-page w-full mx-auto pb-24">
