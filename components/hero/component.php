@@ -130,7 +130,7 @@ Block::make('Hero')
         <?php endif; ?>
 
         <?php if (!empty($search_placeholder)) : ?>
-        <form method="get" action="<?php echo esc_url(home_url('/')); ?>">
+        <form class="hero__form" method="get" action="<?php echo esc_url(home_url('/')); ?>">
             <div class="relative max-w-2xl mx-auto group cursor-pointer">
                 <span class="absolute inset-y-0 left-5 flex items-center text-gray-400">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-zinc-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -142,7 +142,7 @@ Block::make('Hero')
                     name="s"
                     value="<?php echo get_search_query(); ?>"
                     placeholder="<?php echo esc_attr($search_placeholder); ?>"
-                    class="w-full py-4 pl-12 pr-6 bg-[#F2F2F2] dark:bg-[#232125] rounded-full"
+                    class="hero__search w-full py-4 pl-12 pr-6 bg-[#F2F2F2] dark:bg-[#232125] rounded-full"
                 >
             </div>
         </form>

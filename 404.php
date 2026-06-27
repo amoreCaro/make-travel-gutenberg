@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 get_header();
 ?>
 
-<main class="site-main w-full min-h-[85vh] bg-neutral-50 dark:bg-neutral-950 px-6 py-16 flex items-center justify-center transition-colors duration-300">
+<main class="main w-full min-h-[85vh] bg-neutral-50 dark:bg-neutral-950 px-6 py-16 flex items-center justify-center transition-colors duration-300">
     <!-- Single Column Layout Container -->
     <div class="w-full max-w-2xl mx-auto flex flex-col items-center text-center">
         
