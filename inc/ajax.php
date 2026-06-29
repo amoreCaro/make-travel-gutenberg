@@ -86,9 +86,7 @@ add_action('wp_ajax_login_user', 'handle_login_user');
 function handle_login_user() {
 
     if (!wp_verify_nonce($_POST['nonce'], 'login_user_nonce')) {
-        wp_send_json_error([
-            'message' => 'Invalid request'
-        ]);
+        wp_die();
     }
 
     $username = sanitize_user($_POST['username'] ?? '');

@@ -70,7 +70,7 @@ $reading_list_query = new WP_Query($args);
 
                 <?php while ($reading_list_query->have_posts()) : $reading_list_query->the_post();
 
-                    include get_template_directory() . '/template-parts/reading-list/item.php';
+                    include get_template_directory() . '/components/bento/elements/horizontal-item.php';
 
                 endwhile; ?>
 

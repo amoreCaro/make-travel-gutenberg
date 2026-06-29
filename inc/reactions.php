@@ -67,7 +67,6 @@ function toggle_like() {
         $table = $wpdb->prefix . 'post_reactions';
 
         if ( empty ( $_POST['nonce'] ) || ! wp_verify_nonce ( $_POST['nonce'], 'post_like_nonce' ) ) {
-            wp_send_json_error(['message' => 'Invalid nonce']);
             wp_die();
         }
 
@@ -220,7 +219,6 @@ add_action('wp_ajax_nopriv_toggle_save', 'toggle_save');
 
 function toggle_save() {
     if ( empty ( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'post_save_nonce' ) ) {
-        wp_send_json_error(['message' => 'Invalid nonce']);
         wp_die();
     }
 
@@ -234,6 +232,7 @@ function toggle_save() {
         wp_send_json_error([
             'message' => 'Invalid post'
         ]);
+        wp_die();
     }
 
     if ( ! $user_id ) {
@@ -316,8 +315,7 @@ function toggle_save() {
     wp_die();
 }
 
-function get_post_save_state(int $post_id): bool
-{
+function get_post_save_state(int $post_id): bool {
     if (!is_user_logged_in()) {
         return false;
     }
@@ -339,17 +337,20 @@ function get_post_save_state(int $post_id): bool
     );
 }
 
-add_action('wp_ajax_load_liked_posts', 'load_liked_posts');
+add_action('wp_ajax_load_liked_posts', 'theme_load_liked_posts');
 
-function load_liked_posts() {
+function theme_load_liked_posts() {
+
     if ( ! is_user_logged_in() ) {
         wp_send_json_error(['message' => 'Not logged in']);
+        wp_die();
     }
 
     global $wpdb;
 
     $user_id = get_current_user_id();
     $offset = intval($_POST['offset'] ?? 0);
+    $per_page = 4;
 
     $table = $wpdb->prefix . 'post_reactions';
 
@@ -367,45 +368,47 @@ function load_liked_posts() {
         )
     );
 
-    $liked_posts = array_slice(
-        $liked_posts,
-        $offset
-    );
+    // важливо: pagination ДО WP_Query
+    $paged_posts = array_slice($liked_posts, $offset, $per_page);
+
+    if (empty($paged_posts)) {
+        wp_send_json_success([
+            'html' => '',
+            'has_more' => false
+        ]);
+    }
 
     $query = new WP_Query([
-        'post_type' => 'post',
-        'post__in' => !empty($liked_posts)
-            ? $liked_posts
-            : [0],
-        'orderby' => 'post__in',
-        'posts_per_page' => -1,
+        'post_type'      => 'post',
+        'post__in'       => $paged_posts,
+        'orderby'        => 'post__in',
+        'posts_per_page' => $per_page,
     ]);
 
     ob_start();
 
     while ($query->have_posts()) {
         $query->the_post();
-
-        get_template_part(
-            'components/bento/elements/default-item'
-        );
+        get_template_part('components/bento/elements/default-item');
     }
 
     wp_reset_postdata();
 
     wp_send_json_success([
         'html' => ob_get_clean(),
+        'has_more' => ($offset + $per_page) < count($liked_posts),
+        'per_page' => $per_page
     ]);
-
 }
 
-add_action('wp_ajax_load_bookmarked_posts', 'load_bookmarked_posts');
-add_action('wp_ajax_nopriv_load_bookmarked_posts', 'load_bookmarked_posts');
+add_action('wp_ajax_load_bookmarked_posts', 'theme_load_bookmarked_posts');
+add_action('wp_ajax_nopriv_load_bookmarked_posts', 'theme_load_bookmarked_posts');
 
-function load_bookmarked_posts() {
+function theme_load_bookmarked_posts() {
 
     if (!is_user_logged_in()) {
         wp_send_json_error(['message' => 'not logged in']);
+        wp_die();
     }
 
     global $wpdb;
@@ -454,31 +457,25 @@ add_action('wp_ajax_nopriv_submit_comment', 'theme_submit_comment');
 function theme_submit_comment() {
     // nonce
     if (empty($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'submit_comment_nonce')) {
-        wp_die('Invalid request');
+        wp_die();
     }
 
     if (!is_user_logged_in()) {
-        wp_send_json_error([
-            'code' => 'not_logged_in',
-            'message' => 'Not logged in'
-        ]);
+        wp_send_json_error([ 'code' => 'not_logged_in',  'message' => 'Not logged in' ]);
+        wp_die();
     }
 
     if (!isset($_POST['comment'], $_POST['post_id'])) {
-        wp_send_json_error([
-            'code' => 'invalid_data',
-            'message' => 'Invalid data'
-        ]);
+        wp_send_json_error([ 'code' => 'invalid_data', 'message' => 'Invalid data' ]);
+        wp_die();
     }
 
     $comment_content = sanitize_textarea_field($_POST['comment']);
     $post_id = intval($_POST['post_id']);
 
     if (!$post_id || empty($comment_content)) {
-        wp_send_json_error([
-            'code' => 'empty_data',
-            'message' => 'Empty data'
-        ]);
+        wp_send_json_error([ 'code' => 'empty_data', 'message' => 'Empty data' ]);
+        wp_die();
     }
 
     $user_id = get_current_user_id();
@@ -502,10 +499,8 @@ function theme_submit_comment() {
     $comment_id = wp_insert_comment($commentdata);
 
     if (!$comment_id) {
-        wp_send_json_error([
-            'code' => 'insert_failed',
-            'message' => 'Failed to insert comment'
-        ]);
+        wp_send_json_error([ 'code' => 'insert_failed', 'message' => 'Failed to insert comment' ]);
+        wp_die();
     }
 
     $comment = get_comment($comment_id);
@@ -586,47 +581,41 @@ add_action('wp_ajax_delete_comment', 'theme_delete_comment');
 
 function theme_delete_comment() {
     if ( empty($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'delete_comment_nonce') ) {
-        wp_die('Invalid request');
+        wp_die();
     }
 
     if (!is_user_logged_in()) {
         wp_send_json_error(['message' => 'Not logged in']);
+        wp_die();
     }
 
     // 2. comment ID check
     if (empty($_POST['comment_id'])) {
-        wp_send_json_error([
-            'message' => 'Missing comment ID'
-        ]);
+        wp_send_json_error([ 'message' => 'Missing comment ID' ]);
+        wp_die();
     }
 
     $comment_id = (int) $_POST['comment_id'];
     $comment = get_comment($comment_id);
 
     if (!$comment) {
-        wp_send_json_error([
-            'message' => 'Comment not found'
-        ]);
+        wp_send_json_error([ 'message' => 'Comment not found' ]);
+        wp_die();
     }
 
-    if (!current_user_can('edit_comment', $comment_id)) {
-        wp_send_json_error([
-            'message' => 'No permission to delete this comment'
-        ]);
-    }
+    // if (!current_user_can('edit_comment', $comment_id)) {
+    //     wp_send_json_error([ 'message' => 'No permission to delete this comment' ]);
+    //     wp_die();
+    // }
 
     // 4. delete comment (hard delete)
     $deleted = wp_delete_comment($comment_id, true);
 
     if (!$deleted) {
-        wp_send_json_error([
-            'message' => 'Failed to delete comment'
-        ]);
+        wp_send_json_error([ 'message' => 'Failed to delete comment' ]);
+        wp_die();
     }
 
     // 5. success response
-    wp_send_json_success([
-        'message' => 'Comment deleted',
-        'comment_id' => $comment_id
-    ]);
+    wp_send_json_success([ 'message' => 'Comment deleted', 'comment_id' => $comment_id ]);
 }
