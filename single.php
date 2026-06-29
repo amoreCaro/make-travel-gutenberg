@@ -5,6 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $post_id = get_the_ID();
 
+
 // Categories
 $categories = get_the_category();
 
@@ -26,6 +27,12 @@ $content = apply_filters( 'the_content', get_the_content() );
 
 // tags
 $tags = get_the_tags();
+
+$comments = get_comments([
+    'post_id' => get_the_ID(),
+    'status'  => 'approve'
+]);
+$author_url = $author_id ? get_author_posts_url($author_id) : '';
 get_header();
 
 ?>
@@ -230,17 +237,17 @@ get_header();
                             <?php _e("Discussion", THEME); ?>
                         </h3>
                         <span class="inline-flex items-center justify-center bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs font-semibold px-2.5 py-1 rounded-full">
-                            <?php _e("28", THEME); ?>
+                            <?php echo get_comments_number(get_the_ID()); ?>
                         </span>
                     </div>
                 </div>
                 
                 <div class="mb-10 flex gap-4">
                     <div class="hidden sm:block h-10 w-10 shrink-0 overflow-hidden rounded-full bg-gray-200 dark:bg-zinc-800">
-                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop" alt="Your Avatar" class="h-full w-full object-cover">
+                        <img src="<?php echo esc_url($avatar_url); ?>" data-src="<?php echo esc_url($avatar_url); ?>"  alt="Your Avatar" class="h-full w-full object-cover">
                     </div>
                     
-                    <form id="comments__form" class="flex-1 group">
+                    <form id="comments__form" data-post="<?php echo get_the_ID(); ?>" class="flex-1 group">
                         <div class="relative rounded-2xl border border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/40 shadow-sm dark:shadow-none transition-all duration-200 focus-within:border-teal-500 focus-within:ring-4 focus-within:ring-teal-500/5 dark:focus-within:ring-teal-500/10">
                             
                             <textarea 
@@ -270,102 +277,119 @@ get_header();
                     </form>
                 </div>
 
-                <div class="space-y-8">
+
                     <ul id="comments__list" class="space-y-8">
-                        
-                        <li class="relative group">
-                            <div class="absolute left-5 top-12 bottom-0 w-[1px] bg-gradient-to-b from-gray-200 via-gray-200 to-transparent dark:from-gray-800 dark:via-gray-800"></div>
-                            
-                            <div class="flex gap-4">
-                                <div class="relative h-10 w-10 shrink-0 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-800 shadow-sm">
-                                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop" alt="Avatar" class="h-full w-full object-cover">
-                                </div>
+                        <?php foreach ($comments as $comment): ?>
+
+                            <?php
+                            $children = get_comments([
+                                'post_id' => get_the_ID(),
+                                'status'  => 'approve',
+                                'parent'  => $comment->comment_ID
+                            ]);
+                            ?>
+
+                            <li class="relative group">
                                 
-                                <div class="flex-1 space-y-2">
-                                    <div class="flex items-center gap-2 flex-wrap text-sm">
-                                        <a href="#" class="font-semibold text-base text-gray-900 dark:text-white hover:text-teal-600 dark:hover:text-teal-400 transition-colors"><?php _e("Moderator", THEME); ?></a>
-                                        <span class="inline-flex items-center rounded-md bg-teal-50 dark:bg-teal-500/10 px-2 py-0.5 text-[11px] font-medium text-teal-700 dark:text-teal-400 ring-1 ring-inset ring-teal-600/10 dark:ring-teal-400/20">
-                                            <?php _e("Staff", THEME); ?>
-                                        </span>
-                                        <span class="text-gray-300 dark:text-gray-700">·</span>
-                                        <span class="text-gray-400 dark:text-gray-500"><?php _e("Today, 14:20", THEME); ?></span>
-                                    </div>
-                                    
-                                    <div class="text-base text-gray-700 dark:text-gray-300 leading-relaxed">
-                                    <?php _e("Welcome to our new comment interface! We’ve fully redesigned it to make conversations cleaner and easier to read. How do you like the performance so far?", THEME); ?> 
-                                    </div>
-                                    
-                                    <div class="pt-0.5 flex items-center gap-4">
-                                        <button class="inline-flex items-center gap-1.5 font-semibold text-sm text-gray-400 dark:text-gray-500 hover:text-teal-600 dark:hover:text-teal-400 transition-colors cursor-pointer">
-                                            <?php _e("Reply", THEME); ?>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
+                                <!-- vertical line -->
+                                <div class="absolute left-5 top-12 bottom-0 w-[1px] bg-gradient-to-b from-gray-200 via-gray-200 to-transparent dark:from-gray-800 dark:via-gray-800"></div>
 
-                            <ul class="mt-6 pl-10 sm:pl-14 space-y-6 relative">
-                                <li class="relative">
-                                    <div class="absolute -left-[30px] sm:-left-[35px] top-0 h-6 w-5 rounded-bl-xl border-l border-b border-gray-200 dark:border-gray-800"></div>
-                                    
-                                    <div class="flex gap-3">
-                                        <div class="relative h-8 w-8 shrink-0 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-800 shadow-sm">
-                                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop" alt="Avatar" class="h-full w-full object-cover">
+                                <!-- main comment -->
+                                <div class="flex gap-4">
+
+                                    <div class="relative h-10 w-10 shrink-0 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-800 shadow-sm">
+                                        <?php echo get_avatar($comment, 40); ?>
+                                    </div>
+
+                                    <div class="flex-1 space-y-2">
+
+                                        <div class="flex items-center gap-2 flex-wrap text-sm">
+                                            <a href="<?php echo esc_url($author_url); ?>" class="cursor-pointer font-semibold text-base text-gray-900 dark:text-white hover:text-teal-600 dark:hover:text-teal-400 transition-colors">
+                                                <?php echo esc_html($comment->comment_author); ?>
+                                            </a>
+
+                                            <span class="text-gray-300 dark:text-gray-700">·</span>
+
+                                            <span class="text-gray-400 dark:text-gray-500">
+                                                <?php echo human_time_diff(strtotime($comment->comment_date), current_time('timestamp')) . ' ago'; ?>
+                                            </span>
                                         </div>
-                                        
-                                        <div class="flex-1 space-y-2">
-                                            <div class="flex items-center gap-2 text-sm">
-                                                <a href="#" class="font-semibold text-base text-gray-900 dark:text-white hover:text-teal-600 dark:hover:text-teal-400 transition-colors">
-                                                    <?php _e("Alexander Kovalenko", THEME); ?>
-                                                </a>
-                                                <span class="text-gray-300 dark:text-gray-700">·</span>
-                                                <span class="text-gray-400 dark:text-gray-500">
-                                                    <?php _e("10 min ago", THEME); ?>
-                                                </span>
-                                            </div>
-                                            
-                                            <div class="text-base text-gray-700 dark:text-gray-300 leading-relaxed">
-                                            <?php _e("It’s insanely fast! Everything loads instantly on mobile, and the thread structure finally makes it easy to follow conversations. Great job!", THEME); ?>
-                                            </div>
-                                            
-                                            <div class="pt-0.5">
-                                                <button class="font-semibold text-sm text-gray-400 dark:text-gray-500 hover:text-teal-600 dark:hover:text-teal-400 transition-colors cursor-pointer">
-                                                    <?php _e("Reply", THEME); ?>
-                                                </button>
-                                            </div>
+
+                                        <div class="text-base text-gray-700 dark:text-gray-300 leading-relaxed">
+                                            <?php echo esc_html($comment->comment_content); ?>
                                         </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
 
-                        <li class="relative pt-2">
-                            <div class="flex gap-4">
-                                <div class="relative h-10 w-10 shrink-0 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-800 shadow-sm">
-                                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop" alt="Avatar" class="h-full w-full object-cover">
-                                </div>
-                                
-                                <div class="flex-1 space-y-2">
-                                    <div class="flex items-center gap-2 text-sm">
-                                        <a href="#" class="font-semibold text-base text-gray-900 dark:text-white hover:text-teal-600 dark:hover:text-teal-400 transition-colors"><?php _e("Dmytro", THEME); ?></a>
-                                        <span class="text-gray-300 dark:text-gray-700">·</span>
-                                        <span class="text-gray-400 dark:text-gray-500"><?php _e("Yesterday", THEME); ?></span>
-                                    </div>
-                                    
-                                    <div class="text-base text-gray-700 dark:text-gray-300 leading-relaxed">
-                                        <?php _e("Is Markdown support or inline code formatting planned for the input field? That would be really useful for technical discussions.", THEME); ?>
-                                    </div>
-                                    
-                                    <div class="pt-0.5 flex items-center gap-4">
-                                        <button class="inline-flex items-center gap-1.5 font-semibold text-sm text-gray-400 dark:text-gray-500 hover:text-teal-600 dark:hover:text-teal-400 transition-colors cursor-pointer">
-                                            <?php _e("Reply", THEME); ?>
-                                        </button>
+                                        <div class="pt-0.5 flex items-center gap-4">
+                                            <button class="inline-flex items-center gap-1.5 font-semibold text-sm text-gray-400 dark:text-gray-500 hover:text-teal-600 dark:hover:text-teal-400 transition-colors cursor-pointer">
+                                                <?php _e("Reply", THEME); ?>
+                                            </button>
+                                            <button class="inline-flex items-center gap-1.5 font-semibold text-sm text-gray-400 dark:text-gray-500 hover:text-teal-600 dark:hover:text-teal-400 transition-colors cursor-pointer">
+                                                <?php _e("Edit", THEME); ?>
+                                            </button>
+                                            <button data-comment-id="<?php echo $comment->comment_ID; ?>"
+                                                    class="comment__delete inline-flex items-center gap-1.5 font-semibold text-sm text-gray-400 dark:text-gray-500 hover:text-teal-600 dark:hover:text-teal-400 transition-colors cursor-pointer">
+                                                <?php _e("Delete", THEME); ?>
+                                            </button>
+                                        </div>
+
                                     </div>
                                 </div>
-                            </div>
-                        </li>
 
+                                <!-- replies -->
+                                <?php if (!empty($children)): ?>
+                                    <ul class="mt-6 pl-10 sm:pl-14 space-y-6 relative">
+
+                                        <?php foreach ($children as $child): ?>
+
+                                            <li class="relative">
+
+                                                <div class="absolute -left-[30px] sm:-left-[35px] top-0 h-6 w-5 rounded-bl-xl border-l border-b border-gray-200 dark:border-gray-800"></div>
+
+                                                <div class="flex gap-3">
+
+                                                    <div class="relative h-8 w-8 shrink-0 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-800 shadow-sm">
+                                                        <?php echo get_avatar($child, 32); ?>
+                                                    </div>
+
+                                                    <div class="flex-1 space-y-2">
+
+                                                        <div class="flex items-center gap-2 text-sm">
+                                                            <a class="font-semibold text-base text-gray-900 dark:text-white hover:text-teal-600 dark:hover:text-teal-400 transition-colors">
+                                                                <?php echo esc_html($child->comment_author); ?>
+                                                            </a>
+
+                                                            <span class="text-gray-300 dark:text-gray-700">·</span>
+
+                                                            <span class="text-gray-400 dark:text-gray-500">
+                                                                <?php echo human_time_diff(strtotime($child->comment_date), current_time('timestamp')) . ' ago'; ?>
+                                                            </span>
+                                                        </div>
+
+                                                        <div class="text-base text-gray-700 dark:text-gray-300 leading-relaxed">
+                                                            <?php echo esc_html($child->comment_content); ?>
+                                                        </div>
+
+                                                        <div class="pt-0.5">
+                                                            <button class="font-semibold text-sm text-gray-400 dark:text-gray-500 hover:text-teal-600 dark:hover:text-teal-400 transition-colors cursor-pointer">
+                                                                <?php _e("Reply", THEME); ?>
+                                                            </button>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </li>
+
+                                        <?php endforeach; ?>
+
+                                    </ul>
+                                <?php endif; ?>
+
+                            </li>
+
+                        <?php endforeach; ?>
                     </ul>
-                </div>
+
+
             </section>
 
             <?php require PATH . "/components/related-posts/component.php"; ?>
