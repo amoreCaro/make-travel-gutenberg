@@ -14,6 +14,9 @@ $title   = get_the_title();
 $date    = get_the_date( 'F j, Y' );
 $excerpt = has_excerpt() ? get_the_excerpt() : '';
 $read_time = estimate_post_read_time($post_id);
+$like = get_post_like_state($post_id);
+$is_saved = get_post_save_state($post_id);
+
 
 // Author
 $author_id = get_post_field('post_author', get_the_ID());
@@ -28,10 +31,12 @@ $content = apply_filters( 'the_content', get_the_content() );
 // tags
 $tags = get_the_tags();
 
-$comments = get_comments([
+$coaddedmments = get_comments([
     'post_id' => get_the_ID(),
     'status'  => 'approve'
 ]);
+$comments_num = get_comments_number(get_the_ID());
+
 $author_url = $author_id ? get_author_posts_url($author_id) : '';
 get_header();
 
@@ -109,19 +114,156 @@ get_header();
                             <?php echo esc_html( $excerpt ); ?>
                         </p>
                     <?php endif; ?>
+                    <div class="w-full border-b border-neutral-200 dark:border-neutral-700"></div>
 
-                    <?php if ( ! empty( $date ) ) : ?>
-                        <div class="flex items-center gap-4">
-                            <time 
-                                class="post__date text-black dark:text-white text-[16px] leading-[16px] font-normal" 
-                                datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>">
-                                <?php echo esc_html( $date ); ?>
-                            </time>
-                            <span class="post__read-time relative pl-4 dark:text-white before:content-['•'] before:absolute before:left-0  text-black dark:before:text-white">
-                                <?php echo esc_html($read_time); ?> min read
-                            </span>
+                    <div class="flex justify-between">
+
+                        <?php if ( ! empty( $date ) ) : ?>
+                            <div class="flex items-center gap-4">
+                                <time 
+                                    class="post__date text-black dark:text-white text-[16px] leading-[16px] font-normal" 
+                                    datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>">
+                                    <?php echo esc_html( $date ); ?>
+                                </time>
+                                <span class="post__read-time relative pl-4 dark:text-white before:content-['•'] before:absolute before:left-0  text-black dark:before:text-white">
+                                    <?php echo esc_html($read_time); ?> min read
+                                </span>
+                            </div>
+                        <?php endif; ?>
+                        <div class="flex justify-between items-center relative ">
+    
+                            <div class="flex items-center gap-3">
+                                <button
+                                    class="post__like group/btn relative h-9 pe-3 shrink-0 rounded-full flex items-center gap-2 select-none transition-colors duration-200
+                                    <?php echo ($like['liked'] ?? false) ? 'is-active' : ''; ?>"
+                                    data-post-id="<?php echo esc_attr($post_id); ?>"
+                                >
+                                    <div class="post__like-bg w-[36px] h-9 rounded-full flex items-center justify-center pointer-events-none
+                                        bg-[#F6F5F8] dark:bg-[#1E1E26]
+                                        text-black dark:text-white
+                                        transition-colors duration-200
+                                        
+                                        group-hover/btn:bg-[#FFF1F2]
+                                        dark:group-hover/btn:bg-[#2A2A36]
+                                        group-hover/btn:text-[#FF2157]
+                                        
+                                        group-[.is-active]/btn:bg-[#FFF1F2]
+                                        dark:group-[.is-active]/btn:bg-[#2A2A36]
+                                        group-[.is-active]/btn:text-[#FF2157]">
+    
+                                        <svg class="h-[18px] w-[18px] text-current transition-colors duration-200 group-[.is-active]/btn:hidden"
+                                            viewBox="0 0 24 24" fill="none">
+                                            <path d="M19.4626 3.99415C16.7809 2.34923 14.4404 3.01211 13.0344 4.06801C12.4578 4.50096 12.1696 4.71743 12 4.71743C11.8304 4.71743 11.5422 4.50096 10.9656 4.06801C9.55962 3.01211 7.21909 2.34923 4.53744 3.99415C1.01807 6.15294 0.221721 13.2749 8.33953 19.2834C9.88572 20.4278 10.6588 21 12 21C13.3412 21 14.1143 20.4278 15.6605 19.2834C23.7783 13.2749 22.9819 6.15294 19.4626 3.99415Z"
+                                                stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                        </svg>
+    
+                                        <svg class="hidden h-[18px] w-[18px] text-current transition-colors duration-200 group-[.is-active]/btn:block"
+                                            viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M19.4626 3.99415C16.7809 2.34923 14.4404 3.01211 13.0344 4.06801C12.4578 4.50096 12.1696 4.71743 12 4.71743C11.8304 4.71743 11.5422 4.50096 10.9656 4.06801C9.55962 3.01211 7.21909 2.34923 4.53744 3.99415C1.01807 6.15294 0.221721 13.2749 8.33953 19.2834C9.88572 20.4278 10.6588 21 12 21C13.3412 21 14.1143 20.4278 15.6605 19.2834C23.7783 13.2749 22.9819 6.15294 19.4626 3.99415Z"/>
+                                        </svg>
+                                    </div>
+    
+                                    <span class="post__like-text text-[12px] leading-[12px]
+                                        text-black dark:text-white
+                                        group-hover/btn:text-[#FF2157]
+                                        group-[.is-active]/btn:text-[#FF2157]
+                                        font-medium transition-colors duration-200">
+                                            <?php echo (int) $like['count']; ?>
+                                    </span>
+                                </button>
+    
+                                <button
+                                    class="group/comment relative h-9 pe-3 shrink-0 rounded-full transition-colors duration-200 cursor-default flex items-center gap-2 bg-transparent select-none"
+                                    onclick="
+                                        event.preventDefault();
+                                        event.stopPropagation();
+                                        
+                                        const isActive = this.classList.toggle('is-active');
+                                        const bgCircle = this.querySelector('.icon-bg-circle');
+                                        const countText = this.querySelector('.count-text');
+                                        const iconSvg = this.querySelector('.icon-comment-svg');
+                                        
+                                        if (isActive) {
+                                            bgCircle.classList.remove('bg-[#F6F5F8]', 'dark:bg-[#1E1E26]', 'group-hover/comment:bg-[#E6F4F3]', 'dark:group-hover/comment:bg-[#2A2A36]');
+                                            bgCircle.classList.add('bg-[#E6F4F3]', 'dark:bg-[#2A2A36]');
+                                            iconSvg.classList.remove('text-black', 'dark:text-white', 'group-hover/comment:text-[#009689]');
+                                            iconSvg.classList.add('text-[#009689]');
+    
+                                            countText.classList.remove('text-black', 'dark:text-white', 'group-hover/comment:text-[#009689]');
+                                            countText.classList.add('text-[#009689]');
+                                            window.location.href = '<?php echo esc_url(get_permalink($post_id) . '#comments'); ?>';
+                                        } else {
+                                            bgCircle.classList.add('bg-[#F6F5F8]', 'dark:bg-[#1E1E26]', 'group-hover/comment:bg-[#E6F4F3]', 'dark:group-hover/comment:bg-[#2A2A36]');
+                                            bgCircle.classList.remove('bg-[#E6F4F3]', 'dark:bg-[#2A2A36]');
+                                            
+                                            iconSvg.classList.add('text-black', 'dark:text-white', 'group-hover/comment:text-[#009689]');
+                                            iconSvg.classList.remove('text-[#009689]');
+                                            
+                                            countText.classList.add('text-black', 'dark:text-white', 'group-hover/comment:text-[#009689]');
+                                            countText.classList.remove('text-[#009689]');
+                                        }
+                                    "
+                                >
+                                    <div class="icon-bg-circle w-[36px] h-9 rounded-full bg-[#F6F5F8] dark:bg-[#1E1E26] group-hover/comment:bg-[#E6F4F3] dark:group-hover/comment:bg-[#2A2A36] transition-colors duration-200 flex items-center justify-center pointer-events-none">
+                                        
+                                        <svg xmlns="http://www.w3.org/2000/svg" 
+                                            viewBox="0 0 24 24" 
+                                            fill="none" 
+                                            class="icon-comment-svg h-[18px] w-[18px] text-black dark:text-white group-hover/comment:text-[#009689] transition-colors duration-200">
+                                            <path d="M8 13.5H16M8 8.5H12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M6.09881 19C4.7987 18.8721 3.82475 18.4816 3.17157 17.8284C2 16.6569 2 14.7712 2 11V10.5C2 6.72876 2 4.84315 3.17157 3.67157C4.34315 2.5 6.22876 2.5 10 2.5H14C17.7712 2.5 19.6569 2.5 20.8284 3.67157C22 4.84315 22 6.72876 22 10.5V11C22 14.7712 22 16.6569 20.8284 17.8284C19.6569 19 17.7712 19 14 19C13.4395 19.0125 12.9931 19.0551 12.5546 19.155C11.3562 19.4309 10.2465 20.0441 9.14987 20.5789C7.58729 21.3408 6.806 21.7218 6.31569 21.3651C5.37769 20.6665 6.29454 18.5019 6.5 17.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                        </svg>
+                                    </div>
+    
+                                    <span class="count-text text-[12px] leading-[12px] text-black dark:text-white group-hover/comment:text-[#009689] font-medium transition-colors duration-200 pointer-events-none">
+                                        <?php echo esc_html( $comments_num ); ?>
+                                    </span>
+                                </button>
+
+                                <button
+                                    class="post__save <?php echo $is_saved ? 'is-active' : '' ?> group/btn relative w-9 h-9 shrink-0 rounded-full transition-colors duration-200 cursor-default flex items-center justify-center bg-transparent select-none"
+                                    data-post-id="<?php echo esc_attr($post_id); ?>"
+                                >
+                                    <div class="icon-bg-circle w-9 h-9 rounded-full transition-colors duration-200 flex items-center justify-center pointer-events-none
+                                        bg-[#F9FAFB] dark:bg-[#2A2A36]
+                                        group-hover/btn:bg-[#F3F4F6]
+                                        dark:group-hover/btn:bg-[#3F3F50]
+                                        
+                                        group-[.is-active]/btn:bg-[#F3F4F6]
+                                        dark:group-[.is-active]/btn:bg-[#3F3F50]">
+    
+                                        <!-- OUTLINE ICON -->
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24"
+                                            class="icon-outline h-[18px] w-[18px] text-black dark:text-white transition-colors duration-200
+                                                group-[.is-active]/btn:hidden"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            stroke-width="1.5"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        >
+                                            <path d="M6 3h12a1 1 0 0 1 1 1v18l-7-4-7 4V4a1 1 0 0 1 1-1z"/>
+                                        </svg>
+    
+                                        <!-- FILLED ICON -->
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24"
+                                            class="icon-filled hidden h-[18px] w-[18px] text-[#374151] dark:text-[#E5E7EB] transition-colors duration-200
+                                                group-[.is-active]/btn:block"
+                                            fill="currentColor"
+                                        >
+                                            <path d="M6 3h12a1 1 0 0 1 1 1v18l-7-4-7 4V4a1 1 0 0 1 1-1z"/>
+                                        </svg>
+    
+                                    </div>
+                                </button>
+                            </div>
                         </div>
-                    <?php endif; ?>
+                    </div>
+                    
                 </div>
             </div>
 
@@ -237,7 +379,7 @@ get_header();
                             <?php _e("Discussion", THEME); ?>
                         </h3>
                         <span class="inline-flex items-center justify-center bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs font-semibold px-2.5 py-1 rounded-full">
-                            <?php echo get_comments_number(get_the_ID()); ?>
+                            <?php echo esc_html( $comments_num ); ?>
                         </span>
                     </div>
                 </div>

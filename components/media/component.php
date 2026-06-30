@@ -51,7 +51,7 @@ function render_media_block($post_id = null)
         'container mx-auto flex flex-col px-[20px] xl:px-[40px] 2xl:px-0 pb-[50px] lg:pb-[100px]';
 
     $main_class =
-        'overflow-hidden h-[250px] md:h-[400px] lg:h-[642px] w-full';
+        'overflow-hidden h-[250px] md:h-[400px] lg:h-[642px] w-full rounded-3xl';
 
     ?>
 
