@@ -2,6 +2,12 @@
 if (!defined('ABSPATH')) exit;
 
 $post_id = get_the_ID();
+$placeholder = get_template_directory_uri() . '/assets/src/images/placeholder.png';
+$thumbnail = get_the_post_thumbnail_url($post_id, 'large');
+
+if (!$thumbnail) {
+    $thumbnail = $placeholder;
+}
 
 /**
  * CATEGORY
@@ -32,31 +38,32 @@ $author_id  = $post->post_author;
 $avatar_url = get_avatar_url($author_id, ['size' => 28]);
 $username   = get_the_author_meta('display_name', $author_id);
 
-$thumbnail = has_post_thumbnail()
-    ? get_the_post_thumbnail(
-        $post_id,
-        'large',
-        ['class' => 'w-full h-full object-cover hover:scale-105 transition duration-300']
-    )
-    : null;
-
 $read_time = estimate_post_read_time($post_id);
 $like      = get_post_like_state($post_id);
 $is_saved  = get_post_save_state($post_id);
+$comments_num = get_comments_number(get_the_ID());
 ?>
 
-<div class="flex flex-col-reverse sm:flex-row justify-between items-start gap-6 pb-10 border-b border-gray-100 dark:border-neutral-800 last:border-0">
+<div class="flex flex-col md:flex-row justify-start items-start gap-6 pb-10 border-b border-gray-100 dark:border-neutral-800 last:border-0">
 
     <!-- THUMBNAIL -->
     <?php if ($thumbnail) : ?>
         <div class="w-56 h-56 shrink-0 overflow-hidden rounded-2xl">
             <a href="<?php echo esc_url($permalink); ?>" class="block w-full h-full">
-                <?php echo $thumbnail; ?>
+                <picture class="block w-full h-full">
+                    <img
+                        data-src="<?php echo esc_url($thumbnail); ?>"
+                        src="<?php echo esc_url($thumbnail); ?>"
+                        alt="<?php echo esc_attr($title); ?>"
+                        loading="lazy"
+                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    >
+                </picture>
             </a>
         </div>
     <?php endif; ?>
 
-    <div class=" space-y-3">
+    <div class="flex-1 min-w-0  space-y-3">
 
         <!-- Categories -->
         <?php if (!empty($category_name)) : ?>
@@ -170,7 +177,7 @@ $is_saved  = get_post_save_state($post_id);
                 </button>
 
 
-                <button
+                                <button
                     class="group/comment relative h-9 pe-3 shrink-0 rounded-full transition-colors duration-200 cursor-default flex items-center gap-2 bg-transparent select-none"
                     onclick="
                         event.preventDefault();
@@ -214,10 +221,9 @@ $is_saved  = get_post_save_state($post_id);
                     </div>
 
                     <span class="count-text text-[12px] leading-[12px] text-black dark:text-white group-hover/comment:text-[#009689] font-medium transition-colors duration-200 pointer-events-none">
-                        3
+                        <?php echo esc_html($comments_num); ?>
                     </span>
                 </button>
-
             </div>
 
             <div class="flex items-center gap-2 relative">

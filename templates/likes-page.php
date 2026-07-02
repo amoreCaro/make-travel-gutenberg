@@ -29,7 +29,7 @@ if ($user_id) {
         $wpdb->prepare(
             "
             SELECT post_id
-            FROM $table
+            FROM {$table}
             WHERE user_id = %d
             AND type = %s
             ORDER BY id DESC
@@ -71,21 +71,39 @@ get_header();
     <?php else : ?>
 
         <div class="max-w-[800px] w-full mx-auto px-5 xl:px-10 2xl:px-0">
-        <?php
-        $args = $profile_args;
-        require PATH . '/components/profile/component.php';
-        ?>
+
+            <?php
+            $args = $profile_args;
+            require PATH . '/components/profile/component.php';
+            ?>
+
         </div>
+
+        <?php require PATH . '/components/profileSubnav/component.php'; ?>
+
         <div
             id="favorites__grid"
             class="container mx-auto px-5 xl:px-10 2xl:px-0 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
         >
 
             <?php if ($query && $query->have_posts()) : ?>
+<?php while ($query->have_posts()) : $query->the_post(); ?>
 
-                <?php while ($query->have_posts()) : $query->the_post(); ?>
-                    <?php include PATH . '/components/bento/elements/default-item.php'; ?>
-                <?php endwhile; ?>
+    <?php
+    $categories  = get_the_category();
+    $category_id = $categories[0]->term_id ?? 0;
+
+    $icon_url            = carbon_get_term_meta($category_id, 'category_svg');
+    $category_svg        = cf_get_inline_svg($icon_url);
+
+    $category_bg_color   = carbon_get_term_meta($category_id, 'category_bg');
+    $category_text_color = carbon_get_term_meta($category_id, 'category_text_color');
+    $category_decor_type = carbon_get_term_meta($category_id, 'category_decor_type');
+
+    include PATH . '/components/bento/elements/default-item.php';
+    ?>
+
+<?php endwhile; ?>
 
                 <?php wp_reset_postdata(); ?>
 
@@ -102,6 +120,7 @@ get_header();
         <?php if ($total_posts > $per_page) : ?>
 
             <div class="mt-10 text-center">
+
                 <button
                     id="favorites__btn--show-more"
                     data-offset="<?php echo esc_attr($per_page); ?>"
@@ -111,47 +130,10 @@ get_header();
                 >
                     <?php _e('Show more', THEME); ?>
                 </button>
+
             </div>
 
         <?php endif; ?>
-
-    <?php endif; ?>
-
-    <?php if (have_posts()) : ?>
-
-        <div class="space-y-10">
-
-            <?php while (have_posts()) : the_post(); ?>
-
-                <?php
-                $categories = get_the_category(get_the_ID());
-
-                $category_data = [];
-
-                if (!empty($categories)) {
-
-                    $category_id = $categories[0]->term_id;
-
-                    $icon_id  = carbon_get_term_meta($category_id, 'category_svg');
-                    $icon_url = $icon_id ? wp_get_attachment_url($icon_id) : '';
-
-                    $category_data = [
-                        'id'         => $category_id,
-                        'name'       => $categories[0]->name,
-                        'link'       => get_category_link($category_id),
-                        'svg'        => cf_get_inline_svg($icon_url),
-                        'bg_color'   => carbon_get_term_meta($category_id, 'category_bg'),
-                        'text_color' => carbon_get_term_meta($category_id, 'category_text_color'),
-                        'decor_type' => carbon_get_term_meta($category_id, 'category_decor_type'),
-                    ];
-                }
-                ?>
-
-                <?php the_content(); ?>
-
-            <?php endwhile; ?>
-
-        </div>
 
     <?php endif; ?>
 

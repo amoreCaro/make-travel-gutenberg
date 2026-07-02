@@ -62,42 +62,43 @@ add_action('carbon_fields_register_fields', function () {
 
         ])
 
-    ->add_tab(__('Footer'), [
+        ->add_tab(__('Footer'), [
 
-        Field::make('textarea', 'footer_text', 'Disclaimer'),
+            Field::make('textarea', 'footer_text', 'Disclaimer'),
 
-        Field::make('text', 'footer_before_year', 'Text Before Year')
-            ->set_default_value('Copyright ©'),
+            Field::make('text', 'footer_before_year', 'Text Before Year')
+                ->set_default_value('Copyright ©'),
 
-        Field::make('text', 'footer_pre_text', 'Text Before Link')
-            ->set_default_value('by'),
+            Field::make('text', 'footer_pre_text', 'Text Before Link')
+                ->set_default_value('by'),
 
-        Field::make('text', 'footer_link_text', 'Link Text'),
+            Field::make('text', 'footer_link_text', 'Link Text'),
 
-        Field::make('text', 'footer_link_url', 'Link URL'),
+            Field::make('text', 'footer_link_url', 'Link URL'),
 
-        Field::make('text', 'footer_post_text', 'Text After Link'),
+            Field::make('text', 'footer_post_text', 'Text After Link'),
 
-    ])
-    ->add_tab(__('Social icons'), [
-        Field::make('complex', 'social_icons', __('Social Icons'))
-            ->set_layout('tabbed-horizontal')
-            ->add_fields([
-                Field::make('image', 'icon')
-                    ->set_required(true),
+        ])
 
-                    Field::make('text', 'link', __('Link')),
+        ->add_tab(__('Social icons'), [
+            Field::make('complex', 'social_icons', __('Social Icons'))
+                ->set_layout('tabbed-horizontal')
+                ->add_fields([
+                    Field::make('image', 'icon')
+                        ->set_required(true),
 
-                    Field::make('color', 'color_dark', __('Color for dark theme'))
-                        ->set_default_value('#FFFFFF'),
+                        Field::make('text', 'link', __('Link')),
 
-                    Field::make('color', 'color_light', __('Color for light theme'))
-                        ->set_default_value('#000000'),
+                        Field::make('color', 'color_dark', __('Color for dark theme'))
+                            ->set_default_value('#FFFFFF'),
 
-                    Field::make('color', 'hover_color', __('Hover color'))
-                        ->set_default_value('#7D0AF2'),
-                ]),
-        ]);
+                        Field::make('color', 'color_light', __('Color for light theme'))
+                            ->set_default_value('#000000'),
+
+                        Field::make('color', 'hover_color', __('Hover color'))
+                            ->set_default_value('#7D0AF2'),
+                    ]),
+            ]); 
 });
 
 add_filter(
