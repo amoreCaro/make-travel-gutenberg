@@ -5,6 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $post_id = get_the_ID();
 
+
 // Categories
 $categories = get_the_category();
 
@@ -13,6 +14,9 @@ $title   = get_the_title();
 $date    = get_the_date( 'F j, Y' );
 $excerpt = has_excerpt() ? get_the_excerpt() : '';
 $read_time = estimate_post_read_time($post_id);
+$like = get_post_like_state($post_id);
+$is_saved = get_post_save_state($post_id);
+
 
 // Author
 $author_id = get_post_field('post_author', get_the_ID());
@@ -26,6 +30,14 @@ $content = apply_filters( 'the_content', get_the_content() );
 
 // tags
 $tags = get_the_tags();
+
+$coaddedmments = get_comments([
+    'post_id' => get_the_ID(),
+    'status'  => 'approve'
+]);
+$comments_num = get_comments_number(get_the_ID());
+
+$author_url = $author_id ? get_author_posts_url($author_id) : '';
 get_header();
 
 ?>
@@ -102,19 +114,156 @@ get_header();
                             <?php echo esc_html( $excerpt ); ?>
                         </p>
                     <?php endif; ?>
+                    <div class="w-full border-b border-neutral-200 dark:border-neutral-700"></div>
 
-                    <?php if ( ! empty( $date ) ) : ?>
-                        <div class="flex items-center gap-4">
-                            <time 
-                                class="post__date text-black dark:text-white text-[16px] leading-[16px] font-normal" 
-                                datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>">
-                                <?php echo esc_html( $date ); ?>
-                            </time>
-                            <span class="post__read-time relative pl-4 dark:text-white before:content-['•'] before:absolute before:left-0  text-black dark:before:text-white">
-                                <?php echo esc_html($read_time); ?> min read
-                            </span>
+                    <div class="flex justify-between">
+
+                        <?php if ( ! empty( $date ) ) : ?>
+                            <div class="flex items-center gap-4">
+                                <time 
+                                    class="post__date text-black dark:text-white text-[16px] leading-[16px] font-normal" 
+                                    datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>">
+                                    <?php echo esc_html( $date ); ?>
+                                </time>
+                                <span class="post__read-time relative pl-4 dark:text-white before:content-['•'] before:absolute before:left-0  text-black dark:before:text-white">
+                                    <?php echo esc_html($read_time); ?> min read
+                                </span>
+                            </div>
+                        <?php endif; ?>
+                        <div class="flex justify-between items-center relative ">
+    
+                            <div class="flex items-center gap-3">
+                                <button
+                                    class="post__like group/btn relative h-9 pe-3 shrink-0 rounded-full flex items-center gap-2 select-none transition-colors duration-200
+                                    <?php echo ($like['liked'] ?? false) ? 'is-active' : ''; ?>"
+                                    data-post-id="<?php echo esc_attr($post_id); ?>"
+                                >
+                                    <div class="post__like-bg w-[36px] h-9 rounded-full flex items-center justify-center pointer-events-none
+                                        bg-[#F6F5F8] dark:bg-[#1E1E26]
+                                        text-black dark:text-white
+                                        transition-colors duration-200
+                                        
+                                        group-hover/btn:bg-[#FFF1F2]
+                                        dark:group-hover/btn:bg-[#2A2A36]
+                                        group-hover/btn:text-[#FF2157]
+                                        
+                                        group-[.is-active]/btn:bg-[#FFF1F2]
+                                        dark:group-[.is-active]/btn:bg-[#2A2A36]
+                                        group-[.is-active]/btn:text-[#FF2157]">
+    
+                                        <svg class="h-[18px] w-[18px] text-current transition-colors duration-200 group-[.is-active]/btn:hidden"
+                                            viewBox="0 0 24 24" fill="none">
+                                            <path d="M19.4626 3.99415C16.7809 2.34923 14.4404 3.01211 13.0344 4.06801C12.4578 4.50096 12.1696 4.71743 12 4.71743C11.8304 4.71743 11.5422 4.50096 10.9656 4.06801C9.55962 3.01211 7.21909 2.34923 4.53744 3.99415C1.01807 6.15294 0.221721 13.2749 8.33953 19.2834C9.88572 20.4278 10.6588 21 12 21C13.3412 21 14.1143 20.4278 15.6605 19.2834C23.7783 13.2749 22.9819 6.15294 19.4626 3.99415Z"
+                                                stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                        </svg>
+    
+                                        <svg class="hidden h-[18px] w-[18px] text-current transition-colors duration-200 group-[.is-active]/btn:block"
+                                            viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M19.4626 3.99415C16.7809 2.34923 14.4404 3.01211 13.0344 4.06801C12.4578 4.50096 12.1696 4.71743 12 4.71743C11.8304 4.71743 11.5422 4.50096 10.9656 4.06801C9.55962 3.01211 7.21909 2.34923 4.53744 3.99415C1.01807 6.15294 0.221721 13.2749 8.33953 19.2834C9.88572 20.4278 10.6588 21 12 21C13.3412 21 14.1143 20.4278 15.6605 19.2834C23.7783 13.2749 22.9819 6.15294 19.4626 3.99415Z"/>
+                                        </svg>
+                                    </div>
+    
+                                    <span class="post__like-text text-[12px] leading-[12px]
+                                        text-black dark:text-white
+                                        group-hover/btn:text-[#FF2157]
+                                        group-[.is-active]/btn:text-[#FF2157]
+                                        font-medium transition-colors duration-200">
+                                            <?php echo (int) $like['count']; ?>
+                                    </span>
+                                </button>
+    
+                                <button
+                                    class="group/comment relative h-9 pe-3 shrink-0 rounded-full transition-colors duration-200 cursor-default flex items-center gap-2 bg-transparent select-none"
+                                    onclick="
+                                        event.preventDefault();
+                                        event.stopPropagation();
+                                        
+                                        const isActive = this.classList.toggle('is-active');
+                                        const bgCircle = this.querySelector('.icon-bg-circle');
+                                        const countText = this.querySelector('.count-text');
+                                        const iconSvg = this.querySelector('.icon-comment-svg');
+                                        
+                                        if (isActive) {
+                                            bgCircle.classList.remove('bg-[#F6F5F8]', 'dark:bg-[#1E1E26]', 'group-hover/comment:bg-[#E6F4F3]', 'dark:group-hover/comment:bg-[#2A2A36]');
+                                            bgCircle.classList.add('bg-[#E6F4F3]', 'dark:bg-[#2A2A36]');
+                                            iconSvg.classList.remove('text-black', 'dark:text-white', 'group-hover/comment:text-[#009689]');
+                                            iconSvg.classList.add('text-[#009689]');
+    
+                                            countText.classList.remove('text-black', 'dark:text-white', 'group-hover/comment:text-[#009689]');
+                                            countText.classList.add('text-[#009689]');
+                                            window.location.href = '<?php echo esc_url(get_permalink($post_id) . '#comments'); ?>';
+                                        } else {
+                                            bgCircle.classList.add('bg-[#F6F5F8]', 'dark:bg-[#1E1E26]', 'group-hover/comment:bg-[#E6F4F3]', 'dark:group-hover/comment:bg-[#2A2A36]');
+                                            bgCircle.classList.remove('bg-[#E6F4F3]', 'dark:bg-[#2A2A36]');
+                                            
+                                            iconSvg.classList.add('text-black', 'dark:text-white', 'group-hover/comment:text-[#009689]');
+                                            iconSvg.classList.remove('text-[#009689]');
+                                            
+                                            countText.classList.add('text-black', 'dark:text-white', 'group-hover/comment:text-[#009689]');
+                                            countText.classList.remove('text-[#009689]');
+                                        }
+                                    "
+                                >
+                                    <div class="icon-bg-circle w-[36px] h-9 rounded-full bg-[#F6F5F8] dark:bg-[#1E1E26] group-hover/comment:bg-[#E6F4F3] dark:group-hover/comment:bg-[#2A2A36] transition-colors duration-200 flex items-center justify-center pointer-events-none">
+                                        
+                                        <svg xmlns="http://www.w3.org/2000/svg" 
+                                            viewBox="0 0 24 24" 
+                                            fill="none" 
+                                            class="icon-comment-svg h-[18px] w-[18px] text-black dark:text-white group-hover/comment:text-[#009689] transition-colors duration-200">
+                                            <path d="M8 13.5H16M8 8.5H12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M6.09881 19C4.7987 18.8721 3.82475 18.4816 3.17157 17.8284C2 16.6569 2 14.7712 2 11V10.5C2 6.72876 2 4.84315 3.17157 3.67157C4.34315 2.5 6.22876 2.5 10 2.5H14C17.7712 2.5 19.6569 2.5 20.8284 3.67157C22 4.84315 22 6.72876 22 10.5V11C22 14.7712 22 16.6569 20.8284 17.8284C19.6569 19 17.7712 19 14 19C13.4395 19.0125 12.9931 19.0551 12.5546 19.155C11.3562 19.4309 10.2465 20.0441 9.14987 20.5789C7.58729 21.3408 6.806 21.7218 6.31569 21.3651C5.37769 20.6665 6.29454 18.5019 6.5 17.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                        </svg>
+                                    </div>
+    
+                                    <span class="count-text text-[12px] leading-[12px] text-black dark:text-white group-hover/comment:text-[#009689] font-medium transition-colors duration-200 pointer-events-none">
+                                        <?php echo esc_html( $comments_num ); ?>
+                                    </span>
+                                </button>
+
+                                <button
+                                    class="post__save <?php echo $is_saved ? 'is-active' : '' ?> group/btn relative w-9 h-9 shrink-0 rounded-full transition-colors duration-200 cursor-default flex items-center justify-center bg-transparent select-none"
+                                    data-post-id="<?php echo esc_attr($post_id); ?>"
+                                >
+                                    <div class="icon-bg-circle w-9 h-9 rounded-full transition-colors duration-200 flex items-center justify-center pointer-events-none
+                                        bg-[#F9FAFB] dark:bg-[#2A2A36]
+                                        group-hover/btn:bg-[#F3F4F6]
+                                        dark:group-hover/btn:bg-[#3F3F50]
+                                        
+                                        group-[.is-active]/btn:bg-[#F3F4F6]
+                                        dark:group-[.is-active]/btn:bg-[#3F3F50]">
+    
+                                        <!-- OUTLINE ICON -->
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24"
+                                            class="icon-outline h-[18px] w-[18px] text-black dark:text-white transition-colors duration-200
+                                                group-[.is-active]/btn:hidden"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            stroke-width="1.5"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        >
+                                            <path d="M6 3h12a1 1 0 0 1 1 1v18l-7-4-7 4V4a1 1 0 0 1 1-1z"/>
+                                        </svg>
+    
+                                        <!-- FILLED ICON -->
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24"
+                                            class="icon-filled hidden h-[18px] w-[18px] text-[#374151] dark:text-[#E5E7EB] transition-colors duration-200
+                                                group-[.is-active]/btn:block"
+                                            fill="currentColor"
+                                        >
+                                            <path d="M6 3h12a1 1 0 0 1 1 1v18l-7-4-7 4V4a1 1 0 0 1 1-1z"/>
+                                        </svg>
+    
+                                    </div>
+                                </button>
+                            </div>
                         </div>
-                    <?php endif; ?>
+                    </div>
+                    
                 </div>
             </div>
 
@@ -222,156 +371,168 @@ get_header();
                 </div>
             </div>
 
-<section id="comments" class="mx-auto max-w-3xl px-4 py-10 scroll-mt-10 sm:scroll-mt-20 font-sans antialiased text-gray-900 selection:bg-teal-500/10">
-    
-    <!-- Section Header -->
-    <div class="flex items-center justify-between border-b border-gray-100 pb-5 mb-8">
-        <div class="flex items-center gap-3">
-            <h3 class="text-xl font-bold tracking-tight text-gray-900 sm:text-2xl">
-                <?php _e("Discussion", THEME); ?>
-            </h3>
-            <span class="inline-flex items-center justify-center bg-gray-100 text-gray-600 text-xs font-semibold px-2.5 py-1 rounded-full">
-                <?php _e("28", THEME); ?>
-            </span>
-        </div>
-    </div>
-    
-    <!-- Modern comment form -->
-    <div class="mb-10 flex gap-4">
-        <div class="hidden sm:block h-10 w-10 shrink-0 overflow-hidden rounded-full bg-gray-200">
-            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop" alt="Your Avatar" class="h-full w-full object-cover">
-        </div>
-        
-        <form action="#" class="flex-1 group">
-            <div class="relative rounded-2xl border border-gray-200 bg-white shadow-sm transition-all duration-200 focus-within:border-teal-500 focus-within:ring-4 focus-within:ring-teal-500/5">
-                <textarea 
-                    class="block w-full rounded-2xl border-0 bg-transparent p-4 text-sm text-gray-800 placeholder-gray-400 focus:ring-0 outline-none resize-none min-h-[100px]" 
-                    rows="3" 
-                    placeholder="Join the discussion..." 
-                    required
-                ></textarea>
+            <section id="comments" class="mx-auto max-w-[800px] px-[20px] lg:px-[0px] py-10 scroll-mt-10 sm:scroll-mt-20 font-sans antialiased text-gray-900 dark:text-gray-100 selection:bg-teal-500/10">
                 
-                <!-- Toolbar -->
-                <div class="flex items-center justify-end gap-2 px-4 pb-3 pt-2 border-t border-gray-50 bg-gray-50/50 rounded-b-2xl">
-                    <button 
-                        class="inline-flex items-center justify-center rounded-xl bg-transparent hover:bg-gray-200/60 text-gray-500 hover:text-gray-700 text-xs font-semibold py-2 px-4 transition-colors cursor-pointer" 
-                        type="button"
-                    >
-                        <?php _e("Cancel", THEME); ?>
-                    </button>
-                    <button 
-                        class="inline-flex items-center justify-center rounded-xl bg-teal-600 hover:bg-teal-700 text-white text-xs font-semibold py-2 px-5 transition-all shadow-sm active:scale-[0.98] cursor-pointer" 
-                        type="submit"
-                    >
-                        <?php _e("Send", THEME); ?>
-                    </button>
+                <div class="flex items-center justify-between border-b border-gray-100 dark:border-gray-800 pb-5 mb-8">
+                    <div class="flex items-center gap-3">
+                        <h3 class="text-xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-2xl">
+                            <?php _e("Discussion", THEME); ?>
+                        </h3>
+                        <span class="inline-flex items-center justify-center bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs font-semibold px-2.5 py-1 rounded-full">
+                            <?php echo esc_html( $comments_num ); ?>
+                        </span>
+                    </div>
                 </div>
-            </div>
-        </form>
-    </div>
-
-    <!-- Comments list -->
-    <div class="space-y-8">
-        <ul class="space-y-8">
-            
-            <!-- Main comment (Level 1) -->
-            <li class="relative group">
-                <div class="absolute left-5 top-12 bottom-0 w-[1px] bg-gradient-to-b from-gray-200 via-gray-200 to-transparent"></div>
                 
-                <div class="flex gap-4">
-                    <div class="relative h-10 w-10 shrink-0 overflow-hidden rounded-full bg-gray-100 shadow-sm">
-                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop" alt="Avatar" class="h-full w-full object-cover">
+                <div class="mb-10 flex gap-4">
+                    <div class="hidden sm:block h-10 w-10 shrink-0 overflow-hidden rounded-full bg-gray-200 dark:bg-zinc-800">
+                        <img src="<?php echo esc_url($avatar_url); ?>" data-src="<?php echo esc_url($avatar_url); ?>"  alt="Your Avatar" class="h-full w-full object-cover">
                     </div>
                     
-                    <div class="flex-1 space-y-1.5">
-                        <div class="flex items-center gap-2 flex-wrap">
-                            <a href="#" class="font-semibold text-sm text-gray-900 hover:text-teal-600 transition-colors"><?php _e("Moderator", THEME); ?></a>
-                            <span class="inline-flex items-center rounded-md bg-teal-50 px-1.5 py-0.5 text-[10px] font-medium text-teal-700 ring-1 ring-inset ring-teal-600/10">
-                                <?php _e("Staff", THEME); ?>
-                            </span>
-                            <span class="text-gray-300 text-xs">·</span>
-                            <span class="text-xs text-gray-400"><?php _e("Today, 14:20", THEME); ?></span>
-                        </div>
-                        
-                        <div class="text-sm text-gray-600 leading-relaxed">
-                           <?php _e("Welcome to our new comment interface! We’ve fully redesigned it to make conversations cleaner and easier to read. How do you like the performance so far?", THEME); ?> 
-                        </div>
-                        
-                        <div class="pt-1 flex items-center gap-4 text-xs">
-                            <button class="inline-flex items-center gap-1.5 font-semibold text-gray-400 hover:text-teal-600 transition-colors cursor-pointer">
-                                <?php _e("Reply", THEME); ?>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Replies (Level 2) -->
-                <ul class="mt-6 pl-10 sm:pl-14 space-y-6 relative">
-                    <li class="relative">
-                        <div class="absolute -left-[30px] sm:-left-[35px] top-0 h-6 w-5 rounded-bl-xl border-l border-b border-gray-200"></div>
-                        
-                        <div class="flex gap-3">
-                            <div class="relative h-8 w-8 shrink-0 overflow-hidden rounded-full bg-gray-100 shadow-sm">
-                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop" alt="Avatar" class="h-full w-full object-cover">
-                            </div>
+                    <form id="comments__form" data-post="<?php echo get_the_ID(); ?>" class="flex-1 group">
+                        <div class="relative rounded-2xl border border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/40 shadow-sm dark:shadow-none transition-all duration-200 focus-within:border-teal-500 focus-within:ring-4 focus-within:ring-teal-500/5 dark:focus-within:ring-teal-500/10">
                             
-                            <div class="flex-1 space-y-1.5">
-                                <div class="flex items-center gap-2">
-                                    <a href="#" class="font-semibold text-sm text-gray-900 hover:text-teal-600 transition-colors">
-                                        <?php _e("Alexander Kovalenko", THEME); ?>
-                                    </a>
-                                    <span class="text-gray-300 text-xs">·</span>
-                                    <span class="text-xs text-gray-400">
-                                        <?php _e("10 min ago", THEME); ?>
-                                    </span>
-                                     
-                                </div>
-                                
-                                <div class="text-sm text-gray-600 leading-relaxed">
-                                   <?php _e("It’s insanely fast! Everything loads instantly on mobile, and the thread structure finally makes it easy to follow conversations. Great job!", THEME); ?>
-                                </div>
-                                
-                                <div class="pt-1 text-xs">
-                                    <button class="font-semibold text-gray-400 hover:text-teal-600 transition-colors cursor-pointer">
-                                        <?php _e("Reply", THEME); ?>
-                                    </button>
-                                </div>
+                            <textarea 
+                                name="comment_text"
+                                class="block w-full rounded-2xl border-0 bg-transparent p-4 text-base text-gray-800 dark:text-zinc-100 placeholder-gray-400 dark:placeholder-zinc-500 focus:ring-0 outline-none resize-none min-h-[110px]" 
+                                rows="3" 
+                                placeholder="Join the discussion..." 
+                                required
+                            ></textarea>
+                            
+                            <div class="flex items-center justify-end gap-2 px-4 pb-3 pt-2 border-t border-gray-50 dark:border-zinc-800/80 bg-gray-50/50 dark:bg-zinc-950/60 rounded-b-2xl">
+                                <button 
+                                    class="inline-flex items-center justify-center rounded-xl bg-transparent hover:bg-gray-200/60 dark:hover:bg-zinc-800 text-sm font-semibold py-2 px-4 transition-colors cursor-pointer text-gray-500 dark:text-zinc-400 hover:text-gray-700 dark:hover:text-zinc-200" 
+                                    type="button"
+                                    id="cancel-comment-btn"
+                                >
+                                    <?php _e("Cancel", THEME); ?>
+                                </button>
+                                <button 
+                                    class="inline-flex items-center justify-center rounded-xl bg-teal-600 hover:bg-teal-700 text-white text-sm font-semibold py-2 px-5 transition-all shadow-sm active:scale-[0.98] cursor-pointer" 
+                                    type="submit"
+                                >
+                                    <?php _e("Send", THEME); ?>
+                                </button>
                             </div>
                         </div>
-                    </li>
-                </ul>
-            </li>
-
-            <!-- Second comment -->
-            <li class="relative pt-2">
-                <div class="flex gap-4">
-                    <div class="relative h-10 w-10 shrink-0 overflow-hidden rounded-full bg-gray-100 shadow-sm">
-                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop" alt="Avatar" class="h-full w-full object-cover">
-                    </div>
-                    
-                    <div class="flex-1 space-y-1.5">
-                        <div class="flex items-center gap-2">
-                            <a href="#" class="font-semibold text-sm text-gray-900 hover:text-teal-600 transition-colors"><?php _e("Dmytro", THEME); ?></a>
-                            <span class="text-gray-300 text-xs">·</span>
-                            <span class="text-xs text-gray-400"><?php _e("Yesterday", THEME); ?></span>
-                        </div>
-                        
-                        <div class="text-sm text-gray-600 leading-relaxed">
-                            <?php _e("Is Markdown support or inline code formatting planned for the input field? That would be really useful for technical discussions.", THEME); ?>
-                        </div>
-                        
-                        <div class="pt-1 flex items-center gap-4 text-xs">
-                            <button class="inline-flex items-center gap-1.5 font-semibold text-gray-400 hover:text-teal-600 transition-colors cursor-pointer">
-                                <?php _e("Reply", THEME); ?>
-                            </button>
-                        </div>
-                    </div>
+                    </form>
                 </div>
-            </li>
 
-        </ul>
-    </div>
-</section>
+
+                    <ul id="comments__list" class="space-y-8">
+                        <?php foreach ($comments as $comment): ?>
+
+                            <?php
+                            $children = get_comments([
+                                'post_id' => get_the_ID(),
+                                'status'  => 'approve',
+                                'parent'  => $comment->comment_ID
+                            ]);
+                            ?>
+
+                            <li class="relative group">
+                                
+                                <!-- vertical line -->
+                                <div class="absolute left-5 top-12 bottom-0 w-[1px] bg-gradient-to-b from-gray-200 via-gray-200 to-transparent dark:from-gray-800 dark:via-gray-800"></div>
+
+                                <!-- main comment -->
+                                <div class="flex gap-4">
+
+                                    <div class="relative h-10 w-10 shrink-0 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-800 shadow-sm">
+                                        <?php echo get_avatar($comment, 40); ?>
+                                    </div>
+
+                                    <div class="flex-1 space-y-2">
+
+                                        <div class="flex items-center gap-2 flex-wrap text-sm">
+                                            <a href="<?php echo esc_url($author_url); ?>" class="cursor-pointer font-semibold text-base text-gray-900 dark:text-white hover:text-teal-600 dark:hover:text-teal-400 transition-colors">
+                                                <?php echo esc_html($comment->comment_author); ?>
+                                            </a>
+
+                                            <span class="text-gray-300 dark:text-gray-700">·</span>
+
+                                            <span class="text-gray-400 dark:text-gray-500">
+                                                <?php echo human_time_diff(strtotime($comment->comment_date), current_time('timestamp')) . ' ago'; ?>
+                                            </span>
+                                        </div>
+
+                                        <div class="text-base text-gray-700 dark:text-gray-300 leading-relaxed">
+                                            <?php echo esc_html($comment->comment_content); ?>
+                                        </div>
+
+                                        <div class="pt-0.5 flex items-center gap-4">
+                                            <button class="inline-flex items-center gap-1.5 font-semibold text-sm text-gray-400 dark:text-gray-500 hover:text-teal-600 dark:hover:text-teal-400 transition-colors cursor-pointer">
+                                                <?php _e("Reply", THEME); ?>
+                                            </button>
+                                            <button class="inline-flex items-center gap-1.5 font-semibold text-sm text-gray-400 dark:text-gray-500 hover:text-teal-600 dark:hover:text-teal-400 transition-colors cursor-pointer">
+                                                <?php _e("Edit", THEME); ?>
+                                            </button>
+                                            <button data-comment-id="<?php echo $comment->comment_ID; ?>"
+                                                    class="comment__delete inline-flex items-center gap-1.5 font-semibold text-sm text-gray-400 dark:text-gray-500 hover:text-teal-600 dark:hover:text-teal-400 transition-colors cursor-pointer">
+                                                <?php _e("Delete", THEME); ?>
+                                            </button>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <!-- replies -->
+                                <?php if (!empty($children)): ?>
+                                    <ul class="mt-6 pl-10 sm:pl-14 space-y-6 relative">
+
+                                        <?php foreach ($children as $child): ?>
+
+                                            <li class="relative">
+
+                                                <div class="absolute -left-[30px] sm:-left-[35px] top-0 h-6 w-5 rounded-bl-xl border-l border-b border-gray-200 dark:border-gray-800"></div>
+
+                                                <div class="flex gap-3">
+
+                                                    <div class="relative h-8 w-8 shrink-0 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-800 shadow-sm">
+                                                        <?php echo get_avatar($child, 32); ?>
+                                                    </div>
+
+                                                    <div class="flex-1 space-y-2">
+
+                                                        <div class="flex items-center gap-2 text-sm">
+                                                            <a class="font-semibold text-base text-gray-900 dark:text-white hover:text-teal-600 dark:hover:text-teal-400 transition-colors">
+                                                                <?php echo esc_html($child->comment_author); ?>
+                                                            </a>
+
+                                                            <span class="text-gray-300 dark:text-gray-700">·</span>
+
+                                                            <span class="text-gray-400 dark:text-gray-500">
+                                                                <?php echo human_time_diff(strtotime($child->comment_date), current_time('timestamp')) . ' ago'; ?>
+                                                            </span>
+                                                        </div>
+
+                                                        <div class="text-base text-gray-700 dark:text-gray-300 leading-relaxed">
+                                                            <?php echo esc_html($child->comment_content); ?>
+                                                        </div>
+
+                                                        <div class="pt-0.5">
+                                                            <button class="font-semibold text-sm text-gray-400 dark:text-gray-500 hover:text-teal-600 dark:hover:text-teal-400 transition-colors cursor-pointer">
+                                                                <?php _e("Reply", THEME); ?>
+                                                            </button>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </li>
+
+                                        <?php endforeach; ?>
+
+                                    </ul>
+                                <?php endif; ?>
+
+                            </li>
+
+                        <?php endforeach; ?>
+                    </ul>
+
+
+            </section>
 
             <?php require PATH . "/components/related-posts/component.php"; ?>
         </div>

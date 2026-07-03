@@ -105,6 +105,9 @@ Block::make(__('Bento'))
                 $base_path = get_template_directory() . '/components/bento/templates/';
 
                 switch ($template_type) {
+                    case 'horizontal':
+                        include $base_path . 'horizontal.php';
+                        break;
                     case 'reverse':
                         include $base_path . 'reverse.php';
                         break;

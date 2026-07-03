@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 $search = get_query_var('original_search') ?: get_search_query();
 get_header();
 ?>
-<div class="search-page bg-white dark:bg-black">
+<main class="search-page bg-white dark:bg-black">
     <div class="lg:pt-[46px] pt-[92px]">
 
         <?php require_once PATH . "/components/media-menu/component.php";
@@ -104,6 +104,6 @@ get_header();
         ?>
         
     </div>
-</div>
+</main>
 
 <?php get_footer(); ?>		

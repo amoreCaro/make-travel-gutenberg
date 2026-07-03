@@ -1,13 +1,13 @@
 <?php
+
 if (!defined('ABSPATH')) {
     exit;
 }
 
 /*
-Template Name: Edit Profile (Modern Dark/Light UI)
+Template Name: Edit Profile (Travel Blog UI)
 */
 
-// Redirect if user is not logged in
 if (!is_user_logged_in()) {
     wp_redirect(wp_login_url());
     exit;
@@ -15,181 +15,181 @@ if (!is_user_logged_in()) {
 
 $current_user = wp_get_current_user();
 $user_id = $current_user->ID;
-
-$success_message = '';
-$error_message = '';
+$user_nicename = $current_user->user_nicename;
 
 get_header();
 ?>
 
-<!-- Added dark:bg-gray-950 and dark:text-gray-100 -->
-<main class="main bg-white dark:bg-[#0A0A0B] text-gray-900 dark:text-white min-h-screen antialiased selection:bg-gray-200 dark:selection:bg-white/10">
+<main class="main bg-white text-gray-900 min-h-screen font-sans antialiased">
+    <div class="container px-5 xl:px-10 2xl:px-0 py-[100px] max-w-6xl mx-auto">
 
-    <div class="author-edit max-w-3xl mx-auto px-4 py-12 sm:px-6 lg:py-16">
+        <!-- Header -->
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-4">
+            <div class="flex items-center gap-4">
 
-        <!-- HEADER -->
-        <div class="mb-8 pb-6 border-b border-gray-200 dark:border-white/10">
-            <h1 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                Profile Settings
-            </h1>
-            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                Update your username and manage your account.
-            </p>
+                <a href="<?php echo esc_url( home_url('/author/' . $user_nicename ) ); ?>" class="w-12 h-12 rounded-full bg-[#0F172A] flex items-center justify-center text-white font-semibold text-lg">
+                    <?php echo strtoupper(substr(esc_html( $user_nicename ), 0, 1)); ?>
+                </a>
+
+                <div>
+                    <h1 class="text-xl font-bold text-gray-900 flex items-center gap-2">
+                        <span><?php echo esc_html( $user_nicename ); ?></span>
+                        <span class="text-gray-300 font-light">/</span>
+                        <span>Edit Profile</span>
+                    </h1>
+
+                    <p class="text-sm text-gray-500 mt-0.5">
+                        Set up your travel blog profile, destinations, and storytelling identity
+                    </p>
+                </div>
+
+            </div>
         </div>
 
-        <!-- SUCCESS -->
-        <?php if (!empty($success_message)): ?>
-            <div class="mb-6 p-4 rounded-xl border bg-green-50 dark:bg-green-500/10 border-green-200 dark:border-green-500/20 text-green-700 dark:text-green-300 text-sm font-medium">
-                <?php echo esc_html($success_message); ?>
-            </div>
-        <?php endif; ?>
+        <div class="grid items-start gap-8 xl:grid-cols-[200px_minmax(0,1fr)]">
 
-        <form method="post" enctype="multipart/form-data" class="space-y-8">
-            <?php wp_nonce_field('update_user_profile', 'update_profile_nonce'); ?>
-
-            <!-- AVATAR -->
-            <div>
-                <label class="block text-sm font-medium text-gray-800 dark:text-gray-200 mb-3">
-                    Profile picture
-                </label>
-
-                <div class="relative inline-block group">
-                    <div class="w-32 h-32 rounded-2xl overflow-hidden bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 shadow-sm">
-                        <?php $avatar_url = get_avatar_url($user_id, ['size' => 128]); ?>
-                        <img src="<?php echo esc_url($avatar_url); ?>" class="w-full h-full object-cover">
-                    </div>
-
-                    <!-- CLOSE BTN -->
-                    <button type="button"
-                        class="absolute top-3 right-3 w-6 h-6 flex items-center justify-center
-                        rounded-full bg-black/70 dark:bg-white/10 backdrop-blur-md
-                        border border-white/10 text-white
-                        hover:scale-110 transition-all">
-
-                        <svg xmlns="http://www.w3.org/2000/svg"
-                            class="w-4 h-4"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            stroke-width="2.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-
-                    </button>
-                </div>
+            <div class="w-full">
+                <ul class="space-y-4">
+                    <li><a href="#" class="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors">General</a></li>
+                    <li><a href="#" class="text-sm font-bold text-gray-900">Edit Profile</a></li>
+                    <li><a href="#" class="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors">Password</a></li>
+                    <li><a href="#" class="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors">Travel Stories</a></li>
+                    <li><a href="#" class="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors">Destinations</a></li>
+                    <li><a href="#" class="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors">Notifications</a></li>
+                </ul>
             </div>
 
-            <!-- COVER -->
-            <div>
-                <label class="block text-sm font-medium text-gray-800 dark:text-gray-200 mb-3">
-                    Cover photo
-                </label>
+            <!-- Form -->
+            <section class="bg-white border border-gray-100 rounded-3xl p-10 shadow-sm max-w-3xl w-full">
 
-                <div class="relative w-full h-48 rounded-2xl overflow-hidden border border-gray-200 dark:border-white/10 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-white/5 dark:to-transparent shadow-sm">
-                    <button type="button"
-                        class="absolute top-3 right-3 w-9 h-9 flex items-center justify-center
-                        rounded-full bg-black/70 dark:bg-white/10 backdrop-blur-md
-                        border border-white/10 text-white
-                        hover:scale-110 transition-all">
+                <form method="post" enctype="multipart/form-data" >
+                    <?php wp_nonce_field('update_user_profile', 'update_profile_nonce'); ?>
 
-                        <svg xmlns="http://www.w3.org/2000/svg"
-                            class="w-4 h-4"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            stroke-width="2.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
+                    <!-- PROFILE -->
+                    <div class="mb-10">
+                        <h2 class="text-[13px] font-bold tracking-wider uppercase text-gray-900 border-b border-gray-100 pb-4 mb-8">
+                            Profile Basics
+                        </h2>
 
-                    </button>
-                </div>
-            </div>
+                        <div class="flex items-center gap-4 mb-8">
+                            <div class="w-24 h-24 rounded-full bg-[#0F172A] flex items-center justify-center text-white font-semibold text-3xl shadow-sm">
+                                <?php echo strtoupper(substr(esc_html( $user_nicename ), 0, 1)); ?>
+                            </div>
 
-            <!-- INPUTS -->
-            <div class="space-y-6">
+                            <div class="flex gap-3">
+                                <button type="button" class="px-5 py-2.5 border border-gray-200 rounded-full text-xs font-bold text-gray-900 hover:bg-gray-50 hover:border-gray-300 transition">
+                                    Upload new picture
+                                </button>
 
-                <?php
-                $fields = [
-                    'first_name' => 'First Name',
-                    'last_name'  => 'Last Name',
-                    'nickname'   => 'Nickname (required)'
-                ];
-
-                foreach ($fields as $id => $label) {
-                    echo "
-                    <div>
-                        <label for='$id' class='block text-sm font-medium text-gray-800 dark:text-gray-200 mb-2'>
-                            $label
-                        </label>
-
-                        <input
-                            type='text'
-                            name='$id'
-                            id='$id'
-                            value='" . esc_attr($current_user->$id) . "'
-                            class='w-full rounded-xl px-4 py-3 text-sm
-                            bg-white dark:bg-white/5
-                            border border-gray-200 dark:border-white/10
-                            text-gray-900 dark:text-white
-                            placeholder-gray-400 dark:placeholder-gray-500
-                            focus:outline-none focus:ring-2 focus:ring-white/10
-                            transition'
-                        >
-                    </div>";
-                }
-                ?>
-
-                <!-- BIO -->
-                <div>
-                    <label class="block text-sm font-medium text-gray-800 dark:text-gray-200 mb-2">
-                        Biographical Info
-                    </label>
-
-                    <textarea
-                        name="biography"
-                        rows="4"
-                        class="w-full rounded-xl px-4 py-3 text-sm
-                        bg-white dark:bg-white/5
-                        border border-gray-200 dark:border-white/10
-                        text-gray-900 dark:text-white
-                        placeholder-gray-400 dark:placeholder-gray-500
-                        focus:outline-none focus:ring-2 focus:ring-white/10
-                        transition"
-                    ><?php echo esc_textarea($current_user->description); ?></textarea>
-                </div>
-
-                <!-- WEBSITE -->
-                <div>
-                    <label class="block text-sm font-medium text-gray-800 dark:text-gray-200 mb-2">
-                        Website
-                    </label>
-
-                    <div class="flex rounded-xl overflow-hidden border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5">
-
-                        <div class="px-4 flex items-center bg-gray-100 dark:bg-white/10 text-gray-500">
-                            🌐
+                                <button type="button" class="px-5 py-2.5 bg-gray-50 rounded-full text-xs font-bold text-gray-900 hover:bg-gray-100 transition">
+                                    Delete
+                                </button>
+                            </div>
                         </div>
 
-                        <input
-                            type="url"
-                            name="website"
-                            value="<?php echo esc_url($current_user->user_url); ?>"
-                            class="w-full px-4 py-3 text-sm bg-transparent text-gray-900 dark:text-white focus:outline-none"
-                        >
+                        <div class="space-y-6">
+
+                            <!-- Name -->
+                            <div>
+                                <label class="block text-sm font-bold text-gray-900 mb-2">
+                                    Name <span class="text-red-500">*</span>
+                                </label>
+
+                                <input
+                                    type="text"
+                                    name="nickname"
+                                    value="<?php echo esc_attr($current_user->user_nicename); ?>"
+                                    class="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-1 focus:ring-gray-400"
+                                    required
+                                >
+                            </div>
+
+                            <!-- Location -->
+                            <div>
+                                <label class="block text-sm font-bold text-gray-900 mb-2">
+                                    Location
+                                </label>
+
+                                <input
+                                    type="text"
+                                    name="location"
+                                    value="Lviv, Ukraine"
+                                    class="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-1 focus:ring-gray-400"
+                                >
+                            </div>
+
+                            <!-- Bio -->
+                            <div>
+                                <div class="flex justify-between items-center mb-2">
+                                    <label class="text-sm font-bold text-gray-900">
+                                        Bio
+                                    </label>
+                                    <span class="text-[11px] text-gray-400">0/1024</span>
+                                </div>
+
+                                <textarea
+                                    name="bio"
+                                    rows="5"
+                                    placeholder="Tell your travel story..."
+                                    class="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-1 focus:ring-gray-400 resize-y"
+                                ></textarea>
+
+                                <p class="text-xs text-gray-400 mt-2">
+                                    Brief description for your profile.
+                                </p>
+                            </div>
+
+                        </div>
                     </div>
-                </div>
 
-            </div>
+                    <!-- TRAVEL INFO / WORK HISTORY -->
+                    <div class="mb-8">
+                        <h2 class="text-[13px] font-bold tracking-wider uppercase text-gray-900 border-b border-gray-100 pb-4 mb-6">
+                            Travel Experience
+                        </h2>
 
-            <!-- SUBMIT -->
-            <div class="pt-6">
-                <button type="submit"
-                    class="px-8 py-3 rounded-xl font-medium text-[16px] leading-[24px] bg-black text-white dark:bg-white dark:text-black hover:opacity-90 hover:scale-[1.02] transition-all duration-200 shadow-md">
-                    Update profile
-                </button>
-            </div>
+                        <div class="space-y-6">
 
-        </form>
+                            <div>
+                                <h3 class="text-sm font-bold text-gray-900 mb-2">Visited Countries</h3>
+                                <button type="button" class="text-sm text-gray-500 hover:text-gray-900 underline font-medium transition-colors">
+                                    + Add countries
+                                </button>
+                            </div>
+
+                            <div>
+                                <h3 class="text-sm font-bold text-gray-900 mb-2">Favorite Destinations</h3>
+                                <button type="button" class="text-sm text-gray-500 hover:text-gray-900 underline font-medium transition-colors">
+                                    + Add destinations
+                                </button>
+                            </div>
+
+                            <div>
+                                <h3 class="text-sm font-bold text-gray-900 mb-2">Travel Style</h3>
+                                <button type="button" class="text-sm text-gray-500 hover:text-gray-900 underline font-medium transition-colors">
+                                    + Add style (budget, luxury, adventure, etc.)
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- SAVE -->
+                    <div class="flex justify-end pt-4">
+                        <button
+                            type="submit"
+                            class="px-6 py-3 hover:bg-[#2D2E3A] text-white text-sm font-bold rounded-full bg-black transition-colors shadow-sm"
+                        >
+                            Save Profile
+                        </button>
+                    </div>
+
+                </form>
+
+            </section>
+
+        </div>
+
     </div>
 </main>
 

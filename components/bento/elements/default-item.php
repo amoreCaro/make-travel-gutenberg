@@ -41,6 +41,7 @@ $card_class = 'post-card'
 $read_time = estimate_post_read_time($post_id);
 $like = get_post_like_state($post_id);
 $is_saved = get_post_save_state($post_id);
+$comments_num = get_comments_number(get_the_ID());
 ?>
 
 <a href="<?php echo esc_url($link); ?>"
@@ -288,7 +289,7 @@ $is_saved = get_post_save_state($post_id);
                     </div>
 
                     <span class="count-text text-[12px] leading-[12px] text-black dark:text-white group-hover/comment:text-[#009689] font-medium transition-colors duration-200 pointer-events-none">
-                        3
+                        <?php echo esc_html($comments_num); ?>
                     </span>
                 </button>
 
@@ -296,7 +297,7 @@ $is_saved = get_post_save_state($post_id);
 
             <div class="flex items-center gap-2 relative">
                 <span class="text-[12px] leading-[16px] text-black dark:text-[#D1D5DB] font-normal">
-                    <?php echo esc_html($read_time); ?> min read
+                    <?php echo esc_html($read_time); ?> <?php _e("min read", THEME); ?>
                 </span>
                 <button
                     class="post__save <?php echo $is_saved ? 'is-active' : '' ?> group/btn relative w-9 h-9 shrink-0 rounded-full transition-colors duration-200 cursor-default flex items-center justify-center bg-transparent select-none"

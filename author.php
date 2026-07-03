@@ -3,7 +3,9 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-$curauth = get_queried_object();
+$current_user = get_queried_object();
+$username = $current_user->display_name;
+$user_email = $current_user->user_email;
 $author_id = $curauth->ID;
 
 get_header();
@@ -11,61 +13,61 @@ get_header();
 
 <main class="main">
 
-    <div class="author max-w-5xl mx-auto px-6 py-[100px]">
+    <div class="author py-[100px] bg-[#F6F5F8] dark:bg-[#0E0E10]">
+        <div class="max-w-[800px] w-full mx-auto  px-5 xl:px-10 2xl:px-0">
 
-        <!-- AUTHOR HEADER -->
-        <header class="flex items-center gap-6 pb-10 border-b border-neutral-200 dark:border-neutral-800">
+            <?php require PATH . "/components/breadcrumbs/component.php"; ?>
 
-            <div class="w-24 h-24 rounded-2xl overflow-hidden border border-neutral-200 dark:border-neutral-800">
-                <?php echo get_avatar($author_id, 96); ?>
-            </div>
+            <h1 class="mt-6 mb-8 text-4xl font-bold tracking-tight text-neutral-900 dark:text-white">
+                Author
+            </h1>
 
-            <div>
+            <!-- AUTHOR HEADER -->
+            <?php
+            $args = [
+                'username'   => $username,
+                'user_email' => $user_email,
+                'author_id'  => $author_id,
+            ];
 
-                <h1 class="text-3xl font-bold text-neutral-900 dark:text-white">
-                    <?php echo esc_html($curauth->display_name); ?>
-                </h1>
-
-                <p class="text-sm text-neutral-500 mt-1">
-                    @<?php echo esc_html($curauth->user_nicename); ?>
-                </p>
-
-                <?php if (!empty($curauth->user_description)) : ?>
-                    <p class="text-neutral-600 dark:text-neutral-400 mt-3 max-w-xl">
-                        <?php echo esc_html($curauth->user_description); ?>
-                    </p>
-                <?php endif; ?>
-
-            </div>
-
-        </header>
-
+            require PATH . '/components/profile/component.php';
+            ?>
+        </div>
+        <?php require PATH . '/components/profileSubnav/component.php'; ?>
         <!-- POSTS -->
-        <section class="mt-12">
 
-            <h2 class="text-xl font-semibold mb-6 text-neutral-900 dark:text-white">
-                Latest posts
-            </h2>
+        <div class="mt-12 container px-5 xl:px-10 2xl:px-0 py-5">
 
-            <div class="grid gap-5">
+            <div class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-6">
 
                 <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 
-                    <a href="<?php the_permalink(); ?>"
-                       class="group block p-5 rounded-2xl border border-neutral-200 dark:border-neutral-800
-                              hover:bg-neutral-50 dark:hover:bg-neutral-900 transition">
+                    <?php
+                    $categories  = get_the_category(get_the_ID());
+                    $category_id = !empty($categories) ? $categories[0]->term_id : null;
 
-                        <h3 class="text-lg font-medium text-neutral-900 dark:text-white group-hover:underline">
-                            <?php the_title(); ?>
-                        </h3>
+                    if ($category_id) {
+                        $category_obj = get_term($category_id, 'category');
 
-                        <p class="text-sm text-neutral-500 mt-2">
-                            <?php echo wp_trim_words(get_the_excerpt(), 22); ?>
-                        </p>
+                        $icon_id  = carbon_get_term_meta($category_id, 'category_svg');
+                        $icon_url = $icon_id ? wp_get_attachment_url($icon_id) : '';
 
-                    </a>
+                        $category_svg        = cf_get_inline_svg($icon_url);
+                        $category_bg_color   = carbon_get_term_meta($category_id, 'category_bg');
+                        $category_text_color = carbon_get_term_meta($category_id, 'category_text_color');
+                        $category_decor_type = carbon_get_term_meta($category_id, 'category_decor_type');
+                    } else {
+                        $category_obj        = null;
+                        $category_svg        = '';
+                        $category_bg_color   = '';
+                        $category_text_color = '';
+                        $category_decor_type = '';
+                    }
 
-                <?php endwhile; else: ?>
+                    include PATH . '/components/bento/elements/default-item.php';
+                    ?>
+
+                <?php endwhile; else : ?>
 
                     <p class="text-neutral-500">No posts yet.</p>
 
@@ -73,10 +75,14 @@ get_header();
 
             </div>
 
-        </section>
+        </div>
 
+        <?php 
+            require PATH . "/components/pagination/component.php";
+            require PATH . "/components/burger-menu/component.php";
+            require PATH . "/components/modal/component.php"; 
+        ?>
     </div>
-
 </main>
 
 <?php get_footer(); ?>

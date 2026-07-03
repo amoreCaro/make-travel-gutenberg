@@ -2,20 +2,33 @@
 if (!defined('ABSPATH')) exit;
 
 $post_id = get_the_ID();
+$placeholder = get_template_directory_uri() . '/assets/src/images/placeholder.png';
+$thumbnail = get_the_post_thumbnail_url($post_id, 'large');
+
+if (!$thumbnail) {
+    $thumbnail = $placeholder;
+}
 
 /**
- * DATA LAYER (RAW DATA ONLY — без esc)
+ * CATEGORY
  */
+$categories = get_the_category($post_id);
 
-$categories_raw = get_the_category();
+$category_id   = !empty($categories) ? $categories[0]->term_id : null;
+$category_name = !empty($categories) ? $categories[0]->name : '';
 
-$categories = array_map(function ($cat) {
-    return [
-        'name' => $cat->name,
-        'url'  => get_category_link($cat->term_id),
-    ];
-}, $categories_raw ?: []);
+$category_bg_color   = $category_id ? carbon_get_term_meta($category_id, 'category_bg') : '';
+$category_text_color = $category_id ? carbon_get_term_meta($category_id, 'category_text_color') : '';
+$category_svg_id     = $category_id ? carbon_get_term_meta($category_id, 'category_svg') : '';
 
+$icon_url = $category_svg_id ? wp_get_attachment_url($category_svg_id) : '';
+$category_svg = $icon_url ? cf_get_inline_svg($icon_url) : '';
+
+$has_custom_style = !empty($category_bg_color) || !empty($category_text_color);
+
+/**
+ * POST DATA
+ */
 $permalink = get_permalink();
 $title     = get_the_title();
 $excerpt   = get_the_excerpt();
@@ -23,40 +36,55 @@ $date      = get_the_date('M d, Y');
 
 $author_id  = $post->post_author;
 $avatar_url = get_avatar_url($author_id, ['size' => 28]);
-$username   = get_the_author_meta('display_name', $author_id); 
-
-$thumbnail = has_post_thumbnail()
-    ? get_the_post_thumbnail(
-        $post_id,
-        'large',
-        ['class' => 'w-full h-full object-cover hover:scale-105 transition duration-300']
-    )
-    : null;
+$username   = get_the_author_meta('display_name', $author_id);
 
 $read_time = estimate_post_read_time($post_id);
 $like      = get_post_like_state($post_id);
 $is_saved  = get_post_save_state($post_id);
+$comments_num = get_comments_number(get_the_ID());
 ?>
 
-<div class="flex flex-col-reverse sm:flex-row justify-between items-start gap-6 pb-10 border-b border-gray-100 dark:border-neutral-800 last:border-0">
+<div class="flex flex-col md:flex-row justify-start items-start gap-6 pb-10 border-b border-gray-100 dark:border-neutral-800 last:border-0">
 
-    <div class="flex-1 space-y-3">
+    <!-- THUMBNAIL -->
+    <?php if ($thumbnail) : ?>
+        <div class="w-56 h-56 shrink-0 overflow-hidden rounded-2xl">
+            <a href="<?php echo esc_url($permalink); ?>" class="block w-full h-full">
+                <picture class="block w-full h-full">
+                    <img
+                        data-src="<?php echo esc_url($thumbnail); ?>"
+                        src="<?php echo esc_url($thumbnail); ?>"
+                        alt="<?php echo esc_attr($title); ?>"
+                        loading="lazy"
+                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    >
+                </picture>
+            </a>
+        </div>
+    <?php endif; ?>
+
+    <div class="flex-1 min-w-0  space-y-3">
 
         <!-- Categories -->
-        <?php if (!empty($categories)) : ?>
-            <div class="flex flex-wrap gap-2">
-                <?php foreach ($categories as $category) : ?>
-                    <a href="<?php echo esc_url($category['url']); ?>"
-                       class="inline-flex px-2.5 py-0.5 rounded-md text-xs font-semibold uppercase bg-purple-50 text-purple-700 dark:bg-purple-900/20 dark:text-purple-300">
-                        <?php echo esc_html($category['name']); ?>
-                    </a>
-                <?php endforeach; ?>
-            </div>
-        <?php endif; ?>
+        <?php if (!empty($category_name)) : ?>
+            <span class="inline-flex items-center gap-2 text-[12px] leading-[16px] font-medium capitalize px-5 py-1 rounded-full w-fit"
+                style="
+                    background-color: <?php echo esc_attr($category_bg_color); ?>;
+                    color: <?php echo esc_attr($category_text_color); ?>;
+                "
+            >
+                <?php if (!empty($category_svg)) : ?>
+                    <span class="w-4 h-4 flex items-center justify-center [&>svg]:w-full [&>svg]:h-full [&>svg]:fill-current [&>svg]:stroke-current">
+                        <?php echo $category_svg; ?>
+                    </span>
+                <?php endif; ?>
 
+                <?php echo esc_html($category_name); ?>
+            </span>
+        <?php endif; ?>
         <!-- Title -->
         <?php if (!empty($title)) : ?>
-            <h2 class="text-[18px] leading-[28px] font-semibold text-[#111827] hover:text-[#312e81] transition">
+            <h2 class="text-[18px] leading-[28px] font-semibold text-[#111827] hover:text-[#312e81] dark:text-[#F3F4F6] dark:hover:text-[#A5B4FC]  transition">
                 <a href="<?php echo esc_url($permalink); ?>" class="line-clamp-1">
                     <?php echo esc_html($title); ?>
                 </a>
@@ -149,7 +177,7 @@ $is_saved  = get_post_save_state($post_id);
                 </button>
 
 
-                <button
+                                <button
                     class="group/comment relative h-9 pe-3 shrink-0 rounded-full transition-colors duration-200 cursor-default flex items-center gap-2 bg-transparent select-none"
                     onclick="
                         event.preventDefault();
@@ -193,10 +221,9 @@ $is_saved  = get_post_save_state($post_id);
                     </div>
 
                     <span class="count-text text-[12px] leading-[12px] text-black dark:text-white group-hover/comment:text-[#009689] font-medium transition-colors duration-200 pointer-events-none">
-                        3
+                        <?php echo esc_html($comments_num); ?>
                     </span>
                 </button>
-
             </div>
 
             <div class="flex items-center gap-2 relative">
@@ -248,14 +275,5 @@ $is_saved  = get_post_save_state($post_id);
         </div>
 
     </div>
-
-    <!-- THUMBNAIL -->
-    <?php if ($thumbnail) : ?>
-        <div class="w-56 h-56 shrink-0 overflow-hidden rounded-2xl">
-            <a href="<?php echo esc_url($permalink); ?>" class="block w-full h-full">
-                <?php echo $thumbnail; ?>
-            </a>
-        </div>
-    <?php endif; ?>
 
 </div>

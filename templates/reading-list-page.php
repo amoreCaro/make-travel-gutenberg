@@ -3,90 +3,155 @@
  * Template Name: Reading list Page Template
  */
 
-if (!defined('ABSPATH')) exit;
-
-global $wpdb;
-
-$user_id = get_current_user_id();
-
-if (!$user_id) {
-    get_header();
-    echo '<p class="text-center py-10">You must be logged in.</p>';
-    get_footer();
+if (!defined('ABSPATH')) {
     exit;
 }
 
-get_header();
+global $wpdb;
+
+$user_id      = get_current_user_id();
+$page_title   = get_the_title();
+$current_user = wp_get_current_user();
+
+$username   = $current_user->display_name ?? '';
+$user_email = $current_user->user_email ?? '';
+$author_id  = $current_user->ID ?? 0;
 
 $table = $wpdb->prefix . 'post_reactions';
 
-/**
- * GET BOOKMARKED POSTS (reading list)
- */
-$bookmarked_posts = $wpdb->get_col(
-    $wpdb->prepare("
-        SELECT post_id
-        FROM {$table}
-        WHERE user_id = %d
-        AND type = %s
-        ORDER BY id DESC
-    ", $user_id, 'save')
-);
+$bookmarked_posts = $user_id
+    ? $wpdb->get_col(
+        $wpdb->prepare(
+            "
+            SELECT post_id
+            FROM {$table}
+            WHERE user_id = %d
+            AND type = %s
+            ORDER BY id DESC
+        ",
+            $user_id,
+            'save'
+        )
+    )
+    : [];
 
-/**
- * Pagination
- */
-$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
-$per_page = 10;
+$paged    = max(1, get_query_var('paged'));
+$per_page = 4;
 
-$args = [
+$reading_list_query = new WP_Query([
     'post_type'      => 'post',
     'post__in'       => !empty($bookmarked_posts) ? $bookmarked_posts : [0],
     'orderby'        => 'post__in',
     'posts_per_page' => $per_page,
     'paged'          => $paged,
-];
+]);
 
-$reading_list_query = new WP_Query($args);
+get_header();
 ?>
 
-<main class="min-h-screen pt-[128px] bg-white dark:bg-[#0F0F11] px-4 sm:px-6 lg:px-8 text-gray-900 dark:text-gray-100">
-    <div class="max-w-4xl mx-auto">
+<main class="main">
 
-        <!-- Header -->
-        <div class="mb-12 border-b border-gray-200 dark:border-neutral-800 pb-8">
-            <h1 class="text-[30px] leading-[36px] font-semibold text-[#111827]">
-                <?php _e("Reading list", THEME); ?>
+    <div class="author py-[100px] bg-[#F6F5F8] dark:bg-[#0E0E10]">
+
+        <div class="max-w-[800px] w-full mx-auto px-5 xl:px-10 2xl:px-0">
+
+            <?php require PATH . '/components/breadcrumbs/component.php'; ?>
+
+            <h1 class="mt-6 mb-8 text-4xl font-bold tracking-tight text-neutral-900 dark:text-white">
+                <?php echo esc_html($page_title); ?>
             </h1>
-            <p class="mt-3 text-[18px] leading-[28px] text-[#6b7280] font-normal">
-                <?php _e("Let's read and save your favorite articles here ! 📚", THEME); ?>
-            </p>
+
+            <?php
+            $args = [
+                'username'   => $username,
+                'user_email' => $user_email,
+                'author_id'  => $author_id,
+            ];
+
+            require PATH . '/components/profile/component.php';
+            ?>
+
         </div>
 
-        <!-- Posts -->
-        <div class="space-y-10">
+        <?php
+        $args = [
+            'current_slug' => 'reading-list',
+        ];
 
-            <?php if ($reading_list_query->have_posts()) : ?>
+        require PATH . '/components/profileSubnav/component.php';
+        ?>
 
-                <?php while ($reading_list_query->have_posts()) : $reading_list_query->the_post();
+        <div class="mt-12 container mx-auto px-5 xl:px-10 2xl:px-0 py-5">
 
-                    include get_template_directory() . '/template-parts/reading-list/item.php';
+            <?php if (!$user_id) : ?>
 
-                endwhile; ?>
+                <p class="text-center text-lg text-neutral-600 dark:text-neutral-400">
+                    <?php _e('You must be logged in.', THEME); ?>
+                </p>
 
-                <?php wp_reset_postdata(); ?>
+            <?php elseif ($reading_list_query->have_posts()) : ?>
+
+                <div class="space-y-8">
+
+                    <?php
+                    while ($reading_list_query->have_posts()) :
+                        $reading_list_query->the_post();
+
+                        $categories  = get_the_category(get_the_ID());
+                        $category_id = !empty($categories) ? $categories[0]->term_id : null;
+
+                        $category_data = [];
+
+                        if ($category_id) {
+                            $icon_id  = carbon_get_term_meta($category_id, 'category_svg');
+                            $icon_url = $icon_id ? wp_get_attachment_url($icon_id) : '';
+
+                            $category_data = [
+                                'id'         => $category_id,
+                                'name'       => $categories[0]->name,
+                                'link'       => get_category_link($category_id),
+                                'svg'        => cf_get_inline_svg($icon_url),
+                                'bg_color'   => carbon_get_term_meta($category_id, 'category_bg'),
+                                'text_color' => carbon_get_term_meta($category_id, 'category_text_color'),
+                                'decor_type' => carbon_get_term_meta($category_id, 'category_decor_type'),
+                            ];
+                        }
+
+                        include PATH . '/components/bento/elements/horizontal-item.php';
+
+                    endwhile;
+
+                    wp_reset_postdata();
+                    ?>
+
+                </div>
 
             <?php else : ?>
 
-                <p class="text-center text-gray-500 dark:text-neutral-400 py-12">
-                    <?php _e("No saved posts yet.", THEME); ?>
-                </p>
+                <div class="py-20 text-center">
+
+                    <h2 class="text-2xl font-semibold text-neutral-900 dark:text-white">
+                        <?php _e('Your reading list is empty 📚', THEME); ?>
+                    </h2>
+
+                    <p class="mt-3 text-neutral-500 dark:text-neutral-400">
+                        <?php _e('Save articles to read them later.', THEME); ?>
+                    </p>
+
+                </div>
 
             <?php endif; ?>
 
         </div>
 
+        <?php
+        // require PATH . '/components/pagination/component.php';
+        require PATH . '/components/burger-menu/component.php';
+        require PATH . '/components/modal/component.php';
+        ?>
+
     </div>
+
 </main>
 
 <?php get_footer(); ?>
