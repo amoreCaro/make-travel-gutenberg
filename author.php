@@ -14,7 +14,7 @@ get_header();
 <main class="main">
 
     <div class="author py-[100px] bg-[#F6F5F8] dark:bg-[#0E0E10]">
-        <div class="max-w-[800px] w-full mx-auto  px-5 xl:px-10 2xl:px-0">
+        <div class="container  w-full mx-auto  px-5 xl:px-10 2xl:px-0">
 
             <?php require PATH . "/components/breadcrumbs/component.php"; ?>
 

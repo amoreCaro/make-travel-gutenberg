@@ -35,15 +35,14 @@ $bookmarked_posts = $user_id
     )
     : [];
 
-$paged    = max(1, get_query_var('paged'));
-$per_page = 4;
+$total_posts = count($bookmarked_posts);
+$per_page    = 10;
 
 $reading_list_query = new WP_Query([
     'post_type'      => 'post',
     'post__in'       => !empty($bookmarked_posts) ? $bookmarked_posts : [0],
     'orderby'        => 'post__in',
     'posts_per_page' => $per_page,
-    'paged'          => $paged,
 ]);
 
 get_header();
@@ -53,7 +52,7 @@ get_header();
 
     <div class="author py-[100px] bg-[#F6F5F8] dark:bg-[#0E0E10]">
 
-        <div class="max-w-[800px] w-full mx-auto px-5 xl:px-10 2xl:px-0">
+        <div class="container w-full mx-auto px-5 xl:px-10 2xl:px-0">
 
             <?php require PATH . '/components/breadcrumbs/component.php'; ?>
 
@@ -91,7 +90,7 @@ get_header();
 
             <?php elseif ($reading_list_query->have_posts()) : ?>
 
-                <div class="space-y-8">
+                <div id="reading-list__items" class="space-y-8">
 
                     <?php
                     while ($reading_list_query->have_posts()) :
@@ -126,6 +125,24 @@ get_header();
 
                 </div>
 
+                <?php if ($total_posts > $per_page) : ?>
+
+                    <div class="mt-10 text-center">
+
+                        <button
+                            id="reading-list__btn--show-more"
+                            data-offset="<?php echo esc_attr($per_page); ?>"
+                            data-total="<?php echo esc_attr($total_posts); ?>"
+                            type="button"
+                            class="rounded-xl bg-black px-6 py-3 text-white dark:bg-white dark:text-black"
+                        >
+                            <?php _e('Show more', THEME); ?>
+                        </button>
+
+                    </div>
+
+                <?php endif; ?>
+
             <?php else : ?>
 
                 <div class="py-20 text-center">
@@ -145,7 +162,6 @@ get_header();
         </div>
 
         <?php
-        // require PATH . '/components/pagination/component.php';
         require PATH . '/components/burger-menu/component.php';
         require PATH . '/components/modal/component.php';
         ?>

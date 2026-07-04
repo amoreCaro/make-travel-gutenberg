@@ -42,9 +42,14 @@ $read_time = estimate_post_read_time($post_id);
 $like      = get_post_like_state($post_id);
 $is_saved  = get_post_save_state($post_id);
 $comments_num = get_comments_number(get_the_ID());
+
+$card_class = 'post-card'
+    . ($has_gallery ? ' post-card--slider' : '')
+    . ($has_video   ? ' post-card--video'  : '')
+    . ($has_thumb   ? ' post-card--thumb'  : '');
 ?>
 
-<div class="flex flex-col md:flex-row justify-start items-start gap-6 pb-10 border-b border-gray-100 dark:border-neutral-800 last:border-0">
+<div class="<?php echo esc_attr($card_class); ?> flex flex-col md:flex-row justify-start items-start gap-6 pb-10 border-b border-gray-100 dark:border-neutral-800 last:border-0">
 
     <!-- THUMBNAIL -->
     <?php if ($thumbnail) : ?>
@@ -105,14 +110,13 @@ $comments_num = get_comments_number(get_the_ID());
                 <?php if ($avatar_url) : ?>
                     <div class="post__author-name-img mr-2 flex-shrink-0">
                         <img
-                            src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23cccccc'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E"
-                            data-src="<?php echo esc_url($avatar_url); ?>"
+                            src="<?php echo esc_url($avatar_url); ?>"
                             alt="<?php echo esc_attr($username); ?>"
                             width="28"
                             height="28"
                             loading="lazy"
                             decoding="async"
-                            class="lazy-img w-[28px] h-[28px] rounded-full object-cover bg-[#f5f5f5]"
+                            class="w-[28px] h-[28px] rounded-full object-cover bg-[#f5f5f5]"
                         >
                     </div>
                 <?php endif; ?>

@@ -5,6 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $search = get_query_var('original_search') ?: get_search_query();
+
 get_header();
 ?>
 <main class="search-page bg-white dark:bg-black">
@@ -26,27 +27,49 @@ get_header();
 
             <div class="space-y-8 md:space-y-12 container">
 
-                <?php if (have_posts()) : ?>
+<?php if (have_posts()) : ?>
 
-                    <?php $i = 0; ?>
+    <?php $i = 0; ?>
 
-                    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 md:gap-10">
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 md:gap-10">
 
-                        <?php while (have_posts()) : the_post(); ?>
+        <?php while (have_posts()) : the_post(); ?>
 
-                            <?php
-                            if ($i % 6 === 0) {
-                                include PATH . '/components/bento/elements/large-item.php';
-                            } else {
-                                include PATH . '/components/bento/elements/default-item.php';
-                            }
-                            ?>
+            <?php
 
-                            <?php $i++; ?>
+            $post_categories = get_the_category();
+            $category_obj    = !empty($post_categories) ? $post_categories[0] : null;
 
-                        <?php endwhile; ?>
+            $category_svg        = '';
+            $category_bg_color   = '';
+            $category_text_color = '';
+            $category_decor_type = '';
 
-                    </div>
+            if ($category_obj) {
+                $category_id = $category_obj->term_id;
+
+                $icon_url     = carbon_get_term_meta($category_id, 'category_svg');
+                $category_svg = cf_get_inline_svg($icon_url);
+
+                $category_bg_color   = carbon_get_term_meta($category_id, 'category_bg');
+                $category_text_color = carbon_get_term_meta($category_id, 'category_text_color');
+                $category_decor_type = carbon_get_term_meta($category_id, 'category_decor_type');
+            }
+            ?>
+
+            <?php
+            if ($i % 6 === 0) {
+                include PATH . '/components/bento/elements/large-item.php';
+            } else {
+                include PATH . '/components/bento/elements/default-item.php';
+            }
+            ?>
+
+            <?php $i++; ?>
+
+        <?php endwhile; ?>
+
+    </div>
 
                 <?php else : ?>
 
