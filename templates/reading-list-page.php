@@ -90,6 +90,9 @@ get_header();
 
             <?php elseif ($reading_list_query->have_posts()) : ?>
 
+            <div class="container grid items-start gap-8 xl:grid-cols-[200px_minmax(0,1fr)] px-5 xl:px-10 2xl:px-0">
+
+                <?php require PATH . "/components/account-sidebar/component.php"; ?>
                 <div id="reading-list__items" class="space-y-8">
 
                     <?php
@@ -123,18 +126,16 @@ get_header();
                     wp_reset_postdata();
                     ?>
 
-                </div>
-
                 <?php if ($total_posts > $per_page) : ?>
 
-                    <div class="mt-10 text-center">
+                    <div class="col-span-full mt-10 flex justify-center">
 
                         <button
-                            id="reading-list__btn--show-more"
+                            id="favorites__btn--show-more"
                             data-offset="<?php echo esc_attr($per_page); ?>"
                             data-total="<?php echo esc_attr($total_posts); ?>"
                             type="button"
-                            class="rounded-xl bg-black px-6 py-3 text-white dark:bg-white dark:text-black"
+                            class="rounded-xl bg-black px-6 py-3 text-white"
                         >
                             <?php _e('Show more', THEME); ?>
                         </button>
@@ -142,6 +143,11 @@ get_header();
                     </div>
 
                 <?php endif; ?>
+                </div>
+
+
+
+            </div>
 
             <?php else : ?>
 

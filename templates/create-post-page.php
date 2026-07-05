@@ -16,25 +16,17 @@ get_header();
 ?>
 
 <main class="min-h-screen bg-[#F6F5F8] pt-[128px] pb-24 dark:bg-[#0F0F11]">
+    <div class="create-post container px-5 xl:px-10 2xl:px-0 ">
 
     <?php get_template_part('template-parts/common/breadcrumbs'); ?>
 
-    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-
         <!-- Hero -->
-        <div
-            class="relative mb-8 overflow-hidden rounded-[28px]
-                   border border-gray-200/70
-                   bg-white
-                   p-10 lg:p-14
-                   dark:border-[#232125]
-                   dark:bg-[#18181B]"
-        >
+        <div class="relative mb-8 overflow-hidden rounded-[28px] border border-gray-200/70 bg-white p-10 lg:p-14 dark:border-[#232125] dark:bg-[#18181B]">
 
             <div
                 class="pointer-events-none absolute -top-24 -right-24 h-72 w-72
                        rounded-full bg-violet-500/10 blur-3xl
-                       dark:bg-violet-500/20"
+                       dark:bg-violet-500/20" 
             ></div>
 
             <div
@@ -56,6 +48,9 @@ get_header();
             </div>
 
         </div>
+        <div class="container grid items-start gap-8 xl:grid-cols-[200px_minmax(0,1fr)]">
+
+                <?php require PATH . "/components/account-sidebar/component.php"; ?>
 
         <form
             id="createPostForm"
@@ -390,8 +385,8 @@ get_header();
 
         </form>
 
+        </div>
     </div>
-
 </main>
 
 <?php get_footer(); ?>
