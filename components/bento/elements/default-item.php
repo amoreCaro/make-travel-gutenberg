@@ -12,9 +12,14 @@ $thumbnail = get_the_post_thumbnail_url($post_id, 'large') ?: $placeholder;
 $excerpt   = get_the_excerpt($post_id);
 $date      = get_the_date('', $post_id);
 
-$categories       = get_the_category($post_id);
-$category_id      = !empty($categories) ? $categories[0]->term_id : null;
-$category_name    = get_cat_name($category_id);
+$categories = get_the_category($post_id);
+$category_id   = !empty($categories) ? $categories[0]->term_id : null;
+$category_name = !empty($categories) ? $categories[0]->name : '';
+$category_bg_color   = $category_id ? carbon_get_term_meta($category_id, 'category_bg') : '';
+$category_text_color = $category_id ? carbon_get_term_meta($category_id, 'category_text_color') : '';
+$category_svg_id     = $category_id ? carbon_get_term_meta($category_id, 'category_svg') : '';
+$icon_url = $category_svg_id ? wp_get_attachment_url($category_svg_id) : '';
+$category_svg = $icon_url ? cf_get_inline_svg($icon_url) : '';
 $has_custom_style = !empty($category_bg_color) || !empty($category_text_color);
 
 $author_id  = $post->post_author;
@@ -159,16 +164,15 @@ $comments_num = get_comments_number(get_the_ID());
             <div class="flex items-center mb-4">
                 <?php if ($avatar_url) : ?>
                     <div class="post__author-name-img mr-2 flex-shrink-0">
-                        <img
-                            src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23cccccc'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E"
-                            data-src="<?php echo esc_url($avatar_url); ?>"
-                            alt="<?php echo esc_attr($username); ?>"
-                            width="28"
-                            height="28"
-                            loading="lazy"
-                            decoding="async"
-                            class="lazy-img w-[28px] h-[28px] rounded-full object-cover bg-[#f5f5f5]"
-                        >
+<img
+    src="<?php echo esc_url($avatar_url); ?>"
+    alt="<?php echo esc_attr($username); ?>"
+    width="28"
+    height="28"
+    loading="lazy"
+    decoding="async"
+    class="w-[28px] h-[28px] rounded-full object-cover bg-[#f5f5f5]"
+>
                     </div>
                 <?php endif; ?>
 

@@ -18,6 +18,7 @@ $subnav_items = [
         'label' => 'Reading list',
         'url'   => home_url('/reading-list'),
     ],
+
 ];
 ?>
 
@@ -68,8 +69,8 @@ $subnav_items = [
                         data-profile-tab="<?php echo esc_attr($slug); ?>"
                         class="profile-subnav-link block whitespace-nowrap rounded-full px-4 py-2
                         font-semibold transition-all duration-200 text-[16px] leading-[18px]
-                        text-black dark:text-neutral-400
-                        hover:text-neutral-500 dark:hover:text-neutral-200">
+                        text-black dark:text-neutral-400 
+                        border-gray-400 bg-white border-2 dark:hover:text-neutral-200">
 
                         <?php echo esc_html($item['label']); ?>
                     </a>

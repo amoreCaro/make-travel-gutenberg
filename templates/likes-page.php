@@ -19,7 +19,7 @@ $author_id  = $current_user->ID ?? 0;
 $table        = $wpdb->prefix . 'post_reactions';
 $liked_posts  = [];
 $total_posts  = 0;
-$per_page     = 4;
+$per_page     = 12;
 $query        = null;
 $profile_args = [];
 
@@ -58,9 +58,9 @@ if ($user_id) {
 get_header();
 ?>
 
-<main class="favourites-page mx-auto py-24">
-
-    <?php if (!$user_id) : ?>
+<main class="main  mx-auto py-24">
+    <div class="favourites-page">
+            <?php if (!$user_id) : ?>
 
         <div class="container mx-auto py-20">
             <p class="text-center text-gray-500">
@@ -70,78 +70,80 @@ get_header();
 
     <?php else : ?>
 
-        <div class="max-w-[800px] w-full mx-auto px-5 xl:px-10 2xl:px-0">
+        <div class="container w-full mx-auto px-5 xl:px-10 2xl:px-0">
 
             <?php
-            $args = $profile_args;
-            require PATH . '/components/profile/component.php';
+                require PATH . '/components/breadcrumbs/component.php';
+            ?>
+            <?php
+                $args = $profile_args;
+                require PATH . '/components/profile/component.php';
             ?>
 
         </div>
 
         <?php require PATH . '/components/profileSubnav/component.php'; ?>
 
-        <div
-            id="favorites__grid"
-            class="container mx-auto px-5 xl:px-10 2xl:px-0 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
-        >
+        <div class="container grid items-start gap-8 xl:grid-cols-[200px_minmax(0,1fr)] px-5 xl:px-10 2xl:px-0">
 
-            <?php if ($query && $query->have_posts()) : ?>
-<?php while ($query->have_posts()) : $query->the_post(); ?>
+            <?php require PATH . "/components/account-sidebar/component.php"; ?>
+            <div id="favorites__grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6" >
 
-    <?php
-    $categories  = get_the_category();
-    $category_id = $categories[0]->term_id ?? 0;
+                <?php if ($query && $query->have_posts()) : ?>
+                    <?php while ($query->have_posts()) : $query->the_post(); ?>
 
-    $icon_url            = carbon_get_term_meta($category_id, 'category_svg');
-    $category_svg        = cf_get_inline_svg($icon_url);
+                        <?php
+                            $categories  = get_the_category();
+                            $category_id = $categories[0]->term_id ?? 0;
 
-    $category_bg_color   = carbon_get_term_meta($category_id, 'category_bg');
-    $category_text_color = carbon_get_term_meta($category_id, 'category_text_color');
-    $category_decor_type = carbon_get_term_meta($category_id, 'category_decor_type');
+                            $icon_url            = carbon_get_term_meta($category_id, 'category_svg');
+                            $category_svg        = cf_get_inline_svg($icon_url);
 
-    include PATH . '/components/bento/elements/default-item.php';
-    ?>
+                            $category_bg_color   = carbon_get_term_meta($category_id, 'category_bg');
+                            $category_text_color = carbon_get_term_meta($category_id, 'category_text_color');
+                            $category_decor_type = carbon_get_term_meta($category_id, 'category_decor_type');
 
-<?php endwhile; ?>
+                            include PATH . '/components/bento/elements/default-item.php';
+                        ?>
 
-                <?php wp_reset_postdata(); ?>
+                    <?php endwhile; ?>
 
-            <?php else : ?>
+                    <?php wp_reset_postdata(); ?>
 
-                <p class="col-span-full py-10 text-center text-gray-500">
-                    <?php _e("You haven’t added any favourites yet.", THEME); ?>
-                </p>
+                <?php else : ?>
 
-            <?php endif; ?>
+                    <p class="col-span-full py-10 text-center text-gray-500">
+                        <?php _e("You haven’t added any favourites yet.", THEME); ?>
+                    </p>
 
-        </div>
+                <?php endif; ?>
 
-        <?php if ($total_posts > $per_page) : ?>
+                <?php if ($total_posts > $per_page) : ?>
 
-            <div class="mt-10 text-center">
+                    <div class="col-span-full mt-10 flex justify-center">
 
-                <button
-                    id="favorites__btn--show-more"
-                    data-offset="<?php echo esc_attr($per_page); ?>"
-                    data-total="<?php echo esc_attr($total_posts); ?>"
-                    type="button"
-                    class="rounded-xl bg-black px-6 py-3 text-white"
-                >
-                    <?php _e('Show more', THEME); ?>
-                </button>
+                        <button
+                            id="favorites__btn--show-more"
+                            data-offset="<?php echo esc_attr($per_page); ?>"
+                            data-total="<?php echo esc_attr($total_posts); ?>"
+                            type="button"
+                            class="rounded-xl bg-black px-6 py-3 text-white"
+                        >
+                            <?php _e('Show more', THEME); ?>
+                        </button>
 
+                    </div>
+
+                <?php endif; ?>
             </div>
-
-        <?php endif; ?>
-
+        </div>
     <?php endif; ?>
 
     <?php
-    require PATH . '/components/burger-menu/component.php';
-    require PATH . '/components/modal/component.php';
+        require PATH . '/components/burger-menu/component.php';
+        require PATH . '/components/modal/component.php';
     ?>
-
+    </div>
 </main>
 
 <?php get_footer(); ?>
