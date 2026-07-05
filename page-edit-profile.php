@@ -54,6 +54,7 @@ get_header();
                 </div>
 
             </div>
+                    <?php require PATH . '/components/profileSubnav/component.php'; ?>
 
         <div class="grid items-start gap-8 xl:grid-cols-[200px_minmax(0,1fr)]">
 

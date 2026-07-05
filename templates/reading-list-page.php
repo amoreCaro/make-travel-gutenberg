@@ -135,7 +135,7 @@ get_header();
                             data-offset="<?php echo esc_attr($per_page); ?>"
                             data-total="<?php echo esc_attr($total_posts); ?>"
                             type="button"
-                            class="rounded-xl bg-black px-6 py-3 text-white"
+                            class="rounded-xl bg-black px-6 py-3 text-white dark:bg-white dark:text-black"
                         >
                             <?php _e('Show more', THEME); ?>
                         </button>

@@ -84,7 +84,7 @@ get_header();
 
         <?php require PATH . '/components/profileSubnav/component.php'; ?>
 
-        <div class="container grid items-start gap-8 xl:grid-cols-[200px_minmax(0,1fr)] px-5 xl:px-10 2xl:px-0">
+        <div class="container grid items-start gap-8 xl:grid-cols-[200px_minmax(0,1fr)] px-5 xl:px-10 2xl:px-0 mt-12">
 
             <?php require PATH . "/components/account-sidebar/component.php"; ?>
             <div id="favorites__grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6" >
@@ -127,7 +127,7 @@ get_header();
                             data-offset="<?php echo esc_attr($per_page); ?>"
                             data-total="<?php echo esc_attr($total_posts); ?>"
                             type="button"
-                            class="rounded-xl bg-black px-6 py-3 text-white"
+                            class="rounded-xl bg-black px-6 py-3 text-white dark:bg-white dark:text-black"
                         >
                             <?php _e('Show more', THEME); ?>
                         </button>
