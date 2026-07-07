@@ -10,7 +10,7 @@ $subnav_items = [
         'label' => 'My Posts',
         'url'   => home_url('/author/' . $current_user->display_name),
     ],
-    'reviews' => [
+    'likes' => [
         'label' => 'Liked Shots',
         'url'   => home_url('/likes'),
     ],
@@ -18,42 +18,70 @@ $subnav_items = [
         'label' => 'Reading list',
         'url'   => home_url('/reading-list'),
     ],
-
+    'create-post' => [
+        'label' => 'Create Post',
+        'url'   => home_url('/create-post'),
+    ],
+    'edit-profile' => [
+        'label' => 'Edit Profile',
+        'url'   => home_url('/edit-profile'),
+    ],
 ];
+
+$current_path = untrailingslashit(
+    parse_url(home_url(add_query_arg(null, null)), PHP_URL_PATH)
+);
+
+$active_tab = 'work';
+
+foreach ($subnav_items as $slug => $item) {
+    $item_path = untrailingslashit(
+        parse_url($item['url'], PHP_URL_PATH)
+    );
+
+    if ($item_path === $current_path) {
+        $active_tab = $slug;
+        break;
+    }
+}
 ?>
 
-<div class="container px-5 xl:px-10 2xl:px-0 py-5 border-t border-neutral-200 dark:border-neutral-800">
+<div class="md:hidden container px-5 py-5 xl:px-10 2xl:px-0 border-t border-neutral-200 dark:border-neutral-800">
 
     <nav class="relative -mx-5 xl:-mx-10 2xl:mx-0">
 
-        <!-- LEFT FADE + BUTTON -->
         <div
             id="profileSubnavLeftFade"
             class="absolute left-0 top-0 bottom-0 z-10 w-16 pointer-events-none
-            bg-gradient-to-r from-neutral-50 dark:from-neutral-950
-            via-neutral-50/90 dark:via-neutral-950/90 to-transparent
+            bg-gradient-to-r from-white dark:from-neutral-950
+            via-white/90 dark:via-neutral-950/90 to-transparent
             opacity-0 transition-opacity duration-300">
         </div>
 
         <button
             id="profileSubnavPrev"
-            class="absolute left-1.5 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full
-            bg-white dark:bg-neutral-900
-            border border-neutral-200 dark:border-neutral-800
-            shadow-[0_2px_8px_rgba(0,0,0,0.08)]
-            flex items-center justify-center opacity-0 pointer-events-none scale-90
-            transition-all duration-200 hover:scale-105 hover:shadow-[0_4px_12px_rgba(0,0,0,0.12)] active:scale-95">
+            type="button"
+            aria-label="<?php esc_attr_e('Прокрутити вліво', 'make-travel'); ?>"
+            class="absolute left-1.5 top-1/2 z-20 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full
+            border border-neutral-200 bg-white opacity-0 shadow-[0_2px_8px_rgba(0,0,0,0.08)]
+            pointer-events-none scale-90 transition-all duration-200
+            hover:scale-105 hover:shadow-[0_4px_12px_rgba(0,0,0,0.12)]
+            active:scale-95
+            dark:border-neutral-800 dark:bg-neutral-900 dark:shadow-[0_2px_8px_rgba(0,0,0,0.5)]">
 
-            <svg class="w-4 h-4 text-neutral-600 dark:text-neutral-300"
-                 viewBox="0 0 24 24"
-                 fill="none"
-                 stroke="currentColor"
-                 stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15 6l-6 6 6 6"/>
+            <svg
+                class="h-4 w-4 text-neutral-600 dark:text-neutral-300"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2">
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M15 6l-6 6 6 6" />
             </svg>
         </button>
 
-        <!-- NAV LIST -->
         <ul
             id="profileSubnavList"
             class="flex items-center gap-1.5 overflow-x-auto scroll-smooth
@@ -63,46 +91,65 @@ $subnav_items = [
             [scrollbar-width:none]">
 
             <?php foreach ($subnav_items as $slug => $item) : ?>
+                <?php $is_active = $slug === $active_tab; ?>
+
                 <li class="flex-none">
                     <a
                         href="<?php echo esc_url($item['url']); ?>"
                         data-profile-tab="<?php echo esc_attr($slug); ?>"
-                        class="profile-subnav-link block whitespace-nowrap rounded-full px-4 py-2
-                        font-semibold transition-all duration-200 text-[16px] leading-[18px]
-                        text-black dark:text-neutral-400 
-                        border-gray-400 bg-white border-2 dark:hover:text-neutral-200">
+                        <?php if ($is_active) : ?>
+                            aria-current="page"
+                        <?php endif; ?>
+                        class="profile-subnav-link block whitespace-nowrap rounded-full border px-4 py-2
+                        text-[16px] font-semibold leading-[18px] transition-all duration-200
+
+                        <?php if ($is_active) : ?>
+                            border-black bg-black text-white
+                            dark:border-white dark:bg-white dark:text-black
+                        <?php else : ?>
+                            border-neutral-200 bg-transparent text-neutral-500
+                            hover:border-neutral-100 hover:bg-neutral-100 hover:text-black
+                            dark:border-neutral-800 dark:text-neutral-400
+                            dark:hover:border-neutral-900 dark:hover:bg-neutral-900 dark:hover:text-white
+                        <?php endif; ?>">
 
                         <?php echo esc_html($item['label']); ?>
                     </a>
                 </li>
+
             <?php endforeach; ?>
 
         </ul>
 
-        <!-- RIGHT FADE + BUTTON -->
         <div
             id="profileSubnavRightFade"
             class="absolute right-0 top-0 bottom-0 z-10 w-16 pointer-events-none
-            bg-gradient-to-l from-neutral-50 dark:from-neutral-950
-            via-neutral-50/90 dark:via-neutral-950/90 to-transparent
+            bg-gradient-to-l from-white dark:from-neutral-950
+            via-white/90 dark:via-neutral-950/90 to-transparent
             opacity-0 transition-opacity duration-300">
         </div>
 
         <button
             id="profileSubnavNext"
-            class="absolute right-1.5 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full
-            bg-white dark:bg-neutral-900
-            border border-neutral-200 dark:border-neutral-800
-            shadow-[0_2px_8px_rgba(0,0,0,0.08)]
-            flex items-center justify-center opacity-0 pointer-events-none scale-90
-            transition-all duration-200 hover:scale-105 hover:shadow-[0_4px_12px_rgba(0,0,0,0.12)] active:scale-95">
+            type="button"
+            aria-label="<?php esc_attr_e('Прокрутити вправо', 'make-travel'); ?>"
+            class="absolute right-1.5 top-1/2 z-20 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full
+            border border-neutral-200 bg-white opacity-0 shadow-[0_2px_8px_rgba(0,0,0,0.08)]
+            pointer-events-none scale-90 transition-all duration-200
+            hover:scale-105 hover:shadow-[0_4px_12px_rgba(0,0,0,0.12)]
+            active:scale-95
+            dark:border-neutral-800 dark:bg-neutral-900 dark:shadow-[0_2px_8px_rgba(0,0,0,0.5)]">
 
-            <svg class="w-4 h-4 text-neutral-600 dark:text-neutral-300"
-                 viewBox="0 0 24 24"
-                 fill="none"
-                 stroke="currentColor"
-                 stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M9 6l6 6-6 6"/>
+            <svg
+                class="h-4 w-4 text-neutral-600 dark:text-neutral-300"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2">
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M9 6l6 6-6 6" />
             </svg>
         </button>
 

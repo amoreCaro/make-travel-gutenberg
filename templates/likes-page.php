@@ -11,6 +11,7 @@ global $wpdb;
 
 $user_id      = get_current_user_id();
 $current_user = wp_get_current_user();
+$page_title   = get_the_title();
 
 $username   = $current_user->display_name ?? '';
 $user_email = $current_user->user_email ?? '';
@@ -58,8 +59,8 @@ if ($user_id) {
 get_header();
 ?>
 
-<main class="main  mx-auto py-24">
-    <div class="favourites-page">
+<main class="main mx-auto py-24">
+    <div class="favourites-page px-5 xl:px-10 2xl:px-0">
             <?php if (!$user_id) : ?>
 
         <div class="container mx-auto py-20">
@@ -70,21 +71,17 @@ get_header();
 
     <?php else : ?>
 
-        <div class="container w-full mx-auto px-5 xl:px-10 2xl:px-0">
+        <div class="container">
+                <?php require PATH . '/components/breadcrumbs/component.php'; ?>
 
-            <?php
-                require PATH . '/components/breadcrumbs/component.php';
-            ?>
-            <?php
-                $args = $profile_args;
-                require PATH . '/components/profile/component.php';
-            ?>
-
+                <h1 class="mt-6 mb-8 text-4xl font-bold tracking-tight text-neutral-900 dark:text-white">
+                    <?php echo esc_html($page_title); ?>
+                </h1>
         </div>
 
         <?php require PATH . '/components/profileSubnav/component.php'; ?>
 
-        <div class="container grid items-start gap-8 xl:grid-cols-[200px_minmax(0,1fr)] px-5 xl:px-10 2xl:px-0">
+        <div class="container grid items-start gap-8 xl:grid-cols-[280px_minmax(0,1fr)] ">
 
             <?php require PATH . "/components/account-sidebar/component.php"; ?>
             <div id="favorites__grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6" >
@@ -127,7 +124,7 @@ get_header();
                             data-offset="<?php echo esc_attr($per_page); ?>"
                             data-total="<?php echo esc_attr($total_posts); ?>"
                             type="button"
-                            class="rounded-xl bg-black px-6 py-3 text-white"
+                            class="rounded-xl bg-black px-6 py-3 text-white dark:bg-white dark:text-black"
                         >
                             <?php _e('Show more', THEME); ?>
                         </button>

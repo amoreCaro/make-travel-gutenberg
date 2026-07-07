@@ -50,25 +50,17 @@ get_header();
 
 <main class="main">
 
-    <div class="author py-[100px] bg-[#F6F5F8] dark:bg-[#0E0E10]">
+    <div class="author py-[100px] bg-[#F6F5F8] dark:bg-[#0E0E10] px-5 xl:px-10 2xl:px-0">
 
-        <div class="container w-full mx-auto px-5 xl:px-10 2xl:px-0">
+        <div class="container">
+            <div class="">
+                <?php require PATH . '/components/breadcrumbs/component.php'; ?>
 
-            <?php require PATH . '/components/breadcrumbs/component.php'; ?>
-
-            <h1 class="mt-6 mb-8 text-4xl font-bold tracking-tight text-neutral-900 dark:text-white">
-                <?php echo esc_html($page_title); ?>
-            </h1>
-
-            <?php
-            $args = [
-                'username'   => $username,
-                'user_email' => $user_email,
-                'author_id'  => $author_id,
-            ];
-
-            require PATH . '/components/profile/component.php';
-            ?>
+                <h1 class="mt-6 mb-8 text-4xl font-bold tracking-tight text-neutral-900 dark:text-white">
+                    <?php echo esc_html($page_title); ?>
+                </h1>
+                
+            </div>
 
         </div>
 
@@ -80,7 +72,7 @@ get_header();
         require PATH . '/components/profileSubnav/component.php';
         ?>
 
-        <div class="mt-12 container mx-auto px-5 xl:px-10 2xl:px-0 py-5">
+        <div class="mt-12 container">
 
             <?php if (!$user_id) : ?>
 
@@ -90,7 +82,7 @@ get_header();
 
             <?php elseif ($reading_list_query->have_posts()) : ?>
 
-            <div class="container grid items-start gap-8 xl:grid-cols-[200px_minmax(0,1fr)] px-5 xl:px-10 2xl:px-0">
+            <div class="grid items-start gap-8 xl:grid-cols-[280px_minmax(0,1fr)] ">
 
                 <?php require PATH . "/components/account-sidebar/component.php"; ?>
                 <div id="reading-list__items" class="space-y-8">
@@ -131,11 +123,11 @@ get_header();
                     <div class="col-span-full mt-10 flex justify-center">
 
                         <button
-                            id="favorites__btn--show-more"
+                            id="reading-list__btn--show-more"
                             data-offset="<?php echo esc_attr($per_page); ?>"
                             data-total="<?php echo esc_attr($total_posts); ?>"
                             type="button"
-                            class="rounded-xl bg-black px-6 py-3 text-white"
+                            class="rounded-xl bg-black px-6 py-3 text-white dark:bg-white dark:text-black"
                         >
                             <?php _e('Show more', THEME); ?>
                         </button>
