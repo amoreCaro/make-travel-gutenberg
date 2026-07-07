@@ -15,13 +15,16 @@ $categories = get_categories([
 get_header();
 ?>
 
-<main class="min-h-screen bg-[#F6F5F8] pt-[128px] pb-24 dark:bg-[#0F0F11]">
-    <div class="create-post container px-5 xl:px-10 2xl:px-0 ">
+<main class="main">
+    <div class="create-post py-[100px] min-h-screen bg-[#FAFAFA] dark:bg-[#0E0E10] transition-colors duration-200 text-[#1D1D1F] dark:text-[#F5F5F7] mx-auto px-5 xl:px-10 2xl:px-0">
 
-    <?php get_template_part('template-parts/common/breadcrumbs'); ?>
+        <div class="container">
+            <?php require PATH . '/components/breadcrumbs/component.php'; ?>
+            <?php require PATH . '/components/profile/component.php'; ?>
+        </div>
 
         <!-- Hero -->
-        <div class="relative mb-8 overflow-hidden rounded-[28px] border border-gray-200/70 bg-white p-10 lg:p-14 dark:border-[#232125] dark:bg-[#18181B]">
+        <div class="container relative mb-8 overflow-hidden rounded-[28px] border border-gray-200/70 bg-white p-10 lg:p-14 dark:border-[#232125] dark:bg-[#18181B]">
 
             <div
                 class="pointer-events-none absolute -top-24 -right-24 h-72 w-72
@@ -42,13 +45,13 @@ get_header();
                 </h1>
 
                 <p class="mt-4 max-w-2xl text-lg leading-8 text-slate-600 dark:text-slate-400">
-                    Write your thoughts, upload media, organize categories, and publish beautiful content.
+                    <?php _e('Write your thoughts, upload media, organize categories, and publish beautiful content.', THEME); ?>                   
                 </p>
 
             </div>
         </div>
         <?php require PATH . "/components/profileSubnav/component.php"; ?>
-        <div class="container grid items-start gap-8 xl:grid-cols-[200px_minmax(0,1fr)] mt-12">
+        <div class="container grid items-start gap-8 xl:grid-cols-[280px_minmax(0,1fr)] mt-12">
 
             <?php require PATH . "/components/account-sidebar/component.php"; ?>
 
@@ -79,10 +82,10 @@ get_header();
 
                         <div>
                             <h2 class="text-2xl font-bold text-slate-900 dark:text-white">
-                                Basic information
+                                <?php _e('Basic information', THEME); ?>
                             </h2>
                             <p class="mt-1 text-slate-500 dark:text-slate-400">
-                                Title, excerpt and article content.
+                                <?php _e('Title, excerpt and article content.', THEME); ?>
                             </p>
                         </div>
 
@@ -92,7 +95,7 @@ get_header();
 
                         <div>
                             <label for="post_title" class="mb-3 block text-sm font-semibold uppercase tracking-wide text-slate-700 dark:text-slate-300">
-                                Title
+                                <?php _e('Title', THEME); ?>
                             </label>
                             <input
                                 id="post_title"
@@ -117,9 +120,9 @@ get_header();
                         <div>
                             <div class="mb-3 flex items-end justify-between">
                                 <label for="post_excerpt" class="block text-sm font-semibold uppercase tracking-wide text-slate-700 dark:text-slate-300">
-                                    Excerpt
+                                    <?php _e('Excerpt', THEME); ?>
                                 </label>
-                                <span class="text-xs text-slate-400 dark:text-slate-500">Optional</span>
+                                <span class="text-xs text-slate-400 dark:text-slate-500"><?php _e('Optional', THEME); ?></span>
                             </div>
                             <textarea
                                 id="post_excerpt"
@@ -142,7 +145,7 @@ get_header();
 
                         <div>
                             <label for="post_content" class="mb-3 block text-sm font-semibold uppercase tracking-wide text-slate-700 dark:text-slate-300">
-                                Content
+                                <?php _e('Content', THEME); ?>
                             </label>
                             <textarea
                                 id="post_content"
@@ -185,8 +188,8 @@ get_header();
                             </svg>
                         </div>
                         <div>
-                            <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Media</h2>
-                            <p class="mt-1 text-slate-500 dark:text-slate-400">Upload images, gallery and video.</p>
+                            <h2 class="text-2xl font-bold text-slate-900 dark:text-white"><?php _e('Media', THEME); ?></h2>
+                            <p class="mt-1 text-slate-500 dark:text-slate-400"><?php _e('Upload images, gallery and video.', THEME); ?></p>
                         </div>
                     </div>
 
@@ -208,8 +211,8 @@ get_header();
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14M4 8h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                     </svg>
                                 </div>
-                                <span class="text-base font-semibold text-slate-900 dark:text-white">Featured image</span>
-                                <span class="text-sm text-slate-500 dark:text-slate-500">PNG or JPG, up to 5&nbsp;MB</span>
+                                <span class="text-base font-semibold text-slate-900 dark:text-white"><?php _e('Featured image', THEME); ?></span>
+                                <span class="text-sm text-slate-500 dark:text-slate-500"><?php _e('PNG or JPG, up to 5&nbsp;MB', THEME); ?></span>
                             </div>
                         </label>
 
@@ -229,8 +232,8 @@ get_header();
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
                                     </svg>
                                 </div>
-                                <span class="text-base font-semibold text-slate-900 dark:text-white">Video</span>
-                                <span class="text-sm text-slate-500 dark:text-slate-500">MP4 or MOV, up to 50&nbsp;MB</span>
+                                <span class="text-base font-semibold text-slate-900 dark:text-white"><?php _e('Video', THEME); ?></span>
+                                <span class="text-sm text-slate-500 dark:text-slate-500"><?php _e('MP4 or MOV, up to 50&nbsp;MB', THEME); ?></span>
                             </div>
                         </label>
 
@@ -253,8 +256,8 @@ get_header();
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7a2 2 0 012-2h3l2-2h4l2 2h3a2 2 0 012 2v11a2 2 0 01-2 2H5a2 2 0 01-2-2V7zM12 17a4 4 0 100-8 4 4 0 000 8z" />
                                     </svg>
                                 </div>
-                                <span class="text-lg font-semibold text-slate-900 dark:text-white">Gallery</span>
-                                <span class="text-sm text-slate-500 dark:text-slate-500">Up to 4 images</span>
+                                <span class="text-lg font-semibold text-slate-900 dark:text-white"><?php _e('Gallery', THEME); ?></span>
+                                <span class="text-sm text-slate-500 dark:text-slate-500"><?php _e('Up to 4 images', THEME); ?></span>
                             </div>
                         </label>
                     </div>
@@ -275,8 +278,8 @@ get_header();
                     <div class="grid gap-10 lg:grid-cols-2">
 
                         <div>
-                            <h2 class="mb-1 text-2xl font-bold text-slate-900 dark:text-white">Categories</h2>
-                            <p class="mb-6 text-sm text-slate-500 dark:text-slate-400">Pick one or more.</p>
+                            <h2 class="mb-1 text-2xl font-bold text-slate-900 dark:text-white"><?php _e('Categories', THEME); ?></h2>
+                            <p class="mb-6 text-sm text-slate-500 dark:text-slate-400"><?php _e('Pick one or more.', THEME); ?></p>
 
                             <div class="flex flex-wrap gap-2.5">
                                 <?php foreach ($categories as $category) : ?>
@@ -305,14 +308,14 @@ get_header();
                                 <?php endforeach; ?>
 
                                 <?php if (empty($categories)) : ?>
-                                    <p class="text-sm text-slate-400 dark:text-slate-500">No categories yet.</p>
+                                    <p class="text-sm text-slate-400 dark:text-slate-500"><?php _e('No categories yet.', THEME); ?></p>
                                 <?php endif; ?>
                             </div>
                         </div>
 
                         <div>
-                            <h2 class="mb-1 text-2xl font-bold text-slate-900 dark:text-white">Tags</h2>
-                            <p class="mb-6 text-sm text-slate-500 dark:text-slate-400">Separate tags with commas.</p>
+                            <h2 class="mb-1 text-2xl font-bold text-slate-900 dark:text-white"><?php _e('Tags', THEME); ?></h2>
+                            <p class="mb-6 text-sm text-slate-500 dark:text-slate-400"><?php _e('Separate tags with commas.', THEME); ?></p>
 
                             <input
                                 id="post_tags"
@@ -357,7 +360,7 @@ get_header();
                             dark:border-[#2A2A2E] dark:bg-[#111114] dark:text-slate-200
                             dark:hover:border-[#3A3A3E] dark:hover:bg-[#18181B]"
                     >
-                        Save draft
+                        <?php _e('Save draft', THEME); ?>
                     </button>
 
                     <button
@@ -371,7 +374,7 @@ get_header();
                             focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-violet-500/30
                             active:scale-[0.99]"
                     >
-                        Publish post
+                        <?php _e('Publish post', THEME); ?>
                     </button>
                 </div>
 

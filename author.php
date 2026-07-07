@@ -4,89 +4,123 @@ if (!defined('ABSPATH')) {
 }
 
 $current_user = get_queried_object();
-$username = $current_user->display_name;
-$user_email = $current_user->user_email;
-$author_id = $curauth->ID;
+
+$author_id  = $current_user->ID;
+$page_title = get_the_author_meta('display_name', $author_id);
+
+$paged = max(
+    1,
+    get_query_var('paged'),
+    get_query_var('page')
+);
 
 get_header();
 ?>
 
 <main class="main">
+    <div class="author py-[100px] dark:bg-[#0E0E10] text-[#1D1D1F] dark:text-[#F5F5F7] min-h-screen transition-colors duration-200 mx-auto px-5 xl:px-10 2xl:px-0">
 
-    <div class="author py-[100px] bg-[#F6F5F8] dark:bg-[#0E0E10]">
-        <div class="container  w-full mx-auto  px-5 xl:px-10 2xl:px-0">
+        <div class="container mb-12">
+            <?php require PATH . '/components/breadcrumbs/component.php'; ?>
+            <?php require PATH . '/components/profile/component.php'; ?>
 
-            <?php require PATH . "/components/breadcrumbs/component.php"; ?>
-
-            <h1 class="mt-6 mb-8 text-4xl font-bold tracking-tight text-neutral-900 dark:text-white">
-                Author
-            </h1>
-
-            <!-- AUTHOR HEADER -->
             <?php
             $args = [
-                'username'   => $username,
-                'user_email' => $user_email,
-                'author_id'  => $author_id,
+                'current_slug' => 'reading-list',
             ];
 
-            require PATH . '/components/profile/component.php';
+            require PATH . '/components/profileSubnav/component.php';
             ?>
         </div>
-        <?php require PATH . '/components/profileSubnav/component.php'; ?>
-        <!-- POSTS -->
 
-        <div class="container grid items-start gap-8 xl:grid-cols-[200px_minmax(0,1fr)] mt-12  px-5 xl:px-10 2xl:px-0">
-            <?php require PATH . "/components/account-sidebar/component.php"; ?>
-                    <div class="">
+        <div class="container grid md:grid-cols-1 lg:grid-cols-[280px_2fr] gap-6 items-start">
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <?php include PATH . '/components/account-sidebar/component.php'; ?>
 
-                    <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+            <div class="space-y-6">
 
-                        <?php
-                        $categories  = get_the_category(get_the_ID());
-                        $category_id = !empty($categories) ? $categories[0]->term_id : null;
+                <?php
+                $author_posts = new WP_Query([
+                    'post_type'      => 'post',
+                    'author'         => $author_id,
+                    'post_status'    => 'publish',
+                    'posts_per_page' => 6,
+                    'paged'          => $paged,
+                    'orderby'        => 'date',
+                    'order'          => 'DESC',
+                ]);
+                ?>
 
-                        if ($category_id) {
-                            $category_obj = get_term($category_id, 'category');
+                <div class="bg-white dark:bg-[#18181F] rounded-3xl p-6 border border-[#E5E5E7] dark:border-[#2D2D3A]">
 
-                            $icon_id  = carbon_get_term_meta($category_id, 'category_svg');
-                            $icon_url = $icon_id ? wp_get_attachment_url($icon_id) : '';
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-lg font-bold tracking-wide text-[#1D1D1F] dark:text-white">
+                            <?php esc_html_e('Author Posts', THEME); ?>
+                        </h2>
 
-                            $category_svg        = cf_get_inline_svg($icon_url);
-                            $category_bg_color   = carbon_get_term_meta($category_id, 'category_bg');
-                            $category_text_color = carbon_get_term_meta($category_id, 'category_text_color');
-                            $category_decor_type = carbon_get_term_meta($category_id, 'category_decor_type');
-                        } else {
-                            $category_obj        = null;
-                            $category_svg        = '';
-                            $category_bg_color   = '';
-                            $category_text_color = '';
-                            $category_decor_type = '';
-                        }
-
-                        include PATH . '/components/bento/elements/default-item.php';
-                        ?>
-
-                    <?php endwhile; else : ?>
-
-                        <p class="text-neutral-500">No posts yet.</p>
-
-                    <?php endif; ?>
-                    <div class="col-span-full mt-10 flex justify-center">
-                        <?php require PATH . "/components/pagination/component.php"; ?>
+                        <span class="text-sm text-[#86868B]">
+                            <?php echo esc_html($author_posts->found_posts); ?>
+                        </span>
                     </div>
+
+                    <div class="grid grid-cols-1 gap-4">
+
+                        <?php if ($author_posts->have_posts()) : ?>
+
+                            <?php
+                            while ($author_posts->have_posts()) :
+                                $author_posts->the_post();
+
+                                $categories  = get_the_category(get_the_ID());
+                                $category_id = !empty($categories) ? $categories[0]->term_id : null;
+
+                                if ($category_id) {
+                                    $icon_id  = carbon_get_term_meta($category_id, 'category_svg');
+                                    $icon_url = $icon_id ? wp_get_attachment_url($icon_id) : '';
+
+                                    $category_data = [
+                                        'id'         => $category_id,
+                                        'name'       => $categories[0]->name,
+                                        'link'       => get_category_link($category_id),
+                                        'svg'        => cf_get_inline_svg($icon_url),
+                                        'bg_color'   => carbon_get_term_meta($category_id, 'category_bg'),
+                                        'text_color' => carbon_get_term_meta($category_id, 'category_text_color'),
+                                        'decor_type' => carbon_get_term_meta($category_id, 'category_decor_type'),
+                                    ];
+
+                                    include PATH . '/components/bento/elements/horizontal-item.php';
+                                }
+
+                            endwhile;
+
+                            wp_reset_postdata();
+                            ?>
+
+                        <?php else : ?>
+
+                            <p class="text-[#86868B] text-sm text-center py-4">
+                                <?php esc_html_e('This author has no posts yet.', THEME); ?>
+                            </p>
+
+                        <?php endif; ?>
+
+                    </div>
+
+                    <?php
+                    $pagination = [
+                        'current' => $paged,
+                        'total'   => $author_posts->max_num_pages,
+                    ];
+
+                    require PATH . '/components/pagination/component.php';
+                    ?>
 
                 </div>
 
             </div>
+
         </div>
 
-        <?php 
-            require PATH . "/components/burger-menu/component.php";
-            require PATH . "/components/modal/component.php"; 
-        ?>
     </div>
 </main>
 

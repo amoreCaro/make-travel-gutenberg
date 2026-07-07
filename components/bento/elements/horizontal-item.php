@@ -49,11 +49,11 @@ $card_class = 'post-card'
     . ($has_thumb   ? ' post-card--thumb'  : '');
 ?>
 
-<div class="<?php echo esc_attr($card_class); ?> flex flex-col md:flex-row justify-start items-start gap-6 pb-10 border-b border-gray-100 dark:border-neutral-800 last:border-0">
+<div class="<?php echo esc_attr($card_class); ?> flex flex-row justify-start items-start gap-6 pb-10 border-b border-gray-100 dark:border-neutral-800 last:border-0">
 
     <!-- THUMBNAIL -->
     <?php if ($thumbnail) : ?>
-        <div class="w-56 h-56 shrink-0 overflow-hidden rounded-2xl">
+        <div class="w-[96px] h-[96px] md:w-[176px] md:h-[176px] lg:w-[224px] lg:h-[224px] shrink-0 overflow-hidden rounded-2xl">
             <a href="<?php echo esc_url($permalink); ?>" class="block w-full h-full">
                 <picture class="block w-full h-full">
                     <img

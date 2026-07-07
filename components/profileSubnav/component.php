@@ -46,7 +46,7 @@ foreach ($subnav_items as $slug => $item) {
 }
 ?>
 
-<div class="container px-5 py-5 xl:px-10 2xl:px-0 border-t border-neutral-200 dark:border-neutral-800">
+<div class="md:hidden container px-5 py-5 xl:px-10 2xl:px-0 border-t border-neutral-200 dark:border-neutral-800">
 
     <nav class="relative -mx-5 xl:-mx-10 2xl:mx-0">
 
