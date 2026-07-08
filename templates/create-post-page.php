@@ -66,7 +66,7 @@ get_header();
                 <input type="hidden" name="action" value="theme_create_post">
 
                 <!-- Basic Information -->
-                <section class="rounded-[28px] border border-gray-200/70 bg-white shadow-sm shadow-slate-900/[0.02] dark:border-[#232125] dark:bg-[#18181B] lg:p-10" >
+                <div class="rounded-[28px] border border-gray-200/70 bg-white shadow-sm shadow-slate-900/[0.02] dark:border-[#232125] dark:bg-[#18181B] lg:p-10 mb-10" >
 
                     <div class="mb-8 flex items-center gap-4">
 
@@ -168,17 +168,17 @@ get_header();
 
                     </div>
 
-                </section>
+                </div>
 
                 <!-- Media -->
-                <section
+                <div
                     class="rounded-[28px]
                         border border-gray-200/70
                         bg-white p-8
                         shadow-sm shadow-slate-900/[0.02]
                         dark:border-[#232125]
                         dark:bg-[#18181B]
-                        lg:p-10"
+                        lg:p-10 mb-10"
                 >
 
                     <div class="mb-8 flex items-center gap-4">
@@ -262,17 +262,17 @@ get_header();
                         </label>
                     </div>
 
-                </section>
+                </div>
 
                 <!-- Categories & Tags -->
-                <section
+                <div
                     class="rounded-[28px]
                         border border-gray-200/70
                         bg-white p-8
                         shadow-sm shadow-slate-900/[0.02]
                         dark:border-[#232125]
                         dark:bg-[#18181B]
-                        lg:p-10"
+                        lg:p-10 mb-10"
                 >
 
                     <div class="grid gap-10 lg:grid-cols-2">
@@ -337,7 +337,7 @@ get_header();
 
                     </div>
 
-                </section>
+                </div>
 
                 <!-- Actions -->
                 <div

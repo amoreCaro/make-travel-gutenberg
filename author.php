@@ -14,6 +14,25 @@ $paged = max(
     get_query_var('page')
 );
 
+$args = [
+    'current_slug' => 'reading-list',
+];
+
+$author_posts = new WP_Query([
+    'post_type'      => 'post',
+    'author'         => $author_id,
+    'post_status'    => 'publish',
+    'posts_per_page' => 6,
+    'paged'          => $paged,
+    'orderby'        => 'date',
+    'order'          => 'DESC',
+]);
+
+$pagination = [
+    'current' => $paged,
+    'total'   => $author_posts->max_num_pages,
+];
+
 get_header();
 ?>
 
@@ -23,14 +42,7 @@ get_header();
         <div class="container mb-12">
             <?php require PATH . '/components/breadcrumbs/component.php'; ?>
             <?php require PATH . '/components/profile/component.php'; ?>
-
-            <?php
-            $args = [
-                'current_slug' => 'reading-list',
-            ];
-
-            require PATH . '/components/profileSubnav/component.php';
-            ?>
+            <?php require PATH . '/components/profileSubnav/component.php'; ?>
         </div>
 
         <div class="container grid md:grid-cols-1 lg:grid-cols-[280px_2fr] gap-6 items-start">
@@ -39,23 +51,11 @@ get_header();
 
             <div class="space-y-6">
 
-                <?php
-                $author_posts = new WP_Query([
-                    'post_type'      => 'post',
-                    'author'         => $author_id,
-                    'post_status'    => 'publish',
-                    'posts_per_page' => 6,
-                    'paged'          => $paged,
-                    'orderby'        => 'date',
-                    'order'          => 'DESC',
-                ]);
-                ?>
-
-                <div class="bg-white dark:bg-[#18181F] rounded-3xl p-6 border border-[#E5E5E7] dark:border-[#2D2D3A]">
+                <div class="bg-white dark:bg-[#18181B] rounded-3xl p-6 border border-[#E5E5E7] dark:border-[#2D2D3A]">
 
                     <div class="flex justify-between items-center mb-6">
                         <h2 class="text-lg font-bold tracking-wide text-[#1D1D1F] dark:text-white">
-                            <?php esc_html_e('Author Posts', THEME); ?>
+                            <?php esc_html_e('My Posts', THEME); ?>
                         </h2>
 
                         <span class="text-sm text-[#86868B]">
@@ -67,10 +67,9 @@ get_header();
 
                         <?php if ($author_posts->have_posts()) : ?>
 
-                            <?php
-                            while ($author_posts->have_posts()) :
-                                $author_posts->the_post();
+                            <?php while ($author_posts->have_posts()) : $author_posts->the_post(); ?>
 
+                                <?php
                                 $categories  = get_the_category(get_the_ID());
                                 $category_id = !empty($categories) ? $categories[0]->term_id : null;
 
@@ -90,11 +89,11 @@ get_header();
 
                                     include PATH . '/components/bento/elements/horizontal-item.php';
                                 }
+                                ?>
 
-                            endwhile;
+                            <?php endwhile; ?>
 
-                            wp_reset_postdata();
-                            ?>
+                            <?php wp_reset_postdata(); ?>
 
                         <?php else : ?>
 
@@ -106,14 +105,7 @@ get_header();
 
                     </div>
 
-                    <?php
-                    $pagination = [
-                        'current' => $paged,
-                        'total'   => $author_posts->max_num_pages,
-                    ];
-
-                    require PATH . '/components/pagination/component.php';
-                    ?>
+                    <?php require PATH . '/components/pagination/component.php'; ?>
 
                 </div>
 
