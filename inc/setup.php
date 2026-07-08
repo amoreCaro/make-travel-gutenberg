@@ -311,3 +311,7 @@ add_action('pre_get_posts', function ($query) {
     $query->set('posts_per_page', 12);
     $query->set('post_type', 'post');
 });
+
+add_action('init', function () {
+    add_post_type_support('page', 'excerpt');
+});

@@ -12,6 +12,8 @@ $categories = get_categories([
     'hide_empty' => false,
 ]);
 
+$excerpt = has_excerpt() ? get_the_excerpt() : '';
+
 get_header();
 ?>
 
@@ -20,7 +22,6 @@ get_header();
 
         <div class="container">
             <?php require PATH . '/components/breadcrumbs/component.php'; ?>
-            <?php require PATH . '/components/profile/component.php'; ?>
         </div>
 
         <!-- Hero -->
@@ -39,14 +40,18 @@ get_header();
             ></div>
 
             <div class="relative z-10">
-
+                <?php if ( ! empty( $page_title ) ) : ?>
                 <h1 class="mt-6 text-4xl font-bold tracking-tight text-slate-900 dark:text-white lg:text-5xl">
                     <?php echo esc_html($page_title); ?>
                 </h1>
+                <?php endif; ?>
 
+
+                <?php if ( ! empty( $excerpt ) ) : ?>
                 <p class="mt-4 max-w-2xl text-lg leading-8 text-slate-600 dark:text-slate-400">
-                    <?php _e('Write your thoughts, upload media, organize categories, and publish beautiful content.', THEME); ?>                   
+                    <?php echo esc_html( $excerpt ); ?>              
                 </p>
+                <?php endif; ?>
 
             </div>
         </div>
