@@ -187,7 +187,7 @@ $user_avatar_small = get_avatar($current_user->ID, 32);
                 bg-white/95 text-neutral-800 border-neutral-100 shadow-[0_20px_50px_rgba(0,0,0,0.05)]
                 dark:bg-neutral-950/95 dark:text-neutral-200 dark:border-neutral-800/60 dark:shadow-[0_20px_50px_rgba(0,0,0,0.3)]"
         >
-            <a href="<?php echo esc_url( home_url('/author/' . $current_user->user_nicename) ); ?>"
+            <a href="<?php echo esc_url(home_url('/author/' . $username)); ?>"
             class="flex items-center gap-3 pb-3 mb-2 border-b border-neutral-100 dark:border-neutral-800/60">
 
                 <div class="w-10 h-10 rounded-xl overflow-hidden bg-neutral-100 dark:bg-neutral-900 border border-neutral-100 dark:border-neutral-800 shrink-0">
