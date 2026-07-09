@@ -63,21 +63,79 @@ add_action('carbon_fields_register_fields', function () {
         ])
 
         ->add_tab(__('Footer'), [
+            Field::make('radio', 'footer_logo_type', 'Logo Type')
+                ->set_options([
+                    'image' => 'Image Logo',
+                    'text'  => 'Text Logo',
+                ])
+                ->set_default_value('text'),
 
-            Field::make('textarea', 'footer_text', 'Disclaimer'),
+            Field::make('image', 'footer_logo_image', 'Logo Image')
+                ->set_conditional_logic([
+                    [
+                        'field' => 'footer_logo_type',
+                        'value' => 'image',
+                        'compare' => '=',
+                    ]
+                ]),
 
-            Field::make('text', 'footer_before_year', 'Text Before Year')
-                ->set_default_value('Copyright ©'),
+            Field::make('text', 'logo_text', 'Logo Text')
+            ->set_default_value('Make Travel')
+                ->set_conditional_logic([
+                    [
+                        'field' => 'footer_logo_type',
+                        'value' => 'text',
+                        'compare' => '=',
+                    ]
+                ]),
 
-            Field::make('text', 'footer_pre_text', 'Text Before Link')
-                ->set_default_value('by'),
+            Field::make('textarea', 'footer_disclaimer', 'Disclaimer')
+                ->set_default_value('A premium tech publication dedicated to delivering fresh tech perspectives, startup ecosystem deep-dives, and honest gadget reviews to a global audience of forward-thinkers.'),
 
-            Field::make('text', 'footer_link_text', 'Link Text'),
+            Field::make('text', 'footer_categories_title', __('Categories title'))
+                ->set_default_value('Categories'),
+            Field::make('association', 'footer_categories', __('Categories'))
+                ->set_types([
+                    [
+                        'type'     => 'term',
+                        'taxonomy' => 'category',
+                    ],
+                ]),
 
-            Field::make('text', 'footer_link_url', 'Link URL'),
+            Field::make('text', 'footer_contact_title', __('Contact title'))
+                ->set_default_value('Contact'),
+            Field::make('complex', 'footer_contacts', __('Contact Items'))
+                ->setup_labels([
+                    'plural_name'   => __('Items'),
+                    'singular_name' => __('Item'),
+                ])
+                ->add_fields([
+                    Field::make('text', 'label', __('Label (e.g., Call)'))
+                        ->set_width(33),
 
-            Field::make('text', 'footer_post_text', 'Text After Link'),
+                    Field::make('text', 'contact_value', __('Value (e.g., +489756412322)'))
+                        ->set_width(33),
 
+                    Field::make('text', 'url', __('URL'))
+                        ->set_default_value('#')
+                        ->set_width(34),
+                ])
+                ->set_layout('grid'),
+
+
+Field::make('separator', 'footer_copyright_separator', __('Copyright')),
+
+Field::make('text', 'footer_company_name', __('Company Name'))
+    ->set_default_value('Make Travel')
+    ->set_help_text(__('Displayed after the © symbol.')),
+
+Field::make('text', 'footer_rights_text', __('Rights Text'))
+    ->set_default_value('All rights reserved')
+    ->set_help_text(__('Displayed after the company name and year.')),
+
+Field::make('text', 'footer_powered_by_text', __('Powered By Text'))
+    ->set_default_value('Powered by WordPress')
+    ->set_help_text(__('Displayed after the "|" separator.')),
         ])
 
         ->add_tab(__('Social icons'), [
@@ -96,7 +154,7 @@ add_action('carbon_fields_register_fields', function () {
                             ->set_default_value('#000000'),
 
                         Field::make('color', 'hover_color', __('Hover color'))
-                            ->set_default_value('#7D0AF2'),
+                            ->set_default_value('#3277DF'),
                     ]),
             ]); 
 });
