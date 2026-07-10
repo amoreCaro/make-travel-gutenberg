@@ -42,7 +42,7 @@ if ($user_id) {
 
 <section class="dashboard-profile space-y-8">
 
-    <div id="reading-list__items" class="space-y-8" >
+    <div id="reading-list__grid" class="space-y-8" >
 
         <?php if ($query && $query->have_posts()) : ?>
 

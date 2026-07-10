@@ -88,7 +88,7 @@ $comments_num = get_comments_number(get_the_ID());
     <div class="h-[300px] sm:h-[350px] lg:min-h-[450px] lg:h-full lg:w-[55%] overflow-hidden relative">
 
         <?php if (!empty($category_name)) : ?>
-            <span class="top-4 left-4 z-10 absolute flex items-center gap-2 text-[12px] leading-[16px] font-medium capitalize px-5 py-1 rounded-full w-fit
+            <span class="top-4 left-4 z-10 absolute flex items-center gap-2 text-[12px] leading-[16px] font-medium capitalize px-3 py-1 rounded-full w-fit
                 <?php echo $has_custom_style ? '' : 'border border-black dark:border-white text-black dark:text-white'; ?>"
                 style="
                     <?php if (!empty($category_bg_color)) echo 'background-color:' . esc_attr($category_bg_color) . ';'; ?>

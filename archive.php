@@ -12,9 +12,13 @@ $category_link = get_term_link($category_obj);
 /**
  * Term meta (decor)
  */
-$icon_url            = carbon_get_term_meta($category_id, 'category_svg');
-$category_svg        = cf_get_inline_svg($icon_url);
+$icon_id = carbon_get_term_meta($category_id, 'category_svg');
 
+$icon_url = wp_get_attachment_url($icon_id);
+
+dd($icon_url);
+$category_svg        = cf_get_inline_svg($icon_url);
+// dd($category_svg);
 $category_bg_color   = carbon_get_term_meta($category_id, 'category_bg');
 $category_text_color = carbon_get_term_meta($category_id, 'category_text_color');
 $category_decor_type = carbon_get_term_meta($category_id, 'category_decor_type');
@@ -48,13 +52,13 @@ get_header();
                                 </h2>
                             <?php endif; ?>
                             <?php if ($category_svg) : ?>
-                                <div class="decor <?php echo esc_attr($category_decor_type); ?> -translate-y-1/2 w-14 h-14 flex items-center justify-center rounded-t-full rounded-br-full p-2 bg-white/90 dark:bg-white/10 text-black dark:text-white backdrop-blur-md border border-black/5 dark:border-white/10 shadow-sm dark:shadow-none"
-                                    style="
-                                        <?php echo $category_bg_color ? 'background-color:' . esc_attr($category_bg_color) . ';' : ''; ?>
-                                        <?php echo $category_text_color ? 'color:' . esc_attr($category_text_color) . ';' : ''; ?>
-                                    ">
-                                    <?php echo $category_svg; ?>
-                                </div>
+                                             <div class="decor <?php echo esc_attr($category_decor_type); ?> -translate-y-1/2 w-14 h-14 flex items-center justify-center rounded-t-full rounded-br-full p-2 bg-white/90 dark:bg-white/10 text-black dark:text-white backdrop-blur-md border border-black/5 dark:border-white/10 shadow-sm dark:shadow-none"
+                    style="
+                        <?php echo $category_bg_color ? 'background-color:' . esc_attr($category_bg_color) . ';' : ''; ?>
+                        <?php echo $category_text_color ? 'color:' . esc_attr($category_text_color) . ';' : ''; ?>
+                    ">
+                    <?php echo $category_svg; ?>
+                </div>
                             <?php endif; ?>
 
                         </div>

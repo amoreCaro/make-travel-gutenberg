@@ -91,25 +91,25 @@ $comments_num = get_comments_number(get_the_ID());
 
     <div class="h-[200px] md:h-[185px] overflow-hidden relative flex-shrink-0">
 
-<?php if (!empty($category_name)) : ?>
-    <span class="top-4 left-4 z-10 absolute flex items-center gap-2 text-[12px] leading-[16px] font-medium capitalize px-5 py-1 rounded-full w-fit
-        <?php echo $has_custom_style ? '' : 'border border-black dark:border-white text-black dark:text-white'; ?>"
-        style="
-            <?php if (!empty($category_bg_color)) echo 'background-color:' . esc_attr($category_bg_color) . ';'; ?>
-            <?php if (!empty($category_text_color)) echo 'color:' . esc_attr($category_text_color) . ';'; ?>
-        "
-    >
-        <?php if (!empty($category_svg)) : ?>
-            <span class="w-5 h-5 flex items-center justify-center [&>svg]:w-full [&>svg]:h-full [&>svg]:fill-current [&>svg]:stroke-current">
-                <?php echo $category_svg; ?>
+        <?php if (!empty($category_name)) : ?>
+            <span class="top-4 left-4 z-10 absolute flex items-center gap-2 text-[12px] leading-[16px] font-medium capitalize px-3 py-1 rounded-full w-fit
+                <?php echo $has_custom_style ? '' : 'border border-black dark:border-white text-black dark:text-white'; ?>"
+                style="
+                    <?php if (!empty($category_bg_color)) echo 'background-color:' . esc_attr($category_bg_color) . ';'; ?>
+                    <?php if (!empty($category_text_color)) echo 'color:' . esc_attr($category_text_color) . ';'; ?>
+                "
+            >
+                <?php if (!empty($category_svg)) : ?>
+                    <span class="w-5 h-5 flex items-center justify-center [&>svg]:w-full [&>svg]:h-full [&>svg]:fill-current [&>svg]:stroke-current">
+                        <?php echo $category_svg; ?>
+                    </span>
+                <?php endif; ?>
+
+                <span>
+                    <?php echo esc_html($category_name); ?>
+                </span>
             </span>
         <?php endif; ?>
-
-        <span>
-            <?php echo esc_html($category_name); ?>
-        </span>
-    </span>
-<?php endif; ?>
 
         <?php if ($has_gallery && !empty($gallery)) : ?>
 

@@ -106,7 +106,7 @@ $user_avatar_small = get_avatar($current_user->ID, 32);
                                     text-black transition-all
 
                                     dark:bg-transparent
-                                    dark:border dark:border-white/40
+                                    dark:border dark:border-[#7A747466]
                                     dark:text-white
                                     dark:hover:bg-white
                                     dark:hover:text-black
@@ -119,7 +119,7 @@ $user_avatar_small = get_avatar($current_user->ID, 32);
                             >
 
                             <?php if (!empty($icon_svg)) : ?>
-                                <span class="menu-icon flex items-center justify-center w-5 h-5">
+                                <span class="menu-icon flex shrink-0 items-center justify-center w-5 h-5">
                                     <?php echo $icon_svg; ?>
                                 </span>
                             <?php endif; ?>
@@ -238,7 +238,7 @@ $user_avatar_small = get_avatar($current_user->ID, 32);
                 </a>
 
                 <a href="/likes" class="flex items-center gap-3 py-2 px-2.5 rounded-xl text-[14px] font-medium transition-colors duration-150 group hover:bg-neutral-50 text-neutral-600 hover:text-neutral-900 dark:hover:bg-neutral-900 dark:text-neutral-300 dark:hover:text-white">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor"><path d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Zm0-108q96-86 158-147.5t98-107q36-45.5 50-81t14-70.5q0-60-40-100t-100-40q-47 0-87 26.5T518-680h-76q-15-41-55-67.5T300-774q-60 0-100 40t-40 100q0 35 14 70.5t50 81q36 45.5 98 107T480-228Zm0-273Z"/></svg>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
                     <span><?php _e('Liked shots', THEME); ?></span>
                 </a>
 
@@ -306,17 +306,17 @@ $user_avatar_small = get_avatar($current_user->ID, 32);
             <div class="space-y-0.5">
                 <button class="openSignInBtn w-full flex items-center gap-3 py-2 px-2.5 rounded-xl text-[14px] font-medium transition-colors duration-150 group hover:bg-neutral-50 text-neutral-600 hover:text-neutral-900 dark:hover:bg-neutral-900 dark:text-neutral-300 dark:hover:text-white">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" class="h-6 w-6"><path stroke-linecap="round" stroke-linejoin="round" d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z"></path></svg>
-                    <span>Sign Up</span>
+                    <span><?php _e('Sign Up', THEME); ?> </span>
                 </button>
 
                 <button class="openLoginBtn w-full flex items-center gap-3 py-2 px-2.5 rounded-xl text-[14px] font-medium transition-colors duration-150 group hover:bg-neutral-50 text-neutral-600 hover:text-neutral-900 dark:hover:bg-neutral-900 dark:text-neutral-300 dark:hover:text-white">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" class="h-6 w-6"><path stroke-linecap="round" stroke-linejoin="round" d="M7.864 4.243A7.5 7.5 0 0 1 19.5 10.5c0 2.92-.556 5.709-1.568 8.268M5.742 6.364A7.465 7.465 0 0 0 4.5 10.5a7.464 7.464 0 0 1-1.15 3.993m1.989 3.559A11.209 11.209 0 0 0 8.25 10.5a3.75 3.75 0 1 1 7.5 0c0 .527-.021 1.049-.064 1.565M12 10.5a14.94 14.94 0 0 1-3.6 9.75m6.633-4.596a18.666 18.666 0 0 1-2.485 5.33"></path></svg>
-                    <span>Log In</span>
+                    <span><?php _e('Log In', THEME); ?></span>
                 </button>
 
                 <button class="openLoginBtn w-full flex items-center gap-3 py-2 px-2.5 rounded-xl text-[14px] font-medium transition-colors duration-150 group hover:bg-neutral-50 text-neutral-600 hover:text-neutral-900 dark:hover:bg-neutral-900 dark:text-neutral-300 dark:hover:text-white">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" class="h-6 w-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path></svg>
-                    <span>Create Post</span>
+                    <span><?php _e('Create Post', THEME); ?></span>
                 </button>
 
                     <button class="openLoginBtn w-full flex items-center gap-3 py-2 px-2.5 rounded-xl text-[14px] font-medium transition-colors duration-150 group hover:bg-neutral-50 text-neutral-600 hover:text-neutral-900 dark:hover:bg-neutral-900 dark:text-neutral-300 dark:hover:text-white">

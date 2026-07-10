@@ -35,13 +35,13 @@ $powered_by   = carbon_get_theme_option('footer_powered_by_text');
     <div class="container mx-auto">
         
         <!-- Головна чорна картка футера в dark mode -->
-        <div class="bg-white dark:bg-[#09090b] rounded-2xl shadow-sm border border-slate-100 dark:border-zinc-800 p-[30px_30px_20px] md:p-[60px_50px_20px]">
+        <div class="bg-white dark:bg-[#09090b] rounded-2xl shadow-sm p-[30px_30px_20px] md:p-[60px_50px_20px]">
             
             <!-- Верхня частина: 3 колонки -->
-            <div class="grid grid-cols-1 lg:grid-cols-3  gap-5 md:gap-8 pb-5 border-b border-slate-100 dark:border-zinc-800">
+            <div class="grid grid-cols-1 lg:grid-cols-3  gap-5 md:gap-8 pb-5">
                 
                 <!-- Про компанію (Колонка 1) -->
-                <div class="md:col-span-1 flex flex-col items-start lg:pr-8 lg:border-r lg:border-slate-100 dark:border-zinc-800">
+                <div class="md:col-span-1 flex flex-col items-start lg:pr-8 ">
                     <?php if ($logo_text || $logo_img_id) : ?>
                         <a href="<?php echo esc_url(home_url('/')); ?>" class="block mb-[34px]">
                             <div class="flex items-center gap-2 font-bold text-xl text-[#0f2d5a] dark:text-white tracking-wide uppercase">
@@ -77,7 +77,7 @@ $powered_by   = carbon_get_theme_option('footer_powered_by_text');
                 <!-- Категорії (Колонка 2) -->
                 <div class="md:col-span-1 lg:px-6">
                     <?php if ( !empty ( $categories_title ) ) : ?>
-                    <h3 class="text-[17px] font-semibold text-[#122d5a] dark:text-zinc-200 mb-5 pb-2 border-b border-slate-100 dark:border-zinc-800">
+                    <h3 class="text-[17px] font-semibold text-[#122d5a] dark:text-zinc-200 mb-5 pb-2">
                         <?php echo esc_html($categories_title); ?>
                     </h3>   
                     <?php endif; ?>
@@ -118,7 +118,7 @@ $powered_by   = carbon_get_theme_option('footer_powered_by_text');
                 <!-- Контакти (Колонка 3) -->
                 <div class="md:col-span-1">
                      <?php if ( !empty ( $contact_title ) ) : ?>
-                    <h3 class="text-base font-bold text-[#0f2d5a] dark:text-zinc-200 mb-5 pb-3 border-b border-slate-100 dark:border-zinc-800">
+                    <h3 class="text-base font-bold text-[#0f2d5a] dark:text-zinc-200 mb-5 pb-3">
                         <?php echo esc_html( $contact_title ); ?>
                     </h3>
                     <?php endif; ?>
@@ -140,9 +140,6 @@ $powered_by   = carbon_get_theme_option('footer_powered_by_text');
 
                                 <li class="grid grid-cols-[70px_1fr] gap-2">
 
-                                    <span class="text-[13px] leading-[20px] text-[#566985] dark:text-[#D0D0D0] font-semibold">
-                                        <?php echo esc_html($label); ?> :
-                                    </span>
 
                                     <?php if (!empty($url) && $url !== '#') : ?>
 
@@ -178,12 +175,11 @@ $powered_by   = carbon_get_theme_option('footer_powered_by_text');
                 <!-- Соцмережі -->
                 <?php require PATH . "/components/socials/component.php"; ?>
                 <!-- Декоративний індикатор -->
-                <div class="hidden md:block w-8 h-1.5 bg-zinc-400 rounded-full dark:bg-zinc-600"></div>
 
                 <!-- Меню та Кнопка вгору -->
                 <div class="flex flex-col-reverse sm:flex-row md:items-center sm:gap-6">
                     <?php if (!empty($menu_items)) : ?>
-                        <ul class="flex items-center gap-4 text-[12px] leading-[36px] font-semibold text-slate-500 dark:text-zinc-400 lg:border-r lg:border-slate-100 dark:border-zinc-800 pr-4">
+                        <ul class="flex items-center gap-4 text-[12px] leading-[36px] font-semibold text-slate-500 dark:text-zinc-400 pr-4">
                             <?php foreach ($menu_items as $item) : ?>
                                 <li>
                                     <a

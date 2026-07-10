@@ -46,63 +46,69 @@ get_header();
     <!-- Single Post -->
     <div class="single-post">
         <div class="pt-[80px]  lg:pb-[100px] pb-[50px] bg-white dark:bg-black">
-            <div class="container mx-auto relative 2xl:max-w-[1152px] xl:px-[0px] lg:px-[40px] px-[20px]">
-                <div class="container mx-auto relative">
+            <div class="container mx-auto relative  xl:px-[0px] lg:px-[40px] px-[20px]">
+                
+                <div class="container mx-auto relative 2xl:max-w-[1152px] xl:px-[0px] lg:px-[40px] px-[20px]">
+                    <!-- Content -->
+                    <div class="mx-auto max-w-[800px] flex flex-col gap-5 pb-[50px] lg:pb-[100px] xl:pl-[0px]">
                     <?php require PATH . "/components/breadcrumbs/component.php"; ?>
-                </div>
-            </div>
+<?php if ( ! empty( $categories ) ) : ?>
+    <div class="post__categories flex flex-wrap gap-2">
 
-            <div class="container mx-auto relative 2xl:max-w-[1152px] xl:px-[0px] lg:px-[40px] px-[20px]">
-                <!-- Content -->
-                <div class="mx-auto max-w-[800px] flex flex-col gap-5 pb-[50px] lg:pb-[100px] xl:pl-[0px]">
-                    <?php
-                    if ( ! empty( $categories ) ) : ?>
-                        <div class="post__categories flex flex-wrap gap-2">
+        <?php foreach ( $categories as $category ) :
 
-                            <?php foreach ( $categories as $category ) : 
-                                $category_link = esc_url( get_category_link( $category->term_id ) );
-                                $icon_url = carbon_get_term_meta( $category->term_id, 'category_svg' );
-                                $icon_svg = '';
+            $category_link = esc_url( get_category_link( $category->term_id ) );
 
-                                if ( $icon_url ) {
-                                    $upload_dir = wp_get_upload_dir();
-                                    $file_path = str_replace(
-                                        $upload_dir['baseurl'],
-                                        $upload_dir['basedir'],
-                                        $icon_url
-                                    );
+            $category_bg_color   = carbon_get_term_meta( $category->term_id, 'category_bg' );
+            $category_text_color = carbon_get_term_meta( $category->term_id, 'category_text_color' );
 
-                                    if ( file_exists( $file_path ) && pathinfo( $file_path, PATHINFO_EXTENSION ) === 'svg' ) {
-                                        $icon_svg = file_get_contents( $file_path );
-                                    }
-                                }
-                            ?>
-                                <a
-                                    href="<?php echo $category_link; ?>"
-                                    class="category-chip flex items-center gap-2 rounded-full border border-[#E5E7EB] dark:border-white/20 px-4 py-1.5 text-[#374151] dark:text-white dark:bg-transparent transition-all duration-300 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black max-w-[200px] w-fit"
-                                >
+            $svg_value = carbon_get_term_meta( $category->term_id, 'category_svg' );
+            $category_svg = '';
 
-                                    <?php if ( $icon_svg ) : ?>
-                                        <?php
-                                            $icon_svg = preg_replace('/(width|height)=".*?"/', '', $icon_svg);
-                                            $icon_svg = preg_replace('/fill=".*?"/', 'fill="currentColor"', $icon_svg);
-                                            $icon_svg = preg_replace('/stroke=".*?"/', 'stroke="currentColor"', $icon_svg);
-                                            $icon_svg = str_replace('<svg', '<svg class="w-4 h-4 flex-shrink-0"', $icon_svg);
+            if ( $svg_value ) {
+                $icon_url = is_numeric( $svg_value )
+                    ? wp_get_attachment_url( $svg_value )
+                    : $svg_value;
 
-                                            echo $icon_svg;
-                                        ?>
-                                    <?php endif; ?>
+                if ( $icon_url ) {
+                    $category_svg = cf_get_inline_svg( $icon_url );
+                }
+            }
 
-                                    <span class="text-xs font-medium leading-[16px] truncate">
-                                        <?php echo esc_html( $category->name ); ?>
-                                    </span>
+            $has_custom_style = ! empty( $category_bg_color ) || ! empty( $category_text_color );
+        ?>
 
-                                </a>
-                            <?php endforeach; ?>
-
-                        </div>
+            <a
+                href="<?php echo $category_link; ?>"
+                class="category-chip flex items-center gap-2 rounded-full px-4 py-1.5 max-w-[200px] w-fit transition-all duration-300
+                    <?php echo $has_custom_style ? '' : 'border border-[#E5E7EB] dark:border-white/20 text-[#374151] dark:text-white dark:bg-transparent hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black'; ?>"
+                style="
+                    <?php if ( ! empty( $category_bg_color ) ) : ?>
+                        background-color: <?php echo esc_attr( $category_bg_color ); ?>;
                     <?php endif; ?>
 
+                    <?php if ( ! empty( $category_text_color ) ) : ?>
+                        color: <?php echo esc_attr( $category_text_color ); ?>;
+                    <?php endif; ?>
+                "
+            >
+
+                <?php if ( ! empty( $category_svg ) ) : ?>
+                    <span class="w-4 h-4 flex items-center justify-center [&>svg]:w-full [&>svg]:h-full [&>svg]:fill-current [&>svg]:stroke-current">
+                        <?php echo $category_svg; ?>
+                    </span>
+                <?php endif; ?>
+
+                <span class="text-xs font-medium leading-[16px] truncate">
+                    <?php echo esc_html( $category->name ); ?>
+                </span>
+
+            </a>
+
+        <?php endforeach; ?>
+
+    </div>
+<?php endif; ?>
                     <?php if ( ! empty( $title ) ) : ?>
                         <h1 class="post__title text-black dark:text-white text-[30px] leading-[38px] md:text-[44px] md:leading-[52px] lg:text-[56px] lg:leading-[64px]">
                             <?php echo esc_html( $title ); ?>
@@ -114,7 +120,7 @@ get_header();
                             <?php echo esc_html( $excerpt ); ?>
                         </p>
                     <?php endif; ?>
-                    <div class="w-full border-b border-neutral-200 dark:border-neutral-700"></div>
+                    <div class="w-full dark:border-neutral-700"></div>
 
                     <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 
@@ -373,12 +379,12 @@ get_header();
 
             <section id="comments" class="mx-auto max-w-[800px] px-[20px] lg:px-[0px] py-10 scroll-mt-10 sm:scroll-mt-20 font-sans antialiased text-gray-900 dark:text-gray-100 selection:bg-teal-500/10">
                 
-                <div class="flex items-center justify-between border-b  dark:border-[#27272A] pb-5 mb-8">
+                <div class="flex items-center justify-between pb-5 mb-8">
                     <div class="flex items-center gap-3">
                         <h3 class="text-xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-2xl">
                             <?php _e("Discussion", THEME); ?>
                         </h3>
-                        <span class="inline-flex items-center justify-center bg-blue-400 text-white text-xs font-semibold px-4 py-1 rounded-full">
+                        <span class="inline-flex items-center justify-center bg-black text-white text-xs font-semibold px-2 py-1 rounded-full">
                             <?php echo esc_html( $comments_num ); ?>
                         </span>
                     </div>

@@ -101,16 +101,12 @@ get_header();
 
                     <div class="relative z-10 mt-10 flex flex-col items-center gap-4 sm:flex-row">
                         
-                        <button class="inline-flex h-11 items-center justify-center rounded-full bg-black px-8 text-sm font-semibold text-white transition-all hover:bg-black/80 active:scale-95 dark:bg-white dark:text-black dark:hover:bg-white/90">
-                         <?php _e("Reset Filters", THEME); ?>
-                        </button>
-                        
-                        <button class="group inline-flex h-11 items-center justify-center gap-2 rounded-full border-2 border-black bg-transparent px-8 text-sm font-semibold text-black transition-all hover:bg-black hover:text-white active:scale-95 dark:border-white/20 dark:text-white dark:hover:bg-white dark:hover:text-black">
+                        <a href="<?php echo esc_url(home_url('/')); ?>" class="group inline-flex h-11 items-center justify-center gap-2 rounded-full border-2 border-black bg-transparent px-8 text-sm font-semibold text-black transition-all hover:bg-black hover:text-white active:scale-95 dark:border-white/20 dark:text-white dark:hover:bg-white dark:hover:text-black">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1.5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
                         </svg>
                         <?php _e("Go Back", THEME); ?>
-                        </button>
+                        </a>
 
                     </div>
                     </div>

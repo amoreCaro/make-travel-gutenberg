@@ -19,28 +19,12 @@ $posts_in_cat = $posts_in_cat ?? [];
                     <?php echo esc_html($category_name); ?>
                 </h2>
             <?php endif; ?>
-
-            <?php if (!empty($category_svg)) : ?>
-                <div
-                    class="decor <?php echo esc_attr($category_decor_type ?? ''); ?>
-                    -translate-y-1/2 w-14 h-14 flex items-center justify-center
-                    rounded-t-full rounded-br-full p-2
-                    bg-white/90 dark:bg-white/10
-                    text-black dark:text-white
-                    backdrop-blur-md
-                    border border-black/5 dark:border-white/10
-                    shadow-sm dark:shadow-none"
-
+            <?php if ($category_svg) : ?>
+                <div class="decor <?php echo esc_attr($category_decor_type); ?> -translate-y-1/2 w-14 h-14 flex items-center justify-center rounded-t-full rounded-br-full p-2 bg-white/90 dark:bg-white/10 text-black dark:text-white backdrop-blur-md border border-black/5 dark:border-white/10 shadow-sm dark:shadow-none"
                     style="
-                        <?php if (!empty($category_bg_color)) : ?>
-                            background-color: <?php echo esc_attr($category_bg_color); ?>;
-                        <?php endif; ?>
-
-                        <?php if (!empty($category_text_color)) : ?>
-                            color: <?php echo esc_attr($category_text_color); ?>;
-                        <?php endif; ?>
-                    "
-                >
+                        <?php echo $category_bg_color ? 'background-color:' . esc_attr($category_bg_color) . ';' : ''; ?>
+                        <?php echo $category_text_color ? 'color:' . esc_attr($category_text_color) . ';' : ''; ?>
+                    ">
                     <?php echo $category_svg; ?>
                 </div>
             <?php endif; ?>

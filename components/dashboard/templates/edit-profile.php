@@ -18,6 +18,7 @@ $categories = get_categories([
                         <!-- PROFILE -->
                         <div class="mb-10">
 
+
                             <div class="flex items-center gap-4 mb-8">
                                 <div class="w-24 h-24 rounded-full bg-[#0F172A] dark:bg-gray-700 flex items-center justify-center text-white font-semibold text-3xl shadow-sm">
                                     <?php echo strtoupper(substr(esc_html($user_nicename), 0, 1)); ?>
