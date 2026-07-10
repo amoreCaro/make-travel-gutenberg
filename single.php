@@ -116,10 +116,10 @@ get_header();
                     <?php endif; ?>
                     <div class="w-full border-b border-neutral-200 dark:border-neutral-700"></div>
 
-                    <div class="flex justify-between">
+                    <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 
                         <?php if ( ! empty( $date ) ) : ?>
-                            <div class="flex items-center gap-4">
+                            <div class="flex items-center gap-4 justify-between">
                                 <time 
                                     class="post__date text-black dark:text-white text-[16px] leading-[16px] font-normal" 
                                     datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>">
@@ -130,7 +130,7 @@ get_header();
                                 </span>
                             </div>
                         <?php endif; ?>
-                        <div class="flex justify-between items-center relative ">
+                        <div class="flex justify-end sm:justify-between items-center relative ">
     
                             <div class="flex items-center gap-2">
                                 <button
