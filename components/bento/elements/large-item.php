@@ -12,9 +12,46 @@ $thumbnail  = get_the_post_thumbnail_url($post_id, 'large') ?: $placeholder;
 $excerpt    = get_the_excerpt($post_id);
 $date       = get_the_date('', $post_id);
 
-$categories    = get_the_category($post_id);
-$category_id   = !empty($categories) ? $categories[0]->term_id : null;
-$category_name = get_cat_name($category_id);
+$categories = get_the_category($post_id);
+
+$category = null;
+
+// Якщо це архів категорії — беремо саме її
+if (is_category()) {
+    $current_category = get_queried_object();
+
+    foreach ($categories as $cat) {
+        if ($cat->term_id == $current_category->term_id) {
+            $category = $cat;
+            break;
+        }
+    }
+}
+
+// Якщо це не архів або категорію не знайшли
+if (!$category && !empty($categories)) {
+    $category = $categories[0];
+}
+
+$category_id   = $category ? $category->term_id : null;
+$category_name = $category ? $category->name : '';
+
+$category_bg_color   = $category_id ? carbon_get_term_meta($category_id, 'category_bg') : '';
+$category_text_color = $category_id ? carbon_get_term_meta($category_id, 'category_text_color') : '';
+
+$svg_value = $category_id ? carbon_get_term_meta($category_id, 'category_svg') : '';
+
+$category_svg = '';
+
+if ($svg_value) {
+    $icon_url = is_numeric($svg_value)
+        ? wp_get_attachment_url($svg_value)
+        : $svg_value;
+
+    if ($icon_url) {
+        $category_svg = cf_get_inline_svg($icon_url);
+    }
+}
 
 $has_custom_style = !empty($category_bg_color) || !empty($category_text_color);
 

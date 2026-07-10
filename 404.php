@@ -26,7 +26,7 @@ get_header();
         </p>
 
         <!-- Go Back Button with Animated Hover Arrow -->
-        <a href="javascript:history.back()"
+        <a href="<?php echo esc_url(home_url('/')); ?>"
            class="group inline-flex items-center justify-center gap-2.5 rounded-xl bg-neutral-950 dark:bg-white px-8 py-4 font-sans text-xs font-bold uppercase tracking-wider text-white dark:text-neutral-950 transition-all duration-200 hover:bg-neutral-800 dark:hover:bg-neutral-100 shadow-md">
             
             <!-- Arrow moves smoothly to the left on hover -->

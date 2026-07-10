@@ -29,7 +29,7 @@ get_header();
 <main class="main">
     <div class="archive-page">
 
-        <div class="lg:pt-[46px] pt-[92px] lg:pb-[100px] pb-[50px] bg-white dark:bg-black">
+        <div class="lg:pt-[46px] pt-[92px] lg:pb-[100px] pb-[50px] bg-[#F6F5F8] dark:bg-black">
             <?php render_media_menu(); ?> 
         <div class="pt-6">
         <?php if ( ! empty ( $posts_in_cat ) ) : ?>

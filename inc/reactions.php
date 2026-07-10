@@ -353,7 +353,7 @@ function theme_load_liked_posts() {
 
     $user_id  = get_current_user_id();
     $offset   = intval($_POST['offset'] ?? 0);
-    $per_page = 4;
+    $per_page = 6;
 
     $table = $wpdb->prefix . 'post_reactions';
 
@@ -412,50 +412,75 @@ function theme_load_liked_posts() {
 add_action('wp_ajax_load_bookmarked_posts', 'theme_load_bookmarked_posts');
 add_action('wp_ajax_nopriv_load_bookmarked_posts', 'theme_load_bookmarked_posts');
 
+
 function theme_load_bookmarked_posts() {
 
     if (!is_user_logged_in()) {
-        wp_send_json_error(['message' => 'not logged in']);
+        wp_send_json_error([
+            'message' => 'Not logged in',
+        ]);
+
         wp_die();
     }
 
     global $wpdb;
 
-    $user_id = get_current_user_id();
-    $offset  = intval($_POST['offset'] ?? 0);
+    $user_id  = get_current_user_id();
+    $offset   = intval($_POST['offset'] ?? 0);
+    $per_page = 6;
 
     $table = $wpdb->prefix . 'post_reactions';
 
-    $saved_posts = $wpdb->get_col(
-        $wpdb->prepare("
+    $all_saved_posts = $wpdb->get_col(
+        $wpdb->prepare(
+            "
             SELECT post_id
             FROM {$table}
             WHERE user_id = %d
             AND type = %s
             ORDER BY id DESC
-        ", $user_id, 'save')
+            ",
+            $user_id,
+            'save'
+        )
     );
 
-    $saved_posts = array_slice($saved_posts, $offset);
+    $total_posts = count($all_saved_posts);
+
+    $saved_posts = array_slice(
+        $all_saved_posts,
+        $offset,
+        $per_page
+    );
 
     $query = new WP_Query([
         'post_type'      => 'post',
         'post__in'       => !empty($saved_posts) ? $saved_posts : [0],
         'orderby'        => 'post__in',
-        'posts_per_page' => -1,
+        'posts_per_page' => $per_page,
     ]);
 
     ob_start();
 
     while ($query->have_posts()) {
         $query->the_post();
-        get_template_part('components/bento/elements/horizontal-item');
+
+        get_template_part(
+            'components/bento/elements/horizontal-item'
+        );
     }
 
     wp_reset_postdata();
 
+    $new_offset = $offset + $per_page;
+    $has_more   = $new_offset < $total_posts;
+
     wp_send_json_success([
-        'html' => ob_get_clean(),
+        'html'       => ob_get_clean(),
+        'offset'     => $new_offset,
+        'has_more'   => $has_more,
+        'total'      => $total_posts,
+        'per_page'   => $per_page,
     ]);
 }
 

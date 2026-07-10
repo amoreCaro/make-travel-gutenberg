@@ -5,17 +5,17 @@ if (!defined('ABSPATH')) {
 
 global $wpdb;
 
-$user_id      = get_current_user_id();
-$current_user = wp_get_current_user();
+$user_id = get_current_user_id();
 
-$username   = $current_user->display_name ?? '';
-$user_email = $current_user->user_email ?? '';
-$author_id  = $current_user->ID ?? 0;
+$table       = $wpdb->prefix . 'post_reactions';
+$bookmarked_post = [];
+$total_posts = 0;
+$per_page    = 10;
+$query       = null;
 
-$table = $wpdb->prefix . 'post_reactions';
+if ($user_id) {
 
-$bookmarked_posts = $user_id
-    ? $wpdb->get_col(
+    $bookmarked_post = $wpdb->get_col(
         $wpdb->prepare(
             "
             SELECT post_id
@@ -25,96 +25,72 @@ $bookmarked_posts = $user_id
             ORDER BY id DESC
             ",
             $user_id,
-            'save'
+            'like'
         )
-    )
-    : [];
+    );
 
-$total_posts = count($bookmarked_posts);
-$per_page    = 10;
+    $total_posts = count($bookmarked_post);
 
-$reading_list_query = new WP_Query([
-    'post_type'      => 'post',
-    'post__in'       => !empty($bookmarked_posts) ? $bookmarked_posts : [0],
-    'orderby'        => 'post__in',
-    'posts_per_page' => $per_page,
-]);
+    $query = new WP_Query([
+        'post_type'      => 'post',
+        'post__in'       => !empty($bookmarked_post) ? $bookmarked_post : [0],
+        'orderby'        => 'post__in',
+        'posts_per_page' => $per_page,
+    ]);
+}
 ?>
 
-<section class="dashboard-profile">
+<section class="dashboard-profile space-y-8">
 
-    <?php if (!$user_id) : ?>
+    <div id="reading-list__items" class="space-y-8" >
 
-        <p class="text-center text-lg text-neutral-600 dark:text-neutral-400">
-            <?php _e('You must be logged in.', THEME); ?>
-        </p>
+        <?php if ($query && $query->have_posts()) : ?>
 
-    <?php elseif ($reading_list_query->have_posts()) : ?>
+            <?php while ($query->have_posts()) : $query->the_post(); ?>
 
-        <div id="reading-list__items" class="space-y-8">
+                <?php
+                $categories  = get_the_category();
+                $category_id = $categories[0]->term_id ?? 0;
 
-            <?php
-            while ($reading_list_query->have_posts()) :
-                $reading_list_query->the_post();
+                $icon_url            = carbon_get_term_meta($category_id, 'category_svg');
+                $category_svg        = cf_get_inline_svg($icon_url);
 
-                $categories  = get_the_category(get_the_ID());
-                $category_id = !empty($categories) ? $categories[0]->term_id : null;
-
-                $category_data = [];
-
-                if ($category_id) {
-                    $icon_id  = carbon_get_term_meta($category_id, 'category_svg');
-                    $icon_url = $icon_id ? wp_get_attachment_url($icon_id) : '';
-
-                    $category_data = [
-                        'id'         => $category_id,
-                        'name'       => $categories[0]->name,
-                        'link'       => get_category_link($category_id),
-                        'svg'        => cf_get_inline_svg($icon_url),
-                        'bg_color'   => carbon_get_term_meta($category_id, 'category_bg'),
-                        'text_color' => carbon_get_term_meta($category_id, 'category_text_color'),
-                        'decor_type' => carbon_get_term_meta($category_id, 'category_decor_type'),
-                    ];
-                }
+                $category_bg_color   = carbon_get_term_meta($category_id, 'category_bg');
+                $category_text_color = carbon_get_term_meta($category_id, 'category_text_color');
+                $category_decor_type = carbon_get_term_meta($category_id, 'category_decor_type');
 
                 include PATH . '/components/bento/elements/horizontal-item.php';
+                ?>
 
-            endwhile;
+            <?php endwhile; ?>
 
-            wp_reset_postdata();
-            ?>
+            <?php wp_reset_postdata(); ?>
 
-            <?php if ($total_posts > $per_page) : ?>
+        <?php else : ?>
 
-                <div class="mt-10 flex justify-center">
+            <div class="col-span-full rounded-2xl border border-slate-200 dark:border-zinc-800 p-8 text-center">
+                <p class="text-slate-500 dark:text-slate-400">
+                    <?php _e("You haven’t added any favourites yet.", THEME); ?>
+                </p>
+            </div>
 
-                    <button
-                        id="reading-list__btn--show-more"
-                        data-offset="<?php echo esc_attr($per_page); ?>"
-                        data-total="<?php echo esc_attr($total_posts); ?>"
-                        type="button"
-                        class="rounded-xl bg-black px-6 py-3 text-white dark:bg-white dark:text-black"
-                    >
-                        <?php _e('Show more', THEME); ?>
-                    </button>
+        <?php endif; ?>
 
-                </div>
+    </div>
 
-            <?php endif; ?>
+    <?php if ($total_posts > $per_page) : ?>
 
-        </div>
+        <div class="flex justify-center">
 
-    <?php else : ?>
-
-        <div class="py-20 text-center">
-
-            <h2 class="text-2xl font-semibold text-neutral-900 dark:text-white">
-                <?php _e('Your reading list is empty 📚', THEME); ?>
-            </h2>
-
-            <p class="mt-3 text-neutral-500 dark:text-neutral-400">
-                <?php _e('Save articles to read them later.', THEME); ?>
-            </p>
+            <button
+                id="reading-list__btn--show-more"
+                data-offset="<?php echo esc_attr($per_page); ?>"
+                data-total="<?php echo esc_attr($total_posts); ?>"
+                type="button"
+                class="rounded-xl bg-black px-6 py-3 text-white dark:bg-white dark:text-black"
+            >
+                <?php _e('Show more', THEME); ?>
+            </button>
 
         </div>
 

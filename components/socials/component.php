@@ -8,52 +8,55 @@ if (empty($socials) || !is_array($socials)) {
 }
 ?>
 
-<div class="socials flex gap-2 items-center">
+<?php if (!empty($social_icons)) : ?>
+    <ul class="flex items-center gap-3">
+        <?php foreach ($social_icons as $social) :
 
-    <?php foreach ($socials as $item) :
+            $icon_id = $social['icon'] ?? 0;
 
-        $icon_id = $item['icon'] ?? 0;
+            if (!$icon_id) {
+                continue;
+            }
 
-        if (!$icon_id) {
-            continue;
-        }
+            $icon_url = wp_get_attachment_url($icon_id);
 
-        $icon_url = wp_get_attachment_url($icon_id);
+            if (!$icon_url) {
+                continue;
+            }
 
-        if (!$icon_url) {
-            continue;
-        }
+            $icon_svg = cf_get_inline_svg($icon_url, 16, 16);
 
-        $icon_svg = cf_get_inline_svg($icon_url, 20, 20);
+            if (!$icon_svg) {
+                continue;
+            }
 
-        if (!$icon_svg) {
-            continue;
-        }
+            $link        = $social['link'] ?? '#';
+            $color_dark  = $social['color_dark'] ?? '#FFFFFF';
+            $color_light = $social['color_light'] ?? '#000000';
+            $hover_color = $social['hover_color'] ?? '#7D0AF2';
 
-        $url = $item['link'] ?? '#'; 
-
-        $color_dark  = $item['color_dark'] ?? '#fff';
-        $color_light = $item['color_light'] ?? '#000';
-        $hover_color = $item['hover_color'] ?? $color_light;
-
-    ?>
-
-        <a href="<?php echo esc_url($url); ?>"
-           class="flex items-center justify-center max-w-[32px] w-full h-[32px]
-                  transition-colors duration-200
-                  text-[var(--icon-light)]
-                  hover:text-[var(--icon-hover)]
-                  dark:text-[var(--icon-dark)]
-                  dark:hover:text-[var(--icon-hover)]"
-           style="
-                --icon-light: <?php echo esc_attr($color_light); ?>;
-                --icon-dark: <?php echo esc_attr($color_dark); ?>;
-                --icon-hover: <?php echo esc_attr($hover_color); ?>;
-           "
-        >
-            <?php echo $icon_svg; ?>
-        </a>
-
-    <?php endforeach; ?>
-
-</div>
+        ?>
+            <li>
+                <a
+                    href="<?php echo esc_url($link); ?>"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="group flex h-9 w-9 items-center justify-center rounded-lg border border-slate-100 bg-slate-50 transition-all
+                        dark:border-zinc-800 dark:bg-zinc-900
+                        text-[var(--icon-light)]
+                        hover:text-[var(--icon-hover)]
+                        dark:text-[var(--icon-dark)]
+                        dark:hover:text-[var(--icon-hover)]
+                        [&>svg]:h-4 [&>svg]:w-4 [&>svg]:shrink-0"
+                    style="
+                        --icon-light: <?php echo esc_attr($color_light); ?>;
+                        --icon-dark: <?php echo esc_attr($color_dark); ?>;
+                        --icon-hover: <?php echo esc_attr($hover_color); ?>;
+                    "
+                >
+                    <?php echo $icon_svg; ?>
+                </a>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+<?php endif; ?>

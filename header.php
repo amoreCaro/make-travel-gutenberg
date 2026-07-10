@@ -228,7 +228,7 @@ $user_avatar_small = get_avatar($current_user->ID, 32);
                     <span><?php _e('Edit profile', THEME); ?></span>
                 </a>
 
-                <a href="#" class="flex items-center gap-3 py-2 px-2.5 rounded-xl text-[14px] font-medium transition-colors duration-150 group
+                <a href="/my-posts" class="flex items-center gap-3 py-2 px-2.5 rounded-xl text-[14px] font-medium transition-colors duration-150 group
                                 hover:bg-neutral-50 text-neutral-600 hover:text-neutral-900
                                 dark:hover:bg-neutral-900 dark:text-neutral-300 dark:hover:text-white">
                     <svg class="w-5 h-5 text-neutral-400 group-hover:text-neutral-900 dark:group-hover:text-white transition-colors" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
@@ -237,7 +237,7 @@ $user_avatar_small = get_avatar($current_user->ID, 32);
                     <span><?php _e('My posts', THEME); ?></span>
                 </a>
 
-                <a href="/reading-list" class="flex items-center gap-3 py-2 px-2.5 rounded-xl text-[14px] font-medium transition-colors duration-150 group hover:bg-neutral-50 text-neutral-600 hover:text-neutral-900 dark:hover:bg-neutral-900 dark:text-neutral-300 dark:hover:text-white">
+                <a href="/likes" class="flex items-center gap-3 py-2 px-2.5 rounded-xl text-[14px] font-medium transition-colors duration-150 group hover:bg-neutral-50 text-neutral-600 hover:text-neutral-900 dark:hover:bg-neutral-900 dark:text-neutral-300 dark:hover:text-white">
                     <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor"><path d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Zm0-108q96-86 158-147.5t98-107q36-45.5 50-81t14-70.5q0-60-40-100t-100-40q-47 0-87 26.5T518-680h-76q-15-41-55-67.5T300-774q-60 0-100 40t-40 100q0 35 14 70.5t50 81q36 45.5 98 107T480-228Zm0-273Z"/></svg>
                     <span><?php _e('Liked shots', THEME); ?></span>
                 </a>
@@ -266,7 +266,7 @@ $user_avatar_small = get_avatar($current_user->ID, 32);
                     </label> 
                 </div>
 
-                <a href="#" class="flex items-center gap-3 py-2 px-2.5 rounded-xl text-[14px] font-medium transition-colors duration-150 group
+                <a href="/help-support" class="flex items-center gap-3 py-2 px-2.5 rounded-xl text-[14px] font-medium transition-colors duration-150 group
                                 hover:bg-neutral-50 text-neutral-600 hover:text-neutral-900
                                 dark:hover:bg-neutral-900 dark:text-neutral-300 dark:hover:text-white">
                     <svg class="w-5 h-5 text-neutral-400 group-hover:text-neutral-900 dark:group-hover:text-white transition-colors" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
@@ -304,33 +304,25 @@ $user_avatar_small = get_avatar($current_user->ID, 32);
                     dark:bg-neutral-950/95 dark:text-neutral-200 dark:border-neutral-800/60 dark:shadow-[0_20px_50px_rgba(0,0,0,0.3)] z-50">
 
             <div class="space-y-0.5">
-                <a href="#" class="flex items-center gap-3 py-2 px-2.5 rounded-xl text-[14px] font-medium transition-colors duration-150 group
-                hover:bg-neutral-50 text-neutral-600 hover:text-neutral-900
-                dark:hover:bg-neutral-900 dark:text-neutral-300 dark:hover:text-white">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" class="h-6 w-6"><path stroke-linecap="round" stroke-linejoin="round" d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z"></path></svg>
-                        <span>Sign Up</span>
-                    </a>
-
-                    <button id="openSignInBtn" class="w-full flex items-center gap-3 py-2 px-2.5 rounded-xl text-[14px] font-medium transition-colors duration-150 group
-                    hover:bg-neutral-50 text-neutral-600 hover:text-neutral-900
-                    dark:hover:bg-neutral-900 dark:text-neutral-300 dark:hover:text-white">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" class="h-6 w-6"><path stroke-linecap="round" stroke-linejoin="round" d="M7.864 4.243A7.5 7.5 0 0 1 19.5 10.5c0 2.92-.556 5.709-1.568 8.268M5.742 6.364A7.465 7.465 0 0 0 4.5 10.5a7.464 7.464 0 0 1-1.15 3.993m1.989 3.559A11.209 11.209 0 0 0 8.25 10.5a3.75 3.75 0 1 1 7.5 0c0 .527-.021 1.049-.064 1.565M12 10.5a14.94 14.94 0 0 1-3.6 9.75m6.633-4.596a18.666 18.666 0 0 1-2.485 5.33"></path></svg>
-                        <span>Log In</span>
+                <button class="openSignInBtn w-full flex items-center gap-3 py-2 px-2.5 rounded-xl text-[14px] font-medium transition-colors duration-150 group hover:bg-neutral-50 text-neutral-600 hover:text-neutral-900 dark:hover:bg-neutral-900 dark:text-neutral-300 dark:hover:text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" class="h-6 w-6"><path stroke-linecap="round" stroke-linejoin="round" d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z"></path></svg>
+                    <span>Sign Up</span>
                 </button>
 
-                    <a href="#" class="flex items-center gap-3 py-2 px-2.5 rounded-xl text-[14px] font-medium transition-colors duration-150 group
-                                    hover:bg-neutral-50 text-neutral-600 hover:text-neutral-900
-                                    dark:hover:bg-neutral-900 dark:text-neutral-300 dark:hover:text-white">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" class="h-6 w-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path></svg>
-                        <span>Create</span>
-                    </a>
+                <button class="openLoginBtn w-full flex items-center gap-3 py-2 px-2.5 rounded-xl text-[14px] font-medium transition-colors duration-150 group hover:bg-neutral-50 text-neutral-600 hover:text-neutral-900 dark:hover:bg-neutral-900 dark:text-neutral-300 dark:hover:text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" class="h-6 w-6"><path stroke-linecap="round" stroke-linejoin="round" d="M7.864 4.243A7.5 7.5 0 0 1 19.5 10.5c0 2.92-.556 5.709-1.568 8.268M5.742 6.364A7.465 7.465 0 0 0 4.5 10.5a7.464 7.464 0 0 1-1.15 3.993m1.989 3.559A11.209 11.209 0 0 0 8.25 10.5a3.75 3.75 0 1 1 7.5 0c0 .527-.021 1.049-.064 1.565M12 10.5a14.94 14.94 0 0 1-3.6 9.75m6.633-4.596a18.666 18.666 0 0 1-2.485 5.33"></path></svg>
+                    <span>Log In</span>
+                </button>
 
-                    <a href="#" class="flex items-center gap-3 py-2 px-2.5 rounded-xl text-[14px] font-medium transition-colors duration-150 group
-                                    hover:bg-neutral-50 text-neutral-600 hover:text-neutral-900
-                                    dark:hover:bg-neutral-900 dark:text-neutral-300 dark:hover:text-white">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" class="h-6 w-6"><path stroke-linecap="round" stroke-linejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z"></path></svg>
+                <button class="openLoginBtn w-full flex items-center gap-3 py-2 px-2.5 rounded-xl text-[14px] font-medium transition-colors duration-150 group hover:bg-neutral-50 text-neutral-600 hover:text-neutral-900 dark:hover:bg-neutral-900 dark:text-neutral-300 dark:hover:text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" class="h-6 w-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path></svg>
+                    <span>Create Post</span>
+                </button>
+
+                    <button class="openLoginBtn w-full flex items-center gap-3 py-2 px-2.5 rounded-xl text-[14px] font-medium transition-colors duration-150 group hover:bg-neutral-50 text-neutral-600 hover:text-neutral-900 dark:hover:bg-neutral-900 dark:text-neutral-300 dark:hover:text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" class="h-6 w-6"><path stroke-linecap="round" stroke-linejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z"></path></svg>
                         <span><?php _e('Reading list', THEME); ?></span>
-                    </a>
+                    </button>
                 </div>
 
                 <div class="mt-2 pt-2 border-t border-neutral-100 dark:border-neutral-800/60 space-y-0.5">
@@ -346,7 +338,7 @@ $user_avatar_small = get_avatar($current_user->ID, 32);
                         </label> 
                     </div>
 
-                    <a href="#" class="flex items-center gap-3 py-2 px-2.5 rounded-xl text-[14px] font-medium transition-colors duration-150 group
+                    <a href="/help-support" class="flex items-center gap-3 py-2 px-2.5 rounded-xl text-[14px] font-medium transition-colors duration-150 group
                                     hover:bg-neutral-50 text-neutral-600 hover:text-neutral-900
                                     dark:hover:bg-neutral-900 dark:text-neutral-300 dark:hover:text-white">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" class="h-6 w-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.362 5.214A8.252 8.252 0 0 1 12 21 8.25 8.25 0 0 1 6.038 7.047 8.287 8.287 0 0 0 9 9.601a8.983 8.983 0 0 1 3.361-6.867 8.21 8.21 0 0 0 3 2.48Z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M12 18a3.75 3.75 0 0 0 .495-7.468 5.99 5.99 0 0 0-1.925 3.547 5.975 5.975 0 0 1-2.133-1.001A3.75 3.75 0 0 0 12 18Z"></path></svg>
