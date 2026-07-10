@@ -132,7 +132,7 @@ get_header();
                         <?php endif; ?>
                         <div class="flex justify-between items-center relative ">
     
-                            <div class="flex items-center gap-3">
+                            <div class="flex items-center gap-2">
                                 <button
                                     class="post__like group/btn relative h-9 pe-3 shrink-0 rounded-full flex items-center gap-2 select-none transition-colors duration-200
                                     <?php echo ($like['liked'] ?? false) ? 'is-active' : ''; ?>"
@@ -373,12 +373,12 @@ get_header();
 
             <section id="comments" class="mx-auto max-w-[800px] px-[20px] lg:px-[0px] py-10 scroll-mt-10 sm:scroll-mt-20 font-sans antialiased text-gray-900 dark:text-gray-100 selection:bg-teal-500/10">
                 
-                <div class="flex items-center justify-between border-b border-gray-100 dark:border-gray-800 pb-5 mb-8">
+                <div class="flex items-center justify-between border-b  dark:border-[#27272A] pb-5 mb-8">
                     <div class="flex items-center gap-3">
                         <h3 class="text-xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-2xl">
                             <?php _e("Discussion", THEME); ?>
                         </h3>
-                        <span class="inline-flex items-center justify-center bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs font-semibold px-2.5 py-1 rounded-full">
+                        <span class="inline-flex items-center justify-center bg-blue-400 text-white text-xs font-semibold px-4 py-1 rounded-full">
                             <?php echo esc_html( $comments_num ); ?>
                         </span>
                     </div>
@@ -390,7 +390,7 @@ get_header();
                     </div>
                     
                     <form id="comments__form" data-post="<?php echo get_the_ID(); ?>" class="flex-1 group">
-                        <div class="relative rounded-2xl border border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/40 shadow-sm dark:shadow-none transition-all duration-200 focus-within:border-teal-500 focus-within:ring-4 focus-within:ring-teal-500/5 dark:focus-within:ring-teal-500/10">
+                        <div class="relative rounded-2xl border border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/40 shadow-sm dark:shadow-none transition-all duration-200 focus-within:border-blue-600 focus-within:ring-4 focus-within:ring-teal-500/5 dark:focus-within:ring-teal-500/10">
                             
                             <textarea 
                                 name="comment_text"
@@ -401,15 +401,15 @@ get_header();
                             ></textarea>
                             
                             <div class="flex items-center justify-end gap-2 px-4 pb-3 pt-2 border-t border-gray-50 dark:border-zinc-800/80 bg-gray-50/50 dark:bg-zinc-950/60 rounded-b-2xl">
-                                <button 
-                                    class="inline-flex items-center justify-center rounded-xl bg-transparent hover:bg-gray-200/60 dark:hover:bg-zinc-800 text-sm font-semibold py-2 px-4 transition-colors cursor-pointer text-gray-500 dark:text-zinc-400 hover:text-gray-700 dark:hover:text-zinc-200" 
+                                <button
+                                    class="inline-flex items-center justify-center rounded-xl border border-gray-300 dark:border-zinc-700 bg-transparent hover:bg-gray-100 dark:hover:bg-zinc-800 text-sm font-semibold py-2 px-4 transition-colors cursor-pointer text-gray-500 dark:text-zinc-400 hover:text-gray-700 dark:hover:text-zinc-200"
                                     type="button"
                                     id="cancel-comment-btn"
                                 >
                                     <?php _e("Cancel", THEME); ?>
                                 </button>
                                 <button 
-                                    class="inline-flex items-center justify-center rounded-xl bg-teal-600 hover:bg-teal-700 text-white text-sm font-semibold py-2 px-5 transition-all shadow-sm active:scale-[0.98] cursor-pointer" 
+                                    class="inline-flex items-center justify-center rounded-xl bg-blue-500 hover:bg-blue-600 text-white text-sm font-semibold py-2 px-5 transition-all shadow-sm active:scale-[0.98] cursor-pointer" 
                                     type="submit"
                                 >
                                     <?php _e("Send", THEME); ?>

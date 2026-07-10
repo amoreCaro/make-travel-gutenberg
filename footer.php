@@ -123,51 +123,51 @@ $powered_by   = carbon_get_theme_option('footer_powered_by_text');
                     </h3>
                     <?php endif; ?>
 
-<?php if (!empty($footer_contacts)) : ?>
+                    <?php if (!empty($footer_contacts)) : ?>
 
-    <ul class="space-y-3 text-sm text-slate-600 dark:text-zinc-400">
+                        <ul class="space-y-3 text-sm text-slate-600 dark:text-zinc-400">
 
-        <?php foreach ($footer_contacts as $item) :
+                            <?php foreach ($footer_contacts as $item) :
 
-            $label = $item['label'] ?? '';
-            $value = $item['contact_value'] ?? '';
-            $url   = $item['url'] ?? '#';
+                                $label = $item['label'] ?? '';
+                                $value = $item['contact_value'] ?? '';
+                                $url   = $item['url'] ?? '#';
 
-            if (empty($label) || empty($value)) {
-                continue;
-            }
-        ?>
+                                if (empty($label) || empty($value)) {
+                                    continue;
+                                }
+                            ?>
 
-            <li class="grid grid-cols-[70px_1fr] gap-2">
+                                <li class="grid grid-cols-[70px_1fr] gap-2">
 
-                <span class="text-[13px] leading-[20px] text-[#566985] dark:text-[#D0D0D0] font-semibold">
-                    <?php echo esc_html($label); ?> :
-                </span>
+                                    <span class="text-[13px] leading-[20px] text-[#566985] dark:text-[#D0D0D0] font-semibold">
+                                        <?php echo esc_html($label); ?> :
+                                    </span>
 
-                <?php if (!empty($url) && $url !== '#') : ?>
+                                    <?php if (!empty($url) && $url !== '#') : ?>
 
-                    <a
-                        href="<?php echo esc_url($url); ?>"
-                        class="text-[13px] leading-[20px] text-[#566985] dark:text-[#D0D0D0] font-semibold hover:text-black dark:hover:text-white transition-colors"
-                    >
-                        <?php echo esc_html($value); ?>
-                    </a>
+                                        <a
+                                            href="<?php echo esc_url($url); ?>"
+                                            class="text-[13px] leading-[20px] text-[#566985] dark:text-[#D0D0D0] font-semibold hover:text-black dark:hover:text-white transition-colors"
+                                        >
+                                            <?php echo esc_html($value); ?>
+                                        </a>
 
-                <?php else : ?>
+                                    <?php else : ?>
 
-                    <span class="text-[13px] leading-[20px] font-semibold text-[#566985] dark:text-[#D0D0D0]">
-                        <?php echo esc_html($value); ?>
-                    </span>
+                                        <span class="text-[13px] leading-[20px] font-semibold text-[#566985] dark:text-[#D0D0D0]">
+                                            <?php echo esc_html($value); ?>
+                                        </span>
 
-                <?php endif; ?>
+                                    <?php endif; ?>
 
-            </li>
+                                </li>
 
-        <?php endforeach; ?>
+                            <?php endforeach; ?>
 
-    </ul>
+                        </ul>
 
-<?php endif; ?>
+                    <?php endif; ?>
                 </div>
 
             </div>
@@ -218,20 +218,20 @@ $powered_by   = carbon_get_theme_option('footer_powered_by_text');
         <!-- Копірайт під білою карткою -->
 
 
-<div class="mt-6 text-center text-xs text-slate-400 dark:text-zinc-500">
-    <p>
-        &copy;
-        <span class="text-[#0f2d5a] dark:text-zinc-300 font-medium">
-            <?php echo esc_html($company_name); ?> <?php echo date('Y'); ?>
-        </span>
+        <div class="mt-6 text-center text-xs text-slate-400 dark:text-zinc-500">
+            <p>
+                &copy;
+                <span class="text-[#0f2d5a] dark:text-zinc-300 font-medium">
+                    <?php echo esc_html($company_name); ?> <?php echo date('Y'); ?>
+                </span>
 
-        <?php echo esc_html($rights_text); ?>
+                <?php echo esc_html($rights_text); ?>
 
-        <?php if (!empty($powered_by)) : ?>
-            | <?php echo esc_html($powered_by); ?>
-        <?php endif; ?>
-    </p>
-</div>
+                <?php if (!empty($powered_by)) : ?>
+                    | <?php echo esc_html($powered_by); ?>
+                <?php endif; ?>
+            </p>
+        </div>
 
     </div>
 </footer>

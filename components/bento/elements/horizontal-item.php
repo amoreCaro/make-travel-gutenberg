@@ -122,7 +122,7 @@ $card_class = 'post-card'
                 <?php endif; ?>
                 
                 <?php if ($username) : ?>
-                <span class="text-xs sm:text-sm text-gray-700 dark:text-gray-300">
+                <span class="text-xs sm:text-sm text-gray-700 dark:text-[#F3F4F6]">
                     <?php echo esc_html($username); ?>
                 </span>
                 <?php endif; ?>

@@ -24,31 +24,31 @@ get_header();
 ?>
 
 <main class="main py-24">
-
-    <div class="container">
-
-        <?php require PATH . '/components/breadcrumbs/component.php'; ?>
-        <?php get_template_part(
-            'components/head/component',
-        null,
-        [
-            'page_title' => $page_title,
-            'excerpt'    => $excerpt,
-        ]
-    ); ?>
-
-    </div>
-
-    <?php require PATH . '/components/profileSubnav/component.php'; ?>
-
-    <div class="container grid gap-8 items-start xl:grid-cols-[280px_minmax(0,1fr)]">
-            <?php require PATH . '/components/account-sidebar/component.php'; ?>
-
-
-            <main class="dashboard-content">
-                <?php require PATH . '/components/dashboard/index.php'; ?>
-            </main>
-
+    <div class="dashboard  px-5 xl:px-10 2xl:px-0">
+        <div class="container">
+    
+            <?php require PATH . '/components/breadcrumbs/component.php'; ?>
+            <?php get_template_part(
+                'components/head/component',
+            null,
+            [
+                'page_title' => $page_title,
+                'excerpt'    => $excerpt,
+            ]
+        ); ?>
+    
+        </div>
+    
+        <?php require PATH . '/components/profileSubnav/component.php'; ?>
+    
+        <div class="container grid gap-8 items-start xl:grid-cols-[280px_minmax(0,1fr)]">
+                <?php require PATH . '/components/account-sidebar/component.php'; ?>
+    
+                <main class="dashboard-content">
+                    <?php require PATH . '/components/dashboard/index.php'; ?>
+                </main>
+    
+        </div>
     </div>
 
 </main>
