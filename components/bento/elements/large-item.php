@@ -88,7 +88,7 @@ $comments_num = get_comments_number(get_the_ID());
     <div class="h-[300px] sm:h-[350px] lg:min-h-[450px] lg:h-full lg:w-[55%] overflow-hidden relative">
 
         <?php if (!empty($category_name)) : ?>
-            <span class="top-4 left-4 z-10 absolute flex items-center gap-2 text-[12px] leading-[16px] font-medium capitalize px-5 py-1 rounded-full w-fit
+            <span class="top-4 left-4 z-10 absolute flex items-center gap-2 text-[12px] leading-[16px] font-medium capitalize px-3 py-1 rounded-full w-fit
                 <?php echo $has_custom_style ? '' : 'border border-black dark:border-white text-black dark:text-white'; ?>"
                 style="
                     <?php if (!empty($category_bg_color)) echo 'background-color:' . esc_attr($category_bg_color) . ';'; ?>
@@ -333,22 +333,32 @@ $comments_num = get_comments_number(get_the_ID());
                     <?php echo esc_html($read_time); ?> <?php _e("min read", THEME); ?>
                 </span>
                 <button
-                    class="post__save <?php echo $is_saved ? 'is-active' : '' ?> group/btn relative w-9 h-9 shrink-0 rounded-full transition-colors duration-200 cursor-default flex items-center justify-center bg-transparent select-none"
+                    class="post__save <?php echo $is_saved ? 'is-active' : '' ?> group/btn relative w-9 h-9 shrink-0 rounded-full cursor-default flex items-center justify-center bg-transparent select-none"
                     data-post-id="<?php echo esc_attr($post_id); ?>"
                 >
-                    <div class="icon-bg-circle w-9 h-9 rounded-full transition-colors duration-200 flex items-center justify-center pointer-events-none
-                        bg-[#F9FAFB] dark:bg-[#2A2A36]
-                        group-hover/btn:bg-[#F3F4F6]
-                        dark:group-hover/btn:bg-[#3F3F50]
+                    <div
+                        class="icon-bg-circle w-9 h-9 rounded-full transition-all duration-200 flex items-center justify-center pointer-events-none
                         
-                        group-[.is-active]/btn:bg-[#F3F4F6]
-                        dark:group-[.is-active]/btn:bg-[#3F3F50]">
+                        /* 1. Дефолтний стан (Нейтральний сірий / Темний UI) */
+                        bg-[#F9FAFB] dark:bg-[#2A2A36]
+                        
+                        /* 2. Ховер стан (М'який синій відтінок для обох тем) */
+                        group-hover/btn:bg-[#E0F2FE] 
+                        dark:group-hover/btn:bg-blue-500/10
+                        
+                        /* 3. Активний стан (Збережено) */
+                        group-[.is-active]/btn:bg-[#EFF6FF]
+                        dark:group-[.is-active]/btn:bg-blue-500/20"
+                    >
 
-                        <!-- OUTLINE ICON -->
+                        <!-- OUTLINE ICON (Не збережено) -->
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
-                            class="icon-outline h-[18px] w-[18px] text-black dark:text-white transition-colors duration-200
+                            class="icon-outline h-[18px] w-[18px] transition-colors duration-200
+                                /* Спокійні кольори для неактивного стану */
+                                text-slate-500 dark:text-slate-400
+                                group-hover/btn:text-blue-600 dark:group-hover/btn:text-blue-400
                                 group-[.is-active]/btn:hidden"
                             fill="none"
                             stroke="currentColor"
@@ -359,11 +369,11 @@ $comments_num = get_comments_number(get_the_ID());
                             <path d="M6 3h12a1 1 0 0 1 1 1v18l-7-4-7 4V4a1 1 0 0 1 1-1z"/>
                         </svg>
 
-                        <!-- FILLED ICON -->
+                        <!-- FILLED ICON (Збережено) -->
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
-                            class="icon-filled hidden h-[18px] w-[18px] text-[#374151] dark:text-[#E5E7EB] transition-colors duration-200
+                            class="icon-filled hidden h-[18px] w-[18px] text-[#3B82F6] dark:text-blue-400 transition-colors duration-200
                                 group-[.is-active]/btn:block"
                             fill="currentColor"
                         >

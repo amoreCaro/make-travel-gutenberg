@@ -15,19 +15,21 @@ $query       = null;
 
 if ($user_id) {
 
-    $bookmarked_post = $wpdb->get_col(
-        $wpdb->prepare(
-            "
-            SELECT post_id
-            FROM {$table}
-            WHERE user_id = %d
-            AND type = %s
-            ORDER BY id DESC
-            ",
-            $user_id,
-            'like'
+    $bookmarked_post = $user_id
+        ? $wpdb->get_col(
+            $wpdb->prepare(
+                "
+                SELECT post_id
+                FROM {$table}
+                WHERE user_id = %d
+                AND type = %s
+                ORDER BY id DESC
+                ",
+                $user_id,
+                'save'
+            )
         )
-    );
+        : [];
 
     $total_posts = count($bookmarked_post);
 
@@ -42,7 +44,7 @@ if ($user_id) {
 
 <section class="dashboard-profile space-y-8">
 
-    <div id="reading-list__items" class="space-y-8" >
+    <div id="reading-list__grid" class="space-y-8" >
 
         <?php if ($query && $query->have_posts()) : ?>
 
@@ -70,7 +72,7 @@ if ($user_id) {
 
             <div class="col-span-full rounded-2xl border border-slate-200 dark:border-zinc-800 p-8 text-center">
                 <p class="text-slate-500 dark:text-slate-400">
-                    <?php _e("You haven’t added any favourites yet.", THEME); ?>
+                    <?php _e("You haven’t added any saved posts yet.", THEME); ?>
                 </p>
             </div>
 
