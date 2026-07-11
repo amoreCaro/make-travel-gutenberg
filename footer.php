@@ -125,23 +125,21 @@ $powered_by   = carbon_get_theme_option('footer_powered_by_text');
 
                     <?php if (!empty($footer_contacts)) : ?>
 
-                        <ul class="space-y-3 text-sm text-slate-600 dark:text-zinc-400">
+                        <ul class="space-y-3">
 
                             <?php foreach ($footer_contacts as $item) :
 
-                                $label = $item['label'] ?? '';
                                 $value = $item['contact_value'] ?? '';
-                                $url   = $item['url'] ?? '#';
+                                $url   = $item['url'] ?? '';
 
-                                if (empty($label) || empty($value)) {
+                                if (empty($value)) {
                                     continue;
                                 }
                             ?>
 
-                                <li class="grid grid-cols-[70px_1fr] gap-2">
+                                <li>
 
-
-                                    <?php if (!empty($url) && $url !== '#') : ?>
+                                    <?php if (!empty($url)) : ?>
 
                                         <a
                                             href="<?php echo esc_url($url); ?>"

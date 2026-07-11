@@ -34,9 +34,8 @@ if ($header_menu_id) {
 if ($pages_menu_id) {
     $pages_menu_items = wp_get_nav_menu_items($pages_menu_id) ?: [];
 }
-
-$login_text  = carbon_get_theme_option('header_login_text') ?: 'Login';
-$logout_text = carbon_get_theme_option('header_logout_text') ?: 'Logout';
+$login_text = carbon_get_theme_option('header_login_text') ?: 'Login';
+$logout_text = carbon_get_theme_option('header_logout_text');
 
 $current_user = wp_get_current_user();
 $username = $current_user->display_name;
@@ -163,11 +162,6 @@ $user_avatar_small = get_avatar($current_user->ID, 32);
 
             <!-- AUTH (Login / Logout) -->
     <div class="flex items-center gap-4 relative">
-        <label for="theme-toggle" class="inline-flex relative items-center cursor-pointer select-none">
-            <input type="checkbox" id="theme-toggle" class="sr-only peer" checked>
-            <div class="w-9 h-5 bg-neutral-200 dark:bg-neutral-800 rounded-full transition-colors peer-checked:bg-sky-500"></div>
-            <div class="absolute left-0.5 top-0.5 w-5 h-5 bg-white rounded-full shadow-sm transition-transform peer-checked:translate-x-4"></div>
-        </label> 
 
     <?php if (is_user_logged_in()) : ?>
 
@@ -175,9 +169,21 @@ $user_avatar_small = get_avatar($current_user->ID, 32);
         <button
             type="button"
             id="profile-popup-trigger"
-            class="w-8 h-8 overflow-hidden rounded-full border border-white/10 shadow-sm"
+            class="flex items-center gap-2 rounded-full transition-colors duration-150 focus:outline-none focus:ring-0 focus:border-transparent select-none group
+                /* Світла тема */
+                text-neutral-700 hover:text-neutral-900 sm:hover:bg-neutral-100 sm:py-1 sm:pl-1 sm:pr-3
+                /* Темна тема */
+                dark:text-neutral-300 dark:hover:text-white sm:dark:hover:bg-neutral-900"
         >
-            <?php echo $user_avatar_small; ?>
+            <!-- Контейнер для аватарки (статичний, без контурів) -->
+            <div class="w-8 h-8 min-w-[32px] min-h-[32px] overflow-hidden rounded-full shadow-sm">
+                <?php echo $user_avatar_small; ?>
+            </div>
+            
+            <!-- Ім'я користувача (fixed: повернуто sm:inline замість sm:block, щоб текст не стрибав вниз) -->
+            <span class="hidden sm:block text-[14px] font-medium">
+                <?php echo esc_html($username); ?>
+            </span>
         </button>
 
         <!-- PROFILE POPUP -->
@@ -287,65 +293,35 @@ $user_avatar_small = get_avatar($current_user->ID, 32);
             </div>
         </div>
     <?php else : ?>
-
-        <button
-            type="button"
-            id="profile-popup-trigger-guest"
-            class="w-8 h-8 flex items-center justify-center shrink-0 rounded-full bg-[#F2F2F2] text-neutral-900 dark:bg-[#2A2A36] dark:text-white transition-[background-color,color,transform] duration-300 ease-in-out hover:bg-neutral-950 hover:text-white dark:hover:bg-white dark:hover:text-neutral-950"
-        >
-            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 12C14.7614 12 17 9.76142 17 7C17 4.23858 14.7614 2 12 2C9.23858 2 7 4.23858 7 7C7 9.76142 9.23858 12 12 12Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
-                <path d="M20.5899 22C20.5899 18.13 16.7399 15 11.9999 15C7.25991 15 3.40991 18.13 3.40991 22" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg>  
-        </button>
-        <div id="profile-popup-guest"
-            class="absolute right-0 top-16 hidden w-72 rounded-2xl border p-4 transition-all duration-200 backdrop-blur-md
-                    bg-white/95 text-neutral-800 border-neutral-100 shadow-[0_20px_50px_rgba(0,0,0,0.05)]
-                    dark:bg-neutral-950/95 dark:text-neutral-200 dark:border-neutral-800/60 dark:shadow-[0_20px_50px_rgba(0,0,0,0.3)] z-50">
-
-            <div class="space-y-0.5">
-                <button class="openSignInBtn w-full flex items-center gap-3 py-2 px-2.5 rounded-xl text-[14px] font-medium transition-colors duration-150 group hover:bg-neutral-50 text-neutral-600 hover:text-neutral-900 dark:hover:bg-neutral-900 dark:text-neutral-300 dark:hover:text-white">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" class="h-6 w-6"><path stroke-linecap="round" stroke-linejoin="round" d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z"></path></svg>
-                    <span><?php _e('Sign Up', THEME); ?> </span>
-                </button>
-
-                <button class="openLoginBtn w-full flex items-center gap-3 py-2 px-2.5 rounded-xl text-[14px] font-medium transition-colors duration-150 group hover:bg-neutral-50 text-neutral-600 hover:text-neutral-900 dark:hover:bg-neutral-900 dark:text-neutral-300 dark:hover:text-white">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" class="h-6 w-6"><path stroke-linecap="round" stroke-linejoin="round" d="M7.864 4.243A7.5 7.5 0 0 1 19.5 10.5c0 2.92-.556 5.709-1.568 8.268M5.742 6.364A7.465 7.465 0 0 0 4.5 10.5a7.464 7.464 0 0 1-1.15 3.993m1.989 3.559A11.209 11.209 0 0 0 8.25 10.5a3.75 3.75 0 1 1 7.5 0c0 .527-.021 1.049-.064 1.565M12 10.5a14.94 14.94 0 0 1-3.6 9.75m6.633-4.596a18.666 18.666 0 0 1-2.485 5.33"></path></svg>
-                    <span><?php _e('Log In', THEME); ?></span>
-                </button>
-
-                <button class="openLoginBtn w-full flex items-center gap-3 py-2 px-2.5 rounded-xl text-[14px] font-medium transition-colors duration-150 group hover:bg-neutral-50 text-neutral-600 hover:text-neutral-900 dark:hover:bg-neutral-900 dark:text-neutral-300 dark:hover:text-white">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" class="h-6 w-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path></svg>
-                    <span><?php _e('Create Post', THEME); ?></span>
-                </button>
-
-                    <button class="openLoginBtn w-full flex items-center gap-3 py-2 px-2.5 rounded-xl text-[14px] font-medium transition-colors duration-150 group hover:bg-neutral-50 text-neutral-600 hover:text-neutral-900 dark:hover:bg-neutral-900 dark:text-neutral-300 dark:hover:text-white">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" class="h-6 w-6"><path stroke-linecap="round" stroke-linejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z"></path></svg>
-                        <span><?php _e('Reading list', THEME); ?></span>
-                    </button>
-                </div>
-
-                <div class="mt-2 pt-2 border-t border-neutral-100 dark:border-neutral-800/60 space-y-0.5">
-                    <div class="flex items-center justify-between py-2 px-2.5 text-[14px] font-medium text-neutral-600 dark:text-neutral-300">
-                        <div class="flex items-center gap-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" class="h-6 w-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"></path></svg>
-                            <span><?php _e('Dark theme', THEME); ?></span>
-                        </div>
-                        <label for="theme-toggle" class="inline-flex relative items-center cursor-pointer select-none">
-                            <input type="checkbox" id="theme-toggle" class="sr-only peer" checked>
-                            <div class="w-9 h-5 bg-neutral-200 dark:bg-neutral-800 rounded-full transition-colors peer-checked:bg-sky-500"></div>
-                            <div class="absolute left-0.5 top-0.5 w-5 h-5 bg-white rounded-full shadow-sm transition-transform peer-checked:translate-x-4"></div>
-                        </label> 
-                    </div>
-
-                    <a href="/help-support" class="flex items-center gap-3 py-2 px-2.5 rounded-xl text-[14px] font-medium transition-colors duration-150 group
-                                    hover:bg-neutral-50 text-neutral-600 hover:text-neutral-900
-                                    dark:hover:bg-neutral-900 dark:text-neutral-300 dark:hover:text-white">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" class="h-6 w-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.362 5.214A8.252 8.252 0 0 1 12 21 8.25 8.25 0 0 1 6.038 7.047 8.287 8.287 0 0 0 9 9.601a8.983 8.983 0 0 1 3.361-6.867 8.21 8.21 0 0 0 3 2.48Z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M12 18a3.75 3.75 0 0 0 .495-7.468 5.99 5.99 0 0 0-1.925 3.547 5.975 5.975 0 0 1-2.133-1.001A3.75 3.75 0 0 0 12 18Z"></path></svg>
-                        <span><?php _e('Help & Support', THEME); ?></span>
-                    </a>
-                </div>
-        </div>
+<label for="theme-toggle" class="inline-flex relative items-center cursor-pointer select-none">
+    <input type="checkbox" id="theme-toggle" class="sr-only peer" checked>
+    
+    <div class="w-11 h-6 rounded-full transition-all duration-200 border
+        /* Світла тема (Неактивний / Активний) */
+        bg-neutral-200 border-transparent peer-checked:bg-neutral-900
+        /* Темна тема (Dark Mode) */
+        dark:bg-neutral-900 dark:border-neutral-700 dark:peer-checked:bg-neutral-800
+        
+        /* Внутрішня кулька */
+        after:content-[''] after:absolute after:top-[2px] after:left-[2px] 
+        after:w-5 after:h-5 after:rounded-full after:transition-all after:shadow-sm
+        /* Колір кульки: білий у світлій, сіро-сталевий у темній */
+        after:bg-white dark:after:bg-neutral-400 dark:peer-checked:after:bg-white
+        
+        /* Зміщення кульки при кліку */
+        peer-checked:after:translate-x-[20px]">
+    </div>
+</label>
+<button class="openLoginBtn flex items-center justify-center rounded-full font-medium border transition-all duration-200
+    /* Розміри: менша на мобільних, стандартна на десктопі */
+    py-1.5 px-4 text-[13px] sm:py-2 sm:px-6 sm:text-[14px]
+    /* Світла тема */
+    bg-transparent border-black text-black hover:bg-black hover:text-white
+    /* Темна тема (Dark Mode) */
+    dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-black">
+    
+    <span><?php echo esc_html( $login_text ); ?></span>
+</button>
     <?php endif; ?>
 
 </div>
