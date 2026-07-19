@@ -24,7 +24,9 @@ $category_svg_id     = $category_id ? carbon_get_term_meta($category_id, 'catego
 $icon_url = $category_svg_id ? wp_get_attachment_url($category_svg_id) : '';
 $category_svg = $icon_url ? cf_get_inline_svg($icon_url) : '';
 
+$author_id  = $post->post_author;
 $has_custom_style = !empty($category_bg_color) || !empty($category_text_color);
+$author_url = $author_id ? get_author_posts_url($author_id) : '';
 
 /**
  * POST DATA
@@ -34,7 +36,7 @@ $title     = get_the_title();
 $excerpt   = get_the_excerpt();
 $date      = get_the_date('M d, Y');
 
-$author_id  = $post->post_author;
+
 $avatar_url = get_avatar_url($author_id, ['size' => 28]);
 $username   = get_the_author_meta('display_name', $author_id);
 
@@ -42,6 +44,18 @@ $read_time = estimate_post_read_time($post_id);
 $like      = get_post_like_state($post_id);
 $is_saved  = get_post_save_state($post_id);
 $comments_num = get_comments_number(get_the_ID());
+
+// Media type
+$media_type = get_post_media_type($post_id);
+
+$type    = $media_type['type'];
+
+$media   = $media_type['media'];
+$gallery = $media_type['gallery'] ?? [];
+
+$has_video   = $type === 'video';
+$has_gallery = $type === 'slider';
+$has_thumb   = $type === 'thumbnail';
 
 $card_class = 'post-card'
     . ($has_gallery ? ' post-card--slider' : '')
@@ -108,7 +122,7 @@ $card_class = 'post-card'
 
             <div class="flex items-center gap-2">
                 <?php if ($avatar_url) : ?>
-                    <div class="post__author-name-img mr-2 flex-shrink-0">
+                    <a href="<?php echo esc_url($author_url); ?>" class="post__author-name-img mr-2 flex-shrink-0">
                         <img
                             src="<?php echo esc_url($avatar_url); ?>"
                             alt="<?php echo esc_attr($username); ?>"
@@ -118,13 +132,13 @@ $card_class = 'post-card'
                             decoding="async"
                             class="w-[28px] h-[28px] rounded-full object-cover bg-[#f5f5f5]"
                         >
-                    </div>
+                    </a>
                 <?php endif; ?>
                 
                 <?php if ($username) : ?>
-                <span class="text-xs sm:text-sm text-gray-700 dark:text-[#F3F4F6]">
+                <a href="<?php echo esc_url($author_url); ?>" class="text-xs sm:text-sm text-gray-700 dark:text-[#F3F4F6]">
                     <?php echo esc_html($username); ?>
-                </span>
+                </a>
                 <?php endif; ?>
             </div>
             

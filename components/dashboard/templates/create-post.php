@@ -16,7 +16,6 @@ $categories = get_categories([
         class=""
         novalidate
     >
-        <?php wp_nonce_field('theme_create_post', 'theme_create_post_nonce'); ?>
         <input type="hidden" name="action" value="theme_create_post">
 
         <!-- Basic Information -->
@@ -105,7 +104,6 @@ $categories = get_categories([
                         id="post_content"
                         name="post_content"
                         rows="14"
-                        required
                         placeholder="Start writing..."
                         class="w-full resize-y rounded-2xl
                             border border-gray-200
@@ -150,46 +148,142 @@ $categories = get_categories([
             <div class="grid gap-5 lg:grid-cols-2">
 
                 <label
-                    data-upload-target="thumbnailPreview"
-                    class="group relative flex min-h-[220px] cursor-pointer flex-col items-center justify-center gap-3
-                        overflow-hidden rounded-2xl border-2 border-dashed border-gray-200
-                        bg-[#FAFAFA] text-center transition
-                        hover:border-violet-400 hover:bg-violet-50/40
-                        dark:border-[#2A2A2E] dark:bg-[#111114]
-                        dark:hover:border-violet-500 dark:hover:bg-violet-500/[0.04]"
+                    id="thumbnailUpload"
+                    data-state="empty"
+                    class="group relative flex min-h-[220px] cursor-pointer flex-col items-center justify-center overflow-hidden rounded-2xl border-2 border-dashed border-gray-200 bg-[#FAFAFA] text-center transition hover:border-violet-400 hover:bg-violet-50/40 dark:border-[#2A2A2E] dark:bg-[#111114] dark:hover:border-violet-500 dark:hover:bg-violet-500/[0.04]"
                 >
-                    <input id="thumbnail" type="file" name="thumbnail" accept="image/*" class="hidden">
-                    <div id="thumbnailPreview" class="flex flex-col items-center gap-3">
-                        <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-white text-slate-400 shadow-sm ring-1 ring-gray-200 transition group-hover:text-violet-500 dark:bg-[#18181B] dark:ring-[#2A2A2E]">
-                            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14M4 8h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                            </svg>
-                        </div>
-                        <span class="text-base font-semibold text-slate-900 dark:text-white"><?php _e('Featured image', THEME); ?></span>
-                        <span class="text-sm text-slate-500 dark:text-slate-500"><?php _e('PNG or JPG, up to 5&nbsp;MB', THEME); ?></span>
-                    </div>
-                </label>
+                    <input
+                        id="thumbnail"
+                        type="file"
+                        name="thumbnail"
+                        accept="image/*"
+                        class="hidden"
+                    >
 
-                <label
-                    data-upload-target="videoPreview"
-                    class="group relative flex min-h-[220px] cursor-pointer flex-col items-center justify-center gap-3
-                        overflow-hidden rounded-2xl border-2 border-dashed border-gray-200
-                        bg-[#FAFAFA] text-center transition
-                        hover:border-violet-400 hover:bg-violet-50/40
-                        dark:border-[#2A2A2E] dark:bg-[#111114]
-                        dark:hover:border-violet-500 dark:hover:bg-violet-500/[0.04]"
+                    <img
+                        id="thumbnailImage"
+                        alt=""
+                        class="hidden h-full w-full object-cover group-data-[state=selected]:block"
+                    >
+
+                <button
+                    id="thumbnailRemove"
+                    type="button"
+                    class="absolute right-4 top-4 hidden h-10 w-10 items-center justify-center rounded-full bg-slate-200/80 text-slate-700 backdrop-blur transition hover:bg-red-500 hover:text-white group-data-[state=selected]:flex dark:bg-zinc-800/80 dark:text-zinc-300 dark:hover:bg-red-600 dark:hover:text-white"
                 >
-                    <input id="video" type="file" name="video" accept="video/*" class="hidden">
-                    <div id="videoPreview" class="flex flex-col items-center gap-3">
-                        <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-white text-slate-400 shadow-sm ring-1 ring-gray-200 transition group-hover:text-violet-500 dark:bg-[#18181B] dark:ring-[#2A2A2E]">
-                            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                            </svg>
-                        </div>
-                        <span class="text-base font-semibold text-slate-900 dark:text-white"><?php _e('Video', THEME); ?></span>
-                        <span class="text-sm text-slate-500 dark:text-slate-500"><?php _e('MP4 or MOV, up to 50&nbsp;MB', THEME); ?></span>
-                    </div>
-                </label>
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-5 w-5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M6 6L18 18M6 18L18 6"
+                        />
+                    </svg>
+                </button>
+
+    <div
+        class="flex flex-col items-center gap-3 group-data-[state=selected]:hidden"
+    >
+        <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-white text-slate-400 shadow-sm ring-1 ring-gray-200 transition group-hover:text-violet-500 dark:bg-[#18181B] dark:ring-[#2A2A2E]">
+            <svg
+                class="h-6 w-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+            >
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14M4 8h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                />
+            </svg>
+        </div>
+
+        <span class="text-base font-semibold text-slate-900 dark:text-white">
+            Featured image
+        </span>
+
+        <span class="text-sm text-slate-500 dark:text-slate-500">
+            PNG or JPG, up to 5 MB
+        </span>
+    </div>
+</label>
+
+<label
+    id="videoUpload"
+    data-state="empty"
+    class="group relative flex min-h-[220px] cursor-pointer flex-col items-center justify-center overflow-hidden rounded-2xl border-2 border-dashed border-gray-200 bg-[#FAFAFA] text-center transition hover:border-violet-400 hover:bg-violet-50/40 dark:border-[#2A2A2E] dark:bg-[#111114] dark:hover:border-violet-500 dark:hover:bg-violet-500/[0.04]"
+>
+    <input
+        id="video"
+        type="file"
+        name="video"
+        accept="video/mp4,video/webm,video/quicktime"
+        class="hidden"
+    >
+
+    <video
+        id="videoPreview"
+        class="hidden h-full w-full object-cover group-data-[state=selected]:block"
+        muted
+        playsinline
+        loop
+    ></video>
+
+    <button
+        id="videoRemove"
+        type="button"
+        class="absolute right-4 top-4 hidden h-10 w-10 items-center justify-center rounded-full bg-slate-200/80 text-slate-700 backdrop-blur transition hover:bg-red-500 hover:text-white group-data-[state=selected]:flex dark:bg-zinc-800/80 dark:text-zinc-300 dark:hover:bg-red-600 dark:hover:text-white"
+    >
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+        >
+            <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 6L18 18M6 18L18 6"
+            />
+        </svg>
+    </button>
+
+    <div class="flex flex-col items-center gap-3 group-data-[state=selected]:hidden">
+        <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-white text-slate-400 shadow-sm ring-1 ring-gray-200 transition group-hover:text-violet-500 dark:bg-[#18181B] dark:ring-[#2A2A2E]">
+            <svg
+                class="h-6 w-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+            >
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
+                />
+            </svg>
+        </div>
+
+        <span class="text-base font-semibold text-slate-900 dark:text-white">
+            Video
+        </span>
+
+        <span class="text-sm text-slate-500 dark:text-slate-500">
+            MP4 or MOV, up to 50 MB
+        </span>
+    </div>
+</label>
 
             </div>
 
