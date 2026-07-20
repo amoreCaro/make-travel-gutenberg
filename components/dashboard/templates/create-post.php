@@ -3,426 +3,366 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+// Fetch categories with counts included
 $categories = get_categories([
     'hide_empty' => false,
 ]);
+
+$tags = get_tags(['hide_empty' => false]);
+
+$maxCategories = 3;
+$maxTags = 5;
 ?>
 
-<section class="dashboard-profile">
+<section class="mx-auto max-w-4xl px-4 py-10 text-slate-800 dark:text-slate-200">
     <form
         id="createPostForm"
         method="POST"
         enctype="multipart/form-data"
-        class=""
         novalidate
+        class="space-y-8"
     >
         <input type="hidden" name="action" value="theme_create_post">
+        <?php wp_nonce_field('theme_create_post', 'theme_create_post_nonce'); ?>
 
-        <!-- Basic Information -->
-        <div class="rounded-[28px] border border-gray-200/70 bg-white shadow-sm shadow-slate-900/[0.02] dark:border-[#232125] dark:bg-[#18181B] lg:p-10 mb-10" >
-
-            <div class="mb-8 flex items-center gap-4">
-
-                <div
-                    class="flex h-14 w-14 shrink-0 items-center justify-center
-                        rounded-2xl bg-violet-100
-                        dark:bg-violet-500/10"
+        <!-- Featured Image Upload Dropzone -->
+        <div>
+            <label class="mb-2 block text-sm font-medium text-slate-600 dark:text-slate-400">
+                <?php _e('Featured image', THEME); ?>
+            </label>
+            <label
+                id="thumbnailUpload"
+                data-state="empty"
+                class="group relative flex min-h-[180px] cursor-pointer flex-col items-center justify-center overflow-hidden rounded-xl border border-dashed border-gray-300 bg-white text-center transition hover:border-violet-500 dark:border-zinc-700 dark:bg-zinc-900"
+            >
+                <input
+                    id="thumbnail"
+                    type="file"
+                    name="thumbnail"
+                    accept="image/*"
+                    class="hidden"
                 >
-                    <svg class="h-7 w-7 text-violet-600 dark:text-violet-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.586-9.414a2 2 0 112.828 2.828L11 15l-4 1 1-4 9.414-9.414z" />
-                    </svg>
-                </div>
 
-                <div>
-                    <h2 class="text-2xl font-bold text-slate-900 dark:text-white">
-                        <?php _e('Basic information', THEME); ?>
-                    </h2>
-                    <p class="mt-1 text-slate-500 dark:text-slate-400">
-                        <?php _e('Title, excerpt and article content.', THEME); ?>
-                    </p>
-                </div>
-
-            </div>
-
-            <div class="space-y-6">
-
-                <div>
-                    <label for="post_title" class="mb-3 block text-sm font-semibold uppercase tracking-wide text-slate-700 dark:text-slate-300">
-                        <?php _e('Title', THEME); ?>
-                    </label>
-                    <input
-                        id="post_title"
-                        name="post_title"
-                        type="text"
-                        required
-                        maxlength="120"
-                        placeholder="Enter post title..."
-                        class="w-full rounded-2xl
-                            border border-gray-200
-                            bg-[#FAFAFA]
-                            px-5 py-4 text-lg text-slate-900
-                            outline-none transition
-                            placeholder:text-slate-400
-                            focus:border-violet-500 focus:bg-white focus:ring-4 focus:ring-violet-500/10
-                            dark:border-[#2A2A2E] dark:bg-[#111114] dark:text-white
-                            dark:placeholder:text-slate-500
-                            dark:focus:border-violet-500 dark:focus:bg-[#0F0F11] dark:focus:ring-violet-500/15"
-                    >
-                </div>
-
-                <div>
-                    <div class="mb-3 flex items-end justify-between">
-                        <label for="post_excerpt" class="block text-sm font-semibold uppercase tracking-wide text-slate-700 dark:text-slate-300">
-                            <?php _e('Excerpt', THEME); ?>
-                        </label>
-                        <span class="text-xs text-slate-400 dark:text-slate-500"><?php _e('Optional', THEME); ?></span>
-                    </div>
-                    <textarea
-                        id="post_excerpt"
-                        name="post_excerpt"
-                        rows="3"
-                        maxlength="240"
-                        placeholder="Write a short description..."
-                        class="w-full resize-none rounded-2xl
-                            border border-gray-200
-                            bg-[#FAFAFA]
-                            px-5 py-4 text-slate-900
-                            outline-none transition
-                            placeholder:text-slate-400
-                            focus:border-violet-500 focus:bg-white focus:ring-4 focus:ring-violet-500/10
-                            dark:border-[#2A2A2E] dark:bg-[#111114] dark:text-white
-                            dark:placeholder:text-slate-500
-                            dark:focus:border-violet-500 dark:focus:bg-[#0F0F11] dark:focus:ring-violet-500/15"
-                    ></textarea>
-                </div>
-
-                <div>
-                    <label for="post_content" class="mb-3 block text-sm font-semibold uppercase tracking-wide text-slate-700 dark:text-slate-300">
-                        <?php _e('Content', THEME); ?>
-                    </label>
-                    <textarea
-                        id="post_content"
-                        name="post_content"
-                        rows="14"
-                        placeholder="Start writing..."
-                        class="w-full resize-y rounded-2xl
-                            border border-gray-200
-                            bg-[#FAFAFA]
-                            px-5 py-4 text-slate-900
-                            outline-none transition
-                            placeholder:text-slate-400
-                            focus:border-violet-500 focus:bg-white focus:ring-4 focus:ring-violet-500/10
-                            dark:border-[#2A2A2E] dark:bg-[#111114] dark:text-white
-                            dark:placeholder:text-slate-500
-                            dark:focus:border-violet-500 dark:focus:bg-[#0F0F11] dark:focus:ring-violet-500/15"
-                    ></textarea>
-                </div>
-
-            </div>
-
-        </div>
-
-        <!-- Media -->
-        <div
-            class="rounded-[28px]
-                border border-gray-200/70
-                bg-white p-8
-                shadow-sm shadow-slate-900/[0.02]
-                dark:border-[#232125]
-                dark:bg-[#18181B]
-                lg:p-10 mb-10"
-        >
-
-            <div class="mb-8 flex items-center gap-4">
-                <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-fuchsia-100 dark:bg-fuchsia-500/10">
-                    <svg class="h-7 w-7 text-fuchsia-600 dark:text-fuchsia-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14M4 8h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                    </svg>
-                </div>
-                <div>
-                    <h2 class="text-2xl font-bold text-slate-900 dark:text-white"><?php _e('Media', THEME); ?></h2>
-                    <p class="mt-1 text-slate-500 dark:text-slate-400"><?php _e('Upload images, gallery and video.', THEME); ?></p>
-                </div>
-            </div>
-
-            <div class="grid gap-5 lg:grid-cols-2">
-
-                <label
-                    id="thumbnailUpload"
-                    data-state="empty"
-                    class="group relative flex min-h-[220px] cursor-pointer flex-col items-center justify-center overflow-hidden rounded-2xl border-2 border-dashed border-gray-200 bg-[#FAFAFA] text-center transition hover:border-violet-400 hover:bg-violet-50/40 dark:border-[#2A2A2E] dark:bg-[#111114] dark:hover:border-violet-500 dark:hover:bg-violet-500/[0.04]"
+                <img
+                    id="thumbnailImage"
+                    alt=""
+                    class="hidden h-full w-full object-cover group-data-[state=selected]:block"
                 >
-                    <input
-                        id="thumbnail"
-                        type="file"
-                        name="thumbnail"
-                        accept="image/*"
-                        class="hidden"
-                    >
-
-                    <img
-                        id="thumbnailImage"
-                        alt=""
-                        class="hidden h-full w-full object-cover group-data-[state=selected]:block"
-                    >
 
                 <button
                     id="thumbnailRemove"
                     type="button"
-                    class="absolute right-4 top-4 hidden h-10 w-10 items-center justify-center rounded-full bg-slate-200/80 text-slate-700 backdrop-blur transition hover:bg-red-500 hover:text-white group-data-[state=selected]:flex dark:bg-zinc-800/80 dark:text-zinc-300 dark:hover:bg-red-600 dark:hover:text-white"
+                    class="absolute right-4 top-4 hidden h-8 w-8 items-center justify-center rounded-full bg-slate-900/10 text-slate-700 backdrop-blur hover:bg-red-500 hover:text-white group-data-[state=selected]:flex dark:bg-white/10 dark:text-zinc-300"
                 >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="h-5 w-5"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                    >
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M6 6L18 18M6 18L18 6"
-                        />
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 6L18 18M6 18L18 6" />
                     </svg>
                 </button>
 
-    <div
-        class="flex flex-col items-center gap-3 group-data-[state=selected]:hidden"
-    >
-        <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-white text-slate-400 shadow-sm ring-1 ring-gray-200 transition group-hover:text-violet-500 dark:bg-[#18181B] dark:ring-[#2A2A2E]">
-            <svg
-                class="h-6 w-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-            >
-                <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14M4 8h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                />
-            </svg>
-        </div>
-
-        <span class="text-base font-semibold text-slate-900 dark:text-white">
-            Featured image
-        </span>
-
-        <span class="text-sm text-slate-500 dark:text-slate-500">
-            PNG or JPG, up to 5 MB
-        </span>
-    </div>
-</label>
-
-<label
-    id="videoUpload"
-    data-state="empty"
-    class="group relative flex min-h-[220px] cursor-pointer flex-col items-center justify-center overflow-hidden rounded-2xl border-2 border-dashed border-gray-200 bg-[#FAFAFA] text-center transition hover:border-violet-400 hover:bg-violet-50/40 dark:border-[#2A2A2E] dark:bg-[#111114] dark:hover:border-violet-500 dark:hover:bg-violet-500/[0.04]"
->
-    <input
-        id="video"
-        type="file"
-        name="video"
-        accept="video/mp4,video/webm,video/quicktime"
-        class="hidden"
-    >
-
-    <video
-        id="videoPreview"
-        class="hidden h-full w-full object-cover group-data-[state=selected]:block"
-        muted
-        playsinline
-        loop
-    ></video>
-
-    <button
-        id="videoRemove"
-        type="button"
-        class="absolute right-4 top-4 hidden h-10 w-10 items-center justify-center rounded-full bg-slate-200/80 text-slate-700 backdrop-blur transition hover:bg-red-500 hover:text-white group-data-[state=selected]:flex dark:bg-zinc-800/80 dark:text-zinc-300 dark:hover:bg-red-600 dark:hover:text-white"
-    >
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-5 w-5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-        >
-            <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M6 6L18 18M6 18L18 6"
-            />
-        </svg>
-    </button>
-
-    <div class="flex flex-col items-center gap-3 group-data-[state=selected]:hidden">
-        <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-white text-slate-400 shadow-sm ring-1 ring-gray-200 transition group-hover:text-violet-500 dark:bg-[#18181B] dark:ring-[#2A2A2E]">
-            <svg
-                class="h-6 w-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-            >
-                <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
-                />
-            </svg>
-        </div>
-
-        <span class="text-base font-semibold text-slate-900 dark:text-white">
-            Video
-        </span>
-
-        <span class="text-sm text-slate-500 dark:text-slate-500">
-            MP4 or MOV, up to 50 MB
-        </span>
-    </div>
-</label>
-
-            </div>
-
-            <div class="mt-5">
-                <label
-                    data-upload-target="galleryPreview"
-                    class="group relative flex min-h-[220px] cursor-pointer flex-col items-center justify-center gap-3
-                        overflow-hidden rounded-2xl border-2 border-dashed border-gray-200
-                        bg-[#FAFAFA] text-center transition
-                        hover:border-violet-400 hover:bg-violet-50/40
-                        dark:border-[#2A2A2E] dark:bg-[#111114]
-                        dark:hover:border-violet-500 dark:hover:bg-violet-500/[0.04]"
-                >
-                    <input id="gallery" type="file" name="gallery[]" accept="image/*" multiple class="hidden">
-                    <div id="galleryPreview" class="flex flex-col items-center gap-3">
-                        <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-white text-slate-400 shadow-sm ring-1 ring-gray-200 transition group-hover:text-violet-500 dark:bg-[#18181B] dark:ring-[#2A2A2E]">
-                            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7a2 2 0 012-2h3l2-2h4l2 2h3a2 2 0 012 2v11a2 2 0 01-2 2H5a2 2 0 01-2-2V7zM12 17a4 4 0 100-8 4 4 0 000 8z" />
-                            </svg>
-                        </div>
-                        <span class="text-lg font-semibold text-slate-900 dark:text-white"><?php _e('Gallery', THEME); ?></span>
-                        <span class="text-sm text-slate-500 dark:text-slate-500"><?php _e('Up to 4 images', THEME); ?></span>
+                <div class="flex flex-col items-center gap-2 p-6 group-data-[state=selected]:hidden">
+                    <div class="text-slate-400 group-hover:text-violet-500">
+                        <svg class="h-10 w-10 mx-auto stroke-[1.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                        </svg>
                     </div>
-                </label>
-            </div>
-
-        </div>
-
-        <!-- Categories & Tags -->
-        <div
-            class="rounded-[28px]
-                border border-gray-200/70
-                bg-white p-8
-                shadow-sm shadow-slate-900/[0.02]
-                dark:border-[#232125]
-                dark:bg-[#18181B]
-                lg:p-10 mb-10"
-        >
-
-            <div class="grid gap-10 lg:grid-cols-2">
-
-                <div>
-                    <h2 class="mb-1 text-2xl font-bold text-slate-900 dark:text-white"><?php _e('Categories', THEME); ?></h2>
-                    <p class="mb-6 text-sm text-slate-500 dark:text-slate-400"><?php _e('Pick one or more.', THEME); ?></p>
-
-                    <div class="flex flex-wrap gap-2.5">
-                        <?php foreach ($categories as $category) : ?>
-                            <label class="cursor-pointer">
-                                <input
-                                    type="checkbox"
-                                    name="categories[]"
-                                    value="<?php echo esc_attr($category->term_id); ?>"
-                                    class="peer hidden"
-                                >
-                                <span
-                                    class="inline-flex items-center rounded-full
-                                        border border-gray-200
-                                        px-4 py-2.5 text-sm font-medium
-                                        text-slate-700 transition
-                                        hover:border-violet-300 hover:text-violet-700
-                                        peer-checked:border-violet-600 peer-checked:bg-violet-600 peer-checked:text-white
-                                        peer-focus-visible:ring-4 peer-focus-visible:ring-violet-500/20
-                                        dark:border-[#2A2A2E] dark:text-slate-300
-                                        dark:hover:border-violet-500/60 dark:hover:text-violet-300
-                                        dark:peer-checked:border-violet-500 dark:peer-checked:bg-violet-500 dark:peer-checked:text-white"
-                                >
-                                    <?php echo esc_html($category->name); ?>
-                                </span>
-                            </label>
-                        <?php endforeach; ?>
-
-                        <?php if (empty($categories)) : ?>
-                            <p class="text-sm text-slate-400 dark:text-slate-500"><?php _e('No categories yet.', THEME); ?></p>
-                        <?php endif; ?>
-                    </div>
+                    <span class="text-sm font-medium text-violet-600 dark:text-violet-400">
+                        <?php _e('Upload a file', THEME); ?>
+                    </span>
+                    <span class="text-xs text-slate-400 dark:text-slate-500">
+                        PNG, JPG, GIF, WEBP, SVG ...
+                    </span>
                 </div>
+            </label>
+        </div>
 
-                <div>
-                    <h2 class="mb-1 text-2xl font-bold text-slate-900 dark:text-white"><?php _e('Tags', THEME); ?></h2>
-                    <p class="mb-6 text-sm text-slate-500 dark:text-slate-400"><?php _e('Separate tags with commas.', THEME); ?></p>
+        <!-- Video Upload Dropzone -->
+        <div>
+            <label class="mb-2 block text-sm font-medium text-slate-600 dark:text-slate-400">
+                <?php _e('Video', THEME); ?>
+                <span class="text-xs font-normal text-slate-400 dark:text-slate-500">(<?php _e('optional', THEME); ?>)</span>
+            </label>
+            <label
+                id="videoUpload"
+                data-state="empty"
+                class="group relative flex min-h-[180px] cursor-pointer flex-col items-center justify-center overflow-hidden rounded-xl border border-dashed border-gray-300 bg-white text-center transition hover:border-violet-500 dark:border-zinc-700 dark:bg-zinc-900"
+            >
+                <input
+                    id="video"
+                    type="file"
+                    name="video"
+                    accept="video/mp4,video/webm,video/quicktime"
+                    class="hidden"
+                >
+
+                <video
+                    id="videoPreview"
+                    class="hidden h-full w-full object-cover group-data-[state=selected]:block"
+                    muted
+                    playsinline
+                    loop
+                ></video>
+
+                <button
+                    id="videoRemove"
+                    type="button"
+                    class="absolute right-4 top-4 hidden h-8 w-8 items-center justify-center rounded-full bg-slate-900/10 text-slate-700 backdrop-blur hover:bg-red-500 hover:text-white group-data-[state=selected]:flex dark:bg-white/10 dark:text-zinc-300"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 6L18 18M6 18L18 6" />
+                    </svg>
+                </button>
+
+                <div class="flex flex-col items-center gap-2 p-6 group-data-[state=selected]:hidden">
+                    <div class="text-slate-400 group-hover:text-violet-500">
+                        <svg class="h-10 w-10 mx-auto stroke-[1.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                        </svg>
+                    </div>
+                    <span class="text-sm font-medium text-violet-600 dark:text-violet-400">
+                        <?php _e('Upload a file', THEME); ?>
+                    </span>
+                    <span class="text-xs text-slate-400 dark:text-slate-500">
+                        MP4, WEBM, MOV — <?php _e('up to 50 MB', THEME); ?>
+                    </span>
+                </div>
+            </label>
+        </div>
+
+        <!-- Gallery Upload Dropzone -->
+        <div>
+            <label class="mb-2 block text-sm font-medium text-slate-600 dark:text-slate-400">
+                <?php _e('Gallery', THEME); ?>
+                <span class="text-xs font-normal text-slate-400 dark:text-slate-500">(<?php _e('up to 4 images', THEME); ?>)</span>
+            </label>
+            <label
+                id="galleryUpload"
+                data-state="empty"
+                class="group relative flex min-h-[140px] cursor-pointer flex-col items-center justify-center overflow-hidden rounded-xl border border-dashed border-gray-300 bg-white text-center transition hover:border-violet-500 dark:border-zinc-700 dark:bg-zinc-900"
+            >
+                <input
+                    id="gallery"
+                    type="file"
+                    name="gallery[]"
+                    accept="image/*"
+                    multiple
+                    class="hidden"
+                >
+
+                <div
+                    id="galleryPreview"
+                    class="hidden w-full flex-wrap gap-2 p-4 group-data-[state=selected]:flex"
+                ></div>
+
+                <div class="flex flex-col items-center gap-2 p-6 group-data-[state=selected]:hidden">
+                    <div class="text-slate-400 group-hover:text-violet-500">
+                        <svg class="h-10 w-10 mx-auto stroke-[1.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 7a2 2 0 012-2h3l2-2h4l2 2h3a2 2 0 012 2v11a2 2 0 01-2 2H5a2 2 0 01-2-2V7zM12 17a4 4 0 100-8 4 4 0 000 8z" />
+                        </svg>
+                    </div>
+                    <span class="text-sm font-medium text-violet-600 dark:text-violet-400">
+                        <?php _e('Upload files', THEME); ?>
+                    </span>
+                    <span class="text-xs text-slate-400 dark:text-slate-500">
+                        PNG, JPG, WEBP ...
+                    </span>
+                </div>
+            </label>
+        </div>
+
+        <!-- Categories Picker Area -->
+        <div class="relative" id="categoriesField">
+            <label class="mb-2 block text-sm font-medium text-slate-600 dark:text-slate-400">
+                <?php _e('Categories', THEME); ?>
+            </label>
+
+            <div
+                id="categoriesInputWrap"
+                class="flex flex-wrap items-center gap-2 rounded-lg py-1"
+            >
+                <div id="categoriesChips" class="flex flex-wrap items-center gap-2"></div>
+
+                <button
+                    id="categoriesInput"
+                    type="button"
+                    data-max="<?php echo (int) $maxCategories; ?>"
+                    class="flex-1 text-left text-sm text-slate-400 outline-none"
+                >
+                    <?php echo esc_html(sprintf(__('Add categories (0/%d)', THEME), $maxCategories)); ?>
+                </button>
+            </div>
+
+            <p
+                id="categoriesError"
+                class="mt-1 hidden text-xs text-red-500"
+            >
+                <?php echo esc_html(sprintf(__('Maximum %d categories allowed.', THEME), $maxCategories)); ?>
+            </p>
+
+            <div
+                id="categoriesPanel"
+                data-state="closed"
+                class="absolute z-20 mt-2 hidden w-full rounded-2xl border border-gray-100 bg-white p-6 shadow-xl shadow-slate-200/50 dark:border-zinc-800 dark:bg-zinc-900 dark:shadow-none"
+            >
+                <h3 class="mb-4 text-base font-bold text-slate-900 dark:text-white">
+                    <?php _e('Categories', THEME); ?>
+                </h3>
+
+                <div id="categoriesList" class="flex flex-wrap gap-2">
+                    <?php foreach ($categories as $category) : ?>
+                        <button
+                            type="button"
+                            class="category-panel-item inline-flex items-center rounded-lg border border-transparent bg-slate-50 px-3 py-1.5 text-xs font-medium text-slate-700 transition hover:bg-slate-100 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700"
+                            data-id="<?php echo esc_attr($category->term_id); ?>"
+                            data-name="<?php echo esc_attr($category->name); ?>"
+                        >
+                            <?php echo esc_html($category->name); ?>
+                            (<?php echo $category->count; ?>)
+                        </button>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+
+            <div id="categoryChipPrototype" class="hidden">
+                <span class="inline-flex items-center gap-1 rounded-lg border border-transparent bg-slate-50 px-3 py-1.5 text-xs font-medium text-slate-700 dark:bg-zinc-800 dark:text-zinc-300">
+                    <span class="category-chip-text"></span>
+
+                    <button
+                        type="button"
+                        class="category-chip-remove ml-1 text-slate-400 transition hover:text-red-500"
+                    >
+                        ×
+                    </button>
 
                     <input
-                        id="post_tags"
+                        class="category-chip-input"
+                        type="hidden"
+                        name="categories[]"
+                    >
+                </span>
+            </div>
+        </div>
+
+        <!-- Inline Content Fields (Title, Tags, Content) -->
+        <div class="space-y-4">
+            <!-- Article Title -->
+            <input
+                id="post_title"
+                name="post_title"
+                type="text"
+                required
+                maxlength="120"
+                placeholder="<?php _e('Enter post title...', THEME); ?>"
+                class="w-full bg-transparent py-2 text-4xl font-bold tracking-tight text-slate-900 outline-none placeholder:text-slate-300 dark:text-white dark:placeholder:text-zinc-700"
+            >
+
+            <!-- Tags Field -->
+            <div class="relative" id="tagsField">
+                <label class="mb-2 block text-sm font-medium text-slate-600 dark:text-slate-400">
+                    <?php _e('Tags', THEME); ?>
+                </label>
+
+                <div
+                    id="tagsInputWrap"
+                    class="flex flex-wrap items-center gap-2 rounded-lg py-1"
+                >
+                    <div id="tagsChips" class="flex flex-wrap items-center gap-2"></div>
+
+                    <input
+                        id="post_tags_input"
                         type="text"
-                        name="post_tags"
-                        placeholder="technology, design, wordpress..."
-                        class="w-full rounded-2xl
-                            border border-gray-200
-                            bg-[#FAFAFA]
-                            px-5 py-4 text-slate-900
-                            outline-none transition
-                            placeholder:text-slate-400
-                            focus:border-violet-500 focus:bg-white focus:ring-4 focus:ring-violet-500/10
-                            dark:border-[#2A2A2E] dark:bg-[#111114] dark:text-white
-                            dark:placeholder:text-slate-500
-                            dark:focus:border-violet-500 dark:focus:bg-[#0F0F11] dark:focus:ring-violet-500/15"
+                        autocomplete="off"
+                        data-max="<?php echo (int) $maxTags; ?>"
+                        placeholder="<?php echo esc_attr(sprintf(__('Add tag (0/%d)', THEME), $maxTags)); ?>"
+                        class="min-w-[100px] flex-1 bg-transparent py-1 text-sm text-slate-600 outline-none placeholder:text-slate-400 dark:text-zinc-400 dark:placeholder:text-zinc-600"
                     >
                 </div>
 
+                <input
+                    type="hidden"
+                    id="post_tags"
+                    name="post_tags"
+                    value=""
+                >
+
+                <p
+                    id="tagsError"
+                    class="mt-1 hidden text-xs text-red-500"
+                >
+                    <?php echo esc_html(sprintf(__('Maximum %d tags allowed.', THEME), $maxTags)); ?>
+                </p>
+
+                <div
+                    id="tagsPanel"
+                    data-state="closed"
+                    class="absolute z-20 mt-2 hidden w-full rounded-2xl border border-gray-100 bg-white p-6 shadow-xl shadow-slate-200/50 dark:border-zinc-800 dark:bg-zinc-900 dark:shadow-none"
+                >
+                    <h3 class="mb-4 text-base font-bold text-slate-900 dark:text-white">
+                        <?php _e('Tags', THEME); ?>
+                    </h3>
+
+                    <div id="tagsList" class="flex flex-wrap gap-2">
+                        <?php foreach ($tags as $tag) : ?>
+                            <button
+                                type="button"
+                                class="tags-panel-item inline-flex items-center rounded-lg border border-transparent bg-slate-50 px-3 py-1.5 text-xs font-medium text-slate-700 transition hover:bg-slate-100 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700"
+                                data-tag="<?php echo esc_attr($tag->name); ?>"
+                            >
+                                #<?php echo esc_html($tag->name); ?>
+                                (<?php echo $tag->count; ?>)
+                            </button>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+
+                <!-- Prototype -->
+                <div id="tagChipPrototype" class="hidden">
+                    <span class="inline-flex items-center gap-1 rounded-lg border border-transparent bg-slate-50 px-3 py-1.5 text-xs font-medium text-slate-700 dark:bg-zinc-800 dark:text-zinc-300">
+                        <span class="tag-chip-text"></span>
+
+                        <button
+                            type="button"
+                            class="tag-chip-remove ml-1 text-slate-400 transition hover:text-red-500"
+                        >
+                            ×
+                        </button>
+                    </span>
+                </div>
             </div>
 
+            <!-- Excerpt (Optional short description) -->
+            <div>
+                <textarea
+                    id="post_excerpt"
+                    name="post_excerpt"
+                    rows="2"
+                    maxlength="240"
+                    placeholder="<?php _e('Write a short description...', THEME); ?>"
+                    class="w-full resize-none bg-transparent py-2 text-base text-slate-600 outline-none placeholder:text-slate-400 dark:text-zinc-400 dark:placeholder:text-zinc-600"
+                ></textarea>
+            </div>
+
+            <!-- Main Editor Content Body -->
+            <div class="pt-4 border-t border-gray-100 dark:border-zinc-800">
+                <textarea
+                    id="post_content"
+                    name="post_content"
+                    rows="12"
+                    placeholder="<?php _e('Start writing...', THEME); ?>"
+                    class="w-full resize-y bg-transparent py-2 text-lg leading-relaxed text-slate-800 outline-none placeholder:text-slate-300 dark:text-zinc-200 dark:placeholder:text-zinc-700"
+                ></textarea>
+            </div>
         </div>
 
-        <!-- Actions -->
-        <div
-            class="sticky bottom-4 z-10 flex flex-col-reverse gap-3
-                rounded-[24px] border border-gray-200/70 bg-white/90 p-4
-                shadow-lg shadow-slate-900/5 backdrop-blur
-                dark:border-[#232125] dark:bg-[#18181B]/90
-                sm:flex-row sm:justify-end"
-        >
-            <button
-                type="button"
-                name="save_draft"
-                class="rounded-2xl
-                    border border-gray-200
-                    bg-white px-8 py-4
-                    font-medium text-slate-700
-                    transition
-                    hover:border-slate-300 hover:bg-slate-50
-                    focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-slate-500/10
-                    dark:border-[#2A2A2E] dark:bg-[#111114] dark:text-slate-200
-                    dark:hover:border-[#3A3A3E] dark:hover:bg-[#18181B]"
-            >
-                <?php _e('Save draft', THEME); ?>
-            </button>
-
+        <!-- Action Floating / Sticky Bar -->
+        <div class="sticky bottom-4 z-10 flex items-center justify-between rounded-xl border border-gray-200 bg-white/80 p-3 shadow-lg backdrop-blur dark:border-zinc-800 dark:bg-zinc-900/80">
+            <div class="text-xs text-slate-400 dark:text-zinc-500 px-2">
+                <?php _e('Draft auto-saved', THEME); ?>
+            </div>
             <button
                 type="submit"
-                class="rounded-2xl
-                    bg-gradient-to-r from-violet-600 to-fuchsia-600
-                    px-8 py-4 font-semibold text-white
-                    shadow-lg shadow-violet-500/25
-                    transition
-                    hover:scale-[1.02] hover:shadow-violet-500/35
-                    focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-violet-500/30
-                    active:scale-[0.99]"
+                class="rounded-lg bg-slate-900 px-5 py-2 text-sm font-semibold text-white shadow transition hover:bg-slate-800 active:scale-[0.98] dark:bg-white dark:text-slate-900 dark:hover:bg-zinc-100"
             >
-                <?php _e('Publish post', THEME); ?>
+                <?php _e('Publish', THEME); ?>
             </button>
         </div>
 

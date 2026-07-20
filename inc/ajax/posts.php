@@ -45,6 +45,7 @@ function theme_sanitize_post_data( array $data ): array {
 	];
 }
 
+
 // Перевірити чи дані коректні.
 function theme_validate_post_data( array $data ): void {
 
@@ -57,11 +58,12 @@ function theme_validate_post_data( array $data ): void {
 
 	if ( empty( $data['title'] ) ) {
 		wp_send_json_error( [
-			'field'   => 'title',
+			'field'   => 'post_title', 
 			'message' => 'Title is required.',
 		] );
 	}
 }
+
 
 // Створити пост через wp_insert_post().
 // Повернути ID створеного поста.
@@ -98,6 +100,7 @@ function theme_insert_post_item( array $data ): int {
 	return (int) $post_id;
 }
 
+
 // Після створення поста прив'язати:
 //     - categories;
 //     - tags;
@@ -106,15 +109,21 @@ function theme_save_post_taxonomies() {
 
 }
 
+
 // Обробити всі файли :
     // featured image
     // gallery
     // video
 function theme_upload_post_media( array $data, int $post_id ) {
 	theme_upload_thumbnail( $data['featured'], $post_id );
-	// theme_upload_gallery( $data['gallery'], $post_id );
+	$gal = theme_upload_gallery( $data['gallery'], $post_id );
+
+wp_send_json_success([
+    'gallery' => $gal,
+]);
 	theme_upload_video( $data['video'], $post_id );
 }
+
 
 /**
  * Завантажити featured image та прив'язати до поста.
@@ -152,6 +161,7 @@ function theme_upload_thumbnail( ?array $thumbnail, int $post_id ) {
 
 	return $attachment_id;
 }
+
 
 /**
  * Завантажити відео та зберегти в Carbon Fields.
@@ -192,6 +202,113 @@ function theme_upload_video( ?array $video, int $post_id ) {
 	return $attachment_id;
 }
 
+
+/**
+ * Завантажити галерею та зберегти в Carbon Fields Complex.
+ *
+ * @param array $gallery
+ * @param int   $post_id
+ *
+ * @return array
+ */
+function theme_upload_gallery( array $gallery, int $post_id ): array {
+
+	if ( empty( $gallery['name'] ) || ! is_array( $gallery['name'] ) ) {
+		return [];
+	}
+
+	require_once ABSPATH . 'wp-admin/includes/file.php';
+	require_once ABSPATH . 'wp-admin/includes/image.php';
+	require_once ABSPATH . 'wp-admin/includes/media.php';
+
+	$gallery_meta = [];
+
+	foreach ( $gallery['name'] as $index => $name ) {
+
+		if ( empty( $name ) ) {
+			continue;
+		}
+
+		$_FILES['gallery_file'] = [
+			'name'     => $gallery['name'][ $index ],
+			'type'     => $gallery['type'][ $index ],
+			'tmp_name' => $gallery['tmp_name'][ $index ],
+			'error'    => $gallery['error'][ $index ],
+			'size'     => $gallery['size'][ $index ],
+		];
+
+		$attachment_id = media_handle_upload( 'gallery_file', $post_id );
+
+		if ( is_wp_error( $attachment_id ) ) {
+			wp_send_json_error(
+				[
+					'field'   => 'gallery',
+					'message' => $attachment_id->get_error_message(),
+				],
+				500
+			);
+		}
+
+		$gallery_meta[] = [
+			'cf_image' => (int) $attachment_id,
+		];
+	}
+
+	unset( $_FILES['gallery_file'] );
+
+	if ( ! empty( $gallery_meta ) ) {
+		carbon_set_post_meta(
+			$post_id,
+			'cf_gallery',
+			$gallery_meta
+		);
+	}
+
+	return $gallery_meta;
+}
+
+function theme_save_post_categories( array $categories, int $post_id ): bool {
+
+	if ( empty( $categories ) ) {
+		return false;
+	}
+
+	$result = wp_set_post_terms( $post_id, $categories, 'category' );
+
+	if ( is_wp_error( $result ) ) {
+		wp_send_json_error(
+			[
+				'field'   => 'post_categories', // було 'categories'
+				'message' => $result->get_error_message(),
+			],
+			500
+		);
+	}
+
+	return true;
+}
+
+function theme_save_post_tags( array $tags, int $post_id ): bool {
+
+	if ( empty( $tags ) ) {
+		return false;
+	}
+
+	$result = wp_set_post_terms( $post_id, $tags, 'post_tag' );
+
+	if ( is_wp_error( $result ) ) {
+		wp_send_json_error(
+			[
+				'field'   => 'post_tags', // було 'tags'
+				'message' => $result->get_error_message(),
+			],
+			500
+		);
+	}
+
+	return true;
+}
+
 function theme_create_post_handler() {
 	// 1. Метод запиту.
 	if ( $_SERVER['REQUEST_METHOD'] !== 'POST' ) {
@@ -215,7 +332,8 @@ function theme_create_post_handler() {
 	theme_validate_post_data( $data );
 
 	$post_id = theme_insert_post_item( $data );
-	// theme_save_post_taxonomies();
+	theme_save_post_categories( $data['categories'], $post_id );
+	theme_save_post_tags( $data['tags'], $post_id );
 	theme_upload_post_media( $data, $post_id );
 
 	wp_send_json_success(

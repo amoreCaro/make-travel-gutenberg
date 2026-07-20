@@ -70,9 +70,7 @@ $user_avatar_small = get_avatar($current_user->ID, 32);
                     <span class="text-xl font-medium tracking-tight">
                         <?php echo esc_html($logo_text); ?>
                     </span>
-
                 <?php endif; ?>
-рнононо
             </a>
         <?php endif; ?>
 
