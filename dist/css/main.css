@@ -777,9 +777,6 @@ video {
 .inset-0{
   inset: 0px;
 }
-.inset-1\/2{
-  inset: 50%;
-}
 .inset-y-0{
   top: 0px;
   bottom: 0px;
@@ -1007,17 +1004,11 @@ video {
 .h-\[300px\]{
   height: 300px;
 }
-.h-\[321px\]{
-  height: 321px;
-}
 .h-\[32px\]{
   height: 32px;
 }
 .h-\[50px\]{
   height: 50px;
-}
-.h-\[642px\]{
-  height: 642px;
 }
 .h-\[80px\]{
   height: 80px;
@@ -2270,6 +2261,30 @@ video {
 .navigation.navigation--white a svg {
     color: rgba(0, 0, 0, 0.7);
 }
+.slider__prev.is-disabled,
+.slider__next.is-disabled {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+/* Video banner: slider nav visible only on section hover (desktop). */
+.preview-buttons-hover .video-banner__slider-nav {
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .preview-buttons-hover .video-banner__slider-nav {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .preview-buttons-hover:hover .video-banner__slider-nav,
+  .preview-buttons-hover:focus-within .video-banner__slider-nav {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+}
 .show {
   max-height: 500px;
   opacity: 1;
@@ -3068,9 +3083,6 @@ video {
   .lg\:order-2{
     order: 2;
   }
-  .lg\:col-span-2{
-    grid-column: span 2 / span 2;
-  }
   .lg\:col-span-3{
     grid-column: span 3 / span 3;
   }
@@ -3135,9 +3147,6 @@ video {
     --tw-translate-x: 75%;
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
   }
-  .lg\:grid-cols-2{
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
   .lg\:grid-cols-3{
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -3146,9 +3155,6 @@ video {
   }
   .lg\:grid-cols-6{
     grid-template-columns: repeat(6, minmax(0, 1fr));
-  }
-  .lg\:grid-rows-2{
-    grid-template-rows: repeat(2, minmax(0, 1fr));
   }
   .lg\:flex-row{
     flex-direction: row;
@@ -3185,10 +3191,6 @@ video {
   .lg\:px-\[120px\]{
     padding-left: 120px;
     padding-right: 120px;
-  }
-  .lg\:px-\[40px\]{
-    padding-left: 40px;
-    padding-right: 40px;
   }
   .lg\:py-\[100px\]{
     padding-top: 100px;
@@ -3251,9 +3253,6 @@ video {
   .xl\:px-\[40px\]{
     padding-left: 40px;
     padding-right: 40px;
-  }
-  .xl\:pl-0{
-    padding-left: 0px;
   }
   .xl\:pl-\[0px\]{
     padding-left: 0px;
