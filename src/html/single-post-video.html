@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/main.css">
+</head>
+<body class="bg-black m-0 p-0 font-[18px] leading-[36px] text-gray">
+    <div class="l-wrapper">
+        <!-- Header -->
+        <header class="header-default fixed top-0 left-0 z-[100] w-full bg-black px-5 xl:px-10 h-[80px] flex items-center text-white">
+            <div class="container flex items-center justify-between">
+                
+                <a class="text-xl font-semibold tracking-tight text-white transition-opacity no-underline flex-shrink-0" href="#logo">
+                    Travel Guider
+                </a>
+                <nav class="navigation hidden flex-1 justify-center lg:flex">
+                    <ul class="flex space-x-3">
+                        
+                        <li class="list-none">
+                            <a href="#" class="flex items-center gap-2 rounded-full border border-white/40 px-4 py-1.5 text-white hover:bg-white hover:text-black transition-all">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1-.553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"/><path d="M15 5.764v15"/><path d="M9 3.236v15"/>
+                                </svg>
+                                <span class="text-xs font-medium leading-[16px]">Where to Go</span>
+                            </a>
+                        </li>
+
+                        <li class="list-none">
+                            <a href="#" class="flex items-center gap-2 rounded-full border border-white/40 px-4 py-1.5 text-white hover:bg-white hover:text-black transition-all">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="m16 2 2 2-4 4 4 4-2 2-6-6-2 2-4-4-2 2-2-2 4-4 2-2 2 2 6 6Z"/><path d="m2 22 10-10"/><path d="m22 2-5 5"/>
+                                </svg>
+                                <span class="text-xs font-medium leading-[16px]">Where to Eat</span>
+                            </a>
+                        </li>
+
+                        <li class="list-none">
+                            <a href="#" class="flex items-center gap-2 rounded-full border border-white/40 px-4 py-1.5 text-white hover:bg-white hover:text-black transition-all">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/>
+                                </svg>
+                                <span class="text-xs font-medium leading-[16px]">Places to Stay</span>
+                            </a>
+                        </li>
+
+                        <li class="list-none">
+                            <a href="#" class="flex items-center gap-2 rounded-full border border-white/40 px-4 py-1.5 text-white hover:bg-white hover:text-black transition-all">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="8"/><path d="m12 10 2 4h-4l2-4Z"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>
+                                </svg>
+                                <span class="text-xs font-medium leading-[16px]">What to Do</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </nav>
+
+                <div class="flex items-center gap-4 md:gap-6 text-sm flex-shrink-0">
+                    <div class="hidden lg:flex items-center gap-6">
+                        <a href="#" class="transition-colors hover:text-blue-400">Login</a>
+                        <a href="#" class="transition-colors hover:text-blue-400">Contact</a>
+                    </div>
+                    
+                    <label for="theme-toggle" class="inline-flex items-center group relative cursor-pointer">
+                        <input type="checkbox" id="theme-toggle" class="sr-only peer">
+                        
+                        <div class="w-16 h-9 bg-slate-200 rounded-full transition-all duration-500 
+                                    peer-checked:bg-slate-800 group-hover:bg-slate-300">
+                        </div>
+                        
+                        <div class="absolute left-1 top-1 w-7 h-7 bg-white rounded-full shadow-md flex items-center justify-center transition-all duration-500 
+                                    peer-checked:translate-x-7 
+                                    peer-active:scale-95"> <svg class="w-4 h-4 text-amber-500 transition-all duration-500 
+                                        peer-checked:opacity-0 peer-checked:rotate-90 peer-checked:scale-0" 
+                                fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" />
+                            </svg>
+
+                            <svg class="absolute w-4 h-4 text-indigo-600 transition-all duration-500 
+                                        opacity-0 -rotate-90 scale-0 
+                                        peer-checked:opacity-100 peer-checked:rotate-0 peer-checked:scale-100" 
+                                fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+                            </svg>
+                        </div>
+                    </label>
+                    <button id="openBurgerBtn" class="w-[24px] h-[24px] lg:hidden hover:text-blue-400 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-full h-full">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </header>
+        <!-- Main  -->
+        <main class="main">
+            <!-- Single Post -->
+            <div class="single-post">
+                <div class="lg:pt-[120px] pt-[120px] lg:pb-[100px] pb-[50px]">
+                    <div class="container mx-auto relative 2xl:max-w-[1152px] xl:px-[0px] lg:px-[120px] px-[48px]">
+                        <nav class="breadcrumbs max-w-[800px] mx-auto pt-8 pb-8 hidden sm:block xl:pl-[0px]" aria-label="Breadcrumb">
+                            <ul class="flex flex-wrap items-center gap-x-4 gap-y-2 text-[12px] leading-[12px] tracking-[0.25em] uppercase font-bold text-[#999]" itemscope itemtype="http://schema.org/BreadcrumbList">
+                                <li class="flex items-center gap-x-4" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                                    <a class="hover:text-white transition-colors duration-300" href="/" itemprop="item">
+                                        <span itemprop="name">Home</span>
+                                    </a>
+                                    <svg class="w-2.5 h-2.5 text-white/60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M9 18l6-6-6-6" />
+                                    </svg>
+                                    <meta itemprop="position" content="1">
+                                </li>
+
+                                <li class="flex items-center gap-x-4">
+                                    <a href="#places-to-stay" class="hover:text-white transition-colors duration-300">
+                                        <span>Places to Stay</span>
+                                    </a>
+                                    <svg class="w-2.5 h-2.5 text-white/60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M9 18l6-6-6-6" />
+                                    </svg>
+                                </li>
+
+                                <li class="text-white/40 font-bold tracking-widest">
+                                    Vitalik Buterin Lays Out the Hidden Weaknesses
+                                </li>
+                                
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="container mx-auto relative 2xl:max-w-[1152px] xl:px-[0px] lg:px-[120px] px-[48px]">
+                        <!-- Content -->
+                        <div class="mx-auto max-w-[800px] flex flex-col gap-5 pb-[50px] lg:pb-[100px] xl:pl-[0px]">
+                                <a href="#" class="category-chip flex items-center gap-2 rounded-full border border-white px-4 py-1.5 text-white transition-all duration-300 hover:bg-white hover:text-black max-w-[200px] w-fit">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="14px" viewBox="0 -960 960 960" width="14px" fill="currentColor" class="shrink-0">
+                                    <path d="M160-120v-720h480l240 240v480H160Zm80-80h560v-400H560v-160H240v560Zm80-400h80v80h-80v-80Zm0 160h80v80h-80v-80Zm0 160h80v80h-80v-80Zm160-320h80v80h-80v-80Zm0 160h80v80h-80v-80Zm0 160h80v80h-80v-80Zm160 0h80v80h-80v-80Zm0-160h80v80h-80v-80Z"/>
+                                </svg>
+                                <span class="text-xs font-medium leading-[16px] truncate">
+                                    Places to Stay
+                                </span>
+                            </a>
+                            <h1 class="text-white text-[30px] leading-[38px] md:text-[44px] md:leading-[52px] lg:text-[56px] lg:leading-[64px]">
+                                Vitalik Buterin Lays Out the Hidden Weaknesses of Decentralized Stablecoins
+                            </h1>
+                            <p class="text-[#cecece] font-light text-[18px] leading-[36px] py-[18px]">
+                                Ethereum co-founder Vitalik Buterin warns that decentralized stablecoins still suffer from deep structural flaws. From reliance on the U.S. dollar to oracle security risks and staking incentives, he argues that the industry has yet to solve its most fundamental design challenges.
+                            </p>
+                            <div class="flex items-center gap-4">
+                                <!-- Post date -->
+                                <time 
+                                class="post__date text-white text-[16px] leading-[16px] font-normal" 
+                                datetime="2026-01-11">
+                                    January 11, 2026
+                                </time>
+                                <!-- Minutes to read an article -->
+                                <span class="post__read-time relative pl-4 text-white before:content-['•'] before:absolute before:left-0 before:text-white">
+                                    10 mins read
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Images -->
+                    <div class="w-full max-w-[1920px] mx-auto flex flex-col lg:flex-row px-[20px] xl:px-[40px] 2xl:px-0">
+
+                    <!-- LEFT / BIG IMAGE -->
+                    <div class="post__video video--stopped group relative lg:basis-1/2 h-[250px] md:h-[400px] lg:h-[642px] overflow-hidden">
+                        <video class="w-full h-full object-cover" loop muted playsinline preload="metadata">
+                            <source src="video/rocket-video.mp4" type="video/mp4">
+                        </video>
+
+                        <button class="post__video-play-button absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform cursor-pointer">
+                            <svg class="w-8 h-8 text-black ml-1" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.333-5.89a1.5 1.5 0 000-2.538L6.3 2.841z" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- RIGHT / GRID -->
+                    <div class="post__gallery w-full lg:basis-1/2 grid grid-cols-2">
+
+                        <div class="w-full min-h-[160px] lg:h-[321px]">
+                            <picture class="block w-full h-full">
+                                <img
+                                    src="./images/buterin_2.png"
+                                    data-src="./images/buterin_2.png"
+                                    alt=""
+                                    class="lazy-img block w-full h-full object-cover"
+                                    loading="lazy"
+                                    decoding="async"
+                                />
+                            </picture>
+                        </div>
+
+                        <div class="w-full min-h-[160px] lg:h-[321px]">
+                            <picture class="block w-full h-full">
+                                <img
+                                    src="./images/buterin_3.png"
+                                    data-src="./images/buterin_3.png"
+                                    alt=""
+                                    class="lazy-img block w-full h-full object-cover"
+                                    loading="lazy"
+                                    decoding="async"
+                                />
+                            </picture>
+                        </div>
+
+                        <div class="w-full min-h-[160px] lg:h-[321px]">
+                            <picture class="block w-full h-full">
+                                <img
+                                    src="./images/buterin_4.png"
+                                    data-src="./images/buterin_4.png"
+                                    alt=""
+                                    class="lazy-img block w-full h-full object-cover"
+                                    loading="lazy"
+                                    decoding="async"
+                                />
+                            </picture>
+                        </div>
+
+                        <div class="w-full min-h-[160px] lg:h-[321px]">
+                            <picture class="block w-full h-full">     
+                                <img
+                                    src="./images/buterin_5.png"
+                                    data-src="./images/buterin_4.png"
+                                    alt=""
+                                    class="lazy-img block w-full h-full object-cover"
+                                    loading="lazy"
+                                    decoding="async"
+                                />
+                            </picture>
+                        </div>
+
+                    </div>
+                    </div>
+                    <div class="post__article max-w-[800px] mx-auto py-[50px] lg:py-[100px] px-[20px] lg:px-[0px]">
+                        <!-- Article -->
+                        <article class="h-article mb-12">
+                            
+                            <h2>Vitalik Buterin: <span>The Future of Stablecoins</span></h2>
+
+                            <p>
+                                Ethereum co-founder <b>Vitalik Buterin</b> says the crypto industry still hasn’t solved the core design problems behind truly decentralized stablecoins. Despite years of development, he argues that many existing models rely on fragile assumptions.
+                            </p>
+
+                            <figure>
+                                <picture>
+                                    <img class="lazy-img" data-src="https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&q=80&w=800" src="https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&q=80&w=800" loading="lazy" alt="Blockchain Network Visualization">
+                                </picture>
+                                <figcaption>
+                                    figcaption
+                                </figcaption>
+                            </figure>
+
+                            <h3>The Unresolved <span>Challenges</span></h3>
+
+                            <p>
+                                In a recent post on X, Buterin outlined <b>three specific areas</b> where decentralized stablecoins are currently falling short of their long-term goals:
+                            </p>
+
+                            <ul>
+                                <li>Reliance on the U.S. Dollar peg and inflation risks</li>
+                                <li>Price oracle vulnerability to capital manipulation</li>
+                                <li>Inefficiency in staking yield mechanisms</li>
+                            </ul>
+
+                            <blockquote>
+                                <p>
+                                    "Systems built for long-term resilience should not remain tied to a single national currency."
+                                </p>
+                                <span>Source: <a href="https://x.com/vitalikbuterin">Vitalik Buterin's Post</a></span>
+                            </blockquote>
+
+                            <h3>Strategic Roadmap for Improvement</h3>
+
+                            <p>
+                                To solve these issues, Buterin suggests that developers and researchers should focus on the following <i>evolutionary steps</i> for protocol design:
+                            </p>
+
+                            <ol>
+                                <li>Tracking broader price indexes instead of fiat currencies</li>
+                                <li>Building technical security that outlasts economic deterrents</li>
+                                <li>Addressing slashing risks in staked ether collateral</li>
+                            </ol>
+
+                            <p>
+                                Overall, Buterin’s comments suggest that while decentralized stablecoins remain a key goal for crypto, their most fundamental challenges remain unresolved and may require <i>entirely new design approaches</i>.
+                            </p>
+
+                            <a href="https://ethereum.org">Explore Ethereum Research</a>
+
+                        </article>
+                        <div class="post__tags flex flex-wrap gap-2 max-w-[800px] mx-auto mb-12">
+                            <a href="" class="font-medium text-[12px] leading-[12px] uppercase p-2 text-[#9395ab]/80 border border-[#9395ab] transition-colors hover:text-blue-400 hover:border-blue-400">
+                                space innovations
+                            </a>
+
+                            <a href="" class="font-medium text-[12px] leading-[12px] uppercase p-2 text-[#9395ab]/80 border border-[#9395ab] transition-colors hover:text-blue-400 hover:border-blue-400">
+                                SPACE TECHNOLOGY
+                            </a>
+
+                            <a href="" class="font-medium text-[12px] leading-[12px] uppercase p-2 text-[#9395ab]/80 border border-[#9395ab] transition-colors hover:text-blue-400 hover:border-blue-400">
+                                UK SPACE INDUSTRY
+                            </a>
+                        </div>
+                        <div class="post__author flex flex-col md:flex-row justify-between md:items-center text-white">
+                            <div class="post__author-name flex gap-3 mb-8 md:mb-0">
+                                <div class="flex items-center gap-3">
+                                    <div class="post__author-name-img shrink-0">
+                                        <picture class="block w-full h-full">
+                                            <img 
+                                                src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23cccccc'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E" 
+                                                data-src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23cccccc'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E"
+                                                alt="Default user profile" 
+                                                width="48" 
+                                                height="48" 
+                                                loading="lazy" 
+                                                decoding="async"
+                                                class="lazy-img w-12 h-12 rounded-full object-cover bg-[#f5f5f5]"
+                                            >
+                                        </picture>
+                                    </div>
+                                </div>
+                                <div class="post__author-name-txt flex flex-col">
+                                    <span class="text-white text-[16px] leading-[26px] font-semibold">Author name</span>
+                                    <time class="text-[#c2c5c9] text-[13px] leading-[16px] font-bold" datetime="2026-01-11">January 11, 2026</time>
+                                </div>
+                            </div>
+                            <div class="post__author-share items-center flex gap-3">
+                                <span class="text-white text-[16px] leading-[26px] font-semibold">Share</span>
+                                <div class="flex gap-2 text-white items-center">
+                                    <a href="" class="flex items-center justify-center w-[32px] h-[32px]">
+                                        <svg width="20" height="20" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M16 8C16 3.6 12.4 0 8 0C3.6 0 0 3.6 0 8C0 12 2.9 15.3 6.7 15.9V10.3H4.7V8H6.7V6.2C6.7 4.2 7.9 3.1 9.7 3.1C10.6 3.1 11.5 3.3 11.5 3.3V5.3H10.5C9.5 5.3 9.2 5.9 9.2 6.5V8H11.4L11 10.3H9.1V16C13.1 15.4 16 12 16 8Z" fill="white"></path>
+                                        </svg>
+                                    </a>
+                                    
+                                    <a href="" class="flex items-center justify-center w-[32px] h-[32px]">
+                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M7.70409 10.9364L0.0486662 0H6L10.9677 7.09678L17 0H20L12.3224 9.03246L20 20H14.0487L9.05906 12.8717L3 20H0L7.70409 10.9364ZM4.35459 1.37629H3.62057L15.6937 18.6237H16.4278L4.35459 1.37629Z" fill="white"></path>
+                                        </svg>
+                                    </a>
+                                    
+                                    <a href="" class="flex items-center justify-center w-[32px] h-[32px]">
+                                        <svg width="20" height="20" viewBox="0.5 0.5 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M4.56602 18.0003H0.882679V6.40866H4.56602V18.0003ZM2.72435 4.78366C1.53268 4.78366 0.666016 3.91699 0.666016 2.72533C0.666016 1.53366 1.64102 0.666992 2.72435 0.666992C3.91602 0.666992 4.78269 1.53366 4.78269 2.72533C4.78269 3.91699 3.91602 4.78366 2.72435 4.78366ZM17.9993 18.0003H14.316V11.717C14.316 9.87533 13.5577 9.33366 12.4743 9.33366C11.391 9.33366 10.3077 10.2003 10.3077 11.8253V18.0003H6.62435V6.40866H10.091V8.03366C10.416 7.27533 11.716 6.08366 13.5577 6.08366C15.616 6.08366 17.7827 7.27533 17.7827 10.8503V18.0003H17.9993Z" fill="white"></path>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Related posts -->
+                    <section class="related-posts py-12 lg:py-[100px]">
+                        <div class="max-w-[1920px] mx-auto px-5 xl:px-[40px] 2xl:px-0">
+                            
+                            <h2 class="text-white text-3xl md:text-5xl font-medium mb-12">
+                                Related Posts
+                            </h2>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+
+                                <!-- CARD -->
+                                <div class="flex flex-col gap-4 group">
+                                    <a href="#" class="relative h-52 overflow-hidden cursor-pointer border border-white/10">
+                                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-700 z-10"></div>
+                                        <picture class="block w-full h-full">
+                                            <img
+                                                src="./images/elon.png"
+                                                data-src="./images/elon.png"
+                                                alt="Elon"
+                                                class="lazy-img w-full h-full object-cover transition-transform duration-[1000ms] ease-out group-hover:scale-105"
+                                                loading="lazy"
+                                                decoding="async"
+                                            >
+                                        </picture>
+                                    </a>
+
+                                    <div class="flex flex-col gap-2">
+                                        <a href="#" class="text-white font-semibold text-[16px] leading-snug transition-colors duration-300 group-hover:text-blue-400">
+                                            Elon Musk says X’s new algorithm will be made open source next week
+                                        </a>
+                                        <time class="text-sm text-[#C5C5C5]" datetime="2025-04-01">
+                                            April 1, 2025
+                                        </time>
+                                    </div>
+                                </div>
+
+                                <!-- CARD -->
+                                <div class="flex flex-col gap-4 group">
+                                    <a href="#" class="relative h-52 overflow-hidden cursor-pointer border border-white/10">
+                                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-700 z-10"></div>
+
+                                        <picture class="block w-full h-full">
+                                            <img
+                                                src="./images/blockchain.png"
+                                                data-src="./images/blockchain.png"
+                                                alt="Blockchain"
+                                                class="lazy-img w-full h-full object-cover transition-transform duration-[1000ms] ease-out group-hover:scale-105"
+                                                loading="lazy"
+                                                decoding="async"
+                                            >
+                                        </picture>
+                                    </a>
+
+                                    <div class="flex flex-col gap-2">
+                                        <a href="#" class="text-white font-semibold text-[16px] leading-snug transition-colors duration-300 group-hover:text-blue-400">
+                                            The Blockchain’s Blind Spot: What is the Oracle Problem?
+                                        </a>
+                                        <time class="text-sm text-[#C5C5C5]" datetime="2025-06-04">
+                                            June 4, 2025
+                                        </time>
+                                    </div>
+                                </div>
+
+                                <!-- CARD -->
+                                <div class="flex flex-col gap-4 group">
+                                    <a href="#" class="relative h-52 overflow-hidden cursor-pointer border border-white/10">
+                                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-700 z-10"></div>
+                                        <picture class="block w-full h-full">
+                                            <img
+                                                src="./images/world.png"
+                                                data-src="./images/world.png"
+                                                alt="World"
+                                                class="lazy-img w-full h-full object-cover transition-transform duration-[1000ms] ease-out group-hover:scale-105"
+                                                loading="lazy"
+                                                decoding="async"
+                                            >
+                                        </picture>
+                                    </a>
+
+                                    <div class="flex flex-col gap-2">
+                                        <a href="#" class="text-white font-semibold text-[16px] leading-snug transition-colors duration-300 group-hover:text-blue-400">
+                                            When regulation isn’t enough: Europe’s strategic vulnerability
+                                        </a>
+                                        <time class="text-sm text-[#C5C5C5]" datetime="2026-01-11">
+                                            January 11, 2026
+                                        </time>
+                                    </div>
+                                </div>
+
+                                <!-- CARD -->
+                                <div class="flex flex-col gap-4 group">
+                                    <a href="#" class="relative h-52 overflow-hidden cursor-pointer border border-white/10">
+                                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-700 z-10"></div>
+                                            <picture class="block w-full h-full">
+                                                <img
+                                                    src="./images/ai.png"
+                                                    data-src="./images/ai.png"
+                                                    alt="AI"
+                                                    class="lazy-img w-full h-full object-cover transition-transform duration-[1000ms] ease-out group-hover:scale-105"
+                                                    loading="lazy"
+                                                    decoding="async"
+                                                >
+                                            </picture>
+                                    </a>
+
+                                    <div class="flex flex-col gap-2">
+                                        <a href="#" class="text-white font-semibold text-[16px] leading-snug transition-colors duration-300 group-hover:text-blue-400">
+                                            AI’s dirty secret: fossil fuels, hidden debt and old-school capitalism
+                                        </a>
+                                        <time class="text-sm text-[#C5C5C5]" datetime="2025-05-12">
+                                            May 12, 2025
+                                        </time>
+                                    </div>
+                                </div>
+
+                                <!-- CARD -->
+                                <div class="flex flex-col gap-4 group">
+                                    <a href="#" class="relative h-52 overflow-hidden cursor-pointer border border-white/10">
+                                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-700 z-10"></div>
+                                        <picture class="block w-full h-full">
+                                            <img
+                                                src="./images/italy_coders.png"
+                                                data-src="./images/italy_coders.png"
+                                                alt="Coders"
+                                                class="lazy-img w-full h-full object-cover transition-transform duration-[1000ms] ease-out group-hover:scale-105"
+                                                loading="lazy"
+                                                decoding="async"
+                                            >
+                                        </picture>
+                                    </a>
+
+                                    <div class="flex flex-col gap-2">
+                                        <a href="#" class="text-white font-semibold text-[16px] leading-snug transition-colors duration-300 group-hover:text-blue-400">
+                                            50% of Italy’s Coders Crashed in 48 Hours After the ChatGPT Ban
+                                        </a>
+                                        <time class="text-sm text-[#C5C5C5]" datetime="2025-08-15">
+                                            August 15, 2025
+                                        </time>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </main>
+        <!-- Footer -->
+        <footer class="footer py-[100px] flex items-center justify-center border-t border-[rgb(26,26,26)]">
+            <div class="container mx-auto flex flex-col items-center gap-5 text-center">
+                <!-- Content -->
+                <p class="text-[14px] leading-[28px] text-[#bebebe] font-normal max-w-[912px]">
+                    By using the Site, the User hereby confirms that he/she has reached the age of 21. If you are not yet 21 years old, do not start or stop using the Site. The Site Administration is not responsible for the legality of the use of the Site and its services by a User who has not reached the age of 21
+                </p>
+                <!-- Navigation -->
+                <nav class="min-h-[46px] flex items-center">
+                    <ul class="flex justify-center">
+                        <li>
+                            <a
+                                href="#"
+                                class="text-[14px] leading-[20px] font-medium text-white px-5 py-3 transition-colors duration-300 hover:text-blue-400"
+                            >
+                                Privacy Policy
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="#"
+                                class="text-[14px] leading-[20px] font-medium text-white px-5 py-3 transition-colors duration-300 hover:text-blue-400"
+                            >
+                                Terms of use
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="#"
+                                class="text-[14px] leading-[20px] font-medium text-white px-5 py-3 transition-colors duration-300 hover:text-blue-400"
+                            >
+                                Marketing
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="#"
+                                class="text-[14px] leading-[20px] font-medium text-white px-5 py-3 transition-colors duration-300 hover:text-blue-400"
+                            >
+                                Impresum
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- Social Icons -->
+                <div class="flex items-center gap-4">
+                    <a href="#facebook" class="flex items-center justify-center w-[50px] h-[50px] text-white hover:text-blue-400 transition-colors duration-300" aria-label="Facebook">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/>
+                        </svg>
+                    </a>
+
+                    <a href="#instagram" class="flex items-center justify-center w-[50px] h-[50px] text-white hover:text-blue-400 transition-colors duration-300" aria-label="Instagram">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                        </svg>
+                    </a>
+
+                    <a href="#youtube" class="flex items-center justify-center w-[50px] h-[50px] text-white hover:text-blue-400 transition-colors duration-300" aria-label="YouTube">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+                        </svg>
+                    </a>
+                </div>
+                <!-- Copyright -->
+                <span class="text-[14px] leading-[28px] text-[#d5d5d5] font-normal">
+                    Copyrights © 2025 – Powered By
+                    <a href="#" class="underline">Spacebox Agency</a>. All Rights Reserved.
+                </span>
+            </div>
+        </footer>
+        <!-- Burger Menu -->
+        <div id="burgerMenu" class="fixed inset-0 z-[1000] flex items-center justify-center opacity-0 pointer-events-none -translate-x-full transition-all duration-300 ease-out">
+
+            <div id="burgerOverlay" class="absolute inset-0 bg-zinc-950/90 backdrop-blur-2xl"></div>
+
+            <button id="closeBurger" class="absolute top-4 right-4 sm:top-4 sm:right-5 z-50 p-2 sm:p-3 text-zinc-400 hover:text-white hover:bg-white/10 rounded-full transition">
+                <svg class="h-6 w-6 sm:h-8 sm:w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+
+            <div class="relative z-10 w-full h-full flex flex-col justify-between items-center px-4 sm:px-5 py-8">
+
+                <div class="flex flex-col items-center flex-1 justify-center w-full">
+                    <nav class="w-full max-w-md md:max-w-xl lg:max-w-2xl flex flex-col gap-6 sm:gap-8">
+                        
+                        <div class="relative w-full group">
+                            <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none text-zinc-400 group-focus-within:text-white transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                </svg>
+                            </div>
+                            <input 
+                                type="text" 
+                                placeholder="Search for adventures..." 
+                                class="w-full bg-white/5 border border-white/20 rounded-full py-4 pl-14 pr-6 text-white text-lg placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-white/30 focus:bg-white/10 transition-all duration-300"
+                            >
+                        </div>
+
+                        <ul class="flex flex-col gap-3 sm:gap-4 w-full">
+                            <li class="list-none">
+                                <a href="#where-to-go" class="group w-full flex items-center justify-between p-4 sm:p-5 rounded-full border border-white/20 text-white hover:bg-white hover:text-black transition-all duration-300">
+                                    <div class="flex items-center gap-3 sm:gap-4">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1-.553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"/><path d="M15 5.764v15"/><path d="M9 3.236v15"/>
+                                        </svg>
+                                        <span class="text-lg sm:text-xl font-medium">Where to Go</span>
+                                    </div>
+                                </a>
+                            </li>
+
+                            <li class="list-none">
+                                <a href="#what-to-eat" class="group w-full flex items-center justify-between p-4 sm:p-5 rounded-full border border-white/20 text-white hover:bg-white hover:text-black transition-all duration-300">
+                                    <div class="flex items-center gap-3 sm:gap-4">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="m16 2 2 2-4 4 4 4-2 2-6-6-2 2-4-4-2 2-2-2 4-4 2-2 2 2 6 6Z"/><path d="m2 22 10-10"/><path d="m22 2-5 5"/>
+                                        </svg>
+                                        <span class="text-lg sm:text-xl font-medium">Where to Eat</span>
+                                    </div>
+                                </a>
+                            </li>
+
+                            <li class="list-none">
+                                <a href="#places-to-stay" class="group w-full flex items-center justify-between p-4 sm:p-5 rounded-full border border-white/20 text-white hover:bg-white hover:text-black transition-all duration-300">
+                                    <div class="flex items-center gap-3 sm:gap-4">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/>
+                                        </svg>
+                                        <span class="text-lg sm:text-xl font-medium">Places to Stay</span>
+                                    </div>
+                                </a>
+                            </li>
+
+                            <li class="list-none">
+                                <a href="#" class="group w-full flex items-center justify-between p-4 sm:p-5 rounded-full border border-white/20 text-white hover:bg-white hover:text-black transition-all duration-300">
+                                    <div class="flex items-center gap-3 sm:gap-4">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <circle cx="12" cy="12" r="8"/><path d="m12 10 2 4h-4l2-4Z"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>
+                                        </svg>
+                                        <span class="text-lg sm:text-xl font-medium">What to Do</span>
+                                    </div>  
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <div class="w-full border-t border-white/10 my-8"></div>
+                
+                <div class="flex items-center gap-4">
+                    <a href="#facebook" class="flex items-center justify-center w-[50px] h-[50px] text-white hover:text-blue-400 transition-colors duration-300" aria-label="Facebook">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/>
+                        </svg>
+                    </a>
+                    <a href="#instagram" class="flex items-center justify-center w-[50px] h-[50px] text-white hover:text-pink-400 transition-colors duration-300" aria-label="Instagram">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                        </svg>
+                    </a>
+                    <a href="#youtube" class="flex items-center justify-center w-[50px] h-[50px] text-white hover:text-red-500 transition-colors duration-300" aria-label="YouTube">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- Модальне вікно у DOM, спочатку приховане -->
+        <div id="video-modal" 
+            class="group fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-sm px-4 
+                    opacity-0 pointer-events-none transition-all duration-300 
+                    [&.isOpen]:opacity-100 [&.isOpen]:pointer-events-auto">
+            
+            <div id="modal-container" 
+                class="relative w-full max-w-4xl transition-transform duration-300 ease-out 
+                        scale-95 group-[.isOpen]:scale-100">
+                
+                <button id="modal-close" class="absolute -top-10 right-0 md:-top-12 md:-right-0 text-white/70 hover:text-white transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+
+                <div class="overflow-hidden bg-black shadow-2xl">
+                    <video id="modal-video" class="w-full aspect-video block" controls>
+                        <source src="" type="video/mp4">
+                        Ваш браузер не підтримує відео.
+                    </video>
+                </div>
+            </div>
+        </div>        
+    </div>
+    <a href="./index.html" class="btn-back">
+        <span>&#8592;</span> 
+        Back 
+    </a>
+</body>
+
+<script src="./js/main.js"></script>
+</html>

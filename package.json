@@ -1,0 +1,21 @@
+{
+  "scripts": {
+    "build": "webpack",
+    "start": "webpack --watch"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.23",
+    "copy-webpack-plugin": "^13.0.1",
+    "css-loader": "^6",
+    "html-loader": "^5.1.0",
+    "html-webpack-plugin": "^5.6.5",
+    "mini-css-extract-plugin": "^2.9.4",
+    "postcss": "^8.5.6",
+    "postcss-loader": "^7",
+    "style-loader": "^3",
+    "tailwindcss": "^3.4.19",
+    "webpack": "^5",
+    "webpack-cli": "^5",
+    "webpack-remove-empty-scripts": "^1.1.1"
+  }
+}

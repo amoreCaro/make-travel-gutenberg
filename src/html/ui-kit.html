@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./css/main.css">
+  <title>Premium Design System</title>
+</head>
+
+<body class="bg-black m-0 p-0 font-[18px] leading-[36px] text-gray antialiased selection:bg-blue-500/30">
+  <div class="l-wpapper">
+    <main class="main">
+      <div class="ui-kit p-5 sm:p-8 lg:p-10 font-sans max-w-[1200px] mx-auto min-h-screen space-y-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="pb-5 sm:pb-8 border-b border-white/10">
+                <h1 class="text-[26px] leading-tight sm:text-5xl md:text-6xl font-bold tracking-tight bg-gradient-to-b from-white to-white/40 bg-clip-text text-transparent">
+                    UI - Elements & Components
+                </h1>
+                <p class="text-white/50 mt-2 text-sm sm:text-lg font-light max-w-xl">
+                    System documentation and visual style guide.
+                </p>
+            </div>
+        </div>
+        <!-- Colors Section -->
+        <section class="colors-section">
+          <!-- Header -->
+          <div class="flex items-center gap-4 mb-8 group">
+            <div
+              class="w-[3px] h-6 bg-blue-500 rounded-full shadow-[0_0_15px_rgba(59,130,246,0.5)]">
+            </div>
+            <h2 class="text-[20px] sm:text-[24px] font-semibold tracking-tight text-white">
+              Colors
+            </h2>
+          </div>
+
+          <!-- Card -->
+          <div
+            class="bg-[#0a0a0a] border border-white/10 rounded-[24px] p-6 sm:p-8 flex flex-col gap-8 divide-y divide-white/5">
+
+            <!-- Base Colors -->
+            <div class="flex flex-col gap-6 py-2">
+              <span
+                class="text-[11px] leading-[14px] uppercase tracking-[0.2em] opacity-40 font-medium">
+                Base Colors
+              </span>
+
+              <div class="flex flex-wrap gap-6">
+                <div
+                  class="group flex items-center gap-4 px-4 py-3 rounded-2xl transition-all duration-300 hover:bg-white/5 cursor-pointer min-w-[220px]">
+                  <div
+                    class="w-14 h-14 rounded-xl border border-white/20 shadow-inner transition-transform duration-500 group-hover:scale-105"
+                    style="background-color:#FFFFFF">
+                  </div>
+                  <div class="flex flex-col">
+                    <span
+                      class="text-[15px] leading-[20px] font-medium text-white">
+                      White
+                    </span>
+                    <code
+                      class="text-[11px] text-white/40 font-mono mt-1 leading-[16px]">
+                      #FFFFFF
+                    </code>
+                  </div>
+                </div>
+
+                <div
+                  class="group flex items-center gap-4 px-4 py-3 rounded-2xl transition-all duration-300 hover:bg-white/5 cursor-pointer min-w-[220px]">
+                  <div
+                    class="w-14 h-14 rounded-xl shadow-inner transition-transform duration-500 group-hover:scale-105"
+                    style="background-color:#FF5733">
+                  </div>
+                  <div class="flex flex-col">
+                    <span
+                      class="text-[15px] leading-[20px] font-medium text-white">
+                      Red Accent
+                    </span>
+                    <code
+                      class="text-[11px] text-white/40 font-mono mt-1 leading-[16px]">
+                      #FF5733
+                    </code>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Brand Colors -->
+            <div class="flex flex-col gap-6 pt-8 pb-2">
+              <span
+                class="text-[11px] leading-[14px] uppercase tracking-[0.2em] opacity-40 font-medium">
+                Brand Colors
+              </span>
+
+              <div class="flex flex-wrap gap-6">
+                <div
+                  class="group flex items-center gap-4 px-4 py-3 rounded-2xl transition-all duration-300 hover:bg-white/5 cursor-pointer min-w-[220px]">
+                  <div
+                    class="w-14 h-14 rounded-xl shadow-[0_0_20px_rgba(51,87,255,0.3)] transition-transform duration-500 group-hover:scale-105"
+                    style="background-color:#3357FF">
+                  </div>
+                  <div class="flex flex-col">
+                    <span
+                      class="text-[15px] leading-[20px] font-medium text-white">
+                      Electric Blue
+                    </span>
+                    <code
+                      class="text-[11px] text-white/40 font-mono mt-1 leading-[16px]">
+                      #3357FF
+                    </code>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+        <!-- Typography Section -->
+        <section class="typography-section mt-16">
+          <!-- Header -->
+          <div class="flex items-center gap-4 mb-8 group">
+            <div
+              class="w-[3px] h-6 bg-blue-500 rounded-full
+                    shadow-[0_0_15px_rgba(59,130,246,0.5)]">
+            </div>
+            <h2 class="text-[20px] sm:text-[24px] font-semibold tracking-tight text-white">
+              Typography
+            </h2>
+          </div>
+
+          <div
+            class="bg-[#0a0a0a] border border-white/10 rounded-[24px] p-6 sm:p-8 flex flex-col gap-10 divide-y divide-white/5">
+            <!-- Headings -->
+            <div class="flex flex-col gap-6 pt-2">
+              <span class="text-[11px] uppercase tracking-[0.2em] opacity-40 font-medium">
+                Headings
+              </span>
+
+              <div class="h-article flex flex-col gap-4">
+                <h1>Heading 1 <span>Blue Span</span></h1>
+                <h2>Heading 2 <span>Blue Span</span></h2>
+                <h3>Heading 3 <span>Blue Span</span></h3>
+              </div>
+            </div>
+
+            <!-- Paragraphs -->
+            <div class="flex flex-col gap-6 pt-8">
+              <span class="text-[11px] uppercase tracking-[0.2em] opacity-40 font-medium">
+                Paragraphs & Inline
+              </span>
+
+              <div class="h-article max-w-3xl">
+                <p>
+                  This is a standard paragraph with <b>bold</b>, <i>italic</i> and
+                  <a href="#">a link</a>.
+                </p>
+              </div>
+            </div>
+
+            <!-- Lists -->
+            <div class="flex flex-col gap-6 pt-8">
+              <span class="text-[11px] uppercase tracking-[0.2em] opacity-40 font-medium">
+                Lists
+              </span>
+
+              <div class="h-article grid grid-cols-1 md:grid-cols-2 gap-10">
+                <ul>
+                  <li>List item with a custom dash</li>
+                  <li>The dash is added using a pseudo-element</li>
+                </ul>
+
+                <ol>
+                  <li>First numbered item</li>
+                  <li>Text remains white</li>
+                </ol>
+              </div>
+            </div>
+
+            <!-- Blockquote -->
+            <div class="flex flex-col gap-6 pt-8 pb-4">
+              <span class="text-[11px] uppercase tracking-[0.2em] opacity-40 font-medium">
+                Blockquote
+              </span>
+
+              <div class="h-article max-w-2xl">
+                <blockquote>
+                  <p>
+                    This quote uses a left accent line to highlight important ideas.
+                  </p>
+                  <span>Source: <a href="#link-to-author ">Author</a></span>
+                </blockquote>
+            </div>
+          </div>
+        </section>
+
+        <!-- Related Posts Section -->
+        <section class="related-posts-section">
+          <div class="flex items-center gap-4 mb-8">
+            <div class="w-[3px] h-6 bg-blue-500 rounded-full shadow-[0_0_15px_rgba(59,130,246,0.5)]"></div>
+            <h2 class="text-[20px] sm:text-[24px] font-semibold tracking-tight text-white">Post Item</h2>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="flex flex-col gap-4 group">
+                <a href="#" class="h-52 overflow-hidden relative cursor-pointer border border-white/10">
+                    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-700 z-10"></div>
+                    <img src="./images/elon.png" data-src="./images/elon.png" alt="Elon" class="lazy-img w-full h-full object-cover transition-transform duration-[1000ms] ease-out group-hover:scale-105">
+                </a>
+                <div class="flex flex-col gap-2">
+                    <a href="#" class="text-white font-semibold text-[16px] leading-snug transition-colors duration-300 group-hover:text-blue-400 cursor-pointer">
+                        Elon Musk says X’s new algorithm will be made open source next week
+                    </a>
+                    <time class="text-sm text-[#C5C5C5] font-normal transition-opacity duration-300">April 1, 2025</time>
+                </div>
+            </div>
+          </div>
+        </section>
+        <footer class="py-20 text-center border-t border-white/5">
+          <p class="text-white/20 text-xs tracking-[0.4em] uppercase">Premium Component System</p>
+        </footer>
+      </div>
+    </main>
+  </div>
+    <a href="./index.html" class="btn-back">
+      <span>&#8592;</span> 
+      Back 
+  </a>
+</body>
+</html>
