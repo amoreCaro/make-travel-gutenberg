@@ -48,20 +48,24 @@
   pointer-events: none;
 }
 
-/* Video banner: slider nav visible only on section hover (desktop). */
-.preview-buttons-hover .video-banner__slider-nav {
+/* Bento / video-banner cards: slider nav visible only on card hover (desktop). */
+.preview-buttons-hover .slider__prev,
+.preview-buttons-hover .slider__next {
   transition: opacity 0.2s ease, visibility 0.2s ease;
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .preview-buttons-hover .video-banner__slider-nav {
+  .preview-buttons-hover .slider__prev,
+  .preview-buttons-hover .slider__next {
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
   }
 
-  .preview-buttons-hover:hover .video-banner__slider-nav,
-  .preview-buttons-hover:focus-within .video-banner__slider-nav {
+  .preview-buttons-hover:hover .slider__prev,
+  .preview-buttons-hover:hover .slider__next,
+  .preview-buttons-hover:focus-within .slider__prev,
+  .preview-buttons-hover:focus-within .slider__next {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
