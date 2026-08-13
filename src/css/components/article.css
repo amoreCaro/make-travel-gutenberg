@@ -67,6 +67,10 @@
         @apply block w-full transition-all duration-[1000ms] ease-out;
       }
 
+      a[data-fancybox] {
+        @apply block cursor-pointer;
+      }
+
       figcaption {
         @apply px-5 py-4 text-[13px] leading-[1.5]
                text-white/60 font-light;

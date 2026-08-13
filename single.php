@@ -250,6 +250,7 @@ get_header();
     <?php 
         // Video modal
         require PATH . "/components/video-modal/component.php";
+        render_fancybox();
         require PATH . "/components/burger-menu/component.php";
         require PATH . "/components/modal/component.php";
     ?>

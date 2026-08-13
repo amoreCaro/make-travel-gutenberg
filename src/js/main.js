@@ -5,8 +5,10 @@ import { tabs } from './components/tabs.js';
 import { themeToggle } from './components/themeHandler.js';
 import { video } from './components/video.js';
 import { lazyLoadImages } from './components/lazyImages.js';
+import { fancybox } from './components/fancybox.js';
 
 document.addEventListener('DOMContentLoaded', function() {
+  fancybox();
   lazyLoadImages();
   video();
   themeToggle();
