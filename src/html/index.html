@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/main.css">
+    <title>Sitemap - Pages List</title>
+</head>
+<body class="bg-black text-white antialiased m-0 p-0 font-[18px] leading-[36px] text-[#9395ABCC]">
+    <div class="l-wrapper">
+      <main class="main">
+        <div class="page-sitemap p-5 sm:p-8 lg:p-10 font-sans max-w-[1200px] mx-auto min-h-screen">
+            <div class="flex flex-row sm:items-end justify-between gap-4 pb-6 sm:pb-8 border-b border-white/10 mb-8 sm:mb-12 animate-in">
+                <div>
+                    <h1 class="text-[26px] leading-tight sm:text-5xl md:text-6xl font-bold tracking-tight bg-gradient-to-b from-white to-white/40 bg-clip-text text-transparent">
+                        Pages List
+                    </h1>
+                    <p class="text-[#C5C5C5] mt-2 text-base sm:text-lg font-light">
+                        Explore all available pages and documentation.
+                    </p>
+                </div>
+
+                <div class="flex items-center gap-2 pb-1">
+                    <p class="text-[12px] sm:text-[14px] font-medium opacity-70 whitespace-nowrap uppercase tracking-wider">
+                        Total Pages: <span class="total-pages-number font-bold text-blue-400">2</span>
+                    </p>
+                </div>
+            </div>
+            <div
+              class="bg-[#0a0a0a] border border-white/10 rounded-[20px] sm:rounded-[24px] overflow-hidden divide-y divide-white/5 animate-in"
+              style="animation-delay: 0.1s;">
+
+              <!-- Header -->
+              <div class="px-5 sm:px-8 pt-6 pb-4 bg-white/[0.02]">
+                <span
+                  class="text-[10px] sm:text-[11px] leading-[14px] uppercase tracking-[0.2em] text-[#C5C5C5] opacity-60 font-medium">
+                  Content Pages
+                </span>
+              </div>
+
+              <!-- Pages list -->
+              <ol class="pages-list flex flex-col [counter-reset:page]">
+                <!-- single page with image  -->
+                <li class="page-item group [counter-increment:page]">
+                  <a
+                    href="main.html"
+                    class="relative flex items-center justify-between px-5 sm:px-8 py-5 sm:py-6 transition-all duration-300 hover:bg-white/[0.03]">
+
+                    <div class="flex items-center gap-4 sm:gap-6">
+                      <span
+                        class="flex items-center justify-center w-8 h-8 text-[14px] font-mono font-bold text-blue-400/80 before:content-[counter(page,decimal-leading-zero)] transition-transform duration-500 group-hover:scale-110">
+                      </span>
+
+                      <div class="flex flex-col gap-[2px]">
+                        <span
+                          class="text-[16px] sm:text-[19px] leading-[1.4] font-medium tracking-tight text-white group-hover:text-blue-400 transition-colors duration-300">
+                          Main Page
+                        </span>
+                        <span
+                          class="text-[11px] leading-[1.2] text-[#C5C5C5] opacity-50 tracking-wide font-light">
+                          /main.html
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                      <span
+                        class="hidden sm:block text-[12px] font-medium text-blue-400 opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-300">
+                        View Page
+                      </span>
+                      <div
+                        class="p-2 rounded-full bg-white/5 group-hover:bg-blue-400/10 transition-colors">
+                        <svg
+                          class="w-4 h-4 opacity-40 group-hover:opacity-100 group-hover:text-blue-400 group-hover:translate-x-0.5 transition-all duration-300"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24">
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2.5"
+                            d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                        </svg>
+                      </div>
+                    </div>
+
+                  </a>
+                </li>
+                <li class="page-item group [counter-increment:page]">
+                  <a
+                    href="places.html"
+                    class="relative flex items-center justify-between px-5 sm:px-8 py-5 sm:py-6 transition-all duration-300 hover:bg-white/[0.03]">
+
+                    <div class="flex items-center gap-4 sm:gap-6">
+                      <span
+                        class="flex items-center justify-center w-8 h-8 text-[14px] font-mono font-bold text-blue-400/80 before:content-[counter(page,decimal-leading-zero)] transition-transform duration-500 group-hover:scale-110">
+                      </span>
+
+                      <div class="flex flex-col gap-[2px]">
+                        <span
+                          class="text-[16px] sm:text-[19px] leading-[1.4] font-medium tracking-tight text-white group-hover:text-blue-400 transition-colors duration-300">
+                          Places Page
+                        </span>
+                        <span
+                          class="text-[11px] leading-[1.2] text-[#C5C5C5] opacity-50 tracking-wide font-light">
+                          /places.html
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                      <span
+                        class="hidden sm:block text-[12px] font-medium text-blue-400 opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-300">
+                        View Page
+                      </span>
+                      <div
+                        class="p-2 rounded-full bg-white/5 group-hover:bg-blue-400/10 transition-colors">
+                        <svg
+                          class="w-4 h-4 opacity-40 group-hover:opacity-100 group-hover:text-blue-400 group-hover:translate-x-0.5 transition-all duration-300"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24">
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2.5"
+                            d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                        </svg>
+                      </div>
+                    </div>
+
+                  </a>
+                </li>
+
+                <!-- single page with image  -->
+                <li class="page-item group [counter-increment:page]">
+                  <a
+                    href="single-post.html"
+                    class="relative flex items-center justify-between px-5 sm:px-8 py-5 sm:py-6 transition-all duration-300 hover:bg-white/[0.03]">
+
+                    <div class="flex items-center gap-4 sm:gap-6">
+                      <span
+                        class="flex items-center justify-center w-8 h-8 text-[14px] font-mono font-bold text-blue-400/80 before:content-[counter(page,decimal-leading-zero)] transition-transform duration-500 group-hover:scale-110">
+                      </span>
+
+                      <div class="flex flex-col gap-[2px]">
+                        <span
+                          class="text-[16px] sm:text-[19px] leading-[1.4] font-medium tracking-tight text-white group-hover:text-blue-400 transition-colors duration-300">
+                          Single Post Page
+                        </span>
+                        <span
+                          class="text-[11px] leading-[1.2] text-[#C5C5C5] opacity-50 tracking-wide font-light">
+                          /single-post.html
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                      <span
+                        class="hidden sm:block text-[12px] font-medium text-blue-400 opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-300">
+                        View Page
+                      </span>
+                      <div
+                        class="p-2 rounded-full bg-white/5 group-hover:bg-blue-400/10 transition-colors">
+                        <svg
+                          class="w-4 h-4 opacity-40 group-hover:opacity-100 group-hover:text-blue-400 group-hover:translate-x-0.5 transition-all duration-300"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24">
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2.5"
+                            d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                        </svg>
+                      </div>
+                    </div>
+
+                  </a>
+                </li>
+                <!-- single page with video  -->
+                <li class="page-item group [counter-increment:page]">
+                  <a
+                    href="single-post-video.html"
+                    class="relative flex items-center justify-between px-5 sm:px-8 py-5 sm:py-6 transition-all duration-300 hover:bg-white/[0.03]">
+
+                    <div class="flex items-center gap-4 sm:gap-6">
+                      <span
+                        class="flex items-center justify-center w-8 h-8 text-[14px] font-mono font-bold text-blue-400/80 before:content-[counter(page,decimal-leading-zero)] transition-transform duration-500 group-hover:scale-110">
+                      </span>
+
+                      <div class="flex flex-col gap-[2px]">
+                        <span
+                          class="text-[16px] sm:text-[19px] leading-[1.4] font-medium tracking-tight text-white group-hover:text-blue-400 transition-colors duration-300">
+                          Single Post With Video Page
+                        </span>
+                        <span
+                          class="text-[11px] leading-[1.2] text-[#C5C5C5] opacity-50 tracking-wide font-light">
+                          /single-post-video.html
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                      <span
+                        class="hidden sm:block text-[12px] font-medium text-blue-400 opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-300">
+                        View Page
+                      </span>
+                      <div
+                        class="p-2 rounded-full bg-white/5 group-hover:bg-blue-400/10 transition-colors">
+                        <svg
+                          class="w-4 h-4 opacity-40 group-hover:opacity-100 group-hover:text-blue-400 group-hover:translate-x-0.5 transition-all duration-300"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24">
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2.5"
+                            d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                        </svg>
+                      </div>
+                    </div>
+
+                  </a>
+                </li>
+                <!-- category page  -->
+                <li class="page-item group [counter-increment:page]">
+                  <a
+                    href="category-page.html"
+                    class="relative flex items-center justify-between px-5 sm:px-8 py-5 sm:py-6 transition-all duration-300 hover:bg-white/[0.03]">
+
+                    <div class="flex items-center gap-4 sm:gap-6">
+                      <span
+                        class="flex items-center justify-center w-8 h-8 text-[14px] font-mono font-bold text-blue-400/80 before:content-[counter(page,decimal-leading-zero)] transition-transform duration-500 group-hover:scale-110">
+                      </span>
+
+                      <div class="flex flex-col gap-[2px]">
+                        <span
+                          class="text-[16px] sm:text-[19px] leading-[1.4] font-medium tracking-tight text-white group-hover:text-blue-400 transition-colors duration-300">
+                          Category Page
+                        </span>
+                        <span
+                          class="text-[11px] leading-[1.2] text-[#C5C5C5] opacity-50 tracking-wide font-light">
+                          /category-page.html
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                      <span
+                        class="hidden sm:block text-[12px] font-medium text-blue-400 opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-300">
+                        View Page
+                      </span>
+                      <div
+                        class="p-2 rounded-full bg-white/5 group-hover:bg-blue-400/10 transition-colors">
+                        <svg
+                          class="w-4 h-4 opacity-40 group-hover:opacity-100 group-hover:text-blue-400 group-hover:translate-x-0.5 transition-all duration-300"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24">
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2.5"
+                            d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                        </svg>
+                      </div>
+                    </div>
+
+                  </a>
+                </li>
+                <!-- category page  -->
+                <li class="page-item group [counter-increment:page]">
+                  <a
+                    href="category-page-reverse.html"
+                    class="relative flex items-center justify-between px-5 sm:px-8 py-5 sm:py-6 transition-all duration-300 hover:bg-white/[0.03]">
+
+                    <div class="flex items-center gap-4 sm:gap-6">
+                      <span
+                        class="flex items-center justify-center w-8 h-8 text-[14px] font-mono font-bold text-blue-400/80 before:content-[counter(page,decimal-leading-zero)] transition-transform duration-500 group-hover:scale-110">
+                      </span>
+
+                      <div class="flex flex-col gap-[2px]">
+                        <span
+                          class="text-[16px] sm:text-[19px] leading-[1.4] font-medium tracking-tight text-white group-hover:text-blue-400 transition-colors duration-300">
+                          Category Page Reverse
+                        </span>
+                        <span
+                          class="text-[11px] leading-[1.2] text-[#C5C5C5] opacity-50 tracking-wide font-light">
+                          /category-page-reverse.html
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                      <span
+                        class="hidden sm:block text-[12px] font-medium text-blue-400 opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-300">
+                        View Page
+                      </span>
+                      <div
+                        class="p-2 rounded-full bg-white/5 group-hover:bg-blue-400/10 transition-colors">
+                        <svg
+                          class="w-4 h-4 opacity-40 group-hover:opacity-100 group-hover:text-blue-400 group-hover:translate-x-0.5 transition-all duration-300"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24">
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2.5"
+                            d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                        </svg>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <!-- UI KIT page -->
+                <li class="page-item group [counter-increment:page]">
+                  <a
+                    href="ui-kit.html"
+                    class="relative flex items-center justify-between px-5 sm:px-8 py-5 sm:py-6 transition-all duration-300 hover:bg-white/[0.03]">
+
+                    <div class="flex items-center gap-4 sm:gap-6">
+                      <span
+                        class="flex items-center justify-center w-8 h-8 text-[14px] font-mono font-bold text-blue-400/80 before:content-[counter(page,decimal-leading-zero)] transition-transform duration-500 group-hover:scale-110">
+                      </span>
+
+                      <div class="flex flex-col gap-[2px]">
+                        <span
+                          class="text-[16px] sm:text-[19px] leading-[1.4] font-medium tracking-tight text-white group-hover:text-blue-400 transition-colors duration-300">
+                          UI Kit Components
+                        </span>
+                        <span
+                          class="text-[11px] leading-[1.2] text-[#C5C5C5] opacity-50 tracking-wide font-light">
+                          /ui-kit.html
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                      <span
+                        class="hidden sm:block text-[12px] font-medium text-blue-400 opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-300">
+                        View Page
+                      </span>
+                      <div
+                        class="p-2 rounded-full bg-white/5 group-hover:bg-blue-400/10 transition-colors">
+                        <svg
+                          class="w-4 h-4 opacity-40 group-hover:opacity-100 group-hover:text-blue-400 group-hover:translate-x-0.5 transition-all duration-300"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24">
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2.5"
+                            d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                        </svg>
+                      </div>
+                    </div>
+
+                  </a>
+                </li>
+              </ol>
+            </div>
+        </div>
+      </main>
+    </div>
+</body>
+</html>

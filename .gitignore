@@ -1,0 +1,38 @@
+# WordPress core
+wp-admin/
+wp-includes/
+
+# Ignore wp-content except themes and plugins
+wp-content/cache/
+wp-content/backups/
+wp-content/upgrade/
+wp-content/uploads/
+
+# Ignore debug files
+*.log
+*.sql
+*.zi
+*.tar.gz
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.idea/
+.vscode/
+
+# Composer and Node modules
+vendor/
+assets/node_modules/
+assets/dist
+git-helper.html
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+assets/node_modules/
+node_modules
+**/node_modules/

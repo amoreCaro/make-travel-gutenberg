@@ -14,7 +14,6 @@
 $logo_type   = carbon_get_theme_option('header_logo_type');
 $logo_text   = carbon_get_theme_option('header_logo_text');
 $logo_img_id = carbon_get_theme_option('header_logo_image');
-
 /**
  * MENU (Carbon Fields version)
  */
@@ -71,9 +70,7 @@ $user_avatar_small = get_avatar($current_user->ID, 32);
                     <span class="text-xl font-medium tracking-tight">
                         <?php echo esc_html($logo_text); ?>
                     </span>
-
                 <?php endif; ?>
-
             </a>
         <?php endif; ?>
 
@@ -265,11 +262,12 @@ $user_avatar_small = get_avatar($current_user->ID, 32);
                         </svg>
                         <span><?php _e('Dark theme', THEME); ?></span>
                     </div>
-                    <label for="theme-toggle" class="inline-flex relative items-center cursor-pointer select-none">
-                        <input type="checkbox" id="theme-toggle" class="sr-only peer" checked>
-                        <div class="w-9 h-5 bg-neutral-200 dark:bg-neutral-800 rounded-full transition-colors peer-checked:bg-sky-500"></div>
-                        <div class="absolute left-0.5 top-0.5 w-5 h-5 bg-white rounded-full shadow-sm transition-transform peer-checked:translate-x-4"></div>
-                    </label> 
+<label for="theme-toggle" class="inline-flex relative items-center cursor-pointer select-none">
+    <input type="checkbox" id="theme-toggle" class="sr-only peer" checked>
+    
+    <div class="w-11 h-6 rounded-full transition-all duration-200 border bg-neutral-200 border-transparent peer-checked:bg-neutral-900 dark:bg-neutral-900 dark:border-neutral-700 dark:peer-checked:bg-neutral-800 after:content-[''] after:absolute after:top-[2px] after:left-[2px]  after:w-5 after:h-5 after:rounded-full after:transition-all after:shadow-sm after:bg-white dark:after:bg-neutral-400 dark:peer-checked:after:bg-white peer-checked:after:translate-x-[20px]">
+    </div>
+</label>
                 </div>
 
                 <a href="/help-support" class="flex items-center gap-3 py-2 px-2.5 rounded-xl text-[14px] font-medium transition-colors duration-150 group
@@ -297,28 +295,19 @@ $user_avatar_small = get_avatar($current_user->ID, 32);
     <input type="checkbox" id="theme-toggle" class="sr-only peer" checked>
     
     <div class="w-11 h-6 rounded-full transition-all duration-200 border
-        /* Світла тема (Неактивний / Активний) */
         bg-neutral-200 border-transparent peer-checked:bg-neutral-900
-        /* Темна тема (Dark Mode) */
+
         dark:bg-neutral-900 dark:border-neutral-700 dark:peer-checked:bg-neutral-800
         
-        /* Внутрішня кулька */
         after:content-[''] after:absolute after:top-[2px] after:left-[2px] 
         after:w-5 after:h-5 after:rounded-full after:transition-all after:shadow-sm
-        /* Колір кульки: білий у світлій, сіро-сталевий у темній */
         after:bg-white dark:after:bg-neutral-400 dark:peer-checked:after:bg-white
         
         /* Зміщення кульки при кліку */
         peer-checked:after:translate-x-[20px]">
     </div>
 </label>
-<button class="openLoginBtn flex items-center justify-center rounded-full font-medium border transition-all duration-200
-    /* Розміри: менша на мобільних, стандартна на десктопі */
-    py-1.5 px-4 text-[13px] sm:py-2 sm:px-6 sm:text-[14px]
-    /* Світла тема */
-    bg-transparent border-black text-black hover:bg-black hover:text-white
-    /* Темна тема (Dark Mode) */
-    dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-black">
+<button class="openLoginBtn flex items-center justify-center rounded-full font-medium border transition-all duration-200 py-1.5 px-4 text-[13px] sm:py-2 sm:px-6 sm:text-[14px] bg-transparent border-black text-black hover:bg-black hover:text-white dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-black">
     
     <span><?php echo esc_html( $login_text ); ?></span>
 </button>

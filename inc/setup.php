@@ -23,7 +23,7 @@ add_action('carbon_fields_register_fields', function () {
                     'image' => 'Image Logo',
                     'text'  => 'Text Logo',
                 ])
-                ->set_default_value('image'),
+                ->set_default_value('text'),
 
             Field::make('image', 'header_logo_image', 'Logo Image')
                 ->set_conditional_logic([
@@ -32,7 +32,8 @@ add_action('carbon_fields_register_fields', function () {
                         'value' => 'image',
                         'compare' => '=',
                     ]
-                ]),
+                ])
+                ->set_required(true),
 
             Field::make('text', 'header_logo_text', 'Logo Text')
                 ->set_conditional_logic([
@@ -41,7 +42,8 @@ add_action('carbon_fields_register_fields', function () {
                         'value' => 'text',
                         'compare' => '=',
                     ]
-                ]),
+                ])
+                ->set_required(true),
 
             Field::make('complex', 'header_pages', 'Pages')
                 ->add_fields([
@@ -77,7 +79,8 @@ add_action('carbon_fields_register_fields', function () {
                         'value' => 'image',
                         'compare' => '=',
                     ]
-                ]),
+                ])
+                ->set_required(true),
 
             Field::make('text', 'logo_text', 'Logo Text')
             ->set_default_value('Make Travel')
@@ -87,12 +90,13 @@ add_action('carbon_fields_register_fields', function () {
                         'value' => 'text',
                         'compare' => '=',
                     ]
-                ]),
+                ])
+                ->set_required(true),
 
             Field::make('textarea', 'footer_disclaimer', 'Disclaimer')
                 ->set_default_value('A premium tech publication dedicated to delivering fresh tech perspectives, startup ecosystem deep-dives, and honest gadget reviews to a global audience of forward-thinkers.'),
 
-            Field::make('text', 'footer_categories_title', __('Categories title'))
+            Field::make('text', 'categories_title', __('Categories title'))
                 ->set_default_value('Categories'),
             Field::make('association', 'footer_categories', __('Categories'))
                 ->set_types([
@@ -100,9 +104,9 @@ add_action('carbon_fields_register_fields', function () {
                         'type'     => 'term',
                         'taxonomy' => 'category',
                     ],
-                ]),
+                ])->set_required(true),
 
-            Field::make('text', 'footer_contact_title', __('Contact title'))
+            Field::make('text', 'contact_title', __('Contact title'))
                 ->set_default_value('Contact'),
             Field::make('complex', 'footer_contacts', __('Contact Items'))
                 ->setup_labels([
@@ -110,54 +114,49 @@ add_action('carbon_fields_register_fields', function () {
                     'singular_name' => __('Item'),
                 ])
                 ->add_fields([
-                    Field::make('text', 'label', __('Label (e.g., Call)'))
-                        ->set_width(33),
-
                     Field::make('text', 'contact_value', __('Value (e.g., +489756412322)'))
-                        ->set_width(33),
-
+                        ->set_required(true),
                     Field::make('text', 'url', __('URL'))
-                        ->set_default_value('#')
-                        ->set_width(34),
+                        ->set_default_value('#'),
                 ])
                 ->set_layout('grid'),
 
 
-Field::make('separator', 'footer_copyright_separator', __('Copyright')),
+            Field::make('separator', 'footer_copyright_separator', __('Copyright')),
 
-Field::make('text', 'footer_company_name', __('Company Name'))
-    ->set_default_value('Make Travel')
-    ->set_help_text(__('Displayed after the © symbol.')),
+            Field::make('text', 'footer_company_name', __('Company Name'))
+                ->set_default_value('Make Travel')
+                ->set_help_text(__('Displayed after the © symbol.')),
 
-Field::make('text', 'footer_rights_text', __('Rights Text'))
-    ->set_default_value('All rights reserved')
-    ->set_help_text(__('Displayed after the company name and year.')),
+            Field::make('text', 'footer_rights_text', __('Rights Text'))
+                ->set_default_value('All rights reserved')
+                ->set_help_text(__('Displayed after the company name and year.')),
 
-Field::make('text', 'footer_powered_by_text', __('Powered By Text'))
-    ->set_default_value('Powered by WordPress')
-    ->set_help_text(__('Displayed after the "|" separator.')),
-        ])
+            Field::make('text', 'footer_powered_by_text', __('Powered By Text'))
+                ->set_default_value('Powered by WordPress')
+                ->set_help_text(__('Displayed after the "|" separator.')),
+                    ])
 
-        ->add_tab(__('Social icons'), [
-            Field::make('complex', 'social_icons', __('Social Icons'))
-                ->set_layout('tabbed-horizontal')
-                ->add_fields([
-                    Field::make('image', 'icon')
-                        ->set_required(true),
+                    ->add_tab(__('Social icons'), [
+                        Field::make('complex', 'social_icons', __('Social Icons'))
+                            ->set_layout('tabbed-horizontal')
+                            ->add_fields([
+                                Field::make('image', 'icon')
+                                    ->set_required(true),
 
-                        Field::make('text', 'link', __('Link')),
+                                    Field::make('text', 'link', __('Link')),
 
-                        Field::make('color', 'color_dark', __('Color for dark theme'))
-                            ->set_default_value('#FFFFFF'),
+                                    Field::make('color', 'color_dark', __('Color for dark theme'))
+                                        ->set_default_value('#FFFFFF'),
 
-                        Field::make('color', 'color_light', __('Color for light theme'))
-                            ->set_default_value('#000000'),
+                                    Field::make('color', 'color_light', __('Color for light theme'))
+                                        ->set_default_value('#000000'),
 
-                        Field::make('color', 'hover_color', __('Hover color'))
-                            ->set_default_value('#3277DF'),
-                    ]),
-            ]); 
-});
+                                    Field::make('color', 'hover_color', __('Hover color'))
+                                        ->set_default_value('#3277DF'),
+                                ]),
+                        ]); 
+            });
 
 add_filter(
     'carbon_fields_should_save_field_value',

@@ -61,7 +61,7 @@ get_header();
             <?php require PATH . "/components/account-sidebar/component.php"; ?>
 
             <!-- Form -->
-            <div class="bg-white dark:bg-black border border-gray-100 rounded-3xl p-10 shadow-sm  w-full">
+            <div class="bg-white dark:bg-zinc-900/40 border border-gray-100 dark:border-zinc-800/80 rounded-3xl p-10 shadow-sm w-full">
 
                 <form method="post">
                     <?php wp_nonce_field('update_user_profile', 'update_profile_nonce'); ?>
@@ -70,26 +70,26 @@ get_header();
 
                         <!-- PROFILE -->
                         <div class="mb-10">
-                            <h2 class="text-[13px] font-bold tracking-wider uppercase text-gray-900 dark:text-white border-b border-gray-100 dark:border-gray-700 pb-4 mb-8">
+                            <h2 class="text-[13px] font-bold tracking-wider uppercase text-gray-900 dark:text-zinc-400 border-b border-gray-100 dark:border-zinc-800/80 pb-4 mb-8">
                                 Profile Basics
                             </h2>
 
                             <div class="flex items-center gap-4 mb-8">
-                                <div class="w-24 h-24 rounded-full bg-[#0F172A] dark:bg-gray-700 flex items-center justify-center text-white font-semibold text-3xl shadow-sm">
+                                <div class="w-24 h-24 rounded-full bg-[#0F172A] dark:bg-zinc-800 flex items-center justify-center text-white font-semibold text-3xl shadow-sm">
                                     <?php echo strtoupper(substr(esc_html($user_nicename), 0, 1)); ?>
                                 </div>
 
                                 <div class="flex gap-3">
                                     <button
                                         type="button"
-                                        class="px-5 py-2.5 border border-gray-200 dark:border-gray-700 rounded-full text-xs font-bold text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-800 hover:border-gray-300 dark:hover:border-gray-600 transition"
+                                        class="px-5 py-2.5 border border-gray-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 rounded-full text-xs font-bold text-gray-900 dark:text-zinc-200 hover:bg-gray-50 dark:hover:bg-zinc-700 hover:border-gray-300 dark:hover:border-zinc-600 transition"
                                     >
                                         Upload new picture
                                     </button>
 
                                     <button
                                         type="button"
-                                        class="px-5 py-2.5 bg-gray-50 dark:bg-gray-800 rounded-full text-xs font-bold text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+                                        class="px-5 py-2.5 bg-gray-50 dark:bg-zinc-800 rounded-full text-xs font-bold text-gray-900 dark:text-zinc-200 hover:bg-gray-100 dark:hover:bg-zinc-700 transition"
                                     >
                                         Delete
                                     </button>
@@ -100,7 +100,7 @@ get_header();
 
                                 <!-- Name -->
                                 <div>
-                                    <label class="block text-sm font-bold text-gray-900 dark:text-gray-100 mb-2">
+                                    <label class="block text-sm font-bold dark:text-white text-gray-900 mb-2">
                                         Name <span class="text-red-500">*</span>
                                     </label>
 
@@ -108,14 +108,14 @@ get_header();
                                         type="text"
                                         name="nickname"
                                         value="<?php echo esc_attr($current_user->user_nicename); ?>"
-                                        class="w-full px-4 py-3 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 rounded-xl text-sm focus:outline-none focus:ring-1 focus:ring-gray-400 dark:focus:ring-gray-600"
+                                        class="w-full px-4 py-3 border border-gray-200 dark:border-zinc-800 bg-white dark:bg-[#0E0E10] text-gray-900 dark:text-zinc-100 placeholder:text-gray-400 dark:placeholder:text-zinc-500 rounded-xl text-sm focus:outline-none focus:ring-1 focus:ring-zinc-500 dark:focus:ring-zinc-700"
                                         required
                                     >
                                 </div>
 
                                 <!-- Location -->
                                 <div>
-                                    <label class="block text-sm font-bold text-gray-900 dark:text-gray-100 mb-2">
+                                    <label class="block text-sm font-bold text-gray-900 dark:text-zinc-200 mb-2">
                                         Location
                                     </label>
 
@@ -123,18 +123,18 @@ get_header();
                                         type="text"
                                         name="location"
                                         value="Lviv, Ukraine"
-                                        class="w-full px-4 py-3 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 rounded-xl text-sm focus:outline-none focus:ring-1 focus:ring-gray-400 dark:focus:ring-gray-600"
+                                        class="w-full px-4 py-3 border border-gray-200 dark:border-zinc-800 bg-white dark:bg-[#0E0E10] text-gray-900 dark:text-zinc-100 placeholder:text-gray-400 dark:placeholder:text-zinc-500 rounded-xl text-sm focus:outline-none focus:ring-1 focus:ring-zinc-500 dark:focus:ring-zinc-700"
                                     >
                                 </div>
 
                                 <!-- Bio -->
                                 <div>
                                     <div class="flex justify-between items-center mb-2">
-                                        <label class="text-sm font-bold text-gray-900 dark:text-gray-100">
+                                        <label class="text-sm font-bold text-gray-900 dark:text-zinc-200">
                                             Bio
                                         </label>
 
-                                        <span class="text-[11px] text-gray-400 dark:text-gray-500">
+                                        <span class="text-[11px] text-gray-400 dark:text-zinc-500">
                                             0/1024
                                         </span>
                                     </div>
@@ -143,7 +143,7 @@ get_header();
                                         name="bio"
                                         rows="5"
                                         placeholder="Tell your travel story..."
-                                        class="w-full px-4 py-3 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 rounded-xl text-sm focus:outline-none focus:ring-1 focus:ring-gray-400 dark:focus:ring-gray-600 resize-y"
+                                        class="w-full px-4 py-3 border border-gray-200 dark:border-zinc-800 bg-white dark:bg-[#0E0E10] text-gray-900 dark:text-zinc-100 placeholder:text-gray-400 dark:placeholder:text-zinc-500 rounded-xl text-sm focus:outline-none focus:ring-1 focus:ring-zinc-500 dark:focus:ring-zinc-700 resize-y"
                                     ></textarea>
                                 </div>
 
@@ -158,7 +158,7 @@ get_header();
                     <div class="flex justify-end pt-4">
                         <button
                             type="submit"
-                            class="px-6 py-3 hover:bg-[#2D2E3A] text-white text-sm font-bold rounded-full bg-black transition-colors shadow-sm"
+                            class="px-6 py-3 bg-black dark:bg-white text-white dark:text-black hover:bg-[#2D2E3A] dark:hover:bg-zinc-200 text-sm font-bold rounded-full transition-colors shadow-sm"
                         >
                             Change
                         </button>

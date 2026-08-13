@@ -7,12 +7,12 @@ $logo_type   = carbon_get_theme_option('footer_logo_type');
 $logo_text   = carbon_get_theme_option('logo_text');
 $logo_img_id = carbon_get_theme_option('footer_logo_image');
 
-$disclaimer = wp_kses_post(carbon_get_theme_option('footer_disclaimer'));
+$disclaimer = wp_kses_post(carbon_get_theme_option('footer_disclaimer')) ?: "A premium tech publication dedicated to delivering fresh tech perspectives, startup ecosystem deep-dives, and honest gadget reviews to a global audience of forward-thinkers.";
 
-$categories_title = carbon_get_theme_option("footer_categories_title");
+$categories_title = carbon_get_theme_option("categories_title");
 $categories = carbon_get_theme_option('footer_categories');
 
-$contact_title       = carbon_get_theme_option('footer_contact_title');
+$contact_title = carbon_get_theme_option('contact_title');
 $footer_contacts = carbon_get_theme_option('footer_contacts');
 
 $social_icons = carbon_get_theme_option('social_icons');

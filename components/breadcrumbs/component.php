@@ -38,7 +38,7 @@ $is_profile_subpage     = $is_likes_page || $is_reading_list_page;
         <?php elseif ($is_author_page) : ?>
 
             <!-- Home -->
-            <li class="flex items-center gap-x-4"
+            <li class="flex items-center gap-x-3"
                 itemprop="itemListElement"
                 itemscope
                 itemtype="https://schema.org/ListItem">
@@ -73,7 +73,7 @@ $is_profile_subpage     = $is_likes_page || $is_reading_list_page;
         <?php elseif ($is_profile_subpage) : ?>
 
             <!-- Home -->
-            <li class="flex items-center gap-x-4"
+            <li class="flex items-center gap-x-3"
                 itemprop="itemListElement"
                 itemscope
                 itemtype="https://schema.org/ListItem">
@@ -108,7 +108,7 @@ $is_profile_subpage     = $is_likes_page || $is_reading_list_page;
         <?php else : ?>
 
             <!-- Home -->
-            <li class="flex items-center gap-x-4"
+            <li class="flex items-center gap-x-3"
                 itemprop="itemListElement"
                 itemscope
                 itemtype="https://schema.org/ListItem">
@@ -128,7 +128,7 @@ $is_profile_subpage     = $is_likes_page || $is_reading_list_page;
             </li>
 
             <!-- Category -->
-            <li class="flex items-center gap-x-4"
+            <li class="flex items-center gap-x-3"
                 itemprop="itemListElement"
                 itemscope
                 itemtype="https://schema.org/ListItem">
@@ -150,7 +150,8 @@ $is_profile_subpage     = $is_likes_page || $is_reading_list_page;
             </li>
 
             <!-- Current post -->
-            <li class="text-[#9CA3AF] dark:text-white/40"
+            <li style="display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;" 
+                class="text-[#9CA3AF] dark:text-white/40 max-w-[520px] w-full "
                 itemprop="itemListElement"
                 itemscope
                 itemtype="https://schema.org/ListItem">
