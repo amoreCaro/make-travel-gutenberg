@@ -1,0 +1,6 @@
+/* Fancybox — extras for #fancybox markup (Tailwind covers layout) */
+
+.fancybox.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}

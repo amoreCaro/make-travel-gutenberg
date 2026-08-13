@@ -27,6 +27,7 @@ require PATH . '/inc/enqueues.php';
 require PATH . '/inc/setup.php';
 require PATH . '/inc/carbon-fields.php';
 require PATH . '/inc/helpers.php';
+require PATH . '/components/fancybox/component.php';
 require PATH . '/inc/ajax/auth.php';
 require PATH . '/inc/ajax/reactions.php';
 require PATH . '/inc/ajax/posts.php';
