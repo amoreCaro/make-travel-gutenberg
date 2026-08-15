@@ -24,6 +24,14 @@ Block::make('Hero')
     ->add_tab('Center content', [
         Field::make('text', 'title', 'Section Title'),
         Field::make('text', 'placeholder', 'Search placeholder'),
+Field::make('association', 'selected_cities', 'Select Cities')
+    ->set_types([
+        [
+            'type'     => 'term',
+            'taxonomy' => 'locations',
+        ]
+    ])
+
     ])
 
     ->add_tab('Right content', [
@@ -47,7 +55,7 @@ Block::make('Hero')
 
         $title              = $fields['title'] ?? '';
         $search_placeholder = $fields['placeholder'] ?? '';
-
+        $locations = $fields['selected_cities'] ?? [];
 ?>
 
 <section class="hero relative min-h-[700px] flex items-center justify-center overflow-hidden bg-white dark:bg-[#0F0F11]">
@@ -133,8 +141,13 @@ Block::make('Hero')
         <form class="hero__form" method="get" action="<?php echo esc_url(home_url('/')); ?>">
             <div class="relative max-w-2xl mx-auto group cursor-pointer">
                 <span class="absolute inset-y-0 left-5 flex items-center text-gray-400">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-zinc-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    <svg
+                        class="cursor-pointer h-5 w-5 text-gray-500 dark:text-white hover:text-blue-500 dark:hover:text-blue-500 transition-colors duration-200"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path d="M11.5 21C16.7467 21 21 16.7467 21 11.5C21 6.25329 16.7467 2 11.5 2C6.25329 2 2 6.25329 2 11.5C2 16.7467 6.25329 21 11.5 21Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 22L20 20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </span>
                 <input
@@ -142,11 +155,51 @@ Block::make('Hero')
                     name="s"
                     value="<?php echo get_search_query(); ?>"
                     placeholder="<?php echo esc_attr($search_placeholder); ?>"
-                    class="hero__search w-full py-4 pl-12 pr-6 bg-[#F2F2F2] dark:bg-[#232125] rounded-full"
+                    class="hero__search w-full py-4 pl-12 pr-6 bg-[#F2F2F2] dark:bg-[#232125] text-black dark:text-white placeholder:text-gray-500 dark:placeholder:text-zinc-400 rounded-full"
                 >
             </div>
         </form>
         <?php endif; ?>
+<?php if ( ! empty($locations) ) : ?>
+    <!-- Контейнер з вирівнюванням по центру -->
+    <div class="flex flex-wrap items-center justify-center gap-2.5 mt-6">
+        <?php 
+        foreach ( $locations as $location_data ) : 
+            $term = get_term_by('id', $location_data['id'], 'locations');
+            if ( ! $term || is_wp_error($term) ) {
+                continue;
+            }
+            $term_link = get_term_link($term);
+        ?>
+            <!-- Тег міста без рамок, з кастомним темним кольором #232125 -->
+            <a href="<?php echo esc_url($term_link); ?>" 
+               class="group inline-flex items-center gap-1.5 px-4 py-1.5 
+                      /* Світла тема: чистий сірий фон без рамки */
+                      bg-gray-100 hover:bg-gray-200/80 text-gray-700 hover:text-black border border-transparent
+                      /* Темна тема: твій колір #232125 без рамки */
+                      dark:bg-[#232125] dark:hover:bg-[#2d2a30] dark:text-zinc-300 dark:hover:text-white dark:border-transparent
+                      /* Базові стилі та ефекти */
+                      rounded-full text-xs font-medium tracking-wide 
+                      shadow-sm hover:shadow-md hover:-translate-y-0.5
+                      transition-all duration-300 ease-out">
+                
+                <!-- SVG Icon: Location pin -->
+                <svg class="w-3.5 h-3.5 text-gray-400 group-hover:text-gray-600 dark:text-zinc-500 dark:group-hover:text-zinc-300 transition-colors duration-300" 
+                     xmlns="http://www.w3.org/2000/svg" 
+                     fill="none" 
+                     viewBox="0 0 24 24" 
+                     stroke-width="2" 
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                </svg>
+                
+                <span><?php echo esc_html($term->name); ?></span>
+            </a>
+        <?php endforeach; ?>
+    </div>
+<?php endif; ?>
+        
     </div>
 
 <?php if ( ! empty($decor_images_right) ) : ?>

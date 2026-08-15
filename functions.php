@@ -31,3 +31,4 @@ require PATH . '/components/fancybox/component.php';
 require PATH . '/inc/ajax/auth.php';
 require PATH . '/inc/ajax/reactions.php';
 require PATH . '/inc/ajax/posts.php';
+require PATH . '/inc/ajax/contact.php';

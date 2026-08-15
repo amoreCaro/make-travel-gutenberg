@@ -31,6 +31,8 @@ function theme_register_styles()
         'load_more_posts_nonce' => wp_create_nonce('load_more_posts_nonce'),
         'submit_comment_nonce' => wp_create_nonce('submit_comment_nonce'),
         'delete_comment_nonce' => wp_create_nonce('delete_comment_nonce'),
+        'submit_contact_nonce' => wp_create_nonce('submit_contact_nonce'),
+        'contact_page_id' => is_page_template('templates/page-contact.php') ? get_queried_object_id() : 0,
     ]);
 }
 
