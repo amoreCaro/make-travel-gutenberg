@@ -40,15 +40,24 @@ add_action('wp_enqueue_scripts', 'theme_register_styles');
 
 function theme_register_admin_styles()
 {
-    wp_enqueue_style( 'theme-admin-style',  PATH_URL . '/assets/dist/css/main.css',[], null );
+    // Do not load frontend Tailwind globally in wp-admin.
+    // Preflight (img { height: auto }, button resets, .hidden, .close)
+    // breaks the media library so images cannot be selected.
     wp_enqueue_style( 'google-roboto', 'https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap', [],  null );
-
 }
 
 add_action('admin_enqueue_scripts', 'theme_register_admin_styles');
 
 function theme_admin_scripts() {
-    wp_enqueue_style( 'admin_helper', PATH_URL . '/inc/admin/admin.css', array(), '1.0' );
+    wp_enqueue_style( 'admin_helper', PATH_URL . '/inc/admin/admin.css', array(), '1.1' );
+
+    wp_enqueue_script(
+        'theme-media-gallery-multiselect',
+        PATH_URL . '/inc/admin/media-gallery-multiselect.js',
+        array('media-models', 'media-views'),
+        '1.0.0',
+        false
+    );
 }
 
 add_action('admin_enqueue_scripts', 'theme_admin_scripts');

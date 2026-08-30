@@ -90,20 +90,15 @@ add_action('carbon_fields_register_fields', function () {
                     ],
                 ])->set_required(true),
 
-            Field::make('text', 'contact_title', __('Contact title'))
-                ->set_default_value('Contact'),
-            Field::make('complex', 'footer_contacts', __('Contact Items'))
-                ->setup_labels([
-                    'plural_name'   => __('Items'),
-                    'singular_name' => __('Item'),
-                ])
-                ->add_fields([
-                    Field::make('text', 'contact_value', __('Value (e.g., +489756412322)'))
-                        ->set_required(true),
-                    Field::make('text', 'url', __('URL'))
-                        ->set_default_value('#'),
-                ])
-                ->set_layout('grid'),
+            Field::make('text', 'locations_title', __('Locations title'))
+                ->set_default_value('Locations'),
+            Field::make('association', 'footer_locations', __('Locations'))
+                ->set_types([
+                    [
+                        'type'     => 'term',
+                        'taxonomy' => 'locations',
+                    ],
+                ]),
 
 
             Field::make('separator', 'footer_copyright_separator', __('Copyright')),
@@ -338,6 +333,10 @@ function theme_setup()
 
     // (опціонально) розміри зображень
     add_image_size('post-thumb', 800, 450, true);
+
+    // Tailwind only inside the editor canvas, not on wp-admin chrome / media modal.
+    add_theme_support('editor-styles');
+    add_editor_style('assets/dist/css/main.css');
 }
 
 add_action('after_setup_theme', 'theme_setup');

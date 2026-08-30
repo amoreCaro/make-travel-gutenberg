@@ -75,7 +75,7 @@ get_header();
                                 <a
                                     href="<?php echo $category_link; ?>"
                                     class="category-chip flex items-center gap-2 rounded-full px-4 py-1.5 max-w-[200px] w-fit transition-all duration-300
-                                        <?php echo $has_custom_style ? '' : 'border border-[#E5E7EB] dark:border-white/20 text-[#374151] dark:text-white dark:bg-transparent hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black'; ?>"
+                                        <?php echo $has_custom_style ? '' : 'border border-black dark:border-white text-black dark:text-white dark:bg-transparent hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black'; ?>"
                                     style="
                                         <?php if ( ! empty( $category_bg_color ) ) : ?>
                                             background-color: <?php echo esc_attr( $category_bg_color ); ?>;

@@ -12,8 +12,8 @@ $disclaimer = wp_kses_post(carbon_get_theme_option('footer_disclaimer')) ?: "A p
 $categories_title = carbon_get_theme_option("categories_title");
 $categories = carbon_get_theme_option('footer_categories');
 
-$contact_title = carbon_get_theme_option('contact_title');
-$footer_contacts = carbon_get_theme_option('footer_contacts');
+$locations_title = carbon_get_theme_option('locations_title');
+$footer_locations = carbon_get_theme_option('footer_locations');
 
 $social_icons = carbon_get_theme_option('social_icons');
 
@@ -115,53 +115,45 @@ $powered_by   = carbon_get_theme_option('footer_powered_by_text');
                         <?php endif; ?>
                 </div>
 
-                <!-- Контакти (Колонка 3) -->
-                <div class="md:col-span-1">
-                     <?php if ( !empty ( $contact_title ) ) : ?>
-                    <h3 class="text-base font-bold text-[#0f2d5a] dark:text-zinc-200 mb-5 pb-3">
-                        <?php echo esc_html( $contact_title ); ?>
+                <!-- Локації (Колонка 3) -->
+                <div class="md:col-span-1 lg:px-6">
+                    <?php if ( ! empty( $locations_title ) ) : ?>
+                    <h3 class="text-[17px] font-semibold text-[#122d5a] dark:text-zinc-200 mb-5 pb-2">
+                        <?php echo esc_html( $locations_title ); ?>
                     </h3>
                     <?php endif; ?>
 
-                    <?php if (!empty($footer_contacts)) : ?>
+                    <?php if ( ! empty( $footer_locations ) ) : ?>
+                        <ul class="grid grid-cols-2 gap-x-4 gap-y-3 text-sm text-[#566A85] dark:text-zinc-400">
+                            <?php foreach ( $footer_locations as $location ) :
+                                $term = get_term( $location['id'] );
 
-                        <ul class="space-y-3">
-
-                            <?php foreach ($footer_contacts as $item) :
-
-                                $value = $item['contact_value'] ?? '';
-                                $url   = $item['url'] ?? '';
-
-                                if (empty($value)) {
+                                if ( ! $term || is_wp_error( $term ) ) {
                                     continue;
                                 }
                             ?>
-
-                                <li>
-
-                                    <?php if (!empty($url)) : ?>
-
-                                        <a
-                                            href="<?php echo esc_url($url); ?>"
-                                            class="text-[13px] leading-[20px] text-[#566985] dark:text-[#D0D0D0] font-semibold hover:text-black dark:hover:text-white transition-colors"
-                                        >
-                                            <?php echo esc_html($value); ?>
-                                        </a>
-
-                                    <?php else : ?>
-
-                                        <span class="text-[13px] leading-[20px] font-semibold text-[#566985] dark:text-[#D0D0D0]">
-                                            <?php echo esc_html($value); ?>
-                                        </span>
-
-                                    <?php endif; ?>
-
+                                <li class="group flex items-center gap-2 hover:text-[#122E5A] dark:hover:text-white transition-colors duration-200">
+                                    <svg class="transform transition-transform duration-200 group-hover:translate-x-1"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 24 24"
+                                        width="12"
+                                        height="12"
+                                        fill="none">
+                                        <path d="M8.5 5L15.5 12L8.5 19"
+                                            stroke="#3277DF"
+                                            stroke-width="2.5"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"/>
+                                    </svg>
+                                    <a
+                                        href="<?php echo esc_url( get_term_link( $term ) ); ?>"
+                                        class="text-inherit"
+                                    >
+                                        <?php echo esc_html( $term->name ); ?>
+                                    </a>
                                 </li>
-
                             <?php endforeach; ?>
-
                         </ul>
-
                     <?php endif; ?>
                 </div>
 

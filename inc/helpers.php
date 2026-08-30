@@ -155,13 +155,13 @@ function get_post_media_type(int $post_id): array
         $gallery_raw = [];
     }
 
-    $gallery_raw = array_slice($gallery_raw, 0, 4);
-
     $gallery = [];
 
     foreach ($gallery_raw as $item) {
-
-        $img_id = $item['cf_image'] ?? 0;
+        // media_gallery stores IDs; legacy complex stored ['cf_image' => id].
+        $img_id = is_array($item)
+            ? absint($item['cf_image'] ?? $item['image'] ?? 0)
+            : absint($item);
 
         if (!$img_id) {
             continue;
