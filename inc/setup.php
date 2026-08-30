@@ -45,22 +45,6 @@ add_action('carbon_fields_register_fields', function () {
                 ])
                 ->set_required(true),
 
-            Field::make('complex', 'header_pages', 'Pages')
-                ->add_fields([
-
-                    Field::make('text', 'label', 'Page Text')
-                        ->set_required(true),
-
-                    Field::make('text', 'url', 'Page URL')
-                        ->set_required(true),
-                ])
-                ->set_min(1),
-
-            Field::make('text', 'header_login_text', 'Login Button Text')
-                ->set_default_value('Login'),
-
-            Field::make('text', 'header_logout_text', 'Logout Button Text')
-                ->set_default_value('Logout'),
 
         ])
 
@@ -106,20 +90,15 @@ add_action('carbon_fields_register_fields', function () {
                     ],
                 ])->set_required(true),
 
-            Field::make('text', 'contact_title', __('Contact title'))
-                ->set_default_value('Contact'),
-            Field::make('complex', 'footer_contacts', __('Contact Items'))
-                ->setup_labels([
-                    'plural_name'   => __('Items'),
-                    'singular_name' => __('Item'),
-                ])
-                ->add_fields([
-                    Field::make('text', 'contact_value', __('Value (e.g., +489756412322)'))
-                        ->set_required(true),
-                    Field::make('text', 'url', __('URL'))
-                        ->set_default_value('#'),
-                ])
-                ->set_layout('grid'),
+            Field::make('text', 'locations_title', __('Locations title'))
+                ->set_default_value('Locations'),
+            Field::make('association', 'footer_locations', __('Locations'))
+                ->set_types([
+                    [
+                        'type'     => 'term',
+                        'taxonomy' => 'locations',
+                    ],
+                ]),
 
 
             Field::make('separator', 'footer_copyright_separator', __('Copyright')),
@@ -210,6 +189,126 @@ add_action('carbon_fields_register_fields', function () {
         ]);
 });
 
+add_action('carbon_fields_register_fields', function () {
+    Container::make('post_meta', __('Contact Page', THEME))
+        ->where('post_type', '=', 'page')
+        ->where('post_template', '=', 'templates/page-contact.php')
+
+        ->add_tab(__('Contact', THEME), [
+            Field::make('text', 'contact_button_text', __('Open form button', THEME))
+                ->set_default_value(__('Message Us', THEME)),
+        ])
+
+        ->add_tab(__('Modal', THEME), [
+            Field::make('separator', 'contact_modal_sep_header', __('Header', THEME)),
+
+            Field::make('text', 'contact_modal_title', __('Title', THEME))
+                ->set_default_value(__('Mail to Us', THEME)),
+
+            Field::make('textarea', 'contact_modal_subtitle', __('Subtitle', THEME))
+                ->set_rows(2)
+                ->set_default_value(__('Tell us what you’re planning, pitching, or wondering.', THEME)),
+
+            Field::make('separator', 'contact_modal_sep_name', __('Name field', THEME)),
+
+            Field::make('text', 'contact_modal_name_label', __('Label', THEME))
+                ->set_width(33)
+                ->set_default_value(__('Full Name', THEME)),
+
+            Field::make('text', 'contact_modal_name_placeholder', __('Placeholder', THEME))
+                ->set_width(33)
+                ->set_default_value(__('Your Full Name', THEME)),
+
+            Field::make('text', 'contact_modal_name_error', __('Error message', THEME))
+                ->set_width(33)
+                ->set_default_value(__('Please enter your name.', THEME)),
+
+            Field::make('separator', 'contact_modal_sep_email', __('Email field', THEME)),
+
+            Field::make('text', 'contact_modal_email_label', __('Label', THEME))
+                ->set_width(33)
+                ->set_default_value(__('Email Address', THEME)),
+
+            Field::make('text', 'contact_modal_email_placeholder', __('Placeholder', THEME))
+                ->set_width(33)
+                ->set_default_value(__('you@example.com', THEME)),
+
+            Field::make('text', 'contact_modal_email_error', __('Error message', THEME))
+                ->set_width(33)
+                ->set_default_value(__('Please enter a valid email address.', THEME)),
+
+            Field::make('separator', 'contact_modal_sep_message', __('Message field', THEME)),
+
+            Field::make('text', 'contact_modal_message_label', __('Label', THEME))
+                ->set_width(33)
+                ->set_default_value(__('Message', THEME)),
+
+            Field::make('text', 'contact_modal_message_placeholder', __('Placeholder', THEME))
+                ->set_width(33)
+                ->set_default_value(__('Write Your Message...', THEME)),
+
+            Field::make('text', 'contact_modal_message_error', __('Error message', THEME))
+                ->set_width(33)
+                ->set_default_value(__('Please enter a message.', THEME)),
+
+            Field::make('separator', 'contact_modal_sep_actions', __('Actions & status', THEME)),
+
+            Field::make('text', 'contact_modal_submit', __('Submit button', THEME))
+                ->set_width(50)
+                ->set_default_value(__('Send Message', THEME)),
+
+            Field::make('text', 'contact_modal_sending', __('Sending label', THEME))
+                ->set_width(50)
+                ->set_default_value(__('Sending…', THEME)),
+
+            Field::make('text', 'contact_modal_success', __('Success message', THEME))
+                ->set_default_value(__('Thanks! Your message has been sent.', THEME)),
+
+            Field::make('text', 'contact_modal_close', __('Close button label', THEME))
+                ->set_help_text(__('Used as the accessible name of the close icon.', THEME))
+                ->set_default_value(__('Close contact form', THEME)),
+
+            Field::make('text', 'contact_modal_error_generic', __('Generic error', THEME))
+                ->set_width(50)
+                ->set_default_value(__('Something went wrong. Please try again.', THEME)),
+
+            Field::make('text', 'contact_modal_error_network', __('Network error', THEME))
+                ->set_width(50)
+                ->set_default_value(__('Network error. Please try again.', THEME)),
+        ])
+
+        ->add_tab(__('Background', THEME), [
+            Field::make('radio', 'contact_bg_type', __('Background media', THEME))
+                ->set_options([
+                    'none'  => __('None', THEME),
+                    'image' => __('Image', THEME),
+                    'video' => __('Video', THEME),
+                ])
+                ->set_default_value('none'),
+
+            Field::make('image', 'contact_bg_image', __('Background image', THEME))
+                ->set_help_text(__('Used as the page background when Image is selected.', THEME))
+                ->set_conditional_logic([
+                    [
+                        'field'   => 'contact_bg_type',
+                        'value'   => 'image',
+                        'compare' => '=',
+                    ],
+                ]),
+
+            Field::make('file', 'contact_bg_video', __('Background video', THEME))
+                ->set_type(['video'])
+                ->set_help_text(__('Use a short muted MP4 (10–20s, under ~8MB) for best performance.', THEME))
+                ->set_conditional_logic([
+                    [
+                        'field'   => 'contact_bg_type',
+                        'value'   => 'video',
+                        'compare' => '=',
+                    ],
+                ]),
+        ]);
+});
+
 add_filter('upload_mimes', function ($mimes) {
     $mimes['svg']  = 'image/svg+xml';
     $mimes['svgz'] = 'image/svg+xml';
@@ -234,6 +333,10 @@ function theme_setup()
 
     // (опціонально) розміри зображень
     add_image_size('post-thumb', 800, 450, true);
+
+    // Tailwind only inside the editor canvas, not on wp-admin chrome / media modal.
+    add_theme_support('editor-styles');
+    add_editor_style('assets/dist/css/main.css');
 }
 
 add_action('after_setup_theme', 'theme_setup');
@@ -307,6 +410,7 @@ if ( ! function_exists('theme_register_locations_taxonomy') ) {
     }
 }
 add_action('init', 'theme_register_locations_taxonomy');
+
 
 /**
  * Extend WordPress search (pre_get_posts)

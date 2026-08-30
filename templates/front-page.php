@@ -13,22 +13,21 @@ if (!defined('ABSPATH')) exit;
 get_header(); 
 ?>
 
-<div class="home-page bg-white dark:bg-black">
-    <div class="lg:pb-[100px] pb-[50px]">
+<main class="main">
+    <div class="home-page bg-white dark:bg-black">
+            <?php
 
-        <?php
-
-        if (have_posts()) :
-            while (have_posts()) : the_post();
-                the_content(); 
-            endwhile;
-        endif;
+            if (have_posts()) :
+                while (have_posts()) : the_post();
+                    the_content(); 
+                endwhile;
+            endif;
+            ?>
+        <?php         
+            require PATH . "/components/burger-menu/component.php";
+            require PATH . "/components/modal/component.php";
         ?>
-    <?php         
-        require PATH . "/components/burger-menu/component.php";
-        require PATH . "/components/modal/component.php";
-    ?>
     </div>
-</div>
+</main>
 
 <?php get_footer(); ?>

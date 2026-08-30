@@ -19,13 +19,92 @@ Container::make('post_meta', __('Media'))
         Field::make('file', 'cf_video', __('Video'))
             ->set_type(['video']),
 
-        Field::make('complex', 'cf_gallery', __('Gallery'))
-            ->set_max(4)
-            ->add_fields([
-               Field::make('image', 'cf_image', __('Image'))
-                            ->set_required(true),
-            ]),
+        Field::make('media_gallery', 'cf_gallery', __('Gallery'))
+            ->set_type(['image'])
+            ->set_duplicates_allowed(false)
+            ->set_help_text(__('Click “Select Attachments” to add photos from the media library. You can pick several at once.', THEME)),
     ]);
+
+
+/*
+|--------------------------------------------------------------------------
+| Helpers
+|--------------------------------------------------------------------------
+*/
+
+function render_post_media_show_all(string $group, array $photos = []): void
+{
+    $items = [];
+
+    foreach ($photos as $photo) {
+        $src = (string) ($photo['full'] ?? $photo['url'] ?? '');
+        if ($src === '') {
+            continue;
+        }
+
+        $alt = (string) ($photo['alt'] ?? '');
+        $items[] = [
+            'src'     => $src,
+            'alt'     => $alt,
+            'caption' => $alt,
+        ];
+    }
+    ?>
+    <button
+        type="button"
+        class="post-media__show-all"
+        data-fancybox-trigger="<?php echo esc_attr($group); ?>"
+        data-fancybox-items="<?php echo esc_attr(wp_json_encode($items)); ?>"
+    >
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true">
+            <rect x="3" y="5" width="12" height="12" rx="2"/>
+            <path d="M9 19h9a2 2 0 0 0 2-2V8"/>
+        </svg>
+        <span><?php esc_html_e('Show all photos', THEME); ?></span>
+    </button>
+    <?php
+}
+
+function render_post_media_hidden_photos(string $group, array $photos): void
+{
+    if (empty($photos) || !function_exists('render_fancybox_image')) {
+        return;
+    }
+
+    echo '<div class="post-media__rest" aria-hidden="true">';
+    foreach ($photos as $item) {
+        render_fancybox_image([
+            'src'   => $item['url'] ?? '',
+            'full'  => $item['full'] ?? ($item['url'] ?? ''),
+            'alt'   => $item['alt'] ?? '',
+            'group' => $group,
+        ]);
+    }
+    echo '</div>';
+}
+
+function render_post_media_tile(array $item, string $group, bool $show_all = false, string $extra_class = '', array $all_photos = []): void
+{
+    $tile_class = trim('post-media__tile ' . $extra_class);
+    ?>
+    <div class="<?php echo esc_attr($tile_class); ?>">
+        <?php
+        render_fancybox_image([
+            'src'        => $item['url'] ?? '',
+            'full'       => $item['full'] ?? ($item['url'] ?? ''),
+            'alt'        => $item['alt'] ?? '',
+            'group'      => $group,
+            'img_class'  => 'post-media__image',
+            'link_class' => 'post-media__link',
+        ]);
+
+        if ($show_all) {
+            render_post_media_show_all($group, $all_photos);
+        }
+        ?>
+    </div>
+    <?php
+}
 
 
 /*
@@ -57,6 +136,12 @@ function render_media_block($post_id = null)
     $has_hero_gallery = $hero_kind !== '' && $has_gallery;
     $fancy_group = 'post-gallery-' . (int) $post_id;
 
+    $visible_limit   = 4;
+    $visible_gallery = array_slice($gallery, 0, $visible_limit);
+    $hidden_gallery  = array_slice($gallery, $visible_limit);
+    $has_more_photos = !empty($hidden_gallery);
+    $visible_count   = count($visible_gallery);
+
     $container_class =
         'container mx-auto flex flex-col px-[20px] xl:px-[40px] 2xl:px-0 pb-[50px] lg:pb-[100px]';
 
@@ -69,7 +154,7 @@ function render_media_block($post_id = null)
     $gallery_items = [];
 
     if (!$has_hero_gallery && $type === 'slider') {
-        $gallery_count = count($gallery);
+        $gallery_count = $visible_count;
 
         $grid_template = match (true) {
             $gallery_count <= 1 => 'md:grid-cols-1 md:grid-rows-1',
@@ -78,7 +163,7 @@ function render_media_block($post_id = null)
             default              => 'md:grid-cols-2 md:grid-rows-2',
         };
 
-        foreach ($gallery as $index => $img) {
+        foreach ($visible_gallery as $index => $img) {
             $position_class = match (true) {
                 $gallery_count <= 2 => '',
                 $gallery_count === 3 && $index === 0 => 'md:col-start-1 md:row-start-1 md:row-span-2',
@@ -98,24 +183,28 @@ function render_media_block($post_id = null)
 
     $title = get_the_title($post_id);
 
+    $lightbox_photos = [];
+    if ($hero_kind === 'thumbnail' && $thumbnail) {
+        $lightbox_photos[] = [
+            'url'  => $thumbnail,
+            'full' => $thumbnail_full ?: $thumbnail,
+            'alt'  => $title,
+        ];
+    }
+    $lightbox_photos = array_merge($lightbox_photos, $gallery);
+
+
     ?>
 
     <div class="<?php echo esc_attr($container_class); ?>">
 
         <?php if ($has_hero_gallery) : ?>
 
-            <?php
-            $hero_gallery_count = count($gallery);
-            $is_pair_layout     = $hero_gallery_count === 1;
-            ?>
-
-            <div class="post-media-mosaic w-full">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-5 h-auto lg:h-[642px]">
-
-                    <!-- Hero: video or thumbnail -->
-                    <div class="<?php echo $hero_kind === 'video' ? 'post-main-video relative' : 'post__main-image'; ?> overflow-hidden h-[250px] md:h-[400px] lg:h-full rounded-2xl md:rounded-3xl">
+            <div class="post-media">
+                <div class="post-media__mosaic">
+                    <div class="post-media__hero <?php echo $hero_kind === 'video' ? 'post-main-video' : 'post-media__hero--image'; ?>">
                         <?php if ($hero_kind === 'video') : ?>
-                            <video class="w-full h-full object-cover" loop muted playsinline preload="metadata">
+                            <video class="post-media__video" loop muted playsinline preload="metadata">
                                 <source src="<?php echo esc_url($hero_url); ?>" type="video/mp4">
                             </video>
                             <button
@@ -130,50 +219,33 @@ function render_media_block($post_id = null)
                         <?php else : ?>
                             <?php
                             render_fancybox_image([
-                                'src'       => $hero_url,
-                                'full'      => $thumbnail_full ?: $hero_url,
-                                'alt'       => $title,
-                                'group'     => $fancy_group,
-                                'img_class' => 'w-full h-full object-cover transition-transform duration-500 hover:scale-[1.02]',
+                                'src'        => $hero_url,
+                                'full'       => $thumbnail_full ?: $hero_url,
+                                'alt'        => $title,
+                                'group'      => $fancy_group,
+                                'img_class'  => 'post-media__image post-media__image--hero',
+                                'link_class' => 'post-media__link',
                             ]);
                             ?>
                         <?php endif; ?>
                     </div>
 
-                    <?php if ($is_pair_layout) : ?>
-                        <!-- 1 thumbnail + 1 gallery: equal 50/50 -->
-                        <?php $item = $gallery[0]; ?>
-                        <div class="post__gallery overflow-hidden h-[250px] md:h-[400px] lg:h-full rounded-2xl md:rounded-3xl">
+                    <div class="post-media__grid">
+                        <?php foreach ($visible_gallery as $index => $item) : ?>
                             <?php
-                            render_fancybox_image([
-                                'src'       => $item['url'],
-                                'full'      => $item['full'] ?? $item['url'],
-                                'alt'       => $item['alt'],
-                                'group'     => $fancy_group,
-                                'img_class' => 'w-full h-full object-cover transition-transform duration-500 hover:scale-[1.02]',
-                            ]);
+                            render_post_media_tile(
+                                $item,
+                                $fancy_group,
+                                $has_more_photos && $index === $visible_count - 1,
+                                $visible_count === 1 ? 'post-media__tile--full' : '',
+                                $lightbox_photos
+                            );
                             ?>
-                        </div>
-                    <?php else : ?>
-                        <!-- Gallery 2x2 -->
-                        <div class="post__gallery grid grid-cols-2 gap-4 md:gap-5 h-auto lg:h-full">
-                            <?php foreach ($gallery as $item) : ?>
-                                <div class="relative overflow-hidden min-h-[160px] lg:h-full rounded-2xl md:rounded-3xl">
-                                    <?php
-                                    render_fancybox_image([
-                                        'src'       => $item['url'],
-                                        'full'      => $item['full'] ?? $item['url'],
-                                        'alt'       => $item['alt'],
-                                        'group'     => $fancy_group,
-                                        'img_class' => 'w-full h-full object-cover transition-transform duration-500 hover:scale-[1.02]',
-                                    ]);
-                                    ?>
-                                </div>
-                            <?php endforeach; ?>
-                        </div>
-                    <?php endif; ?>
-
+                        <?php endforeach; ?>
+                    </div>
                 </div>
+
+                <?php render_post_media_hidden_photos($fancy_group, $hidden_gallery); ?>
             </div>
 
         <?php elseif (!empty($video_url)) : ?>
@@ -194,7 +266,7 @@ function render_media_block($post_id = null)
             <?php if ($gallery_count === 4) : ?>
 
                 <div class="post-gallery post-gallery--quad">
-                    <?php foreach ($gallery_items as $item) : ?>
+                    <?php foreach ($gallery_items as $index => $item) : ?>
                         <div class="post-gallery__tile">
                             <?php
                             render_fancybox_image([
@@ -205,10 +277,16 @@ function render_media_block($post_id = null)
                                 'img_class'  => 'w-full h-full object-cover',
                                 'link_class' => 'absolute inset-0 block cursor-pointer',
                             ]);
+
+                            if ($has_more_photos && $index === $gallery_count - 1) {
+                                render_post_media_show_all($fancy_group, $gallery);
+                            }
                             ?>
                         </div>
                     <?php endforeach; ?>
                 </div>
+
+                <?php render_post_media_hidden_photos($fancy_group, $hidden_gallery); ?>
 
             <?php else : ?>
 
@@ -221,7 +299,7 @@ function render_media_block($post_id = null)
                                 'full'      => $item['full'] ?? $item['url'],
                                 'alt'       => $item['alt'],
                                 'group'     => $fancy_group,
-                                'img_class' => 'w-full h-full object-cover transition-transform duration-500 hover:scale-[1.02]',
+                                'img_class' => 'w-full h-full object-cover',
                             ]);
                             ?>
                         </div>

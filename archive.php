@@ -16,9 +16,7 @@ $icon_id = carbon_get_term_meta($category_id, 'category_svg');
 
 $icon_url = wp_get_attachment_url($icon_id);
 
-dd($icon_url);
 $category_svg        = cf_get_inline_svg($icon_url);
-// dd($category_svg);
 $category_bg_color   = carbon_get_term_meta($category_id, 'category_bg');
 $category_text_color = carbon_get_term_meta($category_id, 'category_text_color');
 $category_decor_type = carbon_get_term_meta($category_id, 'category_decor_type');
@@ -73,7 +71,7 @@ get_header();
                     ?>
 
                         <!-- 1st row -->
-                        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 md:gap-10">
+                        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 md:gap-10 lg:items-stretch">
                             <?php foreach ($block_posts as $index => $post) :
                                 setup_postdata($post);
 
@@ -90,7 +88,7 @@ get_header();
 
                         <!-- 2nd row -->
                         <?php if (count($block_posts) > 2) : ?>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-10 mt-6">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-10 mt-6 lg:auto-rows-fr">
                                 <?php foreach ($block_posts as $index => $post) :
                                     if ($index < 2) continue;
 

@@ -31,7 +31,7 @@ get_header();
 
     <?php $i = 0; ?>
 
-    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 md:gap-10">
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 md:gap-10 lg:items-stretch">
 
         <?php while (have_posts()) : the_post(); ?>
 
