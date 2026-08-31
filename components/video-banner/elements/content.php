@@ -4,7 +4,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 ?>
-<div class="video-banner__main relative z-10 w-full container mx-auto px-5 xl:px-10 pt-28 <?php echo esc_attr($main_pad); ?> flex-1 flex items-center">
+<div class="video-banner__main relative z-10 w-full container mx-auto px-5 xl:px-0 pt-28 <?php echo esc_attr($main_pad); ?> flex-1 flex items-center">
     <div class="video-banner__content flex flex-col gap-5 md:gap-6 <?php echo esc_attr($content_width . ' ' . $align_class); ?>">
         <?php if ($label !== '') : ?>
             <span class="video-banner__label text-[11px] md:text-xs font-medium tracking-[0.28em] uppercase text-white <?php echo esc_attr($text_glow . ' ' . $reveal); ?> [animation-delay:100ms]">
@@ -24,16 +24,53 @@ if (!defined('ABSPATH')) {
             </p>
         <?php endif; ?>
 
-        <?php if ($has_cta) : ?>
-            <a
-                href="<?php echo esc_url($btn_url); ?>"
-                class="video-banner__cta group inline-flex items-center gap-3 mt-2 w-fit px-6 py-3.5 text-xs md:text-sm font-medium tracking-[0.16em] capitalize rounded-full border border-white/85 bg-transparent text-white hover:bg-white hover:border-white hover:text-black transition-colors duration-300 <?php echo esc_attr($reveal); ?> [animation-delay:460ms]"
-            >
-                <span><?php echo esc_html($btn_text); ?></span>
-                <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            </a>
+        <?php if ($has_cta || $has_cta_2) : ?>
+            <div class="video-banner__buttons flex flex-wrap items-center gap-3 mt-2 <?php echo esc_attr($reveal); ?> [animation-delay:460ms]">
+
+                <?php if (!empty($btn_text) && !empty($btn_url)) : ?>
+                    <a
+                        href="<?php echo esc_url($btn_url); ?>"
+                        class="video-banner__cta group inline-flex items-center gap-3 w-fit px-6 py-3.5 text-xs md:text-sm font-medium tracking-[0.16em] capitalize rounded-full border border-blue-600 bg-blue-600 text-white hover:bg-blue-700 hover:border-blue-700 transition-colors duration-300"
+                    >
+                        <span><?php echo esc_html($btn_text); ?></span>
+
+                        <svg
+                            class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            aria-hidden="true"
+                        >
+                            <path
+                                d="M5 12h14M13 6l6 6-6 6"
+                                stroke="currentColor"
+                                stroke-width="1.5"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            />
+                        </svg>
+                    </a>
+                <?php endif; ?>
+
+                <?php if (!empty($button_2_text) && !empty($button_2_url)) : ?>
+                    <a
+                        href="<?php echo esc_url($button_2_url); ?>"
+                        class="video-banner__cta group inline-flex items-center gap-3 w-fit px-6 py-3.5 text-xs md:text-sm font-medium tracking-[0.16em] capitalize rounded-full border border-white/85 bg-transparent text-white hover:bg-white hover:border-white hover:text-black transition-colors duration-300"
+                    >
+                        <span><?php echo esc_html($button_2_text); ?></span>
+
+                        <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <path
+                                d="M5 12h14M13 6l6 6-6 6"
+                                stroke="currentColor"
+                                stroke-width="1.5"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            />
+                        </svg>
+                    </a>
+                <?php endif; ?>
+
+            </div>
         <?php endif; ?>
     </div>
 </div>

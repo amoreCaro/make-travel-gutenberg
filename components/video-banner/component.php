@@ -54,6 +54,13 @@ Block::make(__('Video Banner', THEME))
         Field::make('text', 'button_url', __('Button URL'))
             ->set_attribute('type', 'url')
             ->set_help_text(__('Paste the full URL where the button should send the user.', THEME)),
+        //  Second Button
+        Field::make('text', 'button_2_text', __('Second button text'))
+            ->set_default_value('Learn more'),
+
+        Field::make('text', 'button_2_url', __('Second button URL'))
+            ->set_attribute('type', 'url')
+            ->set_help_text(__('Paste the full URL where the second button should send the user.', THEME)),
     ])
 
     ->add_tab(__('Slider', THEME), [
@@ -107,6 +114,9 @@ Block::make(__('Video Banner', THEME))
         $text        = trim((string) ($fields['text'] ?? ''));
         $btn_text    = trim((string) ($fields['button_text'] ?? ''));
         $btn_url     = trim((string) ($fields['button_url'] ?? ''));
+        $button_2_text = trim((string) ($fields['button_2_text'] ?? ''));
+        $button_2_url  = trim((string) ($fields['button_2_url'] ?? ''));
+        $has_cta_2 = $button_2_text !== '' && $button_2_url !== '';
         $align       = ($fields['content_align'] ?? 'left') === 'center' ? 'center' : 'left';
         $blur_value  = $fields['enable_blur'] ?? 'no';
         $enable_blur = $blur_value === 'yes' || $blur_value === true || $blur_value === 1 || $blur_value === '1';
