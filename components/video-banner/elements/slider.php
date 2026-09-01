@@ -52,25 +52,40 @@ $nav_btn =
             <?php endforeach; ?>
         </div>
     </div>
+    
+    <?php if ($show_slider_navigation) : ?>
+        <div class="video-banner__slider-nav mt-4 flex items-center justify-end gap-2 px-5 xl:px-10">
+            <button
+                type="button"
+                class="video-banner__slider-prev <?php echo esc_attr($nav_btn); ?>"
+                aria-label="<?php esc_attr_e('Previous slide', THEME); ?>"
+            >
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path
+                        d="M15 6l-6 6 6 6"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    />
+                </svg>
+            </button>
 
-    <div class="video-banner__slider-nav mt-4 flex items-center justify-end gap-2 px-5 xl:px-10">
-        <button
-            type="button"
-            class="video-banner__slider-prev <?php echo esc_attr($nav_btn); ?>"
-            aria-label="<?php esc_attr_e('Previous slide', THEME); ?>"
-        >
-            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-        </button>
-        <button
-            type="button"
-            class="video-banner__slider-next <?php echo esc_attr($nav_btn); ?>"
-            aria-label="<?php esc_attr_e('Next slide', THEME); ?>"
-        >
-            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-        </button>
-    </div>
+            <button
+                type="button"
+                class="video-banner__slider-next <?php echo esc_attr($nav_btn); ?>"
+                aria-label="<?php esc_attr_e('Next slide', THEME); ?>"
+            >
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path
+                        d="M9 6l6 6-6 6"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    />
+                </svg>
+            </button>
+        </div>
+    <?php endif; ?>
 </div>

@@ -4,7 +4,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-$show_scroll     = false;
+$show_scroll     = true;
 $slide_partial   = 'slide-cards.php';
 $slide_card_extra = 'video-banner__slide--card flex flex-col h-full overflow-hidden rounded-2xl transition-colors duration-300 border border-white/10 bg-[#141418] shadow-none hover:border-white/20 hover:bg-[#1a1a20]';
 $slide_media_compact = false;

@@ -4,7 +4,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-$show_scroll     = false;
+$show_scroll     = true;
 $slide_partial   = 'slide-mosaic.php';
 $slide_card_extra = 'video-banner__slide--tile relative block overflow-hidden rounded-2xl aspect-square border border-white/12 bg-[#141418] shadow-[0_10px_30px_rgba(0,0,0,0.25)] hover:border-white/28 transition-colors duration-300';
 $slide_media_compact = false;
