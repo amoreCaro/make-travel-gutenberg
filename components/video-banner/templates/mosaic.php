@@ -13,7 +13,6 @@ $slide_media_compact = false;
     <?php
     include PATH . '/components/video-banner/elements/media.php';
     include PATH . '/components/video-banner/elements/content.php';
-    include PATH . '/components/video-banner/elements/scroll.php';
     include PATH . '/components/video-banner/elements/slider.php';
     ?>
 </section>

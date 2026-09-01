@@ -21,26 +21,24 @@ if (!defined('ABSPATH')) {
             </h2>
         <?php endif; ?>
 
-        <?php if ($text !== '') : ?>
-            <p class="video-banner__text text-base md:text-lg leading-relaxed max-w-2xl font-light text-[#c9c4b6] <?php echo esc_attr( $reveal ); ?> [animation-delay:340ms] <?php echo $align === 'center' ? 'mx-auto' : ''; ?>">
-                <?php echo esc_html($text); ?>
-            </p>
-        <?php endif; ?>
-
         <?php if ($has_cta || $has_cta_2) : ?>
-            <div class="video-banner__buttons flex flex-wrap items-center gap-4 mt-2 <?php echo esc_attr($reveal); ?> [animation-delay:460ms]">
+            <div
+                class="video-banner__buttons flex w-full flex-col items-stretch gap-3 mt-2 <?php echo esc_attr($reveal); ?> [animation-delay:460ms] max-w-[400px] md:flex-row md:items-center md:gap-4"
+            >
 
                 <?php if (!empty($btn_text) && !empty($btn_url)) : ?>
                     <a
                         href="<?php echo esc_url($btn_url); ?>"
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="video-banner__cta group inline-flex items-center gap-2.5 w-fit px-6 py-4 text-[15px] font-semibold rounded-full bg-white text-[#1b1305] hover:bg-white/85 hover:-translate-y-px transition-all duration-200"
+                        class="video-banner__cta group inline-flex w-full min-w-0 items-center justify-center gap-2.5 rounded-full bg-white px-5 py-3 text-[14px] font-semibold text-[#1b1305] transition-all duration-200 hover:-translate-y-px hover:bg-white/85 md:w-auto md:min-w-[160px] md:py-3.5 md:text-[15px] xl:min-w-[150px] xl:px-4 xl:py-2.5 xl:text-[13px]"
                     >
-                        <span><?php echo esc_html($btn_text); ?></span>
+                        <span>
+                            <?php echo esc_html($btn_text); ?>
+                        </span>
 
                         <svg
-                            class="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1"
+                            class="h-3.5 w-3.5 shrink-0 transition-transform duration-300 group-hover:translate-x-1 xl:h-3 xl:w-3"
                             viewBox="0 0 24 24"
                             fill="none"
                             aria-hidden="true"
@@ -61,12 +59,14 @@ if (!defined('ABSPATH')) {
                         href="<?php echo esc_url($button_2_url); ?>"
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="video-banner__cta group inline-flex items-center gap-2.5 w-fit px-6 py-4 text-[15px] font-semibold rounded-full border border-white/30 bg-transparent text-white hover:border-white/65 hover:-translate-y-px transition-all duration-200"
+                        class="video-banner__cta group inline-flex w-full min-w-0 items-center justify-center gap-2.5 rounded-full border border-white/30 bg-transparent px-5 py-3 text-[14px] font-semibold text-white transition-all duration-200 hover:-translate-y-px hover:border-white/65 md:w-auto md:min-w-[160px] md:py-3.5 md:text-[15px] xl:min-w-[150px] xl:px-4 xl:py-2.5 xl:text-[13px]"
                     >
-                        <span><?php echo esc_html($button_2_text); ?></span>
+                        <span>
+                            <?php echo esc_html($button_2_text); ?>
+                        </span>
 
                         <svg
-                            class="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1"
+                            class="h-3.5 w-3.5 shrink-0 transition-transform duration-300 group-hover:translate-x-1 xl:h-3 xl:w-3"
                             viewBox="0 0 24 24"
                             fill="none"
                             aria-hidden="true"

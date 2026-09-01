@@ -129,10 +129,6 @@ Block::make(__('Video Banner', THEME))
             ->set_required(true)
             ->set_default_value('New Places. Real Adventures.'),
 
-        Field::make('textarea', 'text', __('Text'))
-            ->set_rows(3)
-            ->set_default_value('Explore new places and find adventures around you.'),
-
         Field::make('text', 'button_text', __('Button text'))
             ->set_default_value('Explore destinations'),
 
@@ -233,7 +229,6 @@ Block::make(__('Video Banner', THEME))
 
         $label       = trim((string) ($fields['label'] ?? ''));
         $title       = trim((string) ($fields['title'] ?? ''));
-        $text        = trim((string) ($fields['text'] ?? ''));
         $btn_text    = trim((string) ($fields['button_text'] ?? ''));
         $btn_url     = trim((string) ($fields['button_url'] ?? ''));
         $button_2_text = trim((string) ($fields['button_2_text'] ?? ''));
