@@ -42,4 +42,5 @@ function theme_register_carbon_fields_blocks()
     require_once get_template_directory() . '/components/hero/component.php';
     require_once get_template_directory() . '/components/video-banner/component.php';
     require_once get_template_directory() . '/components/grid/component.php';
+    require_once get_template_directory() . '/components/hero-grid/component.php';
 }
