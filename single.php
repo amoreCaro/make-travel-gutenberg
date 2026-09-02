@@ -42,7 +42,7 @@ get_header();
         <div class="pt-[80px]  lg:pb-[100px] pb-[50px] bg-white dark:bg-black">
             <div class="container mx-auto relative  xl:px-[0px] lg:px-[40px] px-[20px]">
                 
-                <div class="container mx-auto relative 2xl:max-w-[1152px] xl:px-[0px] lg:px-[40px] px-[20px]">
+                <div class="container mx-auto relative 2xl:max-w-[1152px] xl:px-[0px] lg:px-[40px] px-[0px]">
                     <!-- Content -->
                     <div class="mx-auto max-w-[800px] flex flex-col gap-5 pb-[50px] lg:pb-[100px] xl:pl-[0px]">
                     <?php require PATH . "/components/breadcrumbs/component.php"; ?>
@@ -139,7 +139,7 @@ get_header();
 
                 <?php render_media_block($post->ID); ?>
 
-            <div class="post__article max-w-[800px] mx-auto pb-[50px] lg:pb-[100px] px-[20px] lg:px-[0px]">
+            <div class="post__article max-w-[800px] mx-auto pb-[50px] lg:pb-[100px] px-[0px] lg:px-[0px]">
                 
                 <?php 
                     if ( ! empty( $content ) ) : ?>
