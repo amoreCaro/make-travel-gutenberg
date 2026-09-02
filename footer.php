@@ -31,11 +31,11 @@ $powered_by   = carbon_get_theme_option('footer_powered_by_text');
 
 ?>
 
-<footer class="w-full bg-[#f4f7fa] dark:bg-black py-12 px-4 font-sans text-[#1e293b] dark:text-zinc-100">
+<footer class="w-full bg-[#f4f7fa] dark:bg-black py-12 px-0 md:px-4 font-sans text-[#1e293b] dark:text-zinc-100">
     <div class="container mx-auto">
         
         <!-- Головна чорна картка футера в dark mode -->
-        <div class="bg-white dark:bg-[#09090b] rounded-2xl shadow-sm p-[30px_30px_20px] md:p-[60px_50px_20px]">
+        <div class="bg-[#f4f7fa] dark:bg-black md:bg-white md:dark:bg-[#09090b] rounded-2xl shadow-sm py-30 px-5 md:p-[60px_50px_20px]">
             
             <!-- Верхня частина: 3 колонки -->
             <div class="grid grid-cols-1 lg:grid-cols-3  gap-5 md:gap-8 pb-5">
