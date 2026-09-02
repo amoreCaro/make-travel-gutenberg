@@ -123,7 +123,7 @@ Container::make('post_meta', __('Media Menu'))
                             <rect x="11" y="11" width="7" height="7" rx="1"></rect>
                         </svg>
 
-                        <span class="font-bold uppercase text-[15px] leading-[15px]">
+                        <span class="font-bold capitalize text-[15px] leading-[15px]">
                             <?php _e("Category", THEME); ?>
                         </span>
                     </button>
@@ -135,15 +135,15 @@ Container::make('post_meta', __('Media Menu'))
 
                         <li>
                             <a href="<?php echo esc_url($blog_url); ?>"
-                               class="media-menu__tab <?php echo $is_blog ? 'active' : ''; ?> uppercase block py-3 text-[15px] leading-[18px] font-bold hover:text-black dark:hover:text-white">
-                                <?php _e("ALL NEWS", THEME); ?>
+                               class="media-menu__tab <?php echo $is_blog ? 'active' : ''; ?> capitalize block py-3 text-[15px] leading-[18px] font-bold hover:text-black dark:hover:text-white">
+                                <?php _e("All News", THEME); ?>
                             </a>
                         </li>
 
                         <?php foreach ($categories as $category): ?>
                             <li>
                                 <a href="<?php echo esc_url(get_category_link($category->term_id)); ?>"
-                                   class="media-menu__tab <?php echo $current_category_id === $category->term_id ? 'active' : ''; ?> uppercase block py-3 text-[15px] leading-[18px] font-bold hover:text-black dark:hover:text-white">
+                                   class="media-menu__tab <?php echo $current_category_id === $category->term_id ? 'active' : ''; ?> capitalize block py-3 text-[15px] leading-[18px] font-bold hover:text-black dark:hover:text-white">
                                     <?php echo esc_html($category->name); ?>
                                 </a>
                             </li>
@@ -154,8 +154,8 @@ Container::make('post_meta', __('Media Menu'))
 
                 <!-- TAG BUTTON -->
                 <?php if (!empty($tags)) : ?>
-                    <button class="media-menu__tags-btn cursor-pointer flex items-center gap-2 uppercase font-bold text-[15px] leading-[15px] transition-all duration-300 text-slate-400 hover:text-blue-600">
-                        <?php _e("All tags", THEME); ?>
+                    <button class="media-menu__tags-btn cursor-pointer flex items-center gap-2 capitalize font-bold text-[15px] leading-[15px] transition-all duration-300 text-slate-400 hover:text-blue-600">
+                        <?php _e("All Tags", THEME); ?>
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <path d="M6 9l6 6 6-6"></path>
                         </svg>
@@ -170,15 +170,15 @@ Container::make('post_meta', __('Media Menu'))
 
                     <li class="flex-1 text-left">
                         <a href="<?php echo esc_url($blog_url); ?>"
-                           class="media-menu__tab <?php echo $is_blog ? 'active' : ''; ?> uppercase py-3 text-[15px] leading-[18px] font-bold inline-block">
-                            <?php _e("ALL NEWS", THEME); ?>
+                           class="media-menu__tab <?php echo $is_blog ? 'active' : ''; ?> capitalize py-3 text-[15px] leading-[18px] font-bold inline-block">
+                            <?php _e("All News", THEME); ?>
                         </a>
                     </li>
 
                     <?php foreach ($categories as $category): ?>
                         <li class="flex-1 text-left">
                             <a href="<?php echo esc_url(get_category_link($category->term_id)); ?>"
-                               class="media-menu__tab <?php echo $current_category_id === $category->term_id ? 'active' : ''; ?> uppercase py-3 text-[15px] leading-[18px] font-bold inline-block">
+                               class="media-menu__tab <?php echo $current_category_id === $category->term_id ? 'active' : ''; ?> capitalize py-3 text-[15px] leading-[18px] font-bold inline-block">
                                 <?php echo esc_html($category->name); ?>
                             </a>
                         </li>
@@ -195,7 +195,7 @@ Container::make('post_meta', __('Media Menu'))
                         <?php foreach ($tags as $tag): ?>
                             <li>
                                 <a href="<?php echo esc_url(get_tag_link($tag->term_id)); ?>"
-                                   class="media-menu__tag <?php echo $current_tag_id === $tag->term_id ? 'active' : ''; ?> uppercase text-[15px] leading-[18px] font-bold text-[#9395ab] hover:text-[#252735] dark:hover:text-white transition-all duration-300">
+                                   class="media-menu__tag <?php echo $current_tag_id === $tag->term_id ? 'active' : ''; ?> capitalize text-[15px] leading-[18px] font-bold text-[#9395ab] hover:text-[#252735] dark:hover:text-white transition-all duration-300">
                                     #<?php echo esc_html($tag->name); ?>
                                 </a>
                             </li>

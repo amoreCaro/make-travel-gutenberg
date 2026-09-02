@@ -8,16 +8,9 @@ $search = get_query_var('original_search') ?: get_search_query();
 
 get_header();
 ?>
-<main class="search-page bg-white dark:bg-black">
+<main class="search-page bg-[#F6F5F8] dark:bg-[#0B0B0D] dark:bg-gradient-to-b dark:from-[#0B0B0D] dark:to-[#111114]">
     <div class="lg:pt-[46px] pt-[92px]">
-
-        <?php require_once PATH . "/components/media-menu/component.php";
-
-            if (function_exists('render_media_menu')) {
-                render_media_menu();
-            } ?>
-
-        <section class="bento-grid mx-auto bg-[#F6F5F8] dark:bg-[#0B0B0D] dark:bg-gradient-to-b dark:from-[#0B0B0D] dark:to-[#111114] lg:py-[100px] py-[50px] px-5 xl:px-10 2xl:px-0">
+        <section class="bento-grid mx-auto py-[50px] px-5 xl:px-10 2xl:px-0">
             <div class="container mb-10">
                 <h1 class="text-black dark:text-white text-[32px] md:text-[40px] font-semibold">
                     <?php _e("Results for:", THEME); ?>
@@ -31,7 +24,7 @@ get_header();
 
     <?php $i = 0; ?>
 
-    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 md:gap-10">
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 md:gap-10 lg:items-stretch">
 
         <?php while (have_posts()) : the_post(); ?>
 
@@ -57,13 +50,7 @@ get_header();
             }
             ?>
 
-            <?php
-            if ($i % 6 === 0) {
-                include PATH . '/components/bento/elements/large-item.php';
-            } else {
-                include PATH . '/components/bento/elements/default-item.php';
-            }
-            ?>
+            <?php include PATH . '/components/bento/elements/default-item.php'; ?>
 
             <?php $i++; ?>
 

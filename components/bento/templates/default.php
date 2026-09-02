@@ -19,14 +19,10 @@ $posts_in_cat = $posts_in_cat ?? [];
                     <?php echo esc_html($category_name); ?>
                 </h2>
             <?php endif; ?>
-            <?php if ($category_svg) : ?>
-                <div class="decor <?php echo esc_attr($category_decor_type); ?> -translate-y-1/2 w-14 h-14 flex items-center justify-center rounded-t-full rounded-br-full p-2 bg-white/90 dark:bg-white/10 text-black dark:text-white backdrop-blur-md border border-black/5 dark:border-white/10 shadow-sm dark:shadow-none"
-                    style="
-                        <?php echo $category_bg_color ? 'background-color:' . esc_attr($category_bg_color) . ';' : ''; ?>
-                        <?php echo $category_text_color ? 'color:' . esc_attr($category_text_color) . ';' : ''; ?>
-                    ">
-                    <?php echo $category_svg; ?>
-                </div>
+            <?php if (!empty($badge_svg)) : ?>
+                <span class="inline-flex items-center justify-center w-4 h-4 shrink-0 [&>svg]:!w-4 [&>svg]:!h-4">
+                    <?php echo $badge_svg; ?>
+                </span>
             <?php endif; ?>
 
         </div>

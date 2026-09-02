@@ -36,3 +36,6 @@ git-helper.html
 assets/node_modules/
 node_modules
 **/node_modules/
+
+# Local temp clone
+.tmp-make-travel-gutenberg/
