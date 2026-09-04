@@ -69,3 +69,27 @@ h1.wp-block.wp-block-post-title.block-editor-block-list__block.editor-post-title
     columns: 1 !important;
     -moz-columns: 1 !important;
 }
+
+/* Restore WordPress media library if any frontend CSS leaks into admin. */
+.media-modal img,
+.media-frame img,
+.attachments-browser .attachment img {
+    display: inline-block;
+    height: auto;
+    max-height: 100%;
+}
+
+.media-modal .close,
+.media-frame .close,
+.media-modal-close {
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+}
+
+.media-modal .button,
+.media-frame .button,
+.media-modal .button-primary,
+.media-frame .button-primary {
+    background-image: none;
+}

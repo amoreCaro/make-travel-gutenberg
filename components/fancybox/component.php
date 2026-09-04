@@ -26,9 +26,10 @@ if (!function_exists('render_fancybox_image')) {
             class="<?php echo esc_attr($link_class); ?>"
         >
             <img
-                src="<?php echo esc_url($src); ?>"
+                data-src="<?php echo esc_url($src); ?>"
+                src="<?php echo esc_url($placeholder); ?>"
                 alt="<?php echo esc_attr($alt); ?>"
-                class="<?php echo esc_attr($img_class); ?>"
+                class="<?php echo esc_attr($img_class); ?> lazy-img"
                 loading="lazy"
                 decoding="async"
             >
@@ -53,7 +54,7 @@ if (!function_exists('render_fancybox')) {
             hidden
         >
             <!-- Top bar: back | counter -->
-            <header class="fancybox__toolbar relative z-20 flex items-center px-4 py-3 sm:px-5 sm:py-4 shrink-0">
+            <div class="fancybox__toolbar relative z-20 flex items-center px-4 py-3 sm:px-5 sm:py-4 shrink-0">
                 <button
                     type="button"
                     id="fancyboxBack"
@@ -74,7 +75,7 @@ if (!function_exists('render_fancybox')) {
                     <span class="mx-[0.3em] opacity-70">/</span>
                     <span data-fancybox-total>1</span>
                 </div>
-            </header>
+            </div>
 
             <!-- Stage -->
             <div class="fancybox__stage relative z-10 flex-1 flex items-center justify-center min-h-0 px-14 sm:px-20 md:px-28 py-4">

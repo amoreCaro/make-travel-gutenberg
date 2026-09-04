@@ -155,21 +155,25 @@ function get_post_media_type(int $post_id): array
         $gallery_raw = [];
     }
 
-    $gallery_raw = array_slice($gallery_raw, 0, 4);
-
     $gallery = [];
 
     foreach ($gallery_raw as $item) {
-
-        $img_id = $item['cf_image'] ?? 0;
+        // media_gallery stores IDs; legacy complex stored ['cf_image' => id].
+        $img_id = is_array($item)
+            ? absint($item['cf_image'] ?? $item['image'] ?? 0)
+            : absint($item);
 
         if (!$img_id) {
             continue;
         }
 
+        $large = wp_get_attachment_image_url($img_id, 'large') ?: '';
+        $full  = wp_get_attachment_image_url($img_id, 'full') ?: $large;
+
         $gallery[] = [
-            'url' => wp_get_attachment_image_url($img_id, 'large'),
-            'alt' => get_post_meta($img_id, '_wp_attachment_image_alt', true)
+            'url'  => $large,
+            'full' => $full,
+            'alt'  => get_post_meta($img_id, '_wp_attachment_image_alt', true)
                 ?: get_the_title($post_id),
         ];
     }
@@ -180,45 +184,62 @@ function get_post_media_type(int $post_id): array
     |--------------------------------------------------------------------------
     */
 
-    $thumbnail = has_post_thumbnail($post_id)
-        ? get_the_post_thumbnail_url($post_id, 'large')
-        : '';
+    $thumbnail      = '';
+    $thumbnail_full = '';
+
+    if (has_post_thumbnail($post_id)) {
+        $thumb_id       = (int) get_post_thumbnail_id($post_id);
+        $thumbnail      = get_the_post_thumbnail_url($post_id, 'large') ?: '';
+        $thumbnail_full = $thumb_id
+            ? (wp_get_attachment_image_url($thumb_id, 'full') ?: $thumbnail)
+            : $thumbnail;
+    }
 
     /*
     |--------------------------------------------------------------------------
-    | Priority
+    | Priority (primary type for cards / banners)
+    | video > gallery > thumbnail
+    | Gallery is always returned when present so single can render hero + gallery.
     |--------------------------------------------------------------------------
     */
 
+    $payload = [
+        'media'          => '',
+        'gallery'        => $gallery,
+        'video'          => $video_url,
+        'thumbnail'      => $thumbnail,
+        'thumbnail_full' => $thumbnail_full,
+    ];
+
     if (!empty($video_url)) {
-        return [
-            'type' => 'video',
+        return array_merge($payload, [
+            'type'  => 'video',
             'media' => $video_url,
-            'gallery' => [],
-        ];
+        ]);
     }
 
     if (!empty($gallery)) {
-        return [
-            'type' => 'slider',
+        return array_merge($payload, [
+            'type'  => 'slider',
             'media' => $gallery[0]['url'],
-            'gallery' => $gallery,
-        ];
+        ]);
     }
 
     if (!empty($thumbnail)) {
-        return [
-            'type' => 'thumbnail',
+        return array_merge($payload, [
+            'type'  => 'thumbnail',
             'media' => $thumbnail,
-            'gallery' => [],
-        ];
+        ]);
     }
 
     // ❌ IMPORTANT: NO DEFAULT PLACEHOLDER
     return [
-        'type' => 'none',
-        'media' => '',
-        'gallery' => [],
+        'type'           => 'none',
+        'media'          => '',
+        'gallery'        => [],
+        'video'          => '',
+        'thumbnail'      => '',
+        'thumbnail_full' => '',
     ];
 }
 

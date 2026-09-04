@@ -12,15 +12,15 @@ $posts_in_cat = $posts_in_cat ?? [];
     <!-- HEADER -->
     <div class="flex items-center justify-between mb-12 container">
 
-        <div class="flex items-center gap-4">
+        <div class="flex items-center gap-2 md:gap-4">
 
             <?php if (!empty($category_name)) : ?>
-                <h2 class="text-black dark:text-white/90 text-[32px] md:text-[40px] lg:text-[48px] xl:text-[56px] font-semibold tracking-tight leading-tight first-letter:uppercase">
+                <h2 class="text-black dark:text-white/90 text-2xl sm:text-3xl md:text-[40px] lg:text-[48px] xl:text-[56px] font-semibold tracking-tight leading-tight first-letter:uppercase">
                     <?php echo esc_html($category_name); ?>
                 </h2>
             <?php endif; ?>
             <?php if ($category_svg) : ?>
-                <div class="decor <?php echo esc_attr($category_decor_type); ?> -translate-y-1/2 w-14 h-14 flex items-center justify-center rounded-t-full rounded-br-full p-2 bg-white/90 dark:bg-white/10 text-black dark:text-white backdrop-blur-md border border-black/5 dark:border-white/10 shadow-sm dark:shadow-none"
+                <div class="decor <?php echo esc_attr($category_decor_type); ?> -translate-y-1/2 w-8 h-8 md:w-14 md:h-14 flex items-center justify-center rounded-t-full rounded-br-full p-1.5 md:p-2 bg-white/90 dark:bg-white/10 text-black dark:text-white backdrop-blur-md border border-black/5 dark:border-white/10 shadow-sm dark:shadow-none [&_svg]:w-4 [&_svg]:h-4 md:[&_svg]:w-6 md:[&_svg]:h-6"
                     style="
                         <?php echo $category_bg_color ? 'background-color:' . esc_attr($category_bg_color) . ';' : ''; ?>
                         <?php echo $category_text_color ? 'color:' . esc_attr($category_text_color) . ';' : ''; ?>
@@ -30,42 +30,6 @@ $posts_in_cat = $posts_in_cat ?? [];
             <?php endif; ?>
 
         </div>
-
-        <?php if (!empty($bento_button) && !empty($category_link)) : ?>
-
-            <a
-                href="<?php echo esc_url($category_link); ?>"
-                class="group flex items-center justify-center gap-1.5
-                text-xs px-4 py-2
-                md:text-base md:px-9 md:py-3 md:gap-2
-                text-black dark:text-white
-                border-2 border-black dark:border-white/20
-                font-semibold rounded-full
-                transition-all duration-300
-                hover:bg-black hover:text-white
-                dark:hover:bg-white dark:hover:text-black"
-            >
-
-                <?php echo esc_html($bento_button); ?>
-
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2.5"
-                    class="w-3.5 h-3.5 md:w-5 md:h-5 transition-transform duration-300 group-hover:translate-x-1.5"
-                >
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
-                    />
-                </svg>
-
-            </a>
-
-        <?php endif; ?>
 
     </div>
 

@@ -16,9 +16,7 @@ $icon_id = carbon_get_term_meta($category_id, 'category_svg');
 
 $icon_url = wp_get_attachment_url($icon_id);
 
-dd($icon_url);
 $category_svg        = cf_get_inline_svg($icon_url);
-// dd($category_svg);
 $category_bg_color   = carbon_get_term_meta($category_id, 'category_bg');
 $category_text_color = carbon_get_term_meta($category_id, 'category_text_color');
 $category_decor_type = carbon_get_term_meta($category_id, 'category_decor_type');
@@ -31,14 +29,14 @@ get_header();
 ?>
 
 <main class="main">
-    <div class="archive-page">
+    <div class="archive-page bg-[#F6F5F8] dark:bg-[#0B0B0D] dark:bg-gradient-to-b dark:from-[#0B0B0D] dark:to-[#111114]">
 
-        <div class="lg:pt-[46px] pt-[92px] lg:pb-[100px] pb-[50px] bg-[#F6F5F8] dark:bg-black">
+        <div class="lg:pt-[46px] pt-[92px]">
             <?php render_media_menu(); ?> 
         <div class="pt-6">
         <?php if ( ! empty ( $posts_in_cat ) ) : ?>
 
-            <section class="bento-grid mx-auto bg-[#F6F5F8] dark:bg-[#0B0B0D] dark:bg-gradient-to-b dark:from-[#0B0B0D] dark:to-[#111114] lg:py-[100px] py-[50px] px-5 xl:px-10 2xl:px-0">
+            <section class="bento-grid mx-auto bg-[#F6F5F8] dark:bg-[#0B0B0D] dark:bg-gradient-to-b dark:from-[#0B0B0D] dark:to-[#111114] lg:pt-[100px] pt-[50px] pb-[50px] px-5 xl:px-10 2xl:px-0">
 
                 <!-- HEADER -->
                 <?php if (!empty($category_name)) : ?>
@@ -73,7 +71,7 @@ get_header();
                     ?>
 
                         <!-- 1st row -->
-                        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 md:gap-10">
+                        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 md:gap-10 lg:items-stretch">
                             <?php foreach ($block_posts as $index => $post) :
                                 setup_postdata($post);
 
@@ -90,7 +88,7 @@ get_header();
 
                         <!-- 2nd row -->
                         <?php if (count($block_posts) > 2) : ?>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-10 mt-6">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-10 mt-6 lg:auto-rows-fr">
                                 <?php foreach ($block_posts as $index => $post) :
                                     if ($index < 2) continue;
 

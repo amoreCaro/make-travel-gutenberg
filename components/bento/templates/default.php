@@ -10,23 +10,19 @@ $posts_in_cat = $posts_in_cat ?? [];
 <section class="bento-grid mx-auto bg-[#F6F5F8] dark:bg-[#0B0B0D] lg:py-[100px] py-[50px] px-5 xl:px-10 2xl:px-0">
 
     <!-- HEADER -->
-    <div class="flex items-center justify-between mb-12 container">
+    <div class="flex items-center justify-between mb-6 md:mb-12 container">
 
-        <div class="flex items-center gap-4">
+        <div class="flex items-center gap-2 md:gap-4">
 
             <?php if (!empty($category_name)) : ?>
-                <h2 class="text-black dark:text-white/90 text-[32px] md:text-[40px] lg:text-[48px] xl:text-[56px] font-semibold tracking-tight leading-tight first-letter:uppercase">
+                <h2 class="text-black dark:text-white/90 text-2xl sm:text-3xl md:text-[40px] lg:text-[48px] xl:text-[56px] font-semibold tracking-tight leading-tight first-letter:uppercase">
                     <?php echo esc_html($category_name); ?>
                 </h2>
             <?php endif; ?>
-            <?php if ($category_svg) : ?>
-                <div class="decor <?php echo esc_attr($category_decor_type); ?> -translate-y-1/2 w-14 h-14 flex items-center justify-center rounded-t-full rounded-br-full p-2 bg-white/90 dark:bg-white/10 text-black dark:text-white backdrop-blur-md border border-black/5 dark:border-white/10 shadow-sm dark:shadow-none"
-                    style="
-                        <?php echo $category_bg_color ? 'background-color:' . esc_attr($category_bg_color) . ';' : ''; ?>
-                        <?php echo $category_text_color ? 'color:' . esc_attr($category_text_color) . ';' : ''; ?>
-                    ">
-                    <?php echo $category_svg; ?>
-                </div>
+            <?php if (!empty($badge_svg)) : ?>
+                <span class="inline-flex items-center justify-center w-4 h-4 shrink-0 [&>svg]:!w-4 [&>svg]:!h-4">
+                    <?php echo $badge_svg; ?>
+                </span>
             <?php endif; ?>
 
         </div>
@@ -35,8 +31,9 @@ $posts_in_cat = $posts_in_cat ?? [];
 
             <a
                 href="<?php echo esc_url($category_link); ?>"
-                class="group flex items-center justify-center gap-1.5
-                text-xs px-4 py-2
+                class="group flex items-center justify-center gap-1 shrink-0
+                text-[11px] px-3 py-1.5
+                sm:text-xs sm:px-4 sm:py-2
                 md:text-base md:px-9 md:py-3 md:gap-2
                 text-black dark:text-white
                 border-2 border-black dark:border-white/20
@@ -54,7 +51,7 @@ $posts_in_cat = $posts_in_cat ?? [];
                     fill="none"
                     stroke="currentColor"
                     stroke-width="2.5"
-                    class="w-3.5 h-3.5 md:w-5 md:h-5 transition-transform duration-300 group-hover:translate-x-1.5"
+                    class="w-3 h-3 md:w-5 md:h-5 transition-transform duration-300 group-hover:translate-x-1.5"
                 >
                     <path
                         stroke-linecap="round"
