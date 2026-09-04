@@ -253,6 +253,7 @@ Block::make('Hero Grid')
             >
 
                 <img
+                    data-src="<?php echo esc_url($item['url']); ?>"
                     src="<?php echo esc_url($item['url']); ?>"
                     alt=""
                     class="w-full h-full object-cover"

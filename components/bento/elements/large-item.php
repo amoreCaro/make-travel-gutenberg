@@ -81,7 +81,7 @@ $card_href = $has_gallery ? '' : ' href="' . esc_url($link) . '"';
 <<?php echo $card_tag; ?><?php echo $card_href; ?>
    class="<?php echo esc_attr($card_class); ?> group lg:col-span-3 bg-white dark:bg-[#18181f] rounded-[24px] md:rounded-[32px] overflow-hidden flex flex-col lg:flex-row min-h-[450px] lg:h-[450px] h-full">
 
-    <div class="h-[300px] sm:h-[350px] lg:h-full lg:w-[55%] overflow-hidden relative shrink-0">
+    <div class="h-[300px] sm:h-[350px] lg:min-h-[450px] lg:max-h-[450px] lg:w-[55%] overflow-hidden relative shrink-0">
 
         <?php if ($has_gallery && !empty($gallery)) : ?>
 
@@ -98,9 +98,10 @@ $card_href = $has_gallery ? '' : ' href="' . esc_url($link) . '"';
                         <?php if (!empty($img_url)) : ?>
                             <div class="swiper-slide">
                                 <img 
+                                    data-src="<?php echo esc_url($img_url); ?>"
                                     src="<?php echo esc_url($img_url); ?>" 
                                     alt="<?php echo esc_attr($img_alt); ?>"
-                                    class="w-full h-full object-cover"
+                                    class="w-full h-full object-cover lazy-img"
                                     loading="lazy"
                                 />
                             </div>
@@ -160,7 +161,7 @@ $card_href = $has_gallery ? '' : ' href="' . esc_url($link) . '"';
                     src="<?php echo esc_url($thumbnail); ?>"
                     alt="<?php echo esc_attr($title); ?>"
                     loading="lazy"
-                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 lazy-img"
                 >
             </picture>
 

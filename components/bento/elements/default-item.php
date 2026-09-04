@@ -103,9 +103,10 @@ $card_href = $has_gallery ? '' : ' href="' . esc_url($link) . '"';
                         <?php if (!empty($img_url)) : ?>
                             <div class="swiper-slide">
                                 <img 
+                                    data-src="<?php echo esc_url($img_url); ?>"
                                     src="<?php echo esc_url($img_url); ?>" 
                                     alt="<?php echo esc_attr($img_alt); ?>"
-                                    class="w-full h-full object-cover"
+                                    class="w-full h-full object-cover lazy-img"
                                     loading="lazy"
                                 />
                             </div>
@@ -162,10 +163,10 @@ $card_href = $has_gallery ? '' : ' href="' . esc_url($link) . '"';
             <picture class="block w-full h-full">
                 <img
                     data-src="<?php echo esc_url($thumbnail); ?>"
-                    src="<?php echo esc_url($thumbnail); ?>"
+                    src="<?php echo esc_url($placeholder); ?>"
                     alt="<?php echo esc_attr($title); ?>"
                     loading="lazy"
-                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    class="lazy-img w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 >
             </picture>
 

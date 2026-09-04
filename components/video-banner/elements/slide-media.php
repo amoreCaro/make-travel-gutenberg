@@ -30,6 +30,7 @@ if ($has_gallery) :
                 ?>
                 <div class="swiper-slide !h-full">
                     <img
+                        data-src="<?php echo esc_url($img_url); ?>"
                         src="<?php echo esc_url($img_url); ?>"
                         alt="<?php echo esc_attr($img_alt); ?>"
                         class="<?php echo esc_attr($img_class); ?>"
@@ -82,6 +83,7 @@ elseif ($has_video) :
 elseif ($image !== '') :
     ?>
     <img
+        data-src="<?php echo esc_url($image); ?>"
         src="<?php echo esc_url($image); ?>"
         alt="<?php echo esc_attr($alt); ?>"
         class="<?php echo esc_attr($img_class); ?> transition-transform duration-500 group-hover:scale-105"
