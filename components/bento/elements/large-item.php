@@ -145,9 +145,9 @@ $card_href = $has_gallery ? '' : ' href="' . esc_url($link) . '"';
                 </div>
                 <div class="post-card__video-icon absolute inset-0 z-10 flex items-center justify-center">
                     <span class="bg-black/60 flex items-center justify-center rounded-full border border-white text-white w-11 h-11">
-                        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none">
-                            <path d="M17.13 7.9799C20.96 10.1899 20.96 13.8099 17.13 16.0199L14.04 17.7999L10.95 19.5799C7.13 21.7899 4 19.9799 4 15.5599V11.9999V8.43989C4 4.01989 7.13 2.2099 10.96 4.4199L13.21 5.7199"
-                                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" fill="none">
+                          <circle cx="32" cy="32" r="30" stroke="#FFFFFF" stroke-width="2.5"/>
+                          <path d="M25.5 20.36c0-1.57 1.73-2.52 3.06-1.7l14.28 8.84c1.28.79 1.28 2.68 0 3.47l-14.28 8.84c-1.33.82-3.06-.13-3.06-1.7V20.36z" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.5" stroke-linejoin="round"/>
                         </svg>
                     </span>
                 </div>
