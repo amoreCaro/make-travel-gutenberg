@@ -155,123 +155,89 @@ if ($pages_menu_id) {
             <!-- AUTH (Login / Logout) -->
             
         <div class="flex items-center gap-4 relative">
-            <!-- SEARCH -->
-<div class="header-search flex items-center w-full lg:w-1/2">
 
-    <!-- Search button -->
-    <button
-        type="button"
-        id="openSearchBtn"
-        class="flex items-center text-gray-400 shrink-0"
-        aria-label="<?php esc_attr_e('Open search', THEME); ?>"
-    >
-        <svg
-            class="h-5 w-5 text-gray-500 hover:text-blue-500 transition-colors duration-200"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-hidden="true"
-        >
-            <path
-                d="M11.5 21C16.7467 21 21 16.7467 21 11.5C21 6.25329 16.7467 2 11.5 2C6.25329 2 2 6.25329 2 11.5C2 16.7467 6.25329 21 11.5 21Z"
-                stroke="currentColor"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-            />
+            <div id="searchWrapper" class="flex items-center relative">
 
-            <path
-                d="M22 22L20 20"
-                stroke="currentColor"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-            />
-        </svg>
-    </button>
+                <!-- OPEN SEARCH -->
 
-    <!-- Search form -->
-    <form
-        id="headerSearchForm"
-        class="hidden items-center w-full"
-        role="search"
-        method="get"
-        action="<?php echo esc_url(home_url('/')); ?>"
-    >
-        <div class="relative flex items-center w-full">
-
-            <svg
-                class="absolute left-4 w-5 h-5 text-gray-400 pointer-events-none"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-            >
-                <path
-                    d="M11.5 21C16.7467 21 21 16.7467 21 11.5C21 6.25329 16.7467 2 11.5 2C6.25329 2 2 6.25329 2 11.5C2 16.7467 6.25329 21 11.5 21Z"
-                    stroke="currentColor"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                />
-
-                <path
-                    d="M22 22L20 20"
-                    stroke="currentColor"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                />
-            </svg>
-
-            <input
-                type="search"
-                name="s"
-                id="headerSearchInput"
-                placeholder="<?php esc_attr_e('Search...', THEME); ?>"
-                autocomplete="off"
-                class="lg:min-w-[500px] w-full h-11 rounded-full
-                    bg-gray-100 dark:bg-[#181818]
-                    border border-gray-300 dark:border-[#7A747466]
-                    pl-12 pr-12
-                    text-sm text-black dark:text-white
-                    placeholder:text-gray-400
-                    outline-none
-                    focus:border-blue-500
-                    transition-all duration-200
-                    appearance-none
-                    [&::-webkit-search-cancel-button]:appearance-none
-                    [&::-webkit-search-decoration]:appearance-none
-                    [&::-webkit-search-results-button]:appearance-none
-                    [&::-webkit-search-results-decoration]:appearance-none"
-            />
-
-
-
-            <button
-                type="button"
-                id="closeHeaderSearch"
-                class="absolute right-4 text-gray-400 hover:text-black dark:hover:text-white transition-colors"
-                aria-label="<?php esc_attr_e('Close search', THEME); ?>"
-            >
-                <svg
-                    class="w-5 h-5"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
+                <button
+                    type="button"
+                    id="openSearchBtn"
+                    class="flex items-center text-zinc-500 hover:text-blue-600 dark:text-zinc-400 dark:hover:text-blue-400 transition-colors duration-200"
+                    aria-label="<?php esc_attr_e('Open search', THEME); ?>"
+                    aria-expanded="false"
+                    aria-controls="searchContainer"
                 >
-                    <path
-                        d="M18 6L6 18M6 6L18 18"
-                        stroke="currentColor"
-                        stroke-width="1.5"
-                        stroke-linecap="round"
-                    />
-                </svg>
-            </button>
+                    <svg
+                        class="h-5 w-5"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        aria-hidden="true"
+                    >
+                        <circle
+                            cx="11"
+                            cy="11"
+                            r="7"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                        />
+                        <path
+                            d="M16.5 16.5L21 21"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                        />
+                    </svg>
+                </button>
 
-        </div>
-    </form>
+                <!-- SEARCH CONTAINER -->
 
-</div>
+                <div
+                    id="searchContainer"
+                    class="hidden items-center gap-2"
+                    aria-hidden="true"
+                >
+                    <div class="relative flex items-center">
+
+                        <input
+                            type="search"
+                            id="searchInput"
+                            name="search"
+                            placeholder="<?php esc_attr_e('Search...', THEME); ?>"
+                            class="w-56 lg:w-[510px] rounded-full border border-blue-500 bg-white px-4 py-2 pr-9 text-sm text-zinc-900 placeholder:text-zinc-400 outline-none transition-all focus:border-blue-600 focus:ring-1 focus:ring-blue-600 dark:border-zinc-700 dark:bg-[#18181b] dark:text-zinc-100 dark:placeholder:text-zinc-500 dark:focus:border-blue-400 dark:focus:ring-blue-400 [&::-webkit-search-cancel-button]:appearance-none [&::-webkit-search-decoration]:appearance-none"
+                            autocomplete="off"
+                        />
+
+                        <!-- CLOSE BUTTON INSIDE / NEXT TO INPUT AREA -->
+                        <button
+                            type="button"
+                            id="closeSearchBtn"
+                            class="absolute right-2.5 flex h-5 w-5 items-center justify-center rounded-full text-zinc-400 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-100 transition-colors focus:outline-none"
+                            aria-label="<?php esc_attr_e('Close search', THEME); ?>"
+                        >
+                            <svg
+                                class="h-4 w-4"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                                aria-hidden="true"
+                            >
+                                <path
+                                    d="M18 6L6 18M6 6L18 18"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                />
+                            </svg>
+                        </button>
+
+                    </div>
+
+                </div>
+                <?php require PATH . '/components/search-popup/component.php'; ?>
+            </div>
+
                 <label for="theme-toggle" class="inline-flex relative items-center cursor-pointer select-none">
                 <input type="checkbox" id="theme-toggle" class="sr-only peer" checked>
                 <div class="w-11 h-6 rounded-full transition-all duration-200 border
@@ -296,4 +262,4 @@ if ($pages_menu_id) {
 
 </header>
 
-<?php require PATH . '/components/search-popup/component.php'; ?>
+
